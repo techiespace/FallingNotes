@@ -4,7 +4,6 @@ import android.os.Bundle;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import com.techiespace.projects.fallingnotes.FallingNotesGame;
 
 public class AndroidLauncher extends AndroidApplication {
 	@Override
@@ -14,3 +13,4 @@ public class AndroidLauncher extends AndroidApplication {
 		initialize(new FallingNotesGame(), config);
 	}
 }
+																																																																																																																																																																																																																																																																																																																																																	

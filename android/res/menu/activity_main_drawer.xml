@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_dashboard"
+            android:icon="@drawable/ic_dashboard_black_24dp"
+            android:title="Dashboard"></item>
+    </group>
+    <item android:title="Notes">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_scales"
+                    android:icon="@drawable/ic_music_note_black_24dp"
+                    android:title="Scales" />
+                <item
+                    android:id="@+id/nav_modes"
+                    android:icon="@drawable/ic_music_note_black_24dp"
+                    android:title="Modes" />
+            </group>
+        </menu>
+    </item>
+    <item android:title="Chords">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_basic_chord"
+                    android:icon="@drawable/ic_music_notes_black_24dp"
+                    android:title="Basic" />
+                <item
+                    android:id="@+id/nav_inv_chord"
+                    android:icon="@drawable/ic_music_notes_black_24dp"
+                    android:title="Inversions" />
+                <item
+                    android:id="@+id/nav_adv_chord"
+                    android:icon="@drawable/ic_music_notes_black_24dp"
+                    android:title="Advanced" />
+            </group>
+        </menu>
+    </item>
+    <item android:title="About">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_menu_share"
+                android:title="Share" />
+            <item
+                android:id="@+id/nav_send"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Feedback" />
+        </menu>
+    </item>
+
+</menu>

@@ -1,10 +1,9 @@
 package com.techiespace.projects.fallingnotes;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 
-public class Note {
+public class Note implements Comparable<Note> {
 
     public static final String TAG = Note.class.getName();
 
@@ -50,4 +49,14 @@ public class Note {
         position.mulAdd(velocity, delta);
     }
 
+    @Override
+    public int compareTo(Note note) {
+        if (startTime > note.startTime)
+            return 1;
+        else if (startTime < note.startTime)
+            return -1;
+        else
+            return 0;
+//        return startTime.compareTo(note.startTime);
+    }
 }

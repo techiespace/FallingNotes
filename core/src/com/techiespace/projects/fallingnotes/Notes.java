@@ -5,7 +5,8 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
-import com.badlogic.gdx.utils.viewport.Viewport;
+
+import java.util.Arrays;
 
 public class Notes {
 
@@ -34,7 +35,7 @@ public class Notes {
                 new Note("A4",new Vector2(mapCoordinates("A4"), Constants.WORLD_HEIGHT), 2500, 2974),
                 new Note("B4",new Vector2(mapCoordinates("B4"), Constants.WORLD_HEIGHT), 3000, 3474),
                 new Note("C5",new Vector2(mapCoordinates("C5"), Constants.WORLD_HEIGHT), 3500, 3974),
-                new Note("B4",new Vector2(mapCoordinates("B4"), Constants.WORLD_HEIGHT), 4000, 4474),
+                new Note("B4", new Vector2(mapCoordinates("B4"), Constants.WORLD_HEIGHT), 0, 4474),
                 new Note("A4",new Vector2(mapCoordinates("A4"), Constants.WORLD_HEIGHT), 4500, 4974),
                 new Note("G4",new Vector2(mapCoordinates("G4"), Constants.WORLD_HEIGHT), 5000, 5474),
                 new Note("F4",new Vector2(mapCoordinates("F4"), Constants.WORLD_HEIGHT), 5500, 5974),
@@ -42,7 +43,7 @@ public class Notes {
                 new Note("D4",new Vector2(mapCoordinates("D4"), Constants.WORLD_HEIGHT), 6500, 6974),
                 new Note("C4",new Vector2(mapCoordinates("C4"), Constants.WORLD_HEIGHT), 7000, 7474)
         };
-
+        Arrays.sort(noteArrayPool);
         initialTime = TimeUtils.nanoTime();
         /*noteArrayPool = new Note[]{new Note(new Vector2((Constants.WORLD_WIDTH / 36) * 24, Constants.WORLD_HEIGHT), 0, 600),
                 new Note(new Vector2((Constants.WORLD_WIDTH / 36) * 24, Constants.WORLD_HEIGHT), 600, 1200),
