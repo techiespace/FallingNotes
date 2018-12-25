@@ -3,9 +3,11 @@ package com.techiespace.projects.fallingnotes;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.techiespace.projects.fallingnotes.pianoHelpers.RoundRectShapeRenderer;
 
 public class FallingNotesScreen implements Screen {
 
@@ -14,42 +16,68 @@ public class FallingNotesScreen implements Screen {
 //    ExtendViewport notesViewport;
 
     // TODO: Add a ShapeRenderer
-    ShapeRenderer renderer;
+    RoundRectShapeRenderer renderer;
 
     // TODO: Add an Icicle
     Notes notes;
 
+    SpriteBatch batch;
+    Sprite whitePianoNoteSprite;
+    Sprite blackPianoNoteSprite;
+    Sprite fallingNoteSprite;
+    Texture whitePianoNote;
+    Texture fallingWhitePianoNote;
+
     @Override
     public void show() {
-//        notesViewport = new ExtendViewport(Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT);
-        renderer = new ShapeRenderer();
+        //notesViewport = new ExtendViewport(Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT);
+        renderer = new RoundRectShapeRenderer();
         renderer.setAutoShapeType(true);
-//        notes = new Notes(notesViewport);
+        //notes = new Notes(notesViewport);
         notes = new Notes();
+
+        //piano
+        batch = new SpriteBatch();
+        whitePianoNote = new Texture("white_note.png");
+        fallingWhitePianoNote = new Texture("piano_white_note_right.png");
+        whitePianoNoteSprite = new Sprite();
+        fallingNoteSprite = new Sprite();
+        fallingNoteSprite.setRegion(fallingWhitePianoNote);
     }
 
     @Override
     public void render(float delta) {
         notes.update(delta);
-//        notesViewport.apply(true);
+        //notesViewport.apply(true);
 
         // TODO: Clear the screen to the background color
         Gdx.gl.glClearColor(Constants.BACKGROUND_COLOR.r, Constants.BACKGROUND_COLOR.g, Constants.BACKGROUND_COLOR.b, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         // TODO: Set the ShapeRenderer's projection matrix
-//        renderer.setProjectionMatrix(notesViewport.getCamera().combined);
+        //renderer.setProjectionMatrix(notesViewport.getCamera().combined);
 
         // TODO: Draw the Note
 
         renderer.begin(ShapeRenderer.ShapeType.Filled);
         notes.render(renderer);
         renderer.end();
+        batch.begin();
+
+
+        for (int i = 0; i < 36; i++) {
+
+            whitePianoNoteSprite.setPosition(i * Constants.NOTES_WIDTH, 0);
+            whitePianoNoteSprite.setSize(Constants.NOTES_WIDTH, 70);
+            whitePianoNoteSprite.setRegion(whitePianoNote);
+            whitePianoNoteSprite.draw(batch);
+        }
+        batch.end();
     }
 
     @Override
     public void resize(int width, int height) {
-//        notesViewport.update(width, height, true);
+        //notesViewport.update(width, height, true);
         //notes.init(); //required?
     }
 

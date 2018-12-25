@@ -12,7 +12,7 @@ public class Constants {
     public static final float WORLD_HEIGHT = Gdx.graphics.getHeight();
 
     // TODO: Add a constant for the background color of the world
-    public static final Color BACKGROUND_COLOR = Color.BLUE;
+    public static final Color BACKGROUND_COLOR = Color.BLACK;
 
     // TODO: Add a constant for the height of the icicle
     public static final float NOTES_HEIGHT = 50.0f;
