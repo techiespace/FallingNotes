@@ -194,7 +194,7 @@ public class AudioProcessor extends Activity {
     }
 
     private PianoKey findPianoKey(String input) {
-        /*ArrayList<PianoKey[]> pianoKeys;
+        /*ArrayList<com.techiespace.projects.fallingnotes.PianoKey[]> pianoKeys;
          *//*if(input.charAt(1)=='#')//The input in black key
         {
             pianoKeys = pianoView.getBlackStaticKeys();
@@ -204,7 +204,7 @@ public class AudioProcessor extends Activity {
             pianoKeys = pianoView.getWhiteStaticKeys();
         }*//*
 
-        for (PianoKey[] pianokey : pianoKeys) {
+        for (com.techiespace.projects.fallingnotes.PianoKey[] pianokey : pianoKeys) {
             for (int i = 0; i < pianokey.length; i++) {
                 if (pianokey[i].getLetterName().equals(input)) {
                     return pianokey[i];

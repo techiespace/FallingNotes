@@ -2,6 +2,7 @@ package com.techiespace.projects.fallingnotes;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -22,11 +23,13 @@ public class FallingNotesScreen implements Screen {
     Notes notes;
 
     SpriteBatch batch;
-    Sprite whitePianoNoteSprite;
-    Sprite blackPianoNoteSprite;
-    Sprite fallingNoteSprite;
-    Texture whitePianoNote;
-    Texture fallingWhitePianoNote;
+    Sprite sprite;
+    Piano piano;
+    Texture backgroundTexture;
+    Sprite backgroundSprite;
+
+
+
 
     @Override
     public void show() {
@@ -35,14 +38,12 @@ public class FallingNotesScreen implements Screen {
         renderer.setAutoShapeType(true);
         //notes = new Notes(notesViewport);
         notes = new Notes();
-
-        //piano
         batch = new SpriteBatch();
-        whitePianoNote = new Texture("white_note.png");
-        fallingWhitePianoNote = new Texture("piano_white_note_right.png");
-        whitePianoNoteSprite = new Sprite();
-        fallingNoteSprite = new Sprite();
-        fallingNoteSprite.setRegion(fallingWhitePianoNote);
+        sprite = new Sprite();
+        piano = new Piano();
+        backgroundTexture = new Texture("background1.png");
+        backgroundSprite =new Sprite(backgroundTexture);
+
     }
 
     @Override
@@ -57,21 +58,21 @@ public class FallingNotesScreen implements Screen {
         // TODO: Set the ShapeRenderer's projection matrix
         //renderer.setProjectionMatrix(notesViewport.getCamera().combined);
 
+        batch.begin();
+        backgroundSprite.draw(batch);
+        batch.end();
+
         // TODO: Draw the Note
 
         renderer.begin(ShapeRenderer.ShapeType.Filled);
         notes.render(renderer);
         renderer.end();
+
+
+
+        // TODO:Draw the piano
         batch.begin();
-
-
-        for (int i = 0; i < 36; i++) {
-
-            whitePianoNoteSprite.setPosition(i * Constants.NOTES_WIDTH, 0);
-            whitePianoNoteSprite.setSize(Constants.NOTES_WIDTH, 70);
-            whitePianoNoteSprite.setRegion(whitePianoNote);
-            whitePianoNoteSprite.draw(batch);
-        }
+        piano.render(sprite,batch);
         batch.end();
     }
 

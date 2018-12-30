@@ -125,7 +125,7 @@ public class PianoView extends View {
         //Initialize the piano
         if (piano == null) {
 
-            //  Log.v("Initializing Piano","onDraw");
+            //  Log.v("Initializing com.techiespace.projects.fallingnotes.Piano","onDraw");
             minRange = 0;
             maxRange = layoutWidth;
             piano = new Piano(context, scale);
@@ -248,13 +248,13 @@ public class PianoView extends View {
 
     }
 
-//    public ArrayList<PianoKey[]> getWhiteStaticKeys()
+//    public ArrayList<com.techiespace.projects.fallingnotes.PianoKey[]> getWhiteStaticKeys()
 //    {
 //        if(whiteStaticKeys == null)
 //            Log.v("Pianoview  ","statkey is null");
 //        return whiteStaticKeys;
 //    }
-//    public ArrayList<PianoKey[]> getBlackStaticKeys()
+//    public ArrayList<com.techiespace.projects.fallingnotes.PianoKey[]> getBlackStaticKeys()
 //    {
 //        if(blackStaticKeys == null)
 //            Log.v("Pianoview  ","statkey is null");

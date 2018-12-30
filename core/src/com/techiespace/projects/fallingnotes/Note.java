@@ -71,7 +71,7 @@ public class Note implements Comparable<Note> {
             return 0;
     }
 
-    public float mapCoordinates(String noteName) {
+    public static float mapCoordinates(String noteName) {
         switch (noteName) {
             case "C2":
                 return Constants.NOTES_WIDTH * 0;
@@ -142,57 +142,57 @@ public class Note implements Comparable<Note> {
             case "A4":
                 return Constants.NOTES_WIDTH * 19;
             case "A#4":
-                return Constants.NOTES_WIDTH * 0 + Constants.NOTES_WIDTH * 0.7f;
+                return Constants.NOTES_WIDTH * 19 + Constants.NOTES_WIDTH * 0.7f;
             case "B4":
                 return Constants.NOTES_WIDTH * 20;
             case "C5":
                 return Constants.NOTES_WIDTH * 21;
             case "C#5":
-                return Constants.NOTES_WIDTH * 0 + Constants.NOTES_WIDTH * 0.7f;
+                return Constants.NOTES_WIDTH * 21 + Constants.NOTES_WIDTH * 0.7f;
             case "D5":
                 return Constants.NOTES_WIDTH * 22;
             case "D#5":
-                return Constants.NOTES_WIDTH * 0 + Constants.NOTES_WIDTH * 0.7f;
+                return Constants.NOTES_WIDTH * 22 + Constants.NOTES_WIDTH * 0.7f;
             case "E5":
                 return Constants.NOTES_WIDTH * 23;
             case "F5":
                 return Constants.NOTES_WIDTH * 24;
             case "F#5":
-                return Constants.NOTES_WIDTH * 0 + Constants.NOTES_WIDTH * 0.7f;
+                return Constants.NOTES_WIDTH * 24 + Constants.NOTES_WIDTH * 0.7f;
             case "G5":
                 return Constants.NOTES_WIDTH * 25;
             case "G#5":
-                return Constants.NOTES_WIDTH * 0 + Constants.NOTES_WIDTH * 0.7f;
+                return Constants.NOTES_WIDTH * 25 + Constants.NOTES_WIDTH * 0.7f;
             case "A5":
                 return Constants.NOTES_WIDTH * 26;
             case "A#5":
-                return Constants.NOTES_WIDTH * 0 + Constants.NOTES_WIDTH * 0.7f;
+                return Constants.NOTES_WIDTH * 26 + Constants.NOTES_WIDTH * 0.7f;
             case "B5":
                 return Constants.NOTES_WIDTH * 27;
             case "B#5":
-                return Constants.NOTES_WIDTH * 0 + Constants.NOTES_WIDTH * 0.7f;
+                return Constants.NOTES_WIDTH * 27 + Constants.NOTES_WIDTH * 0.7f;
             case "C6":
                 return Constants.NOTES_WIDTH * 28;
             case "C#6":
-                return Constants.NOTES_WIDTH * 0 + Constants.NOTES_WIDTH * 0.7f;
+                return Constants.NOTES_WIDTH * 28 + Constants.NOTES_WIDTH * 0.7f;
             case "D6":
                 return Constants.NOTES_WIDTH * 29;
             case "D#6":
-                return Constants.NOTES_WIDTH * 0 + Constants.NOTES_WIDTH * 0.7f;
+                return Constants.NOTES_WIDTH * 29 + Constants.NOTES_WIDTH * 0.7f;
             case "E6":
                 return Constants.NOTES_WIDTH * 30;
             case "F6":
                 return Constants.NOTES_WIDTH * 31;
             case "F#6":
-                return Constants.NOTES_WIDTH * 0 + Constants.NOTES_WIDTH * 0.7f;
+                return Constants.NOTES_WIDTH * 31 + Constants.NOTES_WIDTH * 0.7f;
             case "G6":
                 return Constants.NOTES_WIDTH * 32;
             case "G#6":
-                return Constants.NOTES_WIDTH * 0 + Constants.NOTES_WIDTH * 0.7f;
+                return Constants.NOTES_WIDTH * 32 + Constants.NOTES_WIDTH * 0.7f;
             case "A6":
                 return Constants.NOTES_WIDTH * 33;
             case "A#6":
-                return Constants.NOTES_WIDTH * 0 + Constants.NOTES_WIDTH * 0.7f;
+                return Constants.NOTES_WIDTH * 33 + Constants.NOTES_WIDTH * 0.7f;
             case "B6":
                 return Constants.NOTES_WIDTH * 34;
             case "C7":

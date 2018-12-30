@@ -42,14 +42,32 @@ public class Notes {
             Sound sound;
             long soundId;
             note.update(delta);
-            if (note.position.y < 70 && !note.soundOnce) {
+            PianoKey key = Piano.findKey(note.noteName);
+
+            if (note.position.y < Constants.WHITE_PIANO_KEY_HEIGHT && !note.soundOnce) {
                 sound = note.sound;
                 soundId = sound.play();
                 sound.play();   //https://stackoverflow.com/questions/31990997/libgdx-not-playing-sound-android  (takes a while to load the sound)
                 note.soundOnce = true;
-                if (note.position.y + note.noteLength < 70) {
+
+
+
+                if (note.position.y + note.noteLength < Constants.WHITE_PIANO_KEY_HEIGHT) {
                     sound.stop(soundId);
-                }
+                    }
+            }
+
+
+
+            //for handling the key
+            if(note.position.y < Constants.WHITE_PIANO_KEY_HEIGHT && !key.getIsPressed())
+            {
+                key.updateTextureDown();
+            }
+
+            if(note.position.y+note.noteLength < Constants.WHITE_PIANO_KEY_HEIGHT && key.getIsPressed())
+            {
+                key.updateTextureUp();
             }
         }
     }
