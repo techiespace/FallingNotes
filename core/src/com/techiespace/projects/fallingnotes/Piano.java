@@ -2,8 +2,10 @@ package com.techiespace.projects.fallingnotes;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
 import java.util.ArrayList;
@@ -12,14 +14,16 @@ public class Piano {
 
    static ArrayList<PianoKey[]> whitePianoKeys = new ArrayList<PianoKey[]>();
    static ArrayList<PianoKey[]> blackPianoKeys = new ArrayList<PianoKey[]>();
-
+    BitmapFont font;
 
 
     public Piano()
     {
         initWhiteKeys();
         initBlackKeys();
-
+        Texture texture = new Texture(Gdx.files.internal("courgette.png"), true); // true enables mipmaps
+        texture.setFilter(Texture.TextureFilter.MipMapLinearNearest, Texture.TextureFilter.Linear); // linear filtering in nearest mipmap image
+        font = new BitmapFont(Gdx.files.internal("courgette.fnt"), new TextureRegion(texture), false);
     }
 
     public static PianoKey findKey(String noteName)
@@ -104,7 +108,7 @@ public class Piano {
                     }
                 }
 
-                keys[j].setPosition(new Vector2(Note.mapCoordinates(keys[j].getName()),(float)(Constants.WHITE_PIANO_KEY_HEIGHT*0.3f)));
+                keys[j].setPosition(new Vector2(Note.mapCoordinates(keys[j].getName()), Constants.WHITE_PIANO_KEY_HEIGHT * 0.3f));
 
             }
             blackPianoKeys.add(keys);
@@ -223,8 +227,9 @@ public class Piano {
             {
                 keys[j].render(sprite,batch);
             }
-
-
+            font.setColor(0, 0, 0, 0.3f);
+            font.getData().setScale(0.25f);
+            font.draw(batch, "C4", Note.mapCoordinates("C4") + 2, 15);
         }
 
     }
