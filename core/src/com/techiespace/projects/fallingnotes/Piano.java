@@ -29,7 +29,7 @@ public class Piano {
     public static PianoKey findKey(String noteName)
     {
 
-        Gdx.app.log("Piano","AAYa "+noteName);
+//        Gdx.app.log("Piano","AAYa "+noteName);
         if (noteName.charAt(1) == '#') {
             for (PianoKey[] pianokey : blackPianoKeys) {
                 for (int i = 0; i < pianokey.length; i++) {
@@ -72,8 +72,7 @@ public class Piano {
                 keys[j].setPositionInGroup(j);
 
 
-
-                keys[j].setTexture(new Texture(Constants.BLACK_UP));
+                keys[j].initKeyTexture();
 
                 keys[j].setHeight(Constants.BLACK_KEY_HEIGHT);
                 keys[j].setWidth(Constants.BLACK_NOTE_WIDTH);
@@ -108,7 +107,7 @@ public class Piano {
                     }
                 }
 
-                keys[j].setPosition(new Vector2(Note.mapCoordinates(keys[j].getName()), Constants.WHITE_PIANO_KEY_HEIGHT * 0.3f));
+                keys[j].setPosition(new Vector2(Note.mapCoordinates(keys[j].getName()), Constants.WHITE_PIANO_KEY_HEIGHT * 0.3f + Constants.OFFSET));
 
             }
             blackPianoKeys.add(keys);
@@ -139,7 +138,8 @@ public class Piano {
                 mKeys[j].setIsPressed(false);
 
 
-                mKeys[j].setTexture(new Texture(Constants.WHITE_UP));
+//                mKeys[j].setTexture(new Texture(Constants.WHITE_UP));
+                mKeys[j].initKeyTexture();
 
                 mKeys[j].setHeight(Constants.WHITE_PIANO_KEY_HEIGHT);
                 mKeys[j].setWidth(Constants.NOTES_WIDTH);
@@ -189,7 +189,7 @@ public class Piano {
                         break;
                 }
 
-                mKeys[j].setPosition(new Vector2(Note.mapCoordinates(mKeys[j].getName()), 0));
+                mKeys[j].setPosition(new Vector2(Note.mapCoordinates(mKeys[j].getName()), Constants.OFFSET));
 
             }
             whitePianoKeys.add(mKeys);
@@ -208,12 +208,30 @@ public class Piano {
     }
 
 
-    void render(Sprite sprite, SpriteBatch batch)
-    {
+    void render(Sprite sprite, SpriteBatch batch) {
 
         renderWhiteKeys(sprite,batch);
 
         renderBlackKeys(sprite,batch);
+
+        renderLabel(batch);
+
+        sprite.setPosition(Constants.NOTES_WIDTH * 35, Constants.OFFSET);
+        sprite.setSize(Constants.NOTES_WIDTH, Constants.WHITE_PIANO_KEY_HEIGHT);
+        sprite.setRegion(new Texture(Constants.WHITE_UP));
+        sprite.draw(batch);
+
+
+    }
+
+    private void renderLabel(SpriteBatch batch) {
+        font.setColor(0, 0, 0, 0.3f);
+        font.getData().setScale(0.25f);
+        font.draw(batch, "C2", Note.mapCoordinates("C2") + 2, 20 + Constants.OFFSET);
+        font.draw(batch, "C3", Note.mapCoordinates("C3") + 2, 20 + Constants.OFFSET);
+        font.draw(batch, "C4", Note.mapCoordinates("C4") + 2, 20 + Constants.OFFSET);
+        font.draw(batch, "C5", Note.mapCoordinates("C5") + 2, 20 + Constants.OFFSET);
+        font.draw(batch, "C6", Note.mapCoordinates("C6") + 2, 20 + Constants.OFFSET);
     }
 
     void renderWhiteKeys(Sprite sprite,SpriteBatch batch)
@@ -227,9 +245,7 @@ public class Piano {
             {
                 keys[j].render(sprite,batch);
             }
-            font.setColor(0, 0, 0, 0.3f);
-            font.getData().setScale(0.25f);
-            font.draw(batch, "C4", Note.mapCoordinates("C4") + 2, 15);
+
         }
 
     }

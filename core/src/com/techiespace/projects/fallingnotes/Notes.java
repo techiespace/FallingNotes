@@ -24,7 +24,7 @@ public class Notes {
     public void init(){
         noteArray = new Array<Note>(true,88);
         MidiParser midiParser = new MidiParser();
-        noteArrayPool = midiParser.parse("moonlight_sonata.mid");
+        noteArrayPool = midiParser.parse("broken_dreams.mid");
         Arrays.sort(noteArrayPool);
         initialTime = TimeUtils.nanoTime();
     }
@@ -33,10 +33,12 @@ public class Notes {
         float elapsedNanoseconds = TimeUtils.nanoTime() - initialTime;
         float elapsedMillis = elapsedNanoseconds * 0.000001f;
 
-        if (poolIndex<noteArrayPool.length && noteArrayPool[poolIndex].startTime <= elapsedMillis) {
+//        for (int i = poolIndex; i < noteArrayPool.length ; i++) {
+        while (poolIndex < noteArrayPool.length && noteArrayPool[poolIndex].startTime <= elapsedMillis) {
                 noteArray.add(noteArrayPool[poolIndex]);
                 poolIndex++;
         }
+//        }
 
         for (Note note : noteArray) {
             Sound sound;
@@ -54,6 +56,7 @@ public class Notes {
 
                 if (note.position.y + note.noteLength < Constants.WHITE_PIANO_KEY_HEIGHT) {
                     sound.stop(soundId);
+                    noteArray.removeValue(note, false);
                     }
             }
 

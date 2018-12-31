@@ -1,6 +1,5 @@
 package com.techiespace.projects.fallingnotes;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -13,14 +12,16 @@ public class PianoKey {
     float height;
     float width;
     Texture texture;
+    Texture upTexture;
+    Texture downTexture;
 
     Piano.PianoKeyType keyType;
     boolean isPressed = false;
     int group;
     int positionInGroup;
 
-    public PianoKey()
-    {
+    public PianoKey() {
+
 
     }
 
@@ -40,9 +41,13 @@ public class PianoKey {
 
         if (keyType == Piano.PianoKeyType.BLACK) {
             this.texture = new Texture("black_up.png");
+            this.upTexture = new Texture("black_up.png");
+            this.downTexture = new Texture("black_down.png");
 
         } else {
             this.texture = new Texture("white_up.png");
+            this.upTexture = new Texture("white_up.png");
+            this.downTexture = new Texture("white_down.png");
 
 
         }
@@ -144,11 +149,7 @@ public class PianoKey {
     {
 
 //        Gdx.app.log("Pianokey","Up kiya  "+getName());
-        if(this.keyType==Piano.PianoKeyType.BLACK)
-        this.setTexture(new Texture(Constants.BLACK_UP));
-        else
-            this.setTexture(new Texture(Constants.WHITE_UP));
-
+        this.setTexture(upTexture);
         setIsPressed(false);
     }
 
@@ -157,12 +158,24 @@ public class PianoKey {
         setIsPressed(true);
 
 //        Gdx.app.log("Pianokey","down kiya  "+getName());
-        if(this.keyType == Piano.PianoKeyType.WHITE)
-            this.setTexture(new Texture(Constants.WHITE_DOWN));
-        else
-            this.setTexture(new Texture(Constants.BLACK_DOWN));
+        this.setTexture(downTexture);
 
     }
+
+    void initKeyTexture() {
+        if (keyType == Piano.PianoKeyType.BLACK) {
+            this.texture = new Texture("black_up.png");
+            this.upTexture = new Texture("black_up.png");
+            this.downTexture = new Texture("black_down.png");
+
+        } else {
+            this.texture = new Texture("white_up.png");
+            this.upTexture = new Texture("white_up.png");
+            this.downTexture = new Texture("white_down.png");
+
+        }
+    }
+
 
 
 

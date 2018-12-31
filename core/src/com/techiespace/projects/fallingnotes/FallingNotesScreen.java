@@ -42,8 +42,9 @@ public class FallingNotesScreen implements Screen {
         batch = new SpriteBatch();
         sprite = new Sprite();
         piano = new Piano();
-        backgroundTexture = new Texture("background1.png");
-        backgroundSprite =new Sprite(backgroundTexture);
+        backgroundTexture = new Texture("background.jpg");
+        backgroundTexture.setWrap(Texture.TextureWrap.ClampToEdge, Texture.TextureWrap.ClampToEdge);
+        backgroundSprite = new Sprite(backgroundTexture, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
     }
 
@@ -58,23 +59,23 @@ public class FallingNotesScreen implements Screen {
 
         // TODO: Set the ShapeRenderer's projection matrix
         //renderer.setProjectionMatrix(notesViewport.getCamera().combined);
-
-        batch.begin();
-        backgroundSprite.draw(batch);
-        batch.end();
+//        backgroundSprite.setAlpha(0.5f);
+//        batch.begin();
+//        backgroundSprite.draw(batch);
+//        batch.end();
 
         //Draw vertical guide line
         lineRenderer.begin(ShapeRenderer.ShapeType.Line);
-        lineRenderer.setColor(1, 1, 0, 0.5f);   //color alpha not working
-        lineRenderer.line(Note.mapCoordinates("C3"), 0, Note.mapCoordinates("C3"), Constants.WORLD_HEIGHT);
-        lineRenderer.line(Note.mapCoordinates("C4"), 0, Note.mapCoordinates("C4"), Constants.WORLD_HEIGHT);
-        lineRenderer.line(Note.mapCoordinates("C5"), 0, Note.mapCoordinates("C5"), Constants.WORLD_HEIGHT);
-        lineRenderer.line(Note.mapCoordinates("C6"), 0, Note.mapCoordinates("C6"), Constants.WORLD_HEIGHT);
-        lineRenderer.line(Note.mapCoordinates("F2"), 0, Note.mapCoordinates("F2"), Constants.WORLD_HEIGHT);
-        lineRenderer.line(Note.mapCoordinates("F3"), 0, Note.mapCoordinates("F3"), Constants.WORLD_HEIGHT);
-        lineRenderer.line(Note.mapCoordinates("F4"), 0, Note.mapCoordinates("F4"), Constants.WORLD_HEIGHT);
-        lineRenderer.line(Note.mapCoordinates("F5"), 0, Note.mapCoordinates("F5"), Constants.WORLD_HEIGHT);
-        lineRenderer.line(Note.mapCoordinates("F6"), 0, Note.mapCoordinates("F6"), Constants.WORLD_HEIGHT);
+        lineRenderer.setColor(0.5f, 0.5f, 0.5f, 0.5f);   //color alpha not working
+        lineRenderer.line(Note.mapCoordinates("C3"), Constants.OFFSET, Note.mapCoordinates("C3"), Constants.WORLD_HEIGHT);
+        lineRenderer.line(Note.mapCoordinates("C4"), Constants.OFFSET, Note.mapCoordinates("C4"), Constants.WORLD_HEIGHT);
+        lineRenderer.line(Note.mapCoordinates("C5"), Constants.OFFSET, Note.mapCoordinates("C5"), Constants.WORLD_HEIGHT);
+        lineRenderer.line(Note.mapCoordinates("C6"), Constants.OFFSET, Note.mapCoordinates("C6"), Constants.WORLD_HEIGHT);
+        lineRenderer.line(Note.mapCoordinates("F2"), Constants.OFFSET, Note.mapCoordinates("F2"), Constants.WORLD_HEIGHT);
+        lineRenderer.line(Note.mapCoordinates("F3"), Constants.OFFSET, Note.mapCoordinates("F3"), Constants.WORLD_HEIGHT);
+        lineRenderer.line(Note.mapCoordinates("F4"), Constants.OFFSET, Note.mapCoordinates("F4"), Constants.WORLD_HEIGHT);
+        lineRenderer.line(Note.mapCoordinates("F5"), Constants.OFFSET, Note.mapCoordinates("F5"), Constants.WORLD_HEIGHT);
+        lineRenderer.line(Note.mapCoordinates("F6"), Constants.OFFSET, Note.mapCoordinates("F6"), Constants.WORLD_HEIGHT);
         Gdx.gl.glDisable(GL20.GL_BLEND);
         lineRenderer.end();
 

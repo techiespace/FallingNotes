@@ -2,7 +2,6 @@ package com.techiespace.projects.fallingnotes;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
 
 public class Constants {
     // TODO: Add a constant for the world size
@@ -49,12 +48,14 @@ public class Constants {
 
     //white piano key height will also be the height of guitar
 
-    public static final float WHITE_PIANO_KEY_HEIGHT = 70;
+    public static final float WHITE_PIANO_KEY_HEIGHT = 120;
+
+    public static final int OFFSET = 50;
 
 
     public static final float BLACK_KEY_HEIGHT = (float)(0.7f*WHITE_PIANO_KEY_HEIGHT);
 
 
-    public static final float HEIGTH_MULTIPLIER = 0.05f;    //by hit and trial. Maybe works becoz the quarter note is 500millis
+    public static final float HEIGTH_MULTIPLIER = 0.04f;    //by hit and trial. Maybe works becoz the quarter note is 500millis
 
 }
