@@ -25,7 +25,7 @@ public class Notes {
     public void init(){
         noteArray = new Array<Note>(true,88);
         MidiParser midiParser = new MidiParser();
-        noteArrayPool = midiParser.parse("moonlight_sonata.mid");
+        noteArrayPool = midiParser.parse("twinkle_twinkle.mid");
         Arrays.sort(noteArrayPool);
         initialTime = TimeUtils.nanoTime();
     }
@@ -48,7 +48,15 @@ public class Notes {
             PianoKey key = Piano.findKey(note.noteName);
             sound = note.sound;
 
-            if (note.position.y < Constants.WHITE_PIANO_KEY_HEIGHT + Constants.OFFSET) {
+            if (note.position.y < (Constants.WHITE_PIANO_KEY_HEIGHT + Constants.OFFSET)) {
+
+
+                // Handling the corner case  of a really long note
+                //updating the y position and simultaneously reducing the height
+                if(note.position.y<Constants.OFFSET) {
+                    note.position.y = note.position.y + Constants.WHITE_PIANO_KEY_HEIGHT;
+                   note.noteLength = note.noteLength - Constants.WHITE_PIANO_KEY_HEIGHT;
+                }
 
                 if (!note.soundOnce) {
                     soundId = sound.play();   //https://stackoverflow.com/questions/31990997/libgdx-not-playing-sound-android  (takes a while to load the sound)
@@ -56,7 +64,7 @@ public class Notes {
                 }
 
 
-                Gdx.app.log("TestOut", "" + noteArray.size);
+//                Gdx.app.log("TestOut", "" + noteArray.size);
 //                Gdx.app.log("Condition",(Constants.WHITE_PIANO_KEY_HEIGHT + (float)Constants.OFFSET) + " "+note.position.y + " " + note.noteLength);
                 if (note.position.y + note.noteLength < Constants.WHITE_PIANO_KEY_HEIGHT + (float) Constants.OFFSET) {
                     sound.stop(soundId);

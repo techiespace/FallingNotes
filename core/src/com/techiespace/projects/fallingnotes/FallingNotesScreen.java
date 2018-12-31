@@ -2,10 +2,12 @@ package com.techiespace.projects.fallingnotes;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.techiespace.projects.fallingnotes.pianoHelpers.RoundRectShapeRenderer;
 
@@ -42,9 +44,13 @@ public class FallingNotesScreen implements Screen {
         batch = new SpriteBatch();
         sprite = new Sprite();
         piano = new Piano();
-        backgroundTexture = new Texture("background.jpg");
-        backgroundTexture.setWrap(Texture.TextureWrap.ClampToEdge, Texture.TextureWrap.ClampToEdge);
-        backgroundSprite = new Sprite(backgroundTexture, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        backgroundTexture = new Texture("black-background.jpg");
+        backgroundTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+
+        TextureRegion region = new TextureRegion(backgroundTexture,backgroundTexture.getWidth(),backgroundTexture.getHeight());
+        backgroundSprite = new Sprite(region);
+
+      //  backgroundSprite.setSize(1f,1f*backgroundSprite.getHeight()/backgroundSprite.getWidth());
 
     }
 
@@ -59,10 +65,14 @@ public class FallingNotesScreen implements Screen {
 
         // TODO: Set the ShapeRenderer's projection matrix
         //renderer.setProjectionMatrix(notesViewport.getCamera().combined);
-//        backgroundSprite.setAlpha(0.5f);
-//        batch.begin();
-//        backgroundSprite.draw(batch);
-//        batch.end();
+
+        backgroundSprite.setAlpha(0.5f);
+
+        batch.begin();
+       // backgroundSprite.draw(batch);
+        batch.draw(backgroundSprite,0,0,Constants.WORLD_WIDTH,Constants.WORLD_HEIGHT);
+        batch.end();
+
 
         //Draw vertical guide line
         lineRenderer.begin(ShapeRenderer.ShapeType.Line);
@@ -88,6 +98,10 @@ public class FallingNotesScreen implements Screen {
         batch.begin();
         piano.render(sprite,batch);
         batch.end();
+
+//        renderer.begin(ShapeRenderer.ShapeType.Filled);
+//        renderer.rect(0,0,Constants.WORLD_WIDTH,Constants.OFFSET,Color.BLACK,Color.BLACK,Color.BLACK,Color.BLACK);
+//        renderer.end();
     }
 
     @Override

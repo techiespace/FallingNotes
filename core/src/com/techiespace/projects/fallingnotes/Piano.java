@@ -1,6 +1,7 @@
 package com.techiespace.projects.fallingnotes;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -225,13 +226,16 @@ public class Piano {
     }
 
     private void renderLabel(SpriteBatch batch) {
-        font.setColor(0, 0, 0, 0.3f);
+        font.setColor(0, 0, 0, 0.6f);
         font.getData().setScale(0.25f);
         font.draw(batch, "C2", Note.mapCoordinates("C2") + 2, 20 + Constants.OFFSET);
         font.draw(batch, "C3", Note.mapCoordinates("C3") + 2, 20 + Constants.OFFSET);
         font.draw(batch, "C4", Note.mapCoordinates("C4") + 2, 20 + Constants.OFFSET);
         font.draw(batch, "C5", Note.mapCoordinates("C5") + 2, 20 + Constants.OFFSET);
         font.draw(batch, "C6", Note.mapCoordinates("C6") + 2, 20 + Constants.OFFSET);
+        font.setColor(Color.WHITE);
+        font.getData().setScale(0.75f);
+        font.draw(batch,"ChordSwift",Constants.WORLD_WIDTH/3+Constants.WORLD_SIZE/10,Constants.OFFSET/2+20);
     }
 
     void renderWhiteKeys(Sprite sprite,SpriteBatch batch)

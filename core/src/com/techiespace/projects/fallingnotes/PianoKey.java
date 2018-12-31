@@ -61,7 +61,7 @@ public class PianoKey {
         keySprite.setSize(width, height);
         keySprite.setRegion(texture);
         keySprite.draw(batch);
-    }
+        }
 
     float getHeight() {
         return this.height;
