@@ -1,5 +1,6 @@
 package com.techiespace.projects.fallingnotes;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
@@ -24,7 +25,7 @@ public class Notes {
     public void init(){
         noteArray = new Array<Note>(true,88);
         MidiParser midiParser = new MidiParser();
-        noteArrayPool = midiParser.parse("broken_dreams.mid");
+        noteArrayPool = midiParser.parse("moonlight_sonata.mid");
         Arrays.sort(noteArrayPool);
         initialTime = TimeUtils.nanoTime();
     }
@@ -42,33 +43,37 @@ public class Notes {
 
         for (Note note : noteArray) {
             Sound sound;
-            long soundId;
+            long soundId = 0;
             note.update(delta);
             PianoKey key = Piano.findKey(note.noteName);
+            sound = note.sound;
 
-            if (note.position.y < Constants.WHITE_PIANO_KEY_HEIGHT && !note.soundOnce) {
-                sound = note.sound;
-                soundId = sound.play();
-                sound.play();   //https://stackoverflow.com/questions/31990997/libgdx-not-playing-sound-android  (takes a while to load the sound)
-                note.soundOnce = true;
+            if (note.position.y < Constants.WHITE_PIANO_KEY_HEIGHT + Constants.OFFSET) {
+
+                if (!note.soundOnce) {
+                    soundId = sound.play();   //https://stackoverflow.com/questions/31990997/libgdx-not-playing-sound-android  (takes a while to load the sound)
+                    note.soundOnce = true;
+                }
 
 
-
-                if (note.position.y + note.noteLength < Constants.WHITE_PIANO_KEY_HEIGHT) {
+                Gdx.app.log("TestOut", "" + noteArray.size);
+//                Gdx.app.log("Condition",(Constants.WHITE_PIANO_KEY_HEIGHT + (float)Constants.OFFSET) + " "+note.position.y + " " + note.noteLength);
+                if (note.position.y + note.noteLength < Constants.WHITE_PIANO_KEY_HEIGHT + (float) Constants.OFFSET) {
                     sound.stop(soundId);
                     noteArray.removeValue(note, false);
+//                    Gdx.app.log("Test",""+noteArray.size);
                     }
             }
 
 
 
             //for handling the key
-            if(note.position.y < Constants.WHITE_PIANO_KEY_HEIGHT && !key.getIsPressed())
+            if (note.position.y < Constants.WHITE_PIANO_KEY_HEIGHT + Constants.OFFSET && !key.getIsPressed())
             {
                 key.updateTextureDown();
             }
 
-            if(note.position.y+note.noteLength < Constants.WHITE_PIANO_KEY_HEIGHT && key.getIsPressed())
+            if (note.position.y + note.noteLength < Constants.WHITE_PIANO_KEY_HEIGHT + Constants.OFFSET && key.getIsPressed())
             {
                 key.updateTextureUp();
             }

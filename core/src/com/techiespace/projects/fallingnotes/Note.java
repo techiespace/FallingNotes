@@ -1,5 +1,6 @@
 package com.techiespace.projects.fallingnotes;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -27,7 +28,7 @@ public class Note implements Comparable<Note> {
         this.startTime = startTime;
         this.endTime = endTime;
         this.noteLength = (endTime - startTime) * Constants.HEIGTH_MULTIPLIER;
-//        this.sound = Gdx.audio.newSound(Gdx.files.internal("audio/" + noteName + ".ogg"));  //TODO: Imp - This causes skewed first note and takes time to start activity.
+        this.sound = Gdx.audio.newSound(Gdx.files.internal("audio/" + noteName + ".ogg"));  //TODO: Imp - This causes skewed first note and takes time to start activity.
     }
 
     public void render(RoundRectShapeRenderer renderer) {

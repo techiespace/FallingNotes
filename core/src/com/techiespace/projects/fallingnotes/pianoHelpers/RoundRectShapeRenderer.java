@@ -14,16 +14,27 @@ public class RoundRectShapeRenderer extends ShapeRenderer {
         super.rect(x + radius, y + radius, width - 2 * radius, height - 2 * radius, xy, xwy, xwyh, xyh);
 
         // Four side rectangles, in clockwise order
-        super.rect(x + radius, y, width - 1 * radius, radius, xy, xwy, xwyh, xyh);
-        super.rect(x + width - radius, y + radius, radius, height - 1 * radius, xy, xwy, xwyh, xyh);
-        super.rect(x + radius, y + height - radius, width - 1 * radius, radius, xy, xwy, xwyh, xyh);
-        super.rect(x, y + radius, radius, height - 1 * radius, xy, xwy, xwyh, xyh);
+        //bottom
+        super.rect(x + radius, y, width - 2 * radius, radius, xy, xy, xwy, xwy);
+        //right
+        super.rect(x + width - radius, y + radius, radius, height - 2 * radius, xwy, xwy, xwyh, xwyh);
+        //top
+        super.rect(x + radius, y + height - radius, width - 2 * radius, radius, xwyh, xwyh, xyh, xyh);
+        //left
+        super.rect(x, y + radius, radius, height - 2 * radius, xy, xy, xyh, xyh);
 
         // Four arches, clockwise too
+        //bottom-left
         renderer.setColor(xy);
-        super.arc(x + radius, y + radius, radius, 180f, 90f);
-        super.arc(x + width - radius, y + radius, radius, 270f, 90f);
-        super.arc(x + width - radius, y + height - radius, radius, 0f, 90f);
-        super.arc(x + radius, y + height - radius, radius, 90f, 90f);
+        super.circle(x + radius, y + radius, radius);
+        //bottom-right
+        renderer.setColor(xwy);
+        super.circle(x + width - radius, y + radius, radius);
+        //top-right
+        renderer.setColor(xwyh);
+        super.circle(x + width - radius, y + height - radius, radius);
+        //top-left
+        renderer.setColor(xyh);
+        super.circle(x + radius, y + height - radius, radius);
     }
 }
