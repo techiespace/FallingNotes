@@ -31,7 +31,7 @@ public class FallingNotesScreen implements Screen, InputProcessor {
     Texture backgroundTexture;
     Sprite backgroundSprite;
 
-    private boolean isPlaying = true;
+    private boolean isPlaying = false;
 
 
     @Override
