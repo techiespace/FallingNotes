@@ -27,7 +27,7 @@ public class Constants {
     // TODO: Add a constant for the color of the icicles
     public static final Color NOTE_COLOR = Color.WHITE;
 
-    public static final float TEMPO = 50.0f;
+    public static final float TEMPO = 100.0f;
 
     public static final int STARTING_OCTAVE = 2;
 

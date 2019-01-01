@@ -1,8 +1,9 @@
 package com.techiespace.projects.fallingnotes;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -11,7 +12,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.techiespace.projects.fallingnotes.pianoHelpers.RoundRectShapeRenderer;
 
-public class FallingNotesScreen implements Screen {
+public class FallingNotesScreen implements Screen, InputProcessor {
 
     public static final String TAG = FallingNotesScreen.class.getName();
     // TODO: Add an ExtendViewport
@@ -30,7 +31,7 @@ public class FallingNotesScreen implements Screen {
     Texture backgroundTexture;
     Sprite backgroundSprite;
 
-
+    private boolean isPlaying = true;
 
 
     @Override
@@ -51,14 +52,21 @@ public class FallingNotesScreen implements Screen {
         backgroundSprite = new Sprite(region);
 
       //  backgroundSprite.setSize(1f,1f*backgroundSprite.getHeight()/backgroundSprite.getWidth());
+        Gdx.input.setInputProcessor(this);
 
     }
 
     @Override
     public void render(float delta) {
-        notes.update(delta);
-        //notesViewport.apply(true);
+        /*if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+            // your actions
 
+        }*/
+        if (isPlaying) {
+            notes.update(delta);
+            //notesViewport.apply(true);
+
+        }
         // TODO: Clear the screen to the background color
         Gdx.gl.glClearColor(Constants.BACKGROUND_COLOR.r, Constants.BACKGROUND_COLOR.g, Constants.BACKGROUND_COLOR.b, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -69,7 +77,7 @@ public class FallingNotesScreen implements Screen {
         backgroundSprite.setAlpha(0.5f);
 
         batch.begin();
-       // backgroundSprite.draw(batch);
+        // backgroundSprite.draw(batch);
         batch.draw(backgroundSprite,0,0,Constants.WORLD_WIDTH,Constants.WORLD_HEIGHT);
         batch.end();
 
@@ -129,5 +137,51 @@ public class FallingNotesScreen implements Screen {
     @Override
     public void dispose() {
 
+    }
+
+    //hangling input
+    @Override
+    public boolean keyDown(int keycode) {
+        https:
+//www.reddit.com/r/libgdx/comments/4223lq/how_will_i_know_when_i_need_to_implement_an/
+        if (keycode == Input.Keys.SPACE) {
+            isPlaying = !isPlaying;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean keyUp(int keycode) {
+        return false;
+    }
+
+    @Override
+    public boolean keyTyped(char character) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDragged(int screenX, int screenY, int pointer) {
+        return false;
+    }
+
+    @Override
+    public boolean mouseMoved(int screenX, int screenY) {
+        return false;
+    }
+
+    @Override
+    public boolean scrolled(int amount) {
+        return false;
     }
 }

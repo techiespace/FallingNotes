@@ -145,7 +145,7 @@ public class MidiParser {
                             // Note offset
                             if (onsets[param1] >= 0.0 && (i == track || track < 0)) {
                                 //copy to Note object
-                                Note note = new Note(param1, formatTime(onsets[param1]), formatTime(accTime));
+                                Note note = new Note(param1, formatTime(onsets[param1]), formatTime(accTime), velocities[param1]);
                                 noteArrayList.add(note);
                                 //TODO: Write to file
                             }

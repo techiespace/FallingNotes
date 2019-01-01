@@ -1,3 +1,4 @@
+/*
 package com.techiespace.projects.fallingnotes;
 
 import android.app.Activity;
@@ -194,8 +195,11 @@ public class AudioProcessor extends Activity {
     }
 
     private PianoKey findPianoKey(String input) {
-        /*ArrayList<com.techiespace.projects.fallingnotes.PianoKey[]> pianoKeys;
-         *//*if(input.charAt(1)=='#')//The input in black key
+        */
+/*ArrayList<com.techiespace.projects.fallingnotes.PianoKey[]> pianoKeys;
+ *//*
+ */
+/*if(input.charAt(1)=='#')//The input in black key
         {
             pianoKeys = pianoView.getBlackStaticKeys();
         }
@@ -203,6 +207,8 @@ public class AudioProcessor extends Activity {
         else {
             pianoKeys = pianoView.getWhiteStaticKeys();
         }*//*
+ */
+/*
 
         for (com.techiespace.projects.fallingnotes.PianoKey[] pianokey : pianoKeys) {
             for (int i = 0; i < pianokey.length; i++) {
@@ -210,7 +216,8 @@ public class AudioProcessor extends Activity {
                     return pianokey[i];
                 }
             }
-        }*/
+        }*//*
+
         return null;
     }
 
@@ -227,3 +234,4 @@ public class AudioProcessor extends Activity {
         return -1;
     }
 }
+*/

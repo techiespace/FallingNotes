@@ -20,8 +20,9 @@ public class Note implements Comparable<Note> {
     Vector2 velocity;
     Sound sound;
     boolean soundOnce = false;
+    int pressVelocity;
 
-    public Note(int midiNoteNum, int startTime, int endTime) {
+    public Note(int midiNoteNum, int startTime, int endTime, int pressVelocity) {
         this.noteName = getMidiNoteName(midiNoteNum);
         this.position = new Vector2(mapCoordinates(this.noteName), Constants.WORLD_HEIGHT);
         this.velocity = new Vector2(0,-Constants.TEMPO);
@@ -29,6 +30,7 @@ public class Note implements Comparable<Note> {
         this.endTime = endTime;
         this.noteLength = (endTime - startTime) * Constants.HEIGTH_MULTIPLIER;
         this.sound = Gdx.audio.newSound(Gdx.files.internal("audio/" + noteName + ".ogg"));  //TODO: Imp - This causes skewed first note and takes time to start activity.
+        this.pressVelocity = pressVelocity;
     }
 
     public void render(RoundRectShapeRenderer renderer) {

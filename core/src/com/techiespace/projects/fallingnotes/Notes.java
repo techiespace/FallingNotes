@@ -3,7 +3,6 @@ package com.techiespace.projects.fallingnotes;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.TimeUtils;
 import com.techiespace.projects.fallingnotes.pianoHelpers.MidiParser;
 import com.techiespace.projects.fallingnotes.pianoHelpers.RoundRectShapeRenderer;
 
@@ -14,7 +13,7 @@ public class Notes {
     Array<Note> noteArray;
     Note[] noteArrayPool;
     int poolIndex;
-    long initialTime;
+    float initialTime;
     Sound sound;
 
     public Notes(){
@@ -25,17 +24,16 @@ public class Notes {
     public void init(){
         noteArray = new Array<Note>(true,88);
         MidiParser midiParser = new MidiParser();
-        noteArrayPool = midiParser.parse("twinkle_twinkle.mid");
+        noteArrayPool = midiParser.parse("Canon_in_D.mid");
         Arrays.sort(noteArrayPool);
-        initialTime = TimeUtils.nanoTime();
+        initialTime = 0;
     }
 
     public void update(float delta){
-        float elapsedNanoseconds = TimeUtils.nanoTime() - initialTime;
-        float elapsedMillis = elapsedNanoseconds * 0.000001f;
-
+        initialTime += delta;
+//        Gdx.app.log("Init time: ", ""+initialTime+" Delta time: "+ noteArrayPool[poolIndex].startTime);
 //        for (int i = poolIndex; i < noteArrayPool.length ; i++) {
-        while (poolIndex < noteArrayPool.length && noteArrayPool[poolIndex].startTime <= elapsedMillis) {
+        while (poolIndex < noteArrayPool.length && noteArrayPool[poolIndex].startTime <= initialTime * 1000) {
                 noteArray.add(noteArrayPool[poolIndex]);
                 poolIndex++;
         }
@@ -59,7 +57,8 @@ public class Notes {
                 }
 
                 if (!note.soundOnce) {
-                    soundId = sound.play();   //https://stackoverflow.com/questions/31990997/libgdx-not-playing-sound-android  (takes a while to load the sound)
+                    soundId = sound.play(note.pressVelocity / 100f);   //https://stackoverflow.com/questions/31990997/libgdx-not-playing-sound-android  (takes a while to load the sound)
+                    Gdx.app.log("Volume: ", "" + note.pressVelocity);
                     note.soundOnce = true;
                 }
 
