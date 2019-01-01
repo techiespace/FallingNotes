@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -235,7 +236,12 @@ public class Piano {
         font.draw(batch, "C6", Note.mapCoordinates("C6") + 2, 20 + Constants.OFFSET);
         font.setColor(Color.WHITE);
         font.getData().setScale(0.75f);
-        font.draw(batch,"ChordSwift",Constants.WORLD_WIDTH/3+Constants.WORLD_SIZE/10,Constants.OFFSET/2+20);
+        final GlyphLayout layout = new GlyphLayout(font, "ChordSwift");
+        // or for non final texts: layout.setText(font, text);
+        final float fontX = 0 + (Constants.WORLD_WIDTH - layout.width) / 2;
+        final float fontY = 0 + (Constants.WORLD_HEIGHT + layout.height) / 2;
+
+        font.draw(batch, "ChordSwift", fontX, Constants.OFFSET - 10);//Constants.NOTES_WIDTH*36/2,Constants.OFFSET/2+20);
     }
 
     void renderWhiteKeys(Sprite sprite,SpriteBatch batch)

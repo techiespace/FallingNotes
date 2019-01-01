@@ -142,8 +142,7 @@ public class FallingNotesScreen implements Screen, InputProcessor {
     //hangling input
     @Override
     public boolean keyDown(int keycode) {
-        https:
-//www.reddit.com/r/libgdx/comments/4223lq/how_will_i_know_when_i_need_to_implement_an/
+        //https://www.reddit.com/r/libgdx/comments/4223lq/how_will_i_know_when_i_need_to_implement_an/
         if (keycode == Input.Keys.SPACE) {
             isPlaying = !isPlaying;
         }

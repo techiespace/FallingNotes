@@ -24,7 +24,8 @@ public class Notes {
     public void init(){
         noteArray = new Array<Note>(true,88);
         MidiParser midiParser = new MidiParser();
-        noteArrayPool = midiParser.parse("Canon_in_D.mid");
+        //Girls_Like_You_Maroon_5, broken_dreams
+        noteArrayPool = midiParser.parse("broken_dreams.mid");
         Arrays.sort(noteArrayPool);
         initialTime = 0;
     }

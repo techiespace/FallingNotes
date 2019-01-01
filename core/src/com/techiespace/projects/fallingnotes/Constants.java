@@ -56,6 +56,6 @@ public class Constants {
     public static final float BLACK_KEY_HEIGHT = (float)(0.7f*WHITE_PIANO_KEY_HEIGHT);
 
 
-    public static final float HEIGTH_MULTIPLIER = 0.04f;    //by hit and trial. Maybe works becoz the quarter note is 500millis
+    public static final float HEIGTH_MULTIPLIER = Constants.TEMPO / 1000f - 0.015f;    //by hit and trial. 0.015 to show gap between two adjacent notes.
 
 }
