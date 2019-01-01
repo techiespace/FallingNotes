@@ -228,12 +228,12 @@ public class Piano {
 
     private void renderLabel(SpriteBatch batch) {
         font.setColor(0, 0, 0, 0.6f);
-        font.getData().setScale(0.50f);
-        font.draw(batch, "C2", Note.mapCoordinates("C2") + 4, 25 + Constants.OFFSET);
-        font.draw(batch, "C3", Note.mapCoordinates("C3") + 4, 25 + Constants.OFFSET);
-        font.draw(batch, "C4", Note.mapCoordinates("C4") + 4, 25 + Constants.OFFSET);
-        font.draw(batch, "C5", Note.mapCoordinates("C5") + 4, 25 + Constants.OFFSET);
-        font.draw(batch, "C6", Note.mapCoordinates("C6") + 4, 25 + Constants.OFFSET);
+        font.getData().setScale(0.25f);
+        font.draw(batch, "C2", Note.mapCoordinates("C2") + 2, 20 + Constants.OFFSET);
+        font.draw(batch, "C3", Note.mapCoordinates("C3") + 2, 20 + Constants.OFFSET);
+        font.draw(batch, "C4", Note.mapCoordinates("C4") + 2, 20 + Constants.OFFSET);
+        font.draw(batch, "C5", Note.mapCoordinates("C5") + 2, 20 + Constants.OFFSET);
+        font.draw(batch, "C6", Note.mapCoordinates("C6") + 2, 20 + Constants.OFFSET);
         font.setColor(Color.WHITE);
         font.getData().setScale(0.75f);
         final GlyphLayout layout = new GlyphLayout(font, "ChordSwift");
