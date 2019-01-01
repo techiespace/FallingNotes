@@ -28,7 +28,7 @@ public class Note implements Comparable<Note> {
         this.velocity = new Vector2(0,-Constants.TEMPO);
         this.startTime = startTime;
         this.endTime = endTime;
-        this.noteLength = (endTime - startTime) / 11f;// * Constants.HEIGTH_MULTIPLIER;
+        this.noteLength = (endTime - startTime) * Constants.HEIGTH_MULTIPLIER;
         this.sound = Gdx.audio.newSound(Gdx.files.internal("audio/" + noteName + ".ogg"));  //TODO: Imp - This causes skewed first note and takes time to start activity.
         this.pressVelocity = pressVelocity;
     }
