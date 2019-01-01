@@ -25,7 +25,7 @@ public class Notes {
         noteArray = new Array<Note>(true,88);
         MidiParser midiParser = new MidiParser();
         //Girls_Like_You_Maroon_5, broken_dreams
-        noteArrayPool = midiParser.parse("broken_dreams.mid");
+        noteArrayPool = midiParser.parse("Tum_hi_ho_Aashiqui_2.mid");
         Arrays.sort(noteArrayPool);
         initialTime = 0;
     }
