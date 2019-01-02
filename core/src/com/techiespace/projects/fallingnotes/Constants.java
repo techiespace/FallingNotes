@@ -43,12 +43,15 @@ public class Constants {
     public final static String WHITE_DOWN = "white_down.png";
 
 
+    public final static String GAME_NAME = "ChordSwift";
+
+
 
 
 
     //white piano key height will also be the height of guitar
 
-    public static final float WHITE_PIANO_KEY_HEIGHT = 100;
+    public static final float WHITE_PIANO_KEY_HEIGHT = 120;
 
     public static final int OFFSET = 50;
 

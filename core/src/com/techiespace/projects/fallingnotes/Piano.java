@@ -23,9 +23,9 @@ public class Piano {
     {
         initWhiteKeys();
         initBlackKeys();
-        Texture texture = new Texture(Gdx.files.internal("courgette.png"), true); // true enables mipmaps
+        Texture texture = new Texture(Gdx.files.internal(FallingNotesScreen.getTheme().getFntPngName()), true); // true enables mipmaps
         texture.setFilter(Texture.TextureFilter.MipMapLinearNearest, Texture.TextureFilter.Linear); // linear filtering in nearest mipmap image
-        font = new BitmapFont(Gdx.files.internal("courgette.fnt"), new TextureRegion(texture), false);
+        font = new BitmapFont(Gdx.files.internal(FallingNotesScreen.getTheme().getFntFileName()), new TextureRegion(texture), false);
     }
 
     public static PianoKey findKey(String noteName)
@@ -227,21 +227,23 @@ public class Piano {
     }
 
     private void renderLabel(SpriteBatch batch) {
-        font.setColor(0, 0, 0, 0.6f);
+        font.setColor(FallingNotesScreen.getTheme().getLabelColor());
         font.getData().setScale(0.25f);
-        font.draw(batch, "C2", Note.mapCoordinates("C2") + 2, 20 + Constants.OFFSET);
-        font.draw(batch, "C3", Note.mapCoordinates("C3") + 2, 20 + Constants.OFFSET);
-        font.draw(batch, "C4", Note.mapCoordinates("C4") + 2, 20 + Constants.OFFSET);
-        font.draw(batch, "C5", Note.mapCoordinates("C5") + 2, 20 + Constants.OFFSET);
-        font.draw(batch, "C6", Note.mapCoordinates("C6") + 2, 20 + Constants.OFFSET);
-        font.setColor(Color.WHITE);
-        font.getData().setScale(0.75f);
-        final GlyphLayout layout = new GlyphLayout(font, "ChordSwift");
+
+
+        for(int i = Constants.STARTING_OCTAVE;i<=Constants.ENDING_OCTAVE;i++) {
+            font.draw(batch, "C"+i, Note.mapCoordinates("C"+i) + 2, 20 + Constants.OFFSET);
+        }
+
+
+        font.setColor(FallingNotesScreen.getTheme().getGameNameColor());
+        font.getData().setScale(FallingNotesScreen.getTheme().getGameNameScale());
+        final GlyphLayout layout = new GlyphLayout(font,Constants.GAME_NAME);
         // or for non final texts: layout.setText(font, text);
         final float fontX = 0 + (Constants.WORLD_WIDTH - layout.width) / 2;
         final float fontY = 0 + (Constants.WORLD_HEIGHT + layout.height) / 2;
 
-        font.draw(batch, "ChordSwift", fontX, Constants.OFFSET - 10);//Constants.NOTES_WIDTH*36/2,Constants.OFFSET/2+20);
+        font.draw(batch, Constants.GAME_NAME, fontX, Constants.OFFSET - 10);//Constants.NOTES_WIDTH*36/2,Constants.OFFSET/2+20);
     }
 
     void renderWhiteKeys(Sprite sprite,SpriteBatch batch)

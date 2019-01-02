@@ -10,6 +10,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.techiespace.projects.fallingnotes.Themes.DarkTheme;
+import com.techiespace.projects.fallingnotes.Themes.Theme;
 import com.techiespace.projects.fallingnotes.pianoHelpers.RoundRectShapeRenderer;
 
 public class FallingNotesScreen implements Screen, InputProcessor {
@@ -30,6 +32,7 @@ public class FallingNotesScreen implements Screen, InputProcessor {
     Piano piano;
     Texture backgroundTexture;
     Sprite backgroundSprite;
+    public static Theme theme;
 
     private boolean isPlaying = false;
 
@@ -37,6 +40,8 @@ public class FallingNotesScreen implements Screen, InputProcessor {
     @Override
     public void show() {
         //notesViewport = new ExtendViewport(Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT);
+        theme = new DarkTheme();
+
         renderer = new RoundRectShapeRenderer();
         renderer.setAutoShapeType(true);
         lineRenderer = new ShapeRenderer();
@@ -45,7 +50,7 @@ public class FallingNotesScreen implements Screen, InputProcessor {
         batch = new SpriteBatch();
         sprite = new Sprite();
         piano = new Piano();
-        backgroundTexture = new Texture("black-background.jpg");
+        backgroundTexture = theme.getBackgroundTexture();
         backgroundTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
         TextureRegion region = new TextureRegion(backgroundTexture,backgroundTexture.getWidth(),backgroundTexture.getHeight());
@@ -74,7 +79,6 @@ public class FallingNotesScreen implements Screen, InputProcessor {
         // TODO: Set the ShapeRenderer's projection matrix
         //renderer.setProjectionMatrix(notesViewport.getCamera().combined);
 
-        backgroundSprite.setAlpha(0.5f);
 
         batch.begin();
         // backgroundSprite.draw(batch);
@@ -84,7 +88,7 @@ public class FallingNotesScreen implements Screen, InputProcessor {
 
         //Draw vertical guide line
         lineRenderer.begin(ShapeRenderer.ShapeType.Line);
-        lineRenderer.setColor(0.5f, 0.5f, 0.5f, 0.5f);   //color alpha not working
+        lineRenderer.setColor(theme.getVerticalLineColor());   //color alpha not working
         lineRenderer.line(Note.mapCoordinates("C3"), Constants.OFFSET, Note.mapCoordinates("C3"), Constants.WORLD_HEIGHT);
         lineRenderer.line(Note.mapCoordinates("C4"), Constants.OFFSET, Note.mapCoordinates("C4"), Constants.WORLD_HEIGHT);
         lineRenderer.line(Note.mapCoordinates("C5"), Constants.OFFSET, Note.mapCoordinates("C5"), Constants.WORLD_HEIGHT);
@@ -182,5 +186,11 @@ public class FallingNotesScreen implements Screen, InputProcessor {
     @Override
     public boolean scrolled(int amount) {
         return false;
+    }
+
+
+    public static Theme getTheme()
+    {
+        return theme;
     }
 }

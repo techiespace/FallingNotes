@@ -41,10 +41,10 @@ public class Note implements Comparable<Note> {
                     position.x, position.y,
                     Constants.BLACK_NOTE_WIDTH,
                     noteLength, 2,
-                    new Color(153 / 255f, 51 / 255f, 255 / 255f, 1),
-                    new Color(178 / 255f, 102 / 255f, 255 / 255f, 1),
-                    new Color(178 / 255f, 102 / 255f, 255 / 255f, 1),
-                    new Color(153 / 255f, 51 / 255f, 255 / 255f, 1)
+                    FallingNotesScreen.getTheme().getLightBlackKeyColor(),
+                    FallingNotesScreen.getTheme().getDarkBlackKeyColor(),
+                    FallingNotesScreen.getTheme().getDarkBlackKeyColor(),
+                    FallingNotesScreen.getTheme().getLightBlackKeyColor()
             );
         }
         else {
@@ -52,10 +52,10 @@ public class Note implements Comparable<Note> {
                     position.x, position.y,
                     Constants.NOTES_WIDTH,
                     noteLength, 2,
-                    new Color(102 / 255f, 0 / 255f, 204 / 255f, 1),
-                    new Color(127 / 255f, 0 / 255f, 255 / 255f, 1),
-                    new Color(127 / 255f, 0 / 255f, 255 / 255f, 1),
-                    new Color(102 / 255f, 0 / 255f, 204 / 255f, 1)
+                    FallingNotesScreen.getTheme().getLightWhiteKeyColor(),
+                    FallingNotesScreen.getTheme().getDarkWhiteKeyColor(),
+                    FallingNotesScreen.getTheme().getDarkWhiteKeyColor(),
+                    FallingNotesScreen.getTheme().getLightWhiteKeyColor()
             );
         }
     }
