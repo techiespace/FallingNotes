@@ -2,7 +2,6 @@ package com.techiespace.projects.fallingnotes;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.techiespace.projects.fallingnotes.pianoHelpers.RoundRectShapeRenderer;
@@ -28,7 +27,7 @@ public class Note implements Comparable<Note> {
         this.velocity = new Vector2(0,-Constants.TEMPO);
         this.startTime = startTime;
         this.endTime = endTime;
-        this.noteLength = (endTime - startTime) * Constants.HEIGTH_MULTIPLIER;
+        this.noteLength = (endTime - startTime) * Constants.HEIGTH_MULTIPLIER / Constants.SPEED;
         this.sound = Gdx.audio.newSound(Gdx.files.internal("audio/" + noteName + ".ogg"));  //TODO: Imp - This causes skewed first note and takes time to start activity.
         this.pressVelocity = pressVelocity;
     }

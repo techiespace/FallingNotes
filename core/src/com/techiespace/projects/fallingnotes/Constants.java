@@ -29,6 +29,8 @@ public class Constants {
 
     public static final float TEMPO = 100.0f;
 
+    public static final float SPEED = 1f;
+
     public static final int STARTING_OCTAVE = 2;
 
     public static final int ENDING_OCTAVE = 6;

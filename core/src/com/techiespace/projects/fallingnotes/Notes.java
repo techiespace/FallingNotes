@@ -30,7 +30,7 @@ public class Notes {
     }
 
     public void update(float delta){
-        initialTime += delta;
+        initialTime += delta * Constants.SPEED;
 //        Gdx.app.log("Init time: ", ""+initialTime+" Delta time: "+ noteArrayPool[poolIndex].startTime);
 //        for (int i = poolIndex; i < noteArrayPool.length ; i++) {
         while (poolIndex < noteArrayPool.length && noteArrayPool[poolIndex].startTime <= initialTime * 1000) {
