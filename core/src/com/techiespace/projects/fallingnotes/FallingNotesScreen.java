@@ -10,7 +10,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.techiespace.projects.fallingnotes.Themes.DarkTheme;
+import com.techiespace.projects.fallingnotes.Themes.RedTheme;
 import com.techiespace.projects.fallingnotes.Themes.Theme;
 import com.techiespace.projects.fallingnotes.pianoHelpers.RoundRectShapeRenderer;
 
@@ -40,7 +40,7 @@ public class FallingNotesScreen implements Screen, InputProcessor {
     @Override
     public void show() {
         //notesViewport = new ExtendViewport(Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT);
-        theme = new DarkTheme();
+        theme = new RedTheme();
 
         renderer = new RoundRectShapeRenderer();
         renderer.setAutoShapeType(true);

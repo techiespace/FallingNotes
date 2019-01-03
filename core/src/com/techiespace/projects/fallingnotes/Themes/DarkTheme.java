@@ -28,11 +28,11 @@ public class DarkTheme extends Theme {
     public DarkTheme()
     {
         super();
-        setBackgroundTexture("black-background.jpg");
+        setBackgroundTexture("background/b4.jpg");
         setDarkBlackKeyColor(new Color(178 / 255f, 102 / 255f, 255 / 255f, 1));
         setDarkWhiteKeyColor(new Color(127 / 255f, 0 / 255f, 255 / 255f, 1));
-        setFntFileName("courgette.fnt");
-        setFntPngName("courgette.png");
+        setFntFileName("font/courgette.fnt");
+        setFntPngName("font/courgette.png");
         setLabelColor(new Color(0, 0, 0, 0.6f));
         setLightBlackKeyColor(new Color(153 / 255f, 51 / 255f, 255 / 255f, 1));
         setLightWhiteKeyColor(new Color(102 / 255f, 0 / 255f, 204 / 255f, 1));

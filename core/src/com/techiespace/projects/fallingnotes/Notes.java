@@ -1,6 +1,5 @@
 package com.techiespace.projects.fallingnotes;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.utils.Array;
 import com.techiespace.projects.fallingnotes.pianoHelpers.MidiParser;
@@ -25,7 +24,7 @@ public class Notes {
         noteArray = new Array<Note>(true,88);
         MidiParser midiParser = new MidiParser();
         //Girls_Like_You_Maroon_5, broken_dreams
-        noteArrayPool = midiParser.parse("Tum_hi_ho_Aashiqui_2.mid");
+        noteArrayPool = midiParser.parse("midi/Amazing_Grace.mid");
         Arrays.sort(noteArrayPool);
         initialTime = 0;
     }
@@ -59,7 +58,7 @@ public class Notes {
 
                 if (!note.soundOnce) {
                     soundId = sound.play(note.pressVelocity / 100f);   //https://stackoverflow.com/questions/31990997/libgdx-not-playing-sound-android  (takes a while to load the sound)
-                    Gdx.app.log("Volume: ", "" + note.pressVelocity);
+//                    Gdx.app.log("Volume: ", "" + note.pressVelocity);
                     note.soundOnce = true;
                 }
 

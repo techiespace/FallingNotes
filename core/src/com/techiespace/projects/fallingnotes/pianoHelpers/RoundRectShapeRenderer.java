@@ -15,11 +15,11 @@ public class RoundRectShapeRenderer extends ShapeRenderer {
 
         // Four side rectangles, in clockwise order
         //bottom
-        super.rect(x + radius, y, width - 2 * radius, radius, xy, xy, xwy, xwy);
+        super.rect(x + radius, y, width - 2 * radius, radius, xy, xwy, xwy, xy);
         //right
         super.rect(x + width - radius, y + radius, radius, height - 2 * radius, xwy, xwy, xwyh, xwyh);
         //top
-        super.rect(x + radius, y + height - radius, width - 2 * radius, radius, xwyh, xwyh, xyh, xyh);
+        super.rect(x + radius, y + height - radius, width - 2 * radius, radius, xyh, xwyh, xwyh, xyh);
         //left
         super.rect(x, y + radius, radius, height - 2 * radius, xy, xy, xyh, xyh);
 

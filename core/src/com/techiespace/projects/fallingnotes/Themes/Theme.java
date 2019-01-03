@@ -49,7 +49,8 @@ public class Theme {
 
     float gameNameScale;
 
-
+    Color[][] whiteNote;
+    Color[][] blackNote;
 
     public Theme()
     {
@@ -57,8 +58,8 @@ public class Theme {
         verticalLineColor = new Color(0.5f, 0.5f, 0.5f, 0.5f);
         gameNameColor = Color.WHITE;
         gameNameScale = 0.75f;
-        blackKeyDownTexture = new Texture("black_down.png");
-        whiteKeyDownTexture = new Texture("white_down.png");
+        blackKeyDownTexture = new Texture("piano/black_down_red_light.png");
+        whiteKeyDownTexture = new Texture("piano/white_down_red.png");
     }
 
     public Texture getBlackKeyDownTexture() {

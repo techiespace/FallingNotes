@@ -36,11 +36,11 @@ public class Constants {
     public final static int BLACK_PIANO_KEY_GROUPS = 8;
     public final static int WHITE_PIANO_KEY_GROUPS = 9;
 
-    public final static String BLACK_DOWN = "black_down.png";
-    public final static String BLACK_UP = "black_up.png";
+    public final static String BLACK_DOWN = "piano/black_down.png";
+    public final static String BLACK_UP = "piano/black_up.png";
 
-    public final static  String WHITE_UP = "white_up.png";
-    public final static String WHITE_DOWN = "white_down.png";
+    public final static String WHITE_UP = "piano/white_up.png";
+    public final static String WHITE_DOWN = "piano/white_down.png";
 
 
     public final static String GAME_NAME = "ChordSwift";

@@ -40,8 +40,8 @@ public class PianoKey {
         this.positionInGroup = group;
 
         if (keyType == Piano.PianoKeyType.BLACK) {
-            this.texture = new Texture("black_up.png");
-            this.upTexture = new Texture("black_up.png");
+            this.texture = new Texture("piano/black_up.png");
+            this.upTexture = new Texture("piano/black_up.png");
             this.downTexture = FallingNotesScreen.getTheme().getBlackKeyDownTexture();
 
         } else {
@@ -165,13 +165,13 @@ public class PianoKey {
     void initKeyTexture() {
 
         if (keyType == Piano.PianoKeyType.BLACK) {
-            this.texture = new Texture("black_up.png");
-            this.upTexture = new Texture("black_up.png");
+            this.texture = new Texture("piano/black_up.png");
+            this.upTexture = new Texture("piano/black_up.png");
             this.downTexture = FallingNotesScreen.getTheme().getBlackKeyDownTexture();
 
         } else {
-            this.texture = new Texture("white_up.png");
-            this.upTexture = new Texture("white_up.png");
+            this.texture = new Texture("piano/white_up.png");
+            this.upTexture = new Texture("piano/white_up.png");
             this.downTexture = FallingNotesScreen.getTheme().getWhiteKeyDownTexture();
 
 
