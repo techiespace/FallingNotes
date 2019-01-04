@@ -228,11 +228,18 @@ public class Piano {
 
     private void renderLabel(SpriteBatch batch) {
         font.setColor(FallingNotesScreen.getTheme().getLabelColor());
-        font.getData().setScale(0.25f);
+        font.getData().setScale(0.20f);
 
 
         for(int i = Constants.STARTING_OCTAVE;i<=Constants.ENDING_OCTAVE;i++) {
-            font.draw(batch, "C"+i, Note.mapCoordinates("C"+i) + 2, 20 + Constants.OFFSET);
+            font.draw(batch, "C"+i, Note.mapCoordinates("C"+i) + 2, 15 + Constants.OFFSET);
+            font.draw(batch, "D"+i, Note.mapCoordinates("D"+i) + 2, 15 + Constants.OFFSET);
+            font.draw(batch, "E"+i, Note.mapCoordinates("E"+i) + 2, 15 + Constants.OFFSET);
+            font.draw(batch, "F"+i, Note.mapCoordinates("F"+i) + 2, 15 + Constants.OFFSET);
+            font.draw(batch, "G"+i, Note.mapCoordinates("G"+i) + 2, 15 + Constants.OFFSET);
+            font.draw(batch, "A"+i, Note.mapCoordinates("A"+i) + 2, 15 + Constants.OFFSET);
+            font.draw(batch, "B"+i, Note.mapCoordinates("B"+i) + 2, 15 + Constants.OFFSET);
+
         }
 
 
