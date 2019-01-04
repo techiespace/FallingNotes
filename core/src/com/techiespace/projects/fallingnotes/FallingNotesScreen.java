@@ -165,6 +165,7 @@ public class FallingNotesScreen implements Screen, InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        isPlaying = !isPlaying;
         return false;
     }
 
