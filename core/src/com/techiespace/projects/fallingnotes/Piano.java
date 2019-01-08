@@ -83,6 +83,7 @@ public class Piano {
 
                 if (i == 0) {
                     keys[0].setName("A#0");
+
                 } else {
                     switch (j) {
                         case 0:
@@ -154,16 +155,19 @@ public class Piano {
                         case 0:
 
                             mKeys[j].setName("A0");
+                            mKeys[j].setPosition(new Vector2(Note.mapCoordinates(mKeys[j].getName()), Constants.OFFSET));
                             break;
                         case 1:
 
                             mKeys[j].setName("B0");
+                            mKeys[j].setPosition(new Vector2(Note.mapCoordinates(mKeys[j].getName()), Constants.OFFSET));
                             break;
                     }
                     continue;
                 }
                 if (i == 8) {
                     mKeys[j].setName("C8");
+                    mKeys[j].setPosition(new Vector2(Note.mapCoordinates(mKeys[j].getName()), Constants.OFFSET));
                     break;
                 }
 
@@ -218,20 +222,17 @@ public class Piano {
 
         renderLabel(batch);
 
-        sprite.setPosition(Constants.NOTES_WIDTH * 35, Constants.OFFSET);
-        sprite.setSize(Constants.NOTES_WIDTH, Constants.WHITE_PIANO_KEY_HEIGHT);
-        sprite.setRegion(new Texture(Constants.WHITE_UP));
-        sprite.draw(batch);
+
 
 
     }
 
     private void renderLabel(SpriteBatch batch) {
         font.setColor(FallingNotesScreen.getTheme().getLabelColor());
-        font.getData().setScale(0.20f);
+        font.getData().setScale(0.15f);
 
 
-        for(int i = Constants.STARTING_OCTAVE;i<=Constants.ENDING_OCTAVE;i++) {
+        for(int i = Constants.STARTING_OCTAVE+1;i<Constants.ENDING_OCTAVE;i++) {
             font.draw(batch, "C"+i, Note.mapCoordinates("C"+i) + 2, 15 + Constants.OFFSET);
             font.draw(batch, "D"+i, Note.mapCoordinates("D"+i) + 2, 15 + Constants.OFFSET);
             font.draw(batch, "E"+i, Note.mapCoordinates("E"+i) + 2, 15 + Constants.OFFSET);
@@ -256,13 +257,15 @@ public class Piano {
     void renderWhiteKeys(Sprite sprite,SpriteBatch batch)
     {
 
-        for(int i=Constants.STARTING_OCTAVE;i<=Constants.ENDING_OCTAVE;i++)
+        for(int i=0;i<Constants.WHITE_PIANO_KEY_GROUPS;i++)
         {
             PianoKey[] keys = whitePianoKeys.get(i);
 
             for(int j=0;j<keys.length;j++)
             {
+               Gdx.app.log("Octave "+i,"Key "+j);
                 keys[j].render(sprite,batch);
+                //keys[j].print();
             }
 
         }
@@ -272,7 +275,7 @@ public class Piano {
     void renderBlackKeys(Sprite sprite,SpriteBatch batch)
     {
 
-        for(int i=Constants.STARTING_OCTAVE;i<=Constants.ENDING_OCTAVE;i++)
+        for(int i=0;i<Constants.BLACK_PIANO_KEY_GROUPS;i++)
         {
             PianoKey[] keys = blackPianoKeys.get(i);
 

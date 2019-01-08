@@ -5,20 +5,26 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.MathUtils;
 import com.techiespace.projects.fallingnotes.Themes.RedTheme;
 import com.techiespace.projects.fallingnotes.Themes.Theme;
 import com.techiespace.projects.fallingnotes.pianoHelpers.RoundRectShapeRenderer;
+
+import javax.print.attribute.standard.OrientationRequested;
 
 public class FallingNotesScreen implements Screen, InputProcessor {
 
     public static final String TAG = FallingNotesScreen.class.getName();
     // TODO: Add an ExtendViewport
 //    ExtendViewport notesViewport;
+    private OrthographicCamera cam;
+    private float rotationSpeed;
 
     // TODO: Add a ShapeRenderer
     RoundRectShapeRenderer renderer;
@@ -41,6 +47,20 @@ public class FallingNotesScreen implements Screen, InputProcessor {
     public void show() {
         //notesViewport = new ExtendViewport(Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT);
         theme = new RedTheme();
+
+        rotationSpeed = 0.5f;
+        float w = Gdx.graphics.getWidth();
+        float h = Gdx.graphics.getHeight();
+
+        cam = new OrthographicCamera(350,350*(h/w));
+        cam.position.set(cam.viewportWidth/2f,cam.viewportHeight/2f,0);
+        cam.update();
+
+
+
+
+
+
 
         renderer = new RoundRectShapeRenderer();
         renderer.setAutoShapeType(true);
@@ -72,6 +92,17 @@ public class FallingNotesScreen implements Screen, InputProcessor {
             //notesViewport.apply(true);
 
         }
+
+
+        handleInput();
+        cam.update();
+        batch.setProjectionMatrix(cam.combined);
+        renderer.setProjectionMatrix(cam.combined);
+        lineRenderer.setProjectionMatrix(cam.combined);
+
+
+
+
         // TODO: Clear the screen to the background color
         Gdx.gl.glClearColor(Constants.BACKGROUND_COLOR.r, Constants.BACKGROUND_COLOR.g, Constants.BACKGROUND_COLOR.b, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -84,6 +115,8 @@ public class FallingNotesScreen implements Screen, InputProcessor {
         // backgroundSprite.draw(batch);
         batch.draw(backgroundSprite,0,0,Constants.WORLD_WIDTH,Constants.WORLD_HEIGHT);
         batch.end();
+
+
 
 
         //Draw vertical guide line
@@ -101,10 +134,14 @@ public class FallingNotesScreen implements Screen, InputProcessor {
         Gdx.gl.glDisable(GL20.GL_BLEND);
         lineRenderer.end();
 
+
+
         //Draw the Note
         renderer.begin(ShapeRenderer.ShapeType.Filled);
         notes.render(renderer);
         renderer.end();
+
+
 
         //Draw the piano
         batch.begin();
@@ -116,10 +153,52 @@ public class FallingNotesScreen implements Screen, InputProcessor {
 //        renderer.end();
     }
 
+    private void handleInput() {
+//        if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+//            cam.zoom += 0.02;
+//        }
+//        if (Gdx.input.isKeyPressed(Input.Keys.Q)) {
+//            cam.zoom -= 0.02;
+//        }
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+            if(cam.position.x>350/2)
+            cam.translate(-3, 0, 0);
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+
+            if(cam.position.x<Gdx.graphics.getWidth()-350/2)
+
+            cam.translate(3, 0, 0);
+        }
+//        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+//            cam.translate(0, -3, 0);
+//        }
+//        if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+//            cam.translate(0, 3, 0);
+//        }
+//        if (Gdx.input.isKeyPressed(Input.Keys.W)) {
+//            cam.rotate(-rotationSpeed, 0, 0, 1);
+//        }
+//        if (Gdx.input.isKeyPressed(Input.Keys.E)) {
+//            cam.rotate(rotationSpeed, 0, 0, 1);
+//        }
+
+        //cam.zoom = MathUtils.clamp(cam.zoom, 0.1f, 100/cam.viewportWidth);
+
+        float effectiveViewportWidth = cam.viewportWidth * cam.zoom;
+        float effectiveViewportHeight = cam.viewportHeight * cam.zoom;
+
+       // cam.position.x = MathUtils.clamp(cam.position.x, effectiveViewportWidth / 2f, 100 - effectiveViewportWidth / 2f);
+        //cam.position.y = MathUtils.clamp(cam.position.y, effectiveViewportHeight / 2f, 100 - effectiveViewportHeight / 2f);
+    }
+
     @Override
     public void resize(int width, int height) {
         //notesViewport.update(width, height, true);
         //notes.init(); //required?
+        cam.viewportWidth = 350f;
+        cam.viewportHeight = 350f * height/width;
+        cam.update();
     }
 
     @Override
@@ -136,6 +215,7 @@ public class FallingNotesScreen implements Screen, InputProcessor {
     public void hide() {
         renderer.dispose();
         lineRenderer.dispose();
+
     }
 
     @Override
@@ -150,6 +230,7 @@ public class FallingNotesScreen implements Screen, InputProcessor {
         if (keycode == Input.Keys.SPACE) {
             isPlaying = !isPlaying;
         }
+
         return false;
     }
 

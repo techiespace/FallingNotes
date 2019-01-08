@@ -75,130 +75,188 @@ public class Note implements Comparable<Note> {
 
     public static float mapCoordinates(String noteName) {
         switch (noteName) {
-            case "C2":
+
+
+            case "A0":
                 return Constants.NOTES_WIDTH * 0;
-            case "C#2":
-                return Constants.NOTES_WIDTH * 0 + Constants.NOTES_WIDTH * 0.7f;
-            case "D2":
+            case "A#0":
+                return Constants.NOTES_WIDTH * 0.7f;
+            case "B0":
                 return Constants.NOTES_WIDTH * 1;
-            case "D#2":
-                return Constants.NOTES_WIDTH * 1 + Constants.NOTES_WIDTH * 0.7f;
-            case "E2":
+
+            case "C1":
                 return Constants.NOTES_WIDTH * 2;
-            case "F2":
+            case "C#1":
+                return Constants.NOTES_WIDTH * 2 + Constants.NOTES_WIDTH * 0.7f;
+            case "D1":
                 return Constants.NOTES_WIDTH * 3;
-            case "F#2":
+            case "D#1":
                 return Constants.NOTES_WIDTH * 3 + Constants.NOTES_WIDTH * 0.7f;
-            case "G2":
+            case "E1":
                 return Constants.NOTES_WIDTH * 4;
-            case "G#2":
-                return Constants.NOTES_WIDTH * 4 + Constants.NOTES_WIDTH * 0.7f;
-            case "A2":
+            case "F1":
                 return Constants.NOTES_WIDTH * 5;
-            case "A#2":
+            case "F#1":
                 return Constants.NOTES_WIDTH * 5 + Constants.NOTES_WIDTH * 0.7f;
-            case "B2":
+            case "G1":
                 return Constants.NOTES_WIDTH * 6;
-            case "C3":
+            case "G#1":
+                return Constants.NOTES_WIDTH * 6 + Constants.NOTES_WIDTH * 0.7f;
+            case "A1":
                 return Constants.NOTES_WIDTH * 7;
-            case "C#3":
+            case "A#1":
                 return Constants.NOTES_WIDTH * 7 + Constants.NOTES_WIDTH * 0.7f;
-            case "D3":
+            case "B1":
                 return Constants.NOTES_WIDTH * 8;
-            case "D#3":
-                return Constants.NOTES_WIDTH * 8 + Constants.NOTES_WIDTH * 0.7f;
-            case "E3":
+            case "C2":
                 return Constants.NOTES_WIDTH * 9;
-            case "F3":
+            case "C#2":
+                return Constants.NOTES_WIDTH * 9 + Constants.NOTES_WIDTH * 0.7f;
+            case "D2":
                 return Constants.NOTES_WIDTH * 10;
-            case "F#3":
+            case "D#2":
                 return Constants.NOTES_WIDTH * 10 + Constants.NOTES_WIDTH * 0.7f;
-            case "G3":
+            case "E2":
                 return Constants.NOTES_WIDTH * 11;
-            case "G#3":
-                return Constants.NOTES_WIDTH * 11 + Constants.NOTES_WIDTH * 0.7f;
-            case "A3":
+            case "F2":
                 return Constants.NOTES_WIDTH * 12;
-            case "A#3":
+            case "F#2":
                 return Constants.NOTES_WIDTH * 12 + Constants.NOTES_WIDTH * 0.7f;
-            case "B3":
+            case "G2":
                 return Constants.NOTES_WIDTH * 13;
-            case "C4":
+            case "G#2":
+                return Constants.NOTES_WIDTH * 13 + Constants.NOTES_WIDTH * 0.7f;
+            case "A2":
                 return Constants.NOTES_WIDTH * 14;
-            case "C#4":
+            case "A#2":
                 return Constants.NOTES_WIDTH * 14 + Constants.NOTES_WIDTH * 0.7f;
-            case "D4":
-                return Constants.NOTES_WIDTH * 15;
-            case "D#4":
-                return Constants.NOTES_WIDTH * 15 + Constants.NOTES_WIDTH * 0.7f;
-            case "E4":
+            case "B2":
+                return Constants.NOTES_WIDTH *15;
+            case "C3":
                 return Constants.NOTES_WIDTH * 16;
-            case "F4":
+            case "C#3":
+                return Constants.NOTES_WIDTH * 16 + Constants.NOTES_WIDTH * 0.7f;
+            case "D3":
                 return Constants.NOTES_WIDTH * 17;
-            case "F#4":
+            case "D#3":
                 return Constants.NOTES_WIDTH * 17 + Constants.NOTES_WIDTH * 0.7f;
-            case "G4":
+            case "E3":
                 return Constants.NOTES_WIDTH * 18;
-            case "G#4":
-                return Constants.NOTES_WIDTH * 18 + Constants.NOTES_WIDTH * 0.7f;
-            case "A4":
+            case "F3":
                 return Constants.NOTES_WIDTH * 19;
-            case "A#4":
+            case "F#3":
                 return Constants.NOTES_WIDTH * 19 + Constants.NOTES_WIDTH * 0.7f;
-            case "B4":
+            case "G3":
                 return Constants.NOTES_WIDTH * 20;
-            case "C5":
+            case "G#3":
+                return Constants.NOTES_WIDTH * 20 + Constants.NOTES_WIDTH * 0.7f;
+            case "A3":
                 return Constants.NOTES_WIDTH * 21;
-            case "C#5":
+            case "A#3":
                 return Constants.NOTES_WIDTH * 21 + Constants.NOTES_WIDTH * 0.7f;
-            case "D5":
+            case "B3":
                 return Constants.NOTES_WIDTH * 22;
-            case "D#5":
-                return Constants.NOTES_WIDTH * 22 + Constants.NOTES_WIDTH * 0.7f;
-            case "E5":
+            case "C4":
                 return Constants.NOTES_WIDTH * 23;
-            case "F5":
+            case "C#4":
+                return Constants.NOTES_WIDTH * 23 + Constants.NOTES_WIDTH * 0.7f;
+            case "D4":
                 return Constants.NOTES_WIDTH * 24;
-            case "F#5":
+            case "D#4":
                 return Constants.NOTES_WIDTH * 24 + Constants.NOTES_WIDTH * 0.7f;
-            case "G5":
+            case "E4":
                 return Constants.NOTES_WIDTH * 25;
-            case "G#5":
-                return Constants.NOTES_WIDTH * 25 + Constants.NOTES_WIDTH * 0.7f;
-            case "A5":
+            case "F4":
                 return Constants.NOTES_WIDTH * 26;
-            case "A#5":
+            case "F#4":
                 return Constants.NOTES_WIDTH * 26 + Constants.NOTES_WIDTH * 0.7f;
-            case "B5":
+            case "G4":
                 return Constants.NOTES_WIDTH * 27;
-            case "B#5":
+            case "G#4":
                 return Constants.NOTES_WIDTH * 27 + Constants.NOTES_WIDTH * 0.7f;
-            case "C6":
+            case "A4":
                 return Constants.NOTES_WIDTH * 28;
-            case "C#6":
+            case "A#4":
                 return Constants.NOTES_WIDTH * 28 + Constants.NOTES_WIDTH * 0.7f;
-            case "D6":
+            case "B4":
                 return Constants.NOTES_WIDTH * 29;
-            case "D#6":
-                return Constants.NOTES_WIDTH * 29 + Constants.NOTES_WIDTH * 0.7f;
-            case "E6":
+            case "C5":
                 return Constants.NOTES_WIDTH * 30;
-            case "F6":
+            case "C#5":
+                return Constants.NOTES_WIDTH * 30 + Constants.NOTES_WIDTH * 0.7f;
+            case "D5":
                 return Constants.NOTES_WIDTH * 31;
-            case "F#6":
+            case "D#5":
                 return Constants.NOTES_WIDTH * 31 + Constants.NOTES_WIDTH * 0.7f;
-            case "G6":
+            case "E5":
                 return Constants.NOTES_WIDTH * 32;
-            case "G#6":
-                return Constants.NOTES_WIDTH * 32 + Constants.NOTES_WIDTH * 0.7f;
-            case "A6":
+            case "F5":
                 return Constants.NOTES_WIDTH * 33;
-            case "A#6":
+            case "F#5":
                 return Constants.NOTES_WIDTH * 33 + Constants.NOTES_WIDTH * 0.7f;
-            case "B6":
+            case "G5":
                 return Constants.NOTES_WIDTH * 34;
-            case "C7":
+            case "G#5":
+                return Constants.NOTES_WIDTH * 34 + Constants.NOTES_WIDTH * 0.7f;
+            case "A5":
                 return Constants.NOTES_WIDTH * 35;
+            case "A#5":
+                return Constants.NOTES_WIDTH * 35 + Constants.NOTES_WIDTH * 0.7f;
+            case "B5":
+                return Constants.NOTES_WIDTH * 36;
+            case "B#5":
+                return Constants.NOTES_WIDTH * 36 + Constants.NOTES_WIDTH * 0.7f;
+            case "C6":
+                return Constants.NOTES_WIDTH * 37;
+            case "C#6":
+                return Constants.NOTES_WIDTH * 37 + Constants.NOTES_WIDTH * 0.7f;
+            case "D6":
+                return Constants.NOTES_WIDTH * 38;
+            case "D#6":
+                return Constants.NOTES_WIDTH * 38 + Constants.NOTES_WIDTH * 0.7f;
+            case "E6":
+                return Constants.NOTES_WIDTH * 39;
+            case "F6":
+                return Constants.NOTES_WIDTH * 40;
+            case "F#6":
+                return Constants.NOTES_WIDTH * 40 + Constants.NOTES_WIDTH * 0.7f;
+            case "G6":
+                return Constants.NOTES_WIDTH * 41;
+            case "G#6":
+                return Constants.NOTES_WIDTH * 41 + Constants.NOTES_WIDTH * 0.7f;
+            case "A6":
+                return Constants.NOTES_WIDTH * 42;
+            case "A#6":
+                return Constants.NOTES_WIDTH * 42 + Constants.NOTES_WIDTH * 0.7f;
+            case "B6":
+                return Constants.NOTES_WIDTH * 43;
+            case "C7":
+                return Constants.NOTES_WIDTH * 44;
+
+            case "C#7":
+                return Constants.NOTES_WIDTH * 44 + Constants.NOTES_WIDTH * 0.7f;
+            case "D7":
+                return Constants.NOTES_WIDTH * 45;
+            case "D#7":
+                return Constants.NOTES_WIDTH * 45 + Constants.NOTES_WIDTH * 0.7f;
+            case "E7":
+                return Constants.NOTES_WIDTH * 46;
+            case "F7":
+                return Constants.NOTES_WIDTH * 47;
+            case "F#7":
+                return Constants.NOTES_WIDTH * 47 + Constants.NOTES_WIDTH * 0.7f;
+            case "G7":
+                return Constants.NOTES_WIDTH * 48;
+            case "G#7":
+                return Constants.NOTES_WIDTH * 48 + Constants.NOTES_WIDTH * 0.7f;
+            case "A7":
+                return Constants.NOTES_WIDTH * 49;
+            case "A#7":
+                return Constants.NOTES_WIDTH * 49 + Constants.NOTES_WIDTH * 0.7f;
+            case "B7":
+                return Constants.NOTES_WIDTH * 50;
+            case "C8":
+                return Constants.NOTES_WIDTH * 51;
             default:
                 return -1;
         }

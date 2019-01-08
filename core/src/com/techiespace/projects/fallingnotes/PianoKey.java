@@ -1,5 +1,6 @@
 package com.techiespace.projects.fallingnotes;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -56,11 +57,13 @@ public class PianoKey {
 
     void render(Sprite keySprite, SpriteBatch batch) {
 
-       // Gdx.app.error("renderkeys ",position.x+position.y+name);
-        keySprite.setPosition(position.x, position.y);
-        keySprite.setSize(width, height);
-        keySprite.setRegion(texture);
-        keySprite.draw(batch);
+
+            // Gdx.app.error("renderkeys ",position.x+position.y+name);
+            keySprite.setPosition(position.x, position.y);
+            keySprite.setSize(width, height);
+            keySprite.setRegion(texture);
+            keySprite.draw(batch);
+
         }
 
     float getHeight() {
@@ -177,6 +180,22 @@ public class PianoKey {
 
         }
         }
+
+        void print()
+        {
+
+            Gdx.app.log(position+" "+
+            name+" "+
+            height+" "+
+            width+" "+
+            texture+" "+
+            upTexture+" "+
+            downTexture+" "+
+
+            keyType+" "
+          ," ");
+        }
+
     }
 
 

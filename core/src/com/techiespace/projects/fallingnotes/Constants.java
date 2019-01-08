@@ -17,7 +17,7 @@ public class Constants {
     // TODO: Add a constant for the height of the icicle
     public static final float NOTES_HEIGHT = 50.0f;
 
-    public static final int NUM_WHITE_KEYS = 36;
+    public static final int NUM_WHITE_KEYS = 52;
 
     // TODO: Add a constant for the width of the icicle
     public static final float NOTES_WIDTH = Constants.WORLD_WIDTH / NUM_WHITE_KEYS;//1/36f;//1/Gdx.graphics.getWidth();
@@ -31,9 +31,9 @@ public class Constants {
 
     public static final float SPEED = 1f;
 
-    public static final int STARTING_OCTAVE = 2;
+    public static final int STARTING_OCTAVE = 0;
 
-    public static final int ENDING_OCTAVE = 6;
+    public static final int ENDING_OCTAVE = 8;
 
     public final static int BLACK_PIANO_KEY_GROUPS = 8;
     public final static int WHITE_PIANO_KEY_GROUPS = 9;
@@ -53,7 +53,7 @@ public class Constants {
 
     //white piano key height will also be the height of guitar
 
-    public static final float WHITE_PIANO_KEY_HEIGHT = 120;
+    public static final float WHITE_PIANO_KEY_HEIGHT = 55;
 
     public static final int OFFSET = 50;
 
