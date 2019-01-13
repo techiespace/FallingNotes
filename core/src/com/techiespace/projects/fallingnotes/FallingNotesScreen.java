@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -23,6 +24,7 @@ import com.techiespace.projects.fallingnotes.Themes.Theme;
 import com.techiespace.projects.fallingnotes.pianoHelpers.RoundRectShapeRenderer;
 
 import javax.print.attribute.standard.OrientationRequested;
+import javax.swing.Renderer;
 
 public class FallingNotesScreen implements Screen, InputProcessor {
 
@@ -47,6 +49,7 @@ public class FallingNotesScreen implements Screen, InputProcessor {
     public static Theme theme;
     SpriteBatch bbatch;
     BitmapFont font;
+    ShapeRenderer blinerenderer;
 
     Viewport viewport;
 
@@ -72,6 +75,13 @@ public class FallingNotesScreen implements Screen, InputProcessor {
 
 
 
+        Texture texture = new Texture(Gdx.files.internal(FallingNotesScreen.getTheme().getFntPngName()), true); // true enables mipmaps
+        texture.setFilter(Texture.TextureFilter.MipMapLinearNearest, Texture.TextureFilter.Linear); // linear filtering in nearest mipmap image
+        font = new BitmapFont(Gdx.files.internal(FallingNotesScreen.getTheme().getFntFileName()), new TextureRegion(texture), false);
+
+
+
+
 
 
 
@@ -81,6 +91,7 @@ public class FallingNotesScreen implements Screen, InputProcessor {
         renderer = new RoundRectShapeRenderer();
         renderer.setAutoShapeType(true);
         lineRenderer = new ShapeRenderer();
+        blinerenderer = new ShapeRenderer();
         //notes = new Notes(notesViewport);
         notes = new Notes();
         batch = new SpriteBatch();
@@ -113,6 +124,7 @@ public class FallingNotesScreen implements Screen, InputProcessor {
 
         handleInput();
         cam.update();
+        viewport.apply();
         batch.setProjectionMatrix(cam.combined);
         renderer.setProjectionMatrix(cam.combined);
         lineRenderer.setProjectionMatrix(cam.combined);
@@ -131,6 +143,7 @@ public class FallingNotesScreen implements Screen, InputProcessor {
         bbatch.begin();
         // backgroundSprite.draw(batch);
         bbatch.draw(backgroundSprite,0,0,Constants.WORLD_WIDTH,Constants.WORLD_HEIGHT);
+        renderGameName();
         bbatch.end();
 
 
@@ -139,17 +152,22 @@ public class FallingNotesScreen implements Screen, InputProcessor {
         //Draw vertical guide line
         lineRenderer.begin(ShapeRenderer.ShapeType.Line);
         lineRenderer.setColor(theme.getVerticalLineColor());   //color alpha not working
-        lineRenderer.line(Note.mapCoordinates("C3"), Constants.OFFSET, Note.mapCoordinates("C3"), Constants.WORLD_HEIGHT);
-        lineRenderer.line(Note.mapCoordinates("C4"), Constants.OFFSET, Note.mapCoordinates("C4"), Constants.WORLD_HEIGHT);
-        lineRenderer.line(Note.mapCoordinates("C5"), Constants.OFFSET, Note.mapCoordinates("C5"), Constants.WORLD_HEIGHT);
-        lineRenderer.line(Note.mapCoordinates("C6"), Constants.OFFSET, Note.mapCoordinates("C6"), Constants.WORLD_HEIGHT);
-        lineRenderer.line(Note.mapCoordinates("F2"), Constants.OFFSET, Note.mapCoordinates("F2"), Constants.WORLD_HEIGHT);
-        lineRenderer.line(Note.mapCoordinates("F3"), Constants.OFFSET, Note.mapCoordinates("F3"), Constants.WORLD_HEIGHT);
-        lineRenderer.line(Note.mapCoordinates("F4"), Constants.OFFSET, Note.mapCoordinates("F4"), Constants.WORLD_HEIGHT);
-        lineRenderer.line(Note.mapCoordinates("F5"), Constants.OFFSET, Note.mapCoordinates("F5"), Constants.WORLD_HEIGHT);
-        lineRenderer.line(Note.mapCoordinates("F6"), Constants.OFFSET, Note.mapCoordinates("F6"), Constants.WORLD_HEIGHT);
+
+        for(int i=Constants.STARTING_OCTAVE;i<Constants.ENDING_OCTAVE;i++) {
+            lineRenderer.line(Note.mapCoordinates("C"+i), Constants.OFFSET, Note.mapCoordinates("C"+i), Constants.WORLD_HEIGHT);
+            lineRenderer.line(Note.mapCoordinates("F"+i), Constants.OFFSET, Note.mapCoordinates("F"+i), Constants.WORLD_HEIGHT);
+        }
+
+
         Gdx.gl.glDisable(GL20.GL_BLEND);
         lineRenderer.end();
+
+
+
+        blinerenderer.begin(ShapeRenderer.ShapeType.Line);
+        blinerenderer.line(0, Constants.OFFSET*2, Constants.WORLD_WIDTH, Constants.OFFSET*2);
+
+        blinerenderer.end();
 
 
 
@@ -168,41 +186,42 @@ public class FallingNotesScreen implements Screen, InputProcessor {
 //        renderer.begin(ShapeRenderer.ShapeType.Filled);
 //        renderer.rect(0,0,Constants.WORLD_WIDTH,Constants.OFFSET,Color.BLACK,Color.BLACK,Color.BLACK,Color.BLACK);
 //        renderer.end();
+
+
+    }
+
+    private void renderGameName() {
+        font.setColor(theme.getGameNameColor());
+        font.getData().setScale(FallingNotesScreen.getTheme().getGameNameScale());
+        final GlyphLayout layout = new GlyphLayout(font,Constants.GAME_NAME);
+        // or for non final texts: layout.setText(font, text);
+        final float fontX = 0 + (Constants.WORLD_WIDTH - layout.width) / 2;
+        font.draw(bbatch, Constants.GAME_NAME, fontX, Constants.OFFSET*1.5f );//Constants.NOTES_WIDTH*36/2,Constants.OFFSET/2+20);
     }
 
     private void handleInput() {
         if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-            cam.zoom += 0.02;
+            cam.zoom += 0.005;
             cam.translate(0, -cam.zoom, 0);
 
 
         }
         if (Gdx.input.isKeyPressed(Input.Keys.Q)) {
-            cam.zoom -= 0.02;
+            cam.zoom -= 0.005;
 
         }
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            if(cam.position.x>350/2)
-            cam.translate(-3, 0, 0);
+            cam.translate(-2, 0, 0);
         }
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-
-//            if(cam.position.x<Gdx.graphics.getWidth()/2)
-
-            cam.translate(3, 0, 0);
+            cam.translate(2, 0, 0);
         }
         if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-            cam.translate(0, -3, 0);
+            cam.translate(0, -1, 0);
         }
         if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-            cam.translate(0, 3, 0);
+            cam.translate(0, 1, 0);
        }
-//        if (Gdx.input.isKeyPressed(Input.Keys.W)) {
-//            cam.rotate(-rotationSpeed, 0, 0, 1);
-//        }
-//        if (Gdx.input.isKeyPressed(Input.Keys.E)) {
-//            cam.rotate(rotationSpeed, 0, 0, 1);
-//        }
 
         //cam.zoom = MathUtils.clamp(cam.zoom, 0.1f, 100/cam.viewportWidth);
 

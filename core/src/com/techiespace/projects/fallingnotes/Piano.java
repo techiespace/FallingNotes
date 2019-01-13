@@ -243,16 +243,7 @@ public class Piano {
 
         }
 
-
-        font.setColor(FallingNotesScreen.getTheme().getGameNameColor());
-        font.getData().setScale(FallingNotesScreen.getTheme().getGameNameScale());
-        final GlyphLayout layout = new GlyphLayout(font,Constants.GAME_NAME);
-        // or for non final texts: layout.setText(font, text);
-        final float fontX = 0 + (Constants.WORLD_WIDTH - layout.width) / 2;
-        final float fontY = 0 + (Constants.WORLD_HEIGHT + layout.height) / 2;
-
-        font.draw(batch, Constants.GAME_NAME, fontX, Constants.OFFSET - 5);//Constants.NOTES_WIDTH*36/2,Constants.OFFSET/2+20);
-    }
+        }
 
     void renderWhiteKeys(Sprite sprite,SpriteBatch batch)
     {
