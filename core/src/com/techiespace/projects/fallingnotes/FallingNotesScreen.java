@@ -13,6 +13,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.badlogic.gdx.utils.viewport.FillViewport;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.techiespace.projects.fallingnotes.Themes.RedTheme;
 import com.techiespace.projects.fallingnotes.Themes.Theme;
 import com.techiespace.projects.fallingnotes.pianoHelpers.RoundRectShapeRenderer;
@@ -43,20 +48,26 @@ public class FallingNotesScreen implements Screen, InputProcessor {
     SpriteBatch bbatch;
     BitmapFont font;
 
+    Viewport viewport;
+
     private boolean isPlaying = false;
 
 
     @Override
     public void show() {
-        //notesViewport = new ExtendViewport(Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT);
+
         theme = new RedTheme();
 
         rotationSpeed = 0.5f;
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
 
-        cam = new OrthographicCamera(350,350*(h/w));
-        cam.position.set(cam.viewportWidth/2f,cam.viewportHeight/2f-50,0);
+        cam = new OrthographicCamera();
+
+        viewport = new ExtendViewport(w/2,h/2,cam);
+
+
+        cam.position.set(cam.viewportWidth/2f,cam.viewportHeight/2f,0);
         cam.update();
 
 
@@ -160,28 +171,32 @@ public class FallingNotesScreen implements Screen, InputProcessor {
     }
 
     private void handleInput() {
-//        if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-//            cam.zoom += 0.02;
-//        }
-//        if (Gdx.input.isKeyPressed(Input.Keys.Q)) {
-//            cam.zoom -= 0.02;
-//        }
+        if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+            cam.zoom += 0.02;
+            cam.translate(0, -cam.zoom, 0);
+
+
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.Q)) {
+            cam.zoom -= 0.02;
+
+        }
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             if(cam.position.x>350/2)
             cam.translate(-3, 0, 0);
         }
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
 
-            if(cam.position.x<Gdx.graphics.getWidth()/2)
+//            if(cam.position.x<Gdx.graphics.getWidth()/2)
 
             cam.translate(3, 0, 0);
         }
-//        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-//            cam.translate(0, -3, 0);
-//        }
-//        if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-//            cam.translate(0, 3, 0);
-//        }
+        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+            cam.translate(0, -3, 0);
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+            cam.translate(0, 3, 0);
+       }
 //        if (Gdx.input.isKeyPressed(Input.Keys.W)) {
 //            cam.rotate(-rotationSpeed, 0, 0, 1);
 //        }
@@ -202,9 +217,8 @@ public class FallingNotesScreen implements Screen, InputProcessor {
     public void resize(int width, int height) {
         //notesViewport.update(width, height, true);
         //notes.init(); //required?
-        cam.viewportWidth = 350f;
-        cam.viewportHeight = 350f * height/width;
-        cam.update();
+        viewport.update(width, height);
+        cam.position.set(cam.viewportWidth/2f,cam.viewportHeight/2f,0);
     }
 
     @Override

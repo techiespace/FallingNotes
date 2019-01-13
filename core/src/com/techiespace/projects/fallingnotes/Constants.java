@@ -52,9 +52,9 @@ public class Constants {
 
     //white piano key height will also be the height of guitar
 
-    public static final float WHITE_PIANO_KEY_HEIGHT = 40;
+    public static final float WHITE_PIANO_KEY_HEIGHT = 100;
 
-    public static final int OFFSET = 10;
+    public static final int OFFSET = 40;
 
 
     public static final float BLACK_KEY_HEIGHT = (float)(0.7f*WHITE_PIANO_KEY_HEIGHT);
