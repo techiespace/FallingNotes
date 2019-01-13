@@ -229,17 +229,17 @@ public class Piano {
 
     private void renderLabel(SpriteBatch batch) {
         font.setColor(FallingNotesScreen.getTheme().getLabelColor());
-        font.getData().setScale(0.13f);
+        font.getData().setScale(0.25f);
 
 
         for(int i = Constants.STARTING_OCTAVE+1;i<Constants.ENDING_OCTAVE;i++) {
-            font.draw(batch, "C"+i, Note.mapCoordinates("C"+i) + 2, 8 + Constants.OFFSET);
-            font.draw(batch, "D"+i, Note.mapCoordinates("D"+i) + 2, 8 + Constants.OFFSET);
-            font.draw(batch, "E"+i, Note.mapCoordinates("E"+i) + 2, 8 + Constants.OFFSET);
-            font.draw(batch, "F"+i, Note.mapCoordinates("F"+i) + 2, 8 + Constants.OFFSET);
-            font.draw(batch, "G"+i, Note.mapCoordinates("G"+i) + 2, 8 + Constants.OFFSET);
-            font.draw(batch, "A"+i, Note.mapCoordinates("A"+i) + 2, 8 + Constants.OFFSET);
-            font.draw(batch, "B"+i, Note.mapCoordinates("B"+i) + 2, 8 + Constants.OFFSET);
+            font.draw(batch, "C"+i, Note.mapCoordinates("C"+i) + Constants.NOTES_WIDTH/3, Constants.WHITE_PIANO_KEY_HEIGHT/8 + Constants.OFFSET);
+            font.draw(batch, "D"+i, Note.mapCoordinates("D"+i) + Constants.NOTES_WIDTH/3, Constants.WHITE_PIANO_KEY_HEIGHT/8 + Constants.OFFSET);
+            font.draw(batch, "E"+i, Note.mapCoordinates("E"+i) + Constants.NOTES_WIDTH/3, Constants.WHITE_PIANO_KEY_HEIGHT/8 + Constants.OFFSET);
+            font.draw(batch, "F"+i, Note.mapCoordinates("F"+i) + Constants.NOTES_WIDTH/3, Constants.WHITE_PIANO_KEY_HEIGHT/8 + Constants.OFFSET);
+            font.draw(batch, "G"+i, Note.mapCoordinates("G"+i) + Constants.NOTES_WIDTH/3, Constants.WHITE_PIANO_KEY_HEIGHT/8 + Constants.OFFSET);
+            font.draw(batch, "A"+i, Note.mapCoordinates("A"+i) + Constants.NOTES_WIDTH/3, Constants.WHITE_PIANO_KEY_HEIGHT/8 + Constants.OFFSET);
+            font.draw(batch, "B"+i, Note.mapCoordinates("B"+i) + Constants.NOTES_WIDTH/3, Constants.WHITE_PIANO_KEY_HEIGHT/8 + Constants.OFFSET);
 
         }
 

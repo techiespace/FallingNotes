@@ -29,16 +29,13 @@ import javax.swing.Renderer;
 public class FallingNotesScreen implements Screen, InputProcessor {
 
     public static final String TAG = FallingNotesScreen.class.getName();
-    // TODO: Add an ExtendViewport
-//    ExtendViewport notesViewport;
-    private OrthographicCamera cam;
-    private float rotationSpeed;
 
-    // TODO: Add a ShapeRenderer
+    private OrthographicCamera cam;
+
     RoundRectShapeRenderer renderer;
     ShapeRenderer lineRenderer;
 
-    // TODO: Add an Icicle
+
     Notes notes;
 
     SpriteBatch batch;
@@ -61,7 +58,6 @@ public class FallingNotesScreen implements Screen, InputProcessor {
 
         theme = new RedTheme();
 
-        rotationSpeed = 0.5f;
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
 
@@ -80,19 +76,11 @@ public class FallingNotesScreen implements Screen, InputProcessor {
         font = new BitmapFont(Gdx.files.internal(FallingNotesScreen.getTheme().getFntFileName()), new TextureRegion(texture), false);
 
 
-
-
-
-
-
-
-
-
         renderer = new RoundRectShapeRenderer();
         renderer.setAutoShapeType(true);
         lineRenderer = new ShapeRenderer();
         blinerenderer = new ShapeRenderer();
-        //notes = new Notes(notesViewport);
+
         notes = new Notes();
         batch = new SpriteBatch();
         bbatch = new SpriteBatch();
@@ -103,23 +91,16 @@ public class FallingNotesScreen implements Screen, InputProcessor {
 
         TextureRegion region = new TextureRegion(backgroundTexture,backgroundTexture.getWidth(),backgroundTexture.getHeight());
         backgroundSprite = new Sprite(region);
-
-      //  backgroundSprite.setSize(1f,1f*backgroundSprite.getHeight()/backgroundSprite.getWidth());
         Gdx.input.setInputProcessor(this);
 
     }
 
     @Override
     public void render(float delta) {
-        /*if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-            // your actions
 
-        }*/
         if (isPlaying) {
             notes.update(delta);
-            //notesViewport.apply(true);
-
-        }
+            }
 
 
         handleInput();
@@ -151,22 +132,13 @@ public class FallingNotesScreen implements Screen, InputProcessor {
 
         //Draw vertical guide line
         lineRenderer.begin(ShapeRenderer.ShapeType.Line);
-        lineRenderer.setColor(theme.getVerticalLineColor());   //color alpha not working
-
-        for(int i=Constants.STARTING_OCTAVE;i<Constants.ENDING_OCTAVE;i++) {
-            lineRenderer.line(Note.mapCoordinates("C"+i), Constants.OFFSET, Note.mapCoordinates("C"+i), Constants.WORLD_HEIGHT);
-            lineRenderer.line(Note.mapCoordinates("F"+i), Constants.OFFSET, Note.mapCoordinates("F"+i), Constants.WORLD_HEIGHT);
-        }
-
-
-        Gdx.gl.glDisable(GL20.GL_BLEND);
+        renderVerticalLines();
         lineRenderer.end();
 
 
-
+        //Render Reference line
         blinerenderer.begin(ShapeRenderer.ShapeType.Line);
         blinerenderer.line(0, Constants.OFFSET*2, Constants.WORLD_WIDTH, Constants.OFFSET*2);
-
         blinerenderer.end();
 
 
@@ -183,11 +155,17 @@ public class FallingNotesScreen implements Screen, InputProcessor {
         piano.render(sprite,batch);
         batch.end();
 
-//        renderer.begin(ShapeRenderer.ShapeType.Filled);
-//        renderer.rect(0,0,Constants.WORLD_WIDTH,Constants.OFFSET,Color.BLACK,Color.BLACK,Color.BLACK,Color.BLACK);
-//        renderer.end();
 
 
+    }
+
+    private void renderVerticalLines() {
+        lineRenderer.setColor(theme.getVerticalLineColor());   //color alpha not working
+        for(int i = Constants.STARTING_OCTAVE; i<Constants.ENDING_OCTAVE; i++) {
+            lineRenderer.line(Note.mapCoordinates("C"+i), Constants.OFFSET, Note.mapCoordinates("C"+i), Constants.WORLD_HEIGHT);
+            lineRenderer.line(Note.mapCoordinates("F"+i), Constants.OFFSET, Note.mapCoordinates("F"+i), Constants.WORLD_HEIGHT);
+        }
+        Gdx.gl.glDisable(GL20.GL_BLEND);
     }
 
     private void renderGameName() {
@@ -202,9 +180,6 @@ public class FallingNotesScreen implements Screen, InputProcessor {
     private void handleInput() {
         if (Gdx.input.isKeyPressed(Input.Keys.A)) {
             cam.zoom += 0.005;
-            cam.translate(0, -cam.zoom, 0);
-
-
         }
         if (Gdx.input.isKeyPressed(Input.Keys.Q)) {
             cam.zoom -= 0.005;
@@ -223,13 +198,6 @@ public class FallingNotesScreen implements Screen, InputProcessor {
             cam.translate(0, 1, 0);
        }
 
-        //cam.zoom = MathUtils.clamp(cam.zoom, 0.1f, 100/cam.viewportWidth);
-
-        float effectiveViewportWidth = cam.viewportWidth * cam.zoom;
-        float effectiveViewportHeight = cam.viewportHeight * cam.zoom;
-
-       // cam.position.x = MathUtils.clamp(cam.position.x, effectiveViewportWidth / 2f, 100 - effectiveViewportWidth / 2f);
-        //cam.position.y = MathUtils.clamp(cam.position.y, effectiveViewportHeight / 2f, 100 - effectiveViewportHeight / 2f);
     }
 
     @Override
