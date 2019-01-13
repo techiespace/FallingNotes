@@ -57,7 +57,7 @@ public class Theme {
         //Constructor Contains default values of some variables
         verticalLineColor = new Color(0.5f, 0.5f, 0.5f, 0.5f);
         gameNameColor = Color.WHITE;
-        gameNameScale = 0.75f;
+        gameNameScale = 0.40f;
         blackKeyDownTexture = new Texture("piano/black_down_red_light.png");
         whiteKeyDownTexture = new Texture("piano/white_down_red.png");
     }

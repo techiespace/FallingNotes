@@ -229,17 +229,17 @@ public class Piano {
 
     private void renderLabel(SpriteBatch batch) {
         font.setColor(FallingNotesScreen.getTheme().getLabelColor());
-        font.getData().setScale(0.15f);
+        font.getData().setScale(0.13f);
 
 
         for(int i = Constants.STARTING_OCTAVE+1;i<Constants.ENDING_OCTAVE;i++) {
-            font.draw(batch, "C"+i, Note.mapCoordinates("C"+i) + 2, 15 + Constants.OFFSET);
-            font.draw(batch, "D"+i, Note.mapCoordinates("D"+i) + 2, 15 + Constants.OFFSET);
-            font.draw(batch, "E"+i, Note.mapCoordinates("E"+i) + 2, 15 + Constants.OFFSET);
-            font.draw(batch, "F"+i, Note.mapCoordinates("F"+i) + 2, 15 + Constants.OFFSET);
-            font.draw(batch, "G"+i, Note.mapCoordinates("G"+i) + 2, 15 + Constants.OFFSET);
-            font.draw(batch, "A"+i, Note.mapCoordinates("A"+i) + 2, 15 + Constants.OFFSET);
-            font.draw(batch, "B"+i, Note.mapCoordinates("B"+i) + 2, 15 + Constants.OFFSET);
+            font.draw(batch, "C"+i, Note.mapCoordinates("C"+i) + 2, 8 + Constants.OFFSET);
+            font.draw(batch, "D"+i, Note.mapCoordinates("D"+i) + 2, 8 + Constants.OFFSET);
+            font.draw(batch, "E"+i, Note.mapCoordinates("E"+i) + 2, 8 + Constants.OFFSET);
+            font.draw(batch, "F"+i, Note.mapCoordinates("F"+i) + 2, 8 + Constants.OFFSET);
+            font.draw(batch, "G"+i, Note.mapCoordinates("G"+i) + 2, 8 + Constants.OFFSET);
+            font.draw(batch, "A"+i, Note.mapCoordinates("A"+i) + 2, 8 + Constants.OFFSET);
+            font.draw(batch, "B"+i, Note.mapCoordinates("B"+i) + 2, 8 + Constants.OFFSET);
 
         }
 
@@ -251,7 +251,7 @@ public class Piano {
         final float fontX = 0 + (Constants.WORLD_WIDTH - layout.width) / 2;
         final float fontY = 0 + (Constants.WORLD_HEIGHT + layout.height) / 2;
 
-        font.draw(batch, Constants.GAME_NAME, fontX, Constants.OFFSET - 10);//Constants.NOTES_WIDTH*36/2,Constants.OFFSET/2+20);
+        font.draw(batch, Constants.GAME_NAME, fontX, Constants.OFFSET - 5);//Constants.NOTES_WIDTH*36/2,Constants.OFFSET/2+20);
     }
 
     void renderWhiteKeys(Sprite sprite,SpriteBatch batch)

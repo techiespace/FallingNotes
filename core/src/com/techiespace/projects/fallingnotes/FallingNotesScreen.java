@@ -7,6 +7,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -39,6 +40,8 @@ public class FallingNotesScreen implements Screen, InputProcessor {
     Texture backgroundTexture;
     Sprite backgroundSprite;
     public static Theme theme;
+    SpriteBatch bbatch;
+    BitmapFont font;
 
     private boolean isPlaying = false;
 
@@ -53,8 +56,10 @@ public class FallingNotesScreen implements Screen, InputProcessor {
         float h = Gdx.graphics.getHeight();
 
         cam = new OrthographicCamera(350,350*(h/w));
-        cam.position.set(cam.viewportWidth/2f,cam.viewportHeight/2f,0);
+        cam.position.set(cam.viewportWidth/2f,cam.viewportHeight/2f-50,0);
         cam.update();
+
+
 
 
 
@@ -68,6 +73,7 @@ public class FallingNotesScreen implements Screen, InputProcessor {
         //notes = new Notes(notesViewport);
         notes = new Notes();
         batch = new SpriteBatch();
+        bbatch = new SpriteBatch();
         sprite = new Sprite();
         piano = new Piano();
         backgroundTexture = theme.getBackgroundTexture();
@@ -111,10 +117,10 @@ public class FallingNotesScreen implements Screen, InputProcessor {
         //renderer.setProjectionMatrix(notesViewport.getCamera().combined);
 
 
-        batch.begin();
+        bbatch.begin();
         // backgroundSprite.draw(batch);
-        batch.draw(backgroundSprite,0,0,Constants.WORLD_WIDTH,Constants.WORLD_HEIGHT);
-        batch.end();
+        bbatch.draw(backgroundSprite,0,0,Constants.WORLD_WIDTH,Constants.WORLD_HEIGHT);
+        bbatch.end();
 
 
 
@@ -166,7 +172,7 @@ public class FallingNotesScreen implements Screen, InputProcessor {
         }
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
 
-            if(cam.position.x<Gdx.graphics.getWidth()-350/2)
+            if(cam.position.x<Gdx.graphics.getWidth()/2)
 
             cam.translate(3, 0, 0);
         }

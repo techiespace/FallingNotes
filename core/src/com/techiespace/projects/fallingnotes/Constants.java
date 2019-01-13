@@ -15,7 +15,6 @@ public class Constants {
     public static final Color BACKGROUND_COLOR = Color.BLACK;
 
     // TODO: Add a constant for the height of the icicle
-    public static final float NOTES_HEIGHT = 50.0f;
 
     public static final int NUM_WHITE_KEYS = 52;
 
@@ -53,9 +52,9 @@ public class Constants {
 
     //white piano key height will also be the height of guitar
 
-    public static final float WHITE_PIANO_KEY_HEIGHT = 55;
+    public static final float WHITE_PIANO_KEY_HEIGHT = 40;
 
-    public static final int OFFSET = 50;
+    public static final int OFFSET = 10;
 
 
     public static final float BLACK_KEY_HEIGHT = (float)(0.7f*WHITE_PIANO_KEY_HEIGHT);
