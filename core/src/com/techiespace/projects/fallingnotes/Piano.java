@@ -254,7 +254,7 @@ public class Piano {
 
             for(int j=0;j<keys.length;j++)
             {
-               Gdx.app.log("Octave "+i,"Key "+j);
+              // Gdx.app.log("Octave "+i,"Key "+j);
                 keys[j].render(sprite,batch);
                 //keys[j].print();
             }

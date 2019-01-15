@@ -18,10 +18,12 @@ public class Note implements Comparable<Note> {
     Vector2 position;
     Vector2 velocity;
     Sound sound;
+    int track;
+
     boolean soundOnce = false;
     int pressVelocity;
 
-    public Note(int midiNoteNum, int startTime, int endTime, int pressVelocity) {
+    public Note(int midiNoteNum, int startTime, int endTime, int pressVelocity,int track) {
         this.noteName = getMidiNoteName(midiNoteNum);
         this.position = new Vector2(mapCoordinates(this.noteName), Constants.WORLD_HEIGHT);
         this.velocity = new Vector2(0,-Constants.TEMPO);
@@ -30,33 +32,72 @@ public class Note implements Comparable<Note> {
         this.noteLength = (endTime - startTime) * Constants.HEIGTH_MULTIPLIER / Constants.SPEED;
         this.sound = Gdx.audio.newSound(Gdx.files.internal("audio/" + noteName + ".ogg"));  //TODO: Imp - This causes skewed first note and takes time to start activity.
         this.pressVelocity = pressVelocity;
+        this.track = track;
     }
 
     public void render(RoundRectShapeRenderer renderer) {
         renderer.set(ShapeRenderer.ShapeType.Filled);
         renderer.setColor(153 / 255f, 51 / 255f, 255 / 255f, 1);
         if(noteName.contains("#")){
-            renderer.roundedRect(renderer,
-                    position.x, position.y,
-                    Constants.BLACK_NOTE_WIDTH,
-                    noteLength, 2,
-                    FallingNotesScreen.getTheme().getLightBlackKeyColor(),
-                    FallingNotesScreen.getTheme().getDarkBlackKeyColor(),
-                    FallingNotesScreen.getTheme().getDarkBlackKeyColor(),
-                    FallingNotesScreen.getTheme().getLightBlackKeyColor()
-            );
+
+            if(this.track==0) {  //Right Hand
+                renderer.roundedRect(renderer,
+                        position.x, position.y,
+                        Constants.BLACK_NOTE_WIDTH,
+                        noteLength, 2,
+                        FallingNotesScreen.getTheme().getRH_lightBlackKeyColor(),
+                        FallingNotesScreen.getTheme().getRH_darkBlackKeyColor(),
+                        FallingNotesScreen.getTheme().getRH_darkBlackKeyColor(),
+                        FallingNotesScreen.getTheme().getRH_lightBlackKeyColor()
+                );
+            }
+            else
+            {
+                renderer.roundedRect(renderer,
+                        position.x, position.y,
+                        Constants.BLACK_NOTE_WIDTH,
+                        noteLength, 2,
+                        FallingNotesScreen.getTheme().getLH_lightBlackKeyColor(),
+                        FallingNotesScreen.getTheme().getLH_darkBlackKeyColor(),
+                        FallingNotesScreen.getTheme().getLH_darkBlackKeyColor(),
+                        FallingNotesScreen.getTheme().getLH_lightBlackKeyColor()
+                );
+            }
         }
-        else {
-            renderer.roundedRect(renderer,
-                    position.x, position.y,
-                    Constants.NOTES_WIDTH,
-                    noteLength, 2,
-                    FallingNotesScreen.getTheme().getLightWhiteKeyColor(),
-                    FallingNotesScreen.getTheme().getDarkWhiteKeyColor(),
-                    FallingNotesScreen.getTheme().getDarkWhiteKeyColor(),
-                    FallingNotesScreen.getTheme().getLightWhiteKeyColor()
-            );
+        else {   // if it is a white key
+
+            if(track==0) {
+                renderer.roundedRect(renderer,
+                        position.x, position.y,
+                        Constants.NOTES_WIDTH,
+                        noteLength, 2,
+                        FallingNotesScreen.getTheme().getRH_lightWhiteKeyColor(),
+                        FallingNotesScreen.getTheme().getRH_darkWhiteKeyColor(),
+                        FallingNotesScreen.getTheme().getRH_darkWhiteKeyColor(),
+                        FallingNotesScreen.getTheme().getRH_lightWhiteKeyColor()
+                );
+            }
+            else
+            {
+                renderer.roundedRect(renderer,
+                        position.x, position.y,
+                        Constants.NOTES_WIDTH,
+                        noteLength, 2,
+                        FallingNotesScreen.getTheme().getLH_lightWhiteKeyColor(),
+                        FallingNotesScreen.getTheme().getLH_darkWhiteKeyColor(),
+                        FallingNotesScreen.getTheme().getLH_darkWhiteKeyColor(),
+                        FallingNotesScreen.getTheme().getLH_lightWhiteKeyColor()
+                );
+            }
         }
+    }
+
+    @Override
+    public String toString() {
+        Gdx.app.log("Note "+this.noteName,"Track "+this.track);
+
+
+        return super.toString();
     }
 
     public void update(float delta){

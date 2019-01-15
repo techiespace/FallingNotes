@@ -1,5 +1,6 @@
 package com.techiespace.projects.fallingnotes;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.utils.Array;
 import com.techiespace.projects.fallingnotes.pianoHelpers.MidiParser;
@@ -27,7 +28,11 @@ public class Notes {
         MidiParser midiParser = new MidiParser();
         //Girls_Like_You_Maroon_5, broken_dreams
         noteArrayPool = midiParser.parse("midi/Tum_hi_ho_Aashiqui_2.mid");
+
+
         Arrays.sort(noteArrayPool);
+
+        Arrays.toString(noteArrayPool);
         initialTime = 0;
     }
 
@@ -80,7 +85,7 @@ public class Notes {
             //for handling the key
             if (note.position.y < Constants.WHITE_PIANO_KEY_HEIGHT + Constants.OFFSET && !key.getIsPressed())
             {
-                key.updateTextureDown();
+                key.updateTextureDown(note.track);
             }
 
             if (note.position.y + note.noteLength < Constants.WHITE_PIANO_KEY_HEIGHT + Constants.OFFSET && key.getIsPressed())

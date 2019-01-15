@@ -13,8 +13,14 @@ public class PianoKey {
     float height;
     float width;
     Texture texture;
+
     Texture upTexture;
-    Texture downTexture;
+
+
+    Texture LH_downTexture;
+    Texture RH_downTexture;
+
+
 
     Piano.PianoKeyType keyType;
     boolean isPressed = false;
@@ -43,12 +49,14 @@ public class PianoKey {
         if (keyType == Piano.PianoKeyType.BLACK) {
             this.texture = new Texture("piano/black_up.png");
             this.upTexture = new Texture("piano/black_up.png");
-            this.downTexture = FallingNotesScreen.getTheme().getBlackKeyDownTexture();
+            this.LH_downTexture = FallingNotesScreen.getTheme().getLH_blackKeyDownTexture();
+            this.RH_downTexture = FallingNotesScreen.getTheme().getRH_blackKeyDownTexture();
 
         } else {
             this.texture = new Texture("white_up.png");
             this.upTexture = new Texture("white_up.png");
-            this.downTexture = FallingNotesScreen.getTheme().getWhiteKeyDownTexture();
+            this.LH_downTexture = FallingNotesScreen.getTheme().getLH_whiteKeyDownTexture();
+            this.RH_downTexture = FallingNotesScreen.getTheme().getRH_whiteKeyDownTexture();
 
 
         }
@@ -156,12 +164,15 @@ public class PianoKey {
         setIsPressed(false);
     }
 
-    void updateTextureDown()
+    void updateTextureDown(int track)
     {
         setIsPressed(true);
 
 //        Gdx.app.log("Pianokey","down kiya  "+getName());
-        this.setTexture(downTexture);
+        if(track==0)
+        this.setTexture(RH_downTexture);
+        else
+            this.setTexture(LH_downTexture);
 
     }
 
@@ -170,31 +181,33 @@ public class PianoKey {
         if (keyType == Piano.PianoKeyType.BLACK) {
             this.texture = new Texture("piano/black_up.png");
             this.upTexture = new Texture("piano/black_up.png");
-            this.downTexture = FallingNotesScreen.getTheme().getBlackKeyDownTexture();
+            this.LH_downTexture = FallingNotesScreen.getTheme().getLH_blackKeyDownTexture();
+            this.RH_downTexture = FallingNotesScreen.getTheme().getRH_blackKeyDownTexture();
 
         } else {
             this.texture = new Texture("piano/white_up.png");
             this.upTexture = new Texture("piano/white_up.png");
-            this.downTexture = FallingNotesScreen.getTheme().getWhiteKeyDownTexture();
+            this.LH_downTexture = FallingNotesScreen.getTheme().getLH_whiteKeyDownTexture();
+            this.RH_downTexture = FallingNotesScreen.getTheme().getRH_whiteKeyDownTexture();
 
 
         }
         }
 
-        void print()
-        {
-
-            Gdx.app.log(position+" "+
-            name+" "+
-            height+" "+
-            width+" "+
-            texture+" "+
-            upTexture+" "+
-            downTexture+" "+
-
-            keyType+" "
-          ," ");
-        }
+//        void print()
+//        {
+//
+//            Gdx.app.log(position+" "+
+//            name+" "+
+//            height+" "+
+//            width+" "+
+//            texture+" "+
+//            upTexture+" "+
+//            downTexture+" "+
+//
+//            keyType+" "
+//          ," ");
+      //  }
 
     }
 

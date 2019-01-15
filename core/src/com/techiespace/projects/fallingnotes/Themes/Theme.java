@@ -11,34 +11,59 @@ import com.badlogic.gdx.graphics.Texture;
 
 
 //Copy this template to your new class
-//         Texture backgroundTexture;
-//         Texture whiteKeyDownTexture;[optional]
-//         Texture blackKeyDownTexture;[optional]
-//
-//
-//         Color lightBlackKeyColor;
-//         Color darkBlackKeyColor;
-//         Color lightWhiteKeyColor;
-//         Color darkWhiteKeyColor;
-//         Color labelColor;
-//         Color verticalLineColor;    [optional]
-//         Color gameNameColor;        [optional]
-//
-//         String fntPngName;
-//         String fntFileName;
-//
-//
-//         float gameNameScale;        [Optional]
+    // Texture backgroundTexture;
+    //
+    //         Texture LH_whiteKeyDownTexture;
+    //         Texture LH_blackKeyDownTexture;
+    //
+    //         Texture RH_whiteKeyDownTexture;
+    //         Texture RH_blackKeyDownTexture;
+    //
+    //
+    //         Color LH_lightBlackKeyColor;
+    //         Color LH_darkBlackKeyColor;
+    //         Color LH_lightWhiteKeyColor;
+    //         Color LH_darkWhiteKeyColor;
+    //
+    //         Color RH_lightBlackKeyColor;
+    //         Color RH_darkBlackKeyColor;
+    //         Color RH_lightWhiteKeyColor;
+    //         Color RH_darkWhiteKeyColor;
+    //
+    //
+    //
+    //         Color labelColor;
+    //         Color verticalLineColor;
+    //         Color gameNameColor;
+    //
+    //         String fntPngName;
+    //         String fntFileName;
+    //
+    //
+    //         float gameNameScale;
+
 public class Theme {
     Texture backgroundTexture;
-    Texture whiteKeyDownTexture;
-    Texture blackKeyDownTexture;
+
+    Texture LH_whiteKeyDownTexture;
+    Texture LH_blackKeyDownTexture;
+
+    Texture RH_whiteKeyDownTexture;
+    Texture RH_blackKeyDownTexture;
 
 
-    Color lightBlackKeyColor;
-    Color darkBlackKeyColor;
-    Color lightWhiteKeyColor;
-    Color darkWhiteKeyColor;
+    Color LH_lightBlackKeyColor;
+    Color LH_darkBlackKeyColor;
+    Color LH_lightWhiteKeyColor;
+    Color LH_darkWhiteKeyColor;
+
+    Color RH_lightBlackKeyColor;
+    Color RH_darkBlackKeyColor;
+    Color RH_lightWhiteKeyColor;
+    Color RH_darkWhiteKeyColor;
+
+
+
     Color labelColor;
     Color verticalLineColor;
     Color gameNameColor;
@@ -49,8 +74,6 @@ public class Theme {
 
     float gameNameScale;
 
-    Color[][] whiteNote;
-    Color[][] blackNote;
 
     public Theme()
     {
@@ -58,27 +81,44 @@ public class Theme {
         verticalLineColor = new Color(0.5f, 0.5f, 0.5f, 0.5f);
         gameNameColor = Color.WHITE;
         gameNameScale = 1.2f;
-        blackKeyDownTexture = new Texture("piano/black_down_red_light.png");
-        whiteKeyDownTexture = new Texture("piano/white_down_red.png");
+        LH_blackKeyDownTexture = new Texture("piano/black_down_red_light.png");
+        LH_whiteKeyDownTexture = new Texture("piano/white_down_red.png");
+
+        RH_blackKeyDownTexture = new Texture("piano/black_down_red_light.png");
+        RH_whiteKeyDownTexture = new Texture("piano/white_down_red.png");
     }
 
-    public Texture getBlackKeyDownTexture() {
-        return blackKeyDownTexture;
+    public void setLH_blackKeyDownTexture(Texture LH_blackKeyDownTexture) {
+        this.LH_blackKeyDownTexture = LH_blackKeyDownTexture;
     }
 
-    public Texture getWhiteKeyDownTexture() {
-        return whiteKeyDownTexture;
+    public void setLH_whiteKeyDownTexture(Texture LH_whiteKeyDownTexture) {
+        this.LH_whiteKeyDownTexture = LH_whiteKeyDownTexture;
     }
 
-    public void setBlackKeyDownTexture(Texture blackKeyUpTexture) {
-        this.blackKeyDownTexture = blackKeyUpTexture;
+    public void setRH_blackKeyDownTexture(Texture RH_blackKeyDownTexture) {
+        this.RH_blackKeyDownTexture = RH_blackKeyDownTexture;
     }
 
-    public void setWhiteKeyDownTexture(Texture whiteKeyUpTexture) {
-        this.whiteKeyDownTexture = whiteKeyUpTexture;
+    public void setRH_whiteKeyDownTexture(Texture RH_whiteKeyDownTexture) {
+        this.RH_whiteKeyDownTexture = RH_whiteKeyDownTexture;
     }
 
+    public Texture getLH_blackKeyDownTexture() {
+        return LH_blackKeyDownTexture;
+    }
 
+    public Texture getLH_whiteKeyDownTexture() {
+        return LH_whiteKeyDownTexture;
+    }
+
+    public Texture getRH_blackKeyDownTexture() {
+        return RH_blackKeyDownTexture;
+    }
+
+    public Texture getRH_whiteKeyDownTexture() {
+        return RH_whiteKeyDownTexture;
+    }
 
     public void setGameNameScale(float gameNameScale) {
         this.gameNameScale = gameNameScale;
@@ -105,12 +145,38 @@ public class Theme {
         this.backgroundTexture = new Texture(backgroundTexture);
     }
 
-    public void setDarkBlackKeyColor(Color darkBlackKeyColor) {
-        this.darkBlackKeyColor = darkBlackKeyColor;
+    public void setLH_lightBlackKeyColor(Color LH_darkBlackKeyColor) {
+        this.LH_lightBlackKeyColor = LH_darkBlackKeyColor;
     }
 
-    public void setDarkWhiteKeyColor(Color darkWhiteKeyColor) {
-        this.darkWhiteKeyColor = darkWhiteKeyColor;
+    public void setRH_lightBlackKeyColor(Color RH_lightBlackKeyColor) {
+        this.RH_lightBlackKeyColor = RH_lightBlackKeyColor;
+    }
+
+
+    public void setLH_darkWhiteKeyColor(Color LH_darkWhiteKeyColor) {
+        this.LH_darkWhiteKeyColor = LH_darkWhiteKeyColor;
+    }
+
+    public void setRH_darkBlackKeyColor(Color RH_darkBlackKeyColor) {
+        this.RH_darkBlackKeyColor = RH_darkBlackKeyColor;
+    }
+
+
+    public void setLH_darkBlackKeyColor(Color LH_darkBlackKeyColor) {
+        this.LH_darkBlackKeyColor = LH_darkBlackKeyColor;
+    }
+
+    public void setLH_lightWhiteKeyColor(Color LH_lightWhiteKeyColor) {
+        this.LH_lightWhiteKeyColor = LH_lightWhiteKeyColor;
+    }
+
+    public void setRH_darkWhiteKeyColor(Color RH_darkWhiteKeyColor) {
+        this.RH_darkWhiteKeyColor = RH_darkWhiteKeyColor;
+    }
+
+    public void setRH_lightWhiteKeyColor(Color RH_lightWhiteKeyColor) {
+        this.RH_lightWhiteKeyColor = RH_lightWhiteKeyColor;
     }
 
     public void setFntFileName(String fntFileName) {
@@ -125,33 +191,53 @@ public class Theme {
         this.labelColor = labelColor;
     }
 
-    public void setLightBlackKeyColor(Color lightBlackKeyColor) {
-        this.lightBlackKeyColor = lightBlackKeyColor;
-    }
 
-    public void setLightWhiteKeyColor(Color lightWhiteKeyColor) {
-        this.lightWhiteKeyColor = lightWhiteKeyColor;
-    }
 
-    public Color getDarkBlackKeyColor() {
-        return darkBlackKeyColor;
-    }
 
-    public Color getDarkWhiteKeyColor() {
-        return darkWhiteKeyColor;
-    }
+
+
 
     public Color getLabelColor() {
         return labelColor;
     }
 
-    public Color getLightBlackKeyColor() {
-        return lightBlackKeyColor;
+    public Color getLH_darkBlackKeyColor() {
+        return LH_darkBlackKeyColor;
     }
 
-    public Color getLightWhiteKeyColor() {
-        return lightWhiteKeyColor;
+    public Color getLH_darkWhiteKeyColor() {
+        return LH_darkWhiteKeyColor;
     }
+
+    public Color getLH_lightBlackKeyColor() {
+        return LH_lightBlackKeyColor;
+    }
+
+    public Color getLH_lightWhiteKeyColor() {
+        return LH_lightWhiteKeyColor;
+    }
+
+    public Color getRH_darkBlackKeyColor() {
+        return RH_darkBlackKeyColor;
+    }
+
+    public Color getRH_darkWhiteKeyColor() {
+        return RH_darkWhiteKeyColor;
+    }
+
+    public Color getRH_lightBlackKeyColor() {
+        return RH_lightBlackKeyColor;
+    }
+
+    public Color getRH_lightWhiteKeyColor() {
+        return RH_lightWhiteKeyColor;
+    }
+
+    public void setBackgroundTexture(Texture backgroundTexture) {
+        this.backgroundTexture = backgroundTexture;
+    }
+
+
 
     public String getFntFileName() {
         return fntFileName;

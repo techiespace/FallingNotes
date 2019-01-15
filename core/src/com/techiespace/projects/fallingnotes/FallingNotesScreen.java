@@ -13,24 +13,22 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
-import com.badlogic.gdx.utils.viewport.FillViewport;
-import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.techiespace.projects.fallingnotes.Themes.RedTheme;
+import com.techiespace.projects.fallingnotes.Themes.PeterTheme;
+
 import com.techiespace.projects.fallingnotes.Themes.Theme;
 import com.techiespace.projects.fallingnotes.pianoHelpers.RoundRectShapeRenderer;
 
-import javax.print.attribute.standard.OrientationRequested;
-import javax.swing.Renderer;
 
 public class FallingNotesScreen implements Screen, InputProcessor {
 
     public static final String TAG = FallingNotesScreen.class.getName();
 
     private OrthographicCamera cam;
+
+
+
 
     RoundRectShapeRenderer renderer;
     ShapeRenderer lineRenderer;
@@ -56,7 +54,8 @@ public class FallingNotesScreen implements Screen, InputProcessor {
     @Override
     public void show() {
 
-        theme = new RedTheme();
+
+        theme = new PeterTheme();
 
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
