@@ -1,6 +1,5 @@
 package com.techiespace.projects.fallingnotes;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.utils.Array;
 import com.techiespace.projects.fallingnotes.pianoHelpers.MidiParser;
@@ -27,7 +26,7 @@ public class Notes {
         notesToRemove = new Array<Note>(true, 88);
         MidiParser midiParser = new MidiParser();
         //Girls_Like_You_Maroon_5, broken_dreams
-        noteArrayPool = midiParser.parse("midi/Tum_hi_ho_Aashiqui_2.mid");
+        noteArrayPool = midiParser.parse("midi/harry_potter_theme.mid");
 
 
         Arrays.sort(noteArrayPool);

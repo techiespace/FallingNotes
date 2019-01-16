@@ -81,8 +81,8 @@ public class Theme {
         verticalLineColor = new Color(0.5f, 0.5f, 0.5f, 0.5f);
         gameNameColor = Color.WHITE;
         gameNameScale = 1.2f;
-        LH_blackKeyDownTexture = new Texture("piano/black_down_red_light.png");
-        LH_whiteKeyDownTexture = new Texture("piano/white_down_red.png");
+        LH_blackKeyDownTexture = new Texture("piano/black_down_yellow.png");
+        LH_whiteKeyDownTexture = new Texture("piano/white_down_yellow.png");
 
         RH_blackKeyDownTexture = new Texture("piano/black_down_red_light.png");
         RH_whiteKeyDownTexture = new Texture("piano/white_down_red.png");

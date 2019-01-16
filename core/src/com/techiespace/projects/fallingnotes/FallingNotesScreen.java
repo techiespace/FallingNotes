@@ -15,8 +15,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.techiespace.projects.fallingnotes.Themes.PeterTheme;
-
+import com.techiespace.projects.fallingnotes.Themes.HpTheme;
 import com.techiespace.projects.fallingnotes.Themes.Theme;
 import com.techiespace.projects.fallingnotes.pianoHelpers.RoundRectShapeRenderer;
 
@@ -55,7 +54,7 @@ public class FallingNotesScreen implements Screen, InputProcessor {
     public void show() {
 
 
-        theme = new PeterTheme();
+        theme = new HpTheme();
 
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();

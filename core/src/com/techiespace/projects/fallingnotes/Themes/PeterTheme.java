@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 public class PeterTheme extends Theme {
     public PeterTheme() {
         super();
-        setBackgroundTexture("background/b4.jpg");
+        setBackgroundTexture("background/Hog.jpg");
         setRH_darkBlackKeyColor(new Color(99 / 255f, 203 / 255f, 42 / 255f, 1));
         setRH_darkWhiteKeyColor(new Color(160 / 255f, 234 / 255f, 63 / 255f, 1));
         setFntFileName("font/courgette.fnt");
