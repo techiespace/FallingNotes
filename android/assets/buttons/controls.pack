@@ -1,0 +1,33 @@
+
+controls.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+hand_left
+  rotate: false
+  xy: 1, 1
+  size: 96, 96
+  orig: 96, 96
+  offset: 0, 0
+  index: -1
+hand_right
+  rotate: false
+  xy: 99, 1
+  size: 96, 96
+  orig: 96, 96
+  offset: 0, 0
+  index: -1
+pause
+  rotate: false
+  xy: 197, 25
+  size: 72, 72
+  orig: 72, 72
+  offset: 0, 0
+  index: -1
+play
+  rotate: false
+  xy: 271, 25
+  size: 72, 72
+  orig: 72, 72
+  offset: 0, 0
+  index: -1
