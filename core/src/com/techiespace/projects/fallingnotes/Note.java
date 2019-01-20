@@ -25,14 +25,14 @@ public class Note implements Comparable<Note> {
     boolean soundOnce = false;
     int pressVelocity;
 
-    public Note(int midiNoteNum, int startTime, int endTime, int pressVelocity,int track) {
+    public Note(int midiNoteNum, int startTime, int endTime, int pressVelocity, int track, Sound sound) {
         this.noteName = getMidiNoteName(midiNoteNum);
         this.position = new Vector2(mapCoordinates(this.noteName), Constants.WORLD_HEIGHT);
         this.velocity = new Vector2(0, -Constants.TEMPO * Constants.SPEED);
         this.startTime = startTime;
         this.endTime = endTime;
         this.noteLength = (endTime - startTime) * Constants.HEIGTH_MULTIPLIER;// / Constants.SPEED;
-        this.sound = Gdx.audio.newSound(Gdx.files.internal("audio/" + noteName + ".ogg"));  //TODO: Imp - This causes skewed first note and takes time to start activity.
+        this.sound = sound;//Gdx.audio.newSound(Gdx.files.internal("audio/" + noteName + ".ogg"));  //TODO: Imp - This causes skewed first note and takes time to start activity.
         this.pressVelocity = pressVelocity;
         this.track = track;
     }
