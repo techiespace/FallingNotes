@@ -2,17 +2,27 @@ package com.techiespace.projects.fallingnotes;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.techiespace.projects.fallingnotes.Themes.HpTheme;
@@ -20,13 +30,23 @@ import com.techiespace.projects.fallingnotes.Themes.Theme;
 import com.techiespace.projects.fallingnotes.pianoHelpers.RoundRectShapeRenderer;
 
 
-public class FallingNotesScreen implements Screen, InputProcessor {
+public class FallingNotesScreen implements Screen {
 
     public static final String TAG = FallingNotesScreen.class.getName();
 
     private OrthographicCamera cam;
 
-
+    Stage stage;
+    Button playPauseButton;
+    Button leftHandButton;
+    Button rightHandButton;
+    Button.ButtonStyle playPausebuttonStyle;
+    Button.ButtonStyle leftHandbuttonStyle;
+    Button.ButtonStyle rightHandbuttonStyle;
+    BitmapFont font;
+    Skin skin;
+    TextureAtlas buttonAtlas;
+    BitmapFont bitmapFont;
 
 
     RoundRectShapeRenderer renderer;
@@ -42,17 +62,46 @@ public class FallingNotesScreen implements Screen, InputProcessor {
     Sprite backgroundSprite;
     public static Theme theme;
     SpriteBatch bbatch;
-    BitmapFont font;
+    private Preferences preferences;
     ShapeRenderer blinerenderer;
 
     Viewport viewport;
 
     private boolean isPlaying = false;
 
+    protected Preferences getPrefs() {
+        if (preferences == null)
+            preferences = Gdx.app.getPreferences("play_prefrences");
+        return preferences;
+    }
 
     @Override
     public void show() {
 
+        Gdx.app.getPreferences("play_prefrences").putBoolean("right_hand", true).flush();
+        Gdx.app.getPreferences("play_prefrences").putBoolean("left_hand", true).flush();
+//        playPrefs.putBoolean("right_hand",true);
+//        playPrefs.putBoolean("left_hand",true);
+        stage = new Stage();
+        Gdx.input.setInputProcessor(stage);
+        font = new BitmapFont();
+        skin = new Skin();
+        buttonAtlas = new TextureAtlas(Gdx.files.internal("buttons/controls.pack"));
+        skin.addRegions(buttonAtlas);
+        playPausebuttonStyle = new Button.ButtonStyle();
+        playPausebuttonStyle.up = skin.getDrawable("play");
+        playPausebuttonStyle.checked = skin.getDrawable("pause");
+        playPauseButton = new Button(playPausebuttonStyle);
+
+        leftHandbuttonStyle = new Button.ButtonStyle();
+        leftHandbuttonStyle.up = skin.getDrawable("hand_left");
+        leftHandbuttonStyle.checked = skin.getDrawable("hand_right");
+        leftHandButton = new Button(leftHandbuttonStyle);
+
+        rightHandbuttonStyle = new Button.ButtonStyle();
+        rightHandbuttonStyle.up = skin.getDrawable("hand_right");
+        rightHandbuttonStyle.checked = skin.getDrawable("hand_left");
+        rightHandButton = new Button(rightHandbuttonStyle);
 
         theme = new HpTheme();
 
@@ -86,15 +135,63 @@ public class FallingNotesScreen implements Screen, InputProcessor {
         piano = new Piano();
         backgroundTexture = theme.getBackgroundTexture();
         backgroundTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-
         TextureRegion region = new TextureRegion(backgroundTexture,backgroundTexture.getWidth(),backgroundTexture.getHeight());
         backgroundSprite = new Sprite(region);
-        Gdx.input.setInputProcessor(this);
+        //Gdx.input.setInputProcessor(this);
+        playPauseButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeListener.ChangeEvent event, Actor actor) {
+                isPlaying = !isPlaying;
+            }
+        });
+        leftHandButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                Preferences playPrefs = getPrefs();
+                boolean toggle = !playPrefs.getBoolean("left_hand");
+                playPrefs.putBoolean("left_hand", toggle).flush();   //https://www.badlogicgames.com/forum/viewtopic.php?f=11&t=18544
+            }
+        });
+        rightHandButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                Preferences playPrefs = getPrefs();
+                boolean toggle = !playPrefs.getBoolean("right_hand");
+                playPrefs.putBoolean("right_hand", toggle).flush();
+            }
+        });
 
+        //https://github.com/EsotericSoftware/tablelayout
+        Table controlsTable = new Table();
+        //bg
+        Pixmap bgPixmap = new Pixmap(1, 1, Pixmap.Format.RGB565);
+        bgPixmap.setColor(Color.RED);
+        bgPixmap.fill();
+        TextureRegionDrawable textureRegionDrawableBg = new TextureRegionDrawable(new TextureRegion(new Texture(bgPixmap)));
+        controlsTable.setBackground(textureRegionDrawableBg);
+        bgPixmap.dispose(); //https://stackoverflow.com/questions/39081993/libgdx-scene2d-set-background-color-of-table
+
+        //play/pause
+        controlsTable.add(playPauseButton);
+        controlsTable.setSize(Constants.NOTES_WIDTH * 2, Constants.WORLD_HEIGHT);
+        controlsTable.setPosition(Constants.WORLD_WIDTH - Constants.NOTES_WIDTH * 2, 0);
+
+        //left
+        controlsTable.row();
+        controlsTable.add(leftHandButton);
+
+        //right
+        controlsTable.row();
+        controlsTable.add(rightHandButton);
+
+        controlsTable.debug();
+        stage.addActor(controlsTable);
     }
 
     @Override
     public void render(float delta) {
+
+        stage.draw();
 
         if (isPlaying) {
             notes.update(delta);
@@ -153,7 +250,7 @@ public class FallingNotesScreen implements Screen, InputProcessor {
         piano.render(sprite,batch);
         batch.end();
 
-
+        stage.draw();
 
     }
 
@@ -227,54 +324,6 @@ public class FallingNotesScreen implements Screen, InputProcessor {
     public void dispose() {
 
     }
-
-    //hangling input
-    @Override
-    public boolean keyDown(int keycode) {
-        //https://www.reddit.com/r/libgdx/comments/4223lq/how_will_i_know_when_i_need_to_implement_an/
-        if (keycode == Input.Keys.SPACE) {
-            isPlaying = !isPlaying;
-        }
-
-        return false;
-    }
-
-    @Override
-    public boolean keyUp(int keycode) {
-        return false;
-    }
-
-    @Override
-    public boolean keyTyped(char character) {
-        return false;
-    }
-
-    @Override
-    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        isPlaying = !isPlaying;
-        return false;
-    }
-
-    @Override
-    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        return false;
-    }
-
-    @Override
-    public boolean touchDragged(int screenX, int screenY, int pointer) {
-        return false;
-    }
-
-    @Override
-    public boolean mouseMoved(int screenX, int screenY) {
-        return false;
-    }
-
-    @Override
-    public boolean scrolled(int amount) {
-        return false;
-    }
-
 
     public static Theme getTheme()
     {

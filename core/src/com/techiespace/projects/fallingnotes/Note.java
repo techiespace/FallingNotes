@@ -1,6 +1,7 @@
 package com.techiespace.projects.fallingnotes;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
@@ -19,6 +20,7 @@ public class Note implements Comparable<Note> {
     Vector2 velocity;
     Sound sound;
     int track;
+    Preferences preferences;
 
     boolean soundOnce = false;
     int pressVelocity;
@@ -35,12 +37,21 @@ public class Note implements Comparable<Note> {
         this.track = track;
     }
 
+    protected Preferences getPrefs() {
+        if (preferences == null)
+            preferences = Gdx.app.getPreferences("play_prefrences");
+        return preferences;
+    }
+
     public void render(RoundRectShapeRenderer renderer) {
+        com.badlogic.gdx.Preferences playPref = getPrefs();//Gdx.app.getPreferences("play_prefrences");
+        boolean rightHand = playPref.getBoolean("right_hand");
+        boolean leftHand = playPref.getBoolean("left_hand");
         renderer.set(ShapeRenderer.ShapeType.Filled);
         renderer.setColor(153 / 255f, 51 / 255f, 255 / 255f, 1);
         if(noteName.contains("#")){
 
-            if(this.track==0) {  //Right Hand
+            if (this.track == 0 && rightHand) {  //Right Hand
                 renderer.roundedRect(renderer,
                         position.x, position.y,
                         Constants.BLACK_NOTE_WIDTH,
@@ -50,8 +61,7 @@ public class Note implements Comparable<Note> {
                         FallingNotesScreen.getTheme().getRH_darkBlackKeyColor(),
                         FallingNotesScreen.getTheme().getRH_lightBlackKeyColor()
                 );
-            }
-            else
+            } else if (this.track == 1 && leftHand)
             {
                 renderer.roundedRect(renderer,
                         position.x, position.y,
@@ -66,7 +76,7 @@ public class Note implements Comparable<Note> {
         }
         else {   // if it is a white key
 
-            if(track==0) {
+            if (track == 0 && rightHand) {
                 renderer.roundedRect(renderer,
                         position.x, position.y,
                         Constants.NOTES_WIDTH,
@@ -76,8 +86,7 @@ public class Note implements Comparable<Note> {
                         FallingNotesScreen.getTheme().getRH_darkWhiteKeyColor(),
                         FallingNotesScreen.getTheme().getRH_lightWhiteKeyColor()
                 );
-            }
-            else
+            } else if (track == 1 && leftHand)
             {
                 renderer.roundedRect(renderer,
                         position.x, position.y,

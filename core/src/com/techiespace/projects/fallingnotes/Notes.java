@@ -26,7 +26,7 @@ public class Notes {
         notesToRemove = new Array<Note>(true, 88);
         MidiParser midiParser = new MidiParser();
         //Girls_Like_You_Maroon_5, broken_dreams
-        noteArrayPool = midiParser.parse("midi/harry_potter_theme.mid");
+        noteArrayPool = midiParser.parse("midi/Wildest_Dreams.mid");
 
 
         Arrays.sort(noteArrayPool);
