@@ -2,6 +2,7 @@ package com.techiespace.projects.fallingnotes.Themes;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.techiespace.projects.fallingnotes.FallingNotesGame;
 
 //This is the parent class for any theme
 //In order to add a new theme to your project
@@ -75,17 +76,17 @@ public class Theme {
     float gameNameScale;
 
 
-    public Theme()
+    public Theme(FallingNotesGame app)
     {
         //Constructor Contains default values of some variables
         verticalLineColor = new Color(0.5f, 0.5f, 0.5f, 0.5f);
         gameNameColor = Color.WHITE;
         gameNameScale = 1.2f;
-        LH_blackKeyDownTexture = new Texture("piano/black_down_yellow.png");
-        LH_whiteKeyDownTexture = new Texture("piano/white_down_yellow.png");
+        LH_blackKeyDownTexture = app.assets.get("piano/black_down_yellow.png", Texture.class);
+        LH_whiteKeyDownTexture = app.assets.get("piano/white_down_yellow.png", Texture.class);
 
-        RH_blackKeyDownTexture = new Texture("piano/black_down_red_light.png");
-        RH_whiteKeyDownTexture = new Texture("piano/white_down_red.png");
+        RH_blackKeyDownTexture = app.assets.get("piano/black_down_red_light.png", Texture.class);
+        RH_whiteKeyDownTexture = app.assets.get("piano/white_down_red.png", Texture.class);
     }
 
     public void setLH_blackKeyDownTexture(Texture LH_blackKeyDownTexture) {

@@ -32,6 +32,12 @@ import com.techiespace.projects.fallingnotes.pianoHelpers.RoundRectShapeRenderer
 
 public class FallingNotesScreen implements Screen {
 
+    private final FallingNotesGame app;
+
+    public FallingNotesScreen(FallingNotesGame app) {
+        this.app = app;
+    }
+
     public static final String TAG = FallingNotesScreen.class.getName();
 
     private OrthographicCamera cam;
@@ -103,7 +109,7 @@ public class FallingNotesScreen implements Screen {
         rightHandbuttonStyle.checked = skin.getDrawable("hand_left");
         rightHandButton = new Button(rightHandbuttonStyle);
 
-        theme = new HpTheme();
+        theme = new HpTheme(app);
 
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
@@ -128,7 +134,7 @@ public class FallingNotesScreen implements Screen {
         lineRenderer = new ShapeRenderer();
         blinerenderer = new ShapeRenderer();
 
-        notes = new Notes();
+        notes = new Notes(app);
         batch = new SpriteBatch();
         bbatch = new SpriteBatch();
         sprite = new Sprite();

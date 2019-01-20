@@ -1,10 +1,11 @@
 package com.techiespace.projects.fallingnotes.Themes;
 
 import com.badlogic.gdx.graphics.Color;
+import com.techiespace.projects.fallingnotes.FallingNotesGame;
 
 public class PeterTheme extends Theme {
-    public PeterTheme() {
-        super();
+    public PeterTheme(FallingNotesGame app) {
+        super(app);
         setBackgroundTexture("background/Hog.jpg");
         setRH_darkBlackKeyColor(new Color(99 / 255f, 203 / 255f, 42 / 255f, 1));
         setRH_darkWhiteKeyColor(new Color(160 / 255f, 234 / 255f, 63 / 255f, 1));

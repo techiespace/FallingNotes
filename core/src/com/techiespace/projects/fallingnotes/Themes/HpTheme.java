@@ -1,10 +1,11 @@
 package com.techiespace.projects.fallingnotes.Themes;
 
 import com.badlogic.gdx.graphics.Color;
+import com.techiespace.projects.fallingnotes.FallingNotesGame;
 
 public class HpTheme extends Theme {
-    public HpTheme() {
-        super();
+    public HpTheme(FallingNotesGame app) {
+        super(app);
         setBackgroundTexture("background/Hog.jpg");
         setFntFileName("font/courgette.fnt");
         setFntPngName("font/courgette.png");
