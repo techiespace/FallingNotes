@@ -6,6 +6,7 @@ package com.techiespace.projects.fallingnotes.pianoHelpers;
  */
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.techiespace.projects.fallingnotes.Note;
 
 import java.io.IOException;
@@ -38,7 +39,7 @@ public class MidiParser {
         return millis;
     }
 
-    public Note[] parse(String file) {
+    public Note[] parse(String file, Sound[] sounds) {
 
         try {
 
@@ -145,7 +146,7 @@ public class MidiParser {
                             // Note offset
                             if (onsets[param1] >= 0.0 && (i == track || track < 0)) {
                                 //copy to Note object
-                                Note note = new Note(param1, formatTime(onsets[param1]), formatTime(accTime), velocities[param1],i);
+                                Note note = new Note(param1, formatTime(onsets[param1]), formatTime(accTime), velocities[param1], i, sounds[param1 - 21]);
                                 noteArrayList.add(note);
                                 //TODO: Write to file
                             }
