@@ -26,6 +26,7 @@ public class Notes {
         init();
         poolIndex = 0;
         this.midiName = midiName;
+        Gdx.app.log("Notes Constructor ",midiName);
     }
 
     private void loadNotes() {

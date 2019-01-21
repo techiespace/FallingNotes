@@ -33,14 +33,20 @@ import com.techiespace.projects.fallingnotes.pianoHelpers.RoundRectShapeRenderer
 public class FallingNotesScreen implements Screen {
 
     private final FallingNotesGame app;
-    public String midiName= "perfect.mid";
+    public String midiName;
 
     public FallingNotesScreen(FallingNotesGame app) {
         this.app = app;
-        Gdx.app.log("FallingNotesScreen Constructor",midiName);
+        //Gdx.app.log("FallingNotesScreen Constructor",midiName);
 
     }
 
+    public FallingNotesScreen(FallingNotesGame app,String midiName) {
+        this.app = app;
+        this.midiName  = midiName;
+        Gdx.app.log("FallingNotesScreen Constructor",midiName);
+
+    }
     public static final String TAG = FallingNotesScreen.class.getName();
 
     private OrthographicCamera cam;

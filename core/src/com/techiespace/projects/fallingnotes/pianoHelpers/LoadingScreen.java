@@ -55,7 +55,7 @@ public class LoadingScreen implements Screen {
     public void update(float delta) {
         progress = app.assets.getProgress();
         if (app.assets.update()){}
-           app.setScreen(new FallingNotesScreen(app));
+           app.setScreen(new FallingNotesScreen(app,midiName));
     }
 
     @Override
