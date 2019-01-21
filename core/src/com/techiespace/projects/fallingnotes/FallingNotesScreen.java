@@ -33,9 +33,12 @@ import com.techiespace.projects.fallingnotes.pianoHelpers.RoundRectShapeRenderer
 public class FallingNotesScreen implements Screen {
 
     private final FallingNotesGame app;
+    public String midiName= "perfect.mid";
 
     public FallingNotesScreen(FallingNotesGame app) {
         this.app = app;
+        Gdx.app.log("FallingNotesScreen Constructor",midiName);
+
     }
 
     public static final String TAG = FallingNotesScreen.class.getName();
@@ -134,7 +137,7 @@ public class FallingNotesScreen implements Screen {
         lineRenderer = new ShapeRenderer();
         blinerenderer = new ShapeRenderer();
 
-        notes = new Notes(app);
+        notes = new Notes(app,midiName);
         batch = new SpriteBatch();
         bbatch = new SpriteBatch();
         sprite = new Sprite();

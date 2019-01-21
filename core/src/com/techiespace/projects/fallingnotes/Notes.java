@@ -19,12 +19,13 @@ public class Notes {
     int poolIndex;
     float initialTime;
     Sound[] sound = new Sound[88];
-
-    public Notes(FallingNotesGame app) {
+    String midiName;
+    public Notes(FallingNotesGame app,String midiName) {
         this.app = app;
 //        loadNotes();
         init();
         poolIndex = 0;
+        this.midiName = midiName;
     }
 
     private void loadNotes() {
@@ -38,7 +39,7 @@ public class Notes {
         notesToRemove = new Array<Note>(true, 88);
         MidiParser midiParser = new MidiParser();
         //Girls_Like_You_Maroon_5, broken_dreams
-        noteArrayPool = midiParser.parse("midi/Interstellar_Main_Theme.mid");
+        noteArrayPool = midiParser.parse("midi/"+midiName);
 
 
         Arrays.sort(noteArrayPool);

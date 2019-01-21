@@ -56,13 +56,12 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (tvTitle.getText().equals("C")) {
-                        Intent i = new Intent(mContext, PracticeActivity.class);
-                        i.putExtra("midi", "midi/scales/CScale.mid");
-                        mContext.startActivity(i);
-                        Toast.makeText(view.getContext(), "Pehela wala", Toast.LENGTH_SHORT).show();
-                    }
-                    Toast.makeText(view.getContext(), tvTitle.getText(), Toast.LENGTH_SHORT).show();
+
+                        Intent intent = new Intent(mContext, PracticeActivity.class);
+                        intent.putExtra(Intent.EXTRA_TEXT, tvTitle.getText());
+                        mContext.startActivity(intent);
+                        Toast.makeText(view.getContext(), tvTitle.getText(), Toast.LENGTH_SHORT).show();
+
                 }
             });
         }

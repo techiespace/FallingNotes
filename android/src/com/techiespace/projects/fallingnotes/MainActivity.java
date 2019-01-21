@@ -16,6 +16,7 @@ import android.view.View;
 
 import com.techiespace.projects.fallingnotes.fragments.BasicChordsFragment;
 import com.techiespace.projects.fallingnotes.fragments.InversionChordsFragment;
+import com.techiespace.projects.fallingnotes.fragments.MidiFragment;
 import com.techiespace.projects.fallingnotes.fragments.ScaleFragment;
 
 public class MainActivity extends AppCompatActivity
@@ -100,7 +101,10 @@ public class MainActivity extends AppCompatActivity
             fragment = new ScaleFragment();
         } else if (id == R.id.nav_modes) {
 
-        } else if (id == R.id.nav_basic_chord) {
+        }else if(id == R.id.nav_midi){
+            fragment = new MidiFragment();
+        }
+        else if (id == R.id.nav_basic_chord) {
             fragment = new BasicChordsFragment();
         } else if (id == R.id.nav_inv_chord) {
             fragment = new InversionChordsFragment();

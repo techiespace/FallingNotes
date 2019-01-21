@@ -34,7 +34,7 @@ public class AndroidLauncher extends FragmentActivity implements AndroidFragment
         // 5. Add the initializeForView() code in the Fragment's onCreateView method.
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-            return initializeForView(new FallingNotesGame());
+            return initializeForView(new FallingNotesGame("CScale.mid"));
         }
 	}
 }

@@ -18,10 +18,6 @@ import com.techiespace.projects.fallingnotes.fragments.nestedListUi.SingleItemMo
 
 import java.util.ArrayList;
 
-//Code taken from - http://khmertechtrain.tk/index.php/2017/10/03/create-a-vertical-scroll-and-horizontal-scroll-app-like-google-play-store/
-/**
- * A simple {@link Fragment} subclass.
- */
 public class ScaleFragment extends Fragment {
 
     private ArrayList<SectionDataModel> allSampleData;

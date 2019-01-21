@@ -20,6 +20,10 @@
                     android:id="@+id/nav_modes"
                     android:icon="@drawable/ic_music_note_black_24dp"
                     android:title="Modes" />
+                <item
+                    android:id="@+id/nav_midi"
+                    android:icon="@drawable/ic_music_note_black_24dp"
+                    android:title="Midi Player"/>
             </group>
         </menu>
     </item>

@@ -8,9 +8,6 @@ import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-/**
- * Created by amitshekhar on 15/01/17.
- */
 
 public class StartSnapHelper extends LinearSnapHelper {
 

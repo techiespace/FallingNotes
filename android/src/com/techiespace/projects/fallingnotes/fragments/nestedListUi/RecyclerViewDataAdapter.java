@@ -49,8 +49,9 @@ public class RecyclerViewDataAdapter extends RecyclerView.Adapter<RecyclerViewDa
         holder.btnMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(mContext, PracticeActivity.class);
-                mContext.startActivity(i);
+                Intent intent = new Intent(mContext, PracticeActivity.class);
+
+                mContext.startActivity(intent);
                 Toast.makeText(view.getContext(), "Button More Clicked!" + sectionName, Toast.LENGTH_SHORT).show();
             }
         });

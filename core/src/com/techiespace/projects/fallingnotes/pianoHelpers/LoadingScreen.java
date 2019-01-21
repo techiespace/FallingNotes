@@ -19,11 +19,21 @@ public class LoadingScreen implements Screen {
 
     private ShapeRenderer shapeRenderer;
     private float progress;
+    public String midiName;
 
+    public LoadingScreen(final FallingNotesGame app,String midiName) {
+        this.app = app;
+        this.shapeRenderer = new ShapeRenderer();
+        this.progress = 0f;
+        this.midiName = midiName;
+        Gdx.app.log("Loading Screen Constructor",midiName);
+        queueAssets();
+    }
     public LoadingScreen(final FallingNotesGame app) {
         this.app = app;
         this.shapeRenderer = new ShapeRenderer();
         this.progress = 0f;
+
         queueAssets();
     }
 
@@ -44,8 +54,8 @@ public class LoadingScreen implements Screen {
 
     public void update(float delta) {
         progress = app.assets.getProgress();
-        if (app.assets.update())
-            app.setScreen(new FallingNotesScreen(app));
+        if (app.assets.update()){}
+           app.setScreen(new FallingNotesScreen(app));
     }
 
     @Override
