@@ -21,11 +21,9 @@ public class PracticeActivity extends AndroidApplication {
            midiName = intent.getStringExtra(Intent.EXTRA_TEXT);
         }
         AndroidApplicationConfiguration cfg = new AndroidApplicationConfiguration();
-        Log.d("Practice Activity ",midiName);
+
         initialize(new FallingNotesGame(midiName), cfg);
-        //TODO: Imp issue: Probable crash in logs due to - android.util.AndroidRuntimeException: requestFeature() must be called before adding content
-        //                                              at com.android.internal.policy.PhoneWindow.requestFeature(PhoneWindow.java:359)
-    }
+        }
 
     @Override
     protected void onResume() {

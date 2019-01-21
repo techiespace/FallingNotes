@@ -37,7 +37,7 @@ public class FallingNotesScreen implements Screen {
 
     public FallingNotesScreen(FallingNotesGame app) {
         this.app = app;
-        //Gdx.app.log("FallingNotesScreen Constructor",midiName);
+        //vGdx.app.log("FallingNotesScreen Constructor",midiName);
 
     }
 
@@ -90,52 +90,38 @@ public class FallingNotesScreen implements Screen {
         return preferences;
     }
 
+    //Initialization Function
+
     @Override
     public void show() {
 
-        Gdx.app.getPreferences("play_prefrences").putBoolean("right_hand", true).flush();
-        Gdx.app.getPreferences("play_prefrences").putBoolean("left_hand", true).flush();
-//        playPrefs.putBoolean("right_hand",true);
-//        playPrefs.putBoolean("left_hand",true);
-        stage = new Stage();
-        Gdx.input.setInputProcessor(stage);
-        font = new BitmapFont();
-        skin = new Skin();
-        buttonAtlas = new TextureAtlas(Gdx.files.internal("buttons/controls.pack"));
-        skin.addRegions(buttonAtlas);
-        playPausebuttonStyle = new Button.ButtonStyle();
-        playPausebuttonStyle.up = skin.getDrawable("play");
-        playPausebuttonStyle.checked = skin.getDrawable("pause");
-        playPauseButton = new Button(playPausebuttonStyle);
 
-        leftHandbuttonStyle = new Button.ButtonStyle();
-        leftHandbuttonStyle.up = skin.getDrawable("hand_left");
-        leftHandbuttonStyle.checked = skin.getDrawable("hand_right");
-        leftHandButton = new Button(leftHandbuttonStyle);
+        //                                                              //
+        //                                                              //
+        //                                                              //
+        // Changing Order of Initialization May Create Unwanted Trouble //
+        //                                                              //
+        //                                                              //
+        //                                                              //
 
-        rightHandbuttonStyle = new Button.ButtonStyle();
-        rightHandbuttonStyle.up = skin.getDrawable("hand_right");
-        rightHandbuttonStyle.checked = skin.getDrawable("hand_left");
-        rightHandButton = new Button(rightHandbuttonStyle);
-
-        theme = new HpTheme(app);
-
-        float w = Gdx.graphics.getWidth();
-        float h = Gdx.graphics.getHeight();
-
-        cam = new OrthographicCamera();
-
-        viewport = new ExtendViewport(w/2,h/2,cam);
+        //set preferences
+        setPreferences();
 
 
-        cam.position.set(cam.viewportWidth/2f,cam.viewportHeight/2f,0);
-        cam.update();
+        //initialize the buttons
+        initializeTheButtons();
 
 
+        //Initialize the theme
+        initializeTheTheme();
 
-        Texture texture = new Texture(Gdx.files.internal(FallingNotesScreen.getTheme().getFntPngName()), true); // true enables mipmaps
-        texture.setFilter(Texture.TextureFilter.MipMapLinearNearest, Texture.TextureFilter.Linear); // linear filtering in nearest mipmap image
-        font = new BitmapFont(Gdx.files.internal(FallingNotesScreen.getTheme().getFntFileName()), new TextureRegion(texture), false);
+
+        //Initialize the camera
+        initializeTheCamera();
+
+
+        //initialize the Game name and font
+        initializeGameName();
 
 
         renderer = new RoundRectShapeRenderer();
@@ -148,35 +134,26 @@ public class FallingNotesScreen implements Screen {
         bbatch = new SpriteBatch();
         sprite = new Sprite();
         piano = new Piano();
+
+        //initialize Background
+        initializeBackground();
+        //Gdx.input.setInputProcessor(this);
+
+        //initialize button listeners
+        initializeButtonListeners();
+
+        //https://github.com/EsotericSoftware/tablelayout
+        initializeControlTable();
+    }
+
+    private void initializeBackground() {
         backgroundTexture = theme.getBackgroundTexture();
         backgroundTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         TextureRegion region = new TextureRegion(backgroundTexture,backgroundTexture.getWidth(),backgroundTexture.getHeight());
         backgroundSprite = new Sprite(region);
-        //Gdx.input.setInputProcessor(this);
-        playPauseButton.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeListener.ChangeEvent event, Actor actor) {
-                isPlaying = !isPlaying;
-            }
-        });
-        leftHandButton.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                Preferences playPrefs = getPrefs();
-                boolean toggle = !playPrefs.getBoolean("left_hand");
-                playPrefs.putBoolean("left_hand", toggle).flush();   //https://www.badlogicgames.com/forum/viewtopic.php?f=11&t=18544
-            }
-        });
-        rightHandButton.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                Preferences playPrefs = getPrefs();
-                boolean toggle = !playPrefs.getBoolean("right_hand");
-                playPrefs.putBoolean("right_hand", toggle).flush();
-            }
-        });
+    }
 
-        //https://github.com/EsotericSoftware/tablelayout
+    private void initializeControlTable() {
         Table controlsTable = new Table();
         //bg
         Pixmap bgPixmap = new Pixmap(1, 1, Pixmap.Format.RGB565);
@@ -203,6 +180,78 @@ public class FallingNotesScreen implements Screen {
         stage.addActor(controlsTable);
     }
 
+    private void initializeButtonListeners() {
+        playPauseButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                isPlaying = !isPlaying;
+            }
+        });
+        leftHandButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                Preferences playPrefs = getPrefs();
+                boolean toggle = !playPrefs.getBoolean("left_hand");
+                playPrefs.putBoolean("left_hand", toggle).flush();   //https://www.badlogicgames.com/forum/viewtopic.php?f=11&t=18544
+            }
+        });
+        rightHandButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                Preferences playPrefs = getPrefs();
+                boolean toggle = !playPrefs.getBoolean("right_hand");
+                playPrefs.putBoolean("right_hand", toggle).flush();
+            }
+        });
+    }
+
+    private void initializeGameName() {
+        Texture texture = new Texture(Gdx.files.internal(FallingNotesScreen.getTheme().getFntPngName()), true); // true enables mipmaps
+        texture.setFilter(Texture.TextureFilter.MipMapLinearNearest, Texture.TextureFilter.Linear); // linear filtering in nearest mipmap image
+        font = new BitmapFont(Gdx.files.internal(FallingNotesScreen.getTheme().getFntFileName()), new TextureRegion(texture), false);
+    }
+
+    private void setPreferences() {
+        Gdx.app.getPreferences("play_prefrences").putBoolean("right_hand", true).flush();
+        Gdx.app.getPreferences("play_prefrences").putBoolean("left_hand", true).flush();
+    }
+
+    private void initializeTheButtons() {
+        stage = new Stage();
+        Gdx.input.setInputProcessor(stage);
+        font = new BitmapFont();
+        skin = new Skin();
+        buttonAtlas = new TextureAtlas(Gdx.files.internal("buttons/controls.pack"));
+        skin.addRegions(buttonAtlas);
+        playPausebuttonStyle = new Button.ButtonStyle();
+        playPausebuttonStyle.up = skin.getDrawable("play");
+        playPausebuttonStyle.checked = skin.getDrawable("pause");
+        playPauseButton = new Button(playPausebuttonStyle);
+
+        leftHandbuttonStyle = new Button.ButtonStyle();
+        leftHandbuttonStyle.up = skin.getDrawable("hand_left");
+        leftHandbuttonStyle.checked = skin.getDrawable("hand_right");
+        leftHandButton = new Button(leftHandbuttonStyle);
+
+        rightHandbuttonStyle = new Button.ButtonStyle();
+        rightHandbuttonStyle.up = skin.getDrawable("hand_right");
+        rightHandbuttonStyle.checked = skin.getDrawable("hand_left");
+        rightHandButton = new Button(rightHandbuttonStyle);
+    }
+
+    private void initializeTheTheme() {
+        theme = new HpTheme(app);
+    }
+
+    private void initializeTheCamera() {
+        float w = Gdx.graphics.getWidth();
+        float h = Gdx.graphics.getHeight();
+        cam = new OrthographicCamera();
+        viewport = new ExtendViewport(w/2,h/2,cam);
+        cam.position.set(cam.viewportWidth/2f,cam.viewportHeight/2f,0);
+        cam.update();
+    }
+
     @Override
     public void render(float delta) {
 
@@ -212,27 +261,20 @@ public class FallingNotesScreen implements Screen {
             notes.update(delta);
             }
 
-
-        handleInput();
-        cam.update();
-        viewport.apply();
-        batch.setProjectionMatrix(cam.combined);
-        renderer.setProjectionMatrix(cam.combined);
-        lineRenderer.setProjectionMatrix(cam.combined);
+        //setting up camera
+        settingUpCamera();
 
 
 
 
-        // TODO: Clear the screen to the background color
         Gdx.gl.glClearColor(Constants.BACKGROUND_COLOR.r, Constants.BACKGROUND_COLOR.g, Constants.BACKGROUND_COLOR.b, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        // TODO: Set the ShapeRenderer's projection matrix
-        //renderer.setProjectionMatrix(notesViewport.getCamera().combined);
 
 
+
+        //Drawing Background //Using background batch
         bbatch.begin();
-        // backgroundSprite.draw(batch);
         bbatch.draw(backgroundSprite,0,0,Constants.WORLD_WIDTH,Constants.WORLD_HEIGHT);
         renderGameName();
         bbatch.end();
@@ -253,7 +295,7 @@ public class FallingNotesScreen implements Screen {
 
 
 
-        //Draw the Note
+        //Draw the Notes
         renderer.begin(ShapeRenderer.ShapeType.Filled);
         notes.render(renderer);
         renderer.end();
@@ -267,6 +309,15 @@ public class FallingNotesScreen implements Screen {
 
         stage.draw();
 
+    }
+
+    private void settingUpCamera() {
+        handleInput();
+        cam.update();
+        viewport.apply();
+        batch.setProjectionMatrix(cam.combined);
+        renderer.setProjectionMatrix(cam.combined);
+        lineRenderer.setProjectionMatrix(cam.combined);
     }
 
     private void renderVerticalLines() {
@@ -332,6 +383,9 @@ public class FallingNotesScreen implements Screen {
     public void hide() {
         renderer.dispose();
         lineRenderer.dispose();
+        blinerenderer.dispose();
+        bbatch.dispose();
+
 
     }
 

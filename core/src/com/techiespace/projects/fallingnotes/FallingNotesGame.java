@@ -7,10 +7,10 @@ import com.techiespace.projects.fallingnotes.pianoHelpers.LoadingScreen;
 
 public class FallingNotesGame extends Game {
 
-    public String midiName="perfect.mid";
+    public String midiName = "perfect.mid";
     public AssetManager assets;
     public FallingNotesGame(String midiName){
-        if(this.midiName==null)
+        if(midiName!=null)
         this.midiName = midiName;
 
     }

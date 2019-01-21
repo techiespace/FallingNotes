@@ -20,13 +20,10 @@
                     android:id="@+id/nav_modes"
                     android:icon="@drawable/ic_music_note_black_24dp"
                     android:title="Modes" />
-                <item
-                    android:id="@+id/nav_midi"
-                    android:icon="@drawable/ic_music_note_black_24dp"
-                    android:title="Midi Player"/>
             </group>
         </menu>
     </item>
+
     <item android:title="Chords">
         <menu>
             <group android:checkableBehavior="single">
@@ -42,6 +39,17 @@
                     android:id="@+id/nav_adv_chord"
                     android:icon="@drawable/ic_music_notes_black_24dp"
                     android:title="Advanced" />
+            </group>
+        </menu>
+    </item>
+    <item android:title="Midi Songs">
+        <menu>
+            <group android:checkableBehavior="single">
+
+                <item
+                    android:id="@+id/nav_midi"
+                    android:icon="@drawable/ic_music_note_black_24dp"
+                    android:title="Midi Player"/>
             </group>
         </menu>
     </item>

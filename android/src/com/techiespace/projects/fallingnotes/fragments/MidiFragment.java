@@ -41,17 +41,7 @@ public class MidiFragment  extends  Fragment{
             RecyclerViewDataAdapter adapter = new RecyclerViewDataAdapter(allSampleData, getContext());
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
             recyclerView.setAdapter(adapter);
-        /*
-        Button startActivityButton = rootView.findViewById(R.id.start_activity_button);
 
-        startActivityButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Start your activity here
-                Intent i = new Intent(rootView.getContext(), PracticeActivity.class);
-                startActivity(i);
-            }
-        });*/
             return rootView;
         }
 
@@ -62,13 +52,11 @@ public class MidiFragment  extends  Fragment{
             ArrayList<SingleItemModel> singleItemModels = new ArrayList<>();
             AssetManager assetManager = getActivity().getAssets();
             try {
-                Log.e("ndskjfds","hsjkdv");
                 String[] files = assetManager.list("midi");
 
                 for(int i=0; i<files.length; i++){
                     singleItemModels.add(new SingleItemModel(files[i], files[i]));
-
-                }
+                    }
             } catch (IOException e1) {
                 // TODO Auto-generated catch block
                 e1.printStackTrace();

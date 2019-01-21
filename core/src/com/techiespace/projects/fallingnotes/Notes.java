@@ -20,29 +20,27 @@ public class Notes {
     float initialTime;
     Sound[] sound = new Sound[88];
     String midiName;
+
+    // Constructor
     public Notes(FallingNotesGame app,String midiName) {
         this.app = app;
-//        loadNotes();
-        init();
+
         poolIndex = 0;
         this.midiName = midiName;
         Gdx.app.log("Notes Constructor ",midiName);
-    }
-
-    private void loadNotes() {
-        for (int i = 0; i < 88; i++) {
-            sound[i] = Gdx.audio.newSound(Gdx.files.internal("audio/" + getMidiNoteName(i + 21) + ".ogg"));
-        }
+        init();
     }
 
     public void init(){
         noteArray = new Array<Note>(true,88);
         notesToRemove = new Array<Note>(true, 88);
+
+        //Parsing the supplied Midi
         MidiParser midiParser = new MidiParser();
-        //Girls_Like_You_Maroon_5, broken_dreams
         noteArrayPool = midiParser.parse("midi/"+midiName);
 
 
+        //Sorting According to Time
         Arrays.sort(noteArrayPool);
 
         Arrays.toString(noteArrayPool);
@@ -51,13 +49,11 @@ public class Notes {
 
     public void update(float delta){
         initialTime += delta * Constants.SPEED;
-//        Gdx.app.log("Init time: ", ""+initialTime+" Delta time: "+ noteArrayPool[poolIndex].startTime);
-//        for (int i = poolIndex; i < noteArrayPool.length ; i++) {
         while (poolIndex < noteArrayPool.length && noteArrayPool[poolIndex].startTime <= initialTime * 1000) {
             noteArray.add(noteArrayPool[poolIndex]);
             poolIndex++;
         }
-//        }
+
 
         for (Note note : noteArray) {
             Sound sound;
@@ -78,19 +74,14 @@ public class Notes {
 
                 if (!note.soundOnce) {
                     soundId = sound.play(note.pressVelocity / 100f);   //https://stackoverflow.com/questions/31990997/libgdx-not-playing-sound-android  (takes a while to load the sound)
-//                    Gdx.app.log("Volume: ", "" + note.pressVelocity);
                     note.soundOnce = true;
                 }
 
 
-//                Gdx.app.log("TestOut", "" + noteArray.size);
-//                Gdx.app.log("Condition",(Constants.WHITE_PIANO_KEY_HEIGHT + (float)Constants.OFFSET) + " "+note.position.y + " " + note.noteLength);
-                if (note.position.y + note.noteLength < Constants.WHITE_PIANO_KEY_HEIGHT + (float) Constants.OFFSET) {
+            if (note.position.y + note.noteLength < Constants.WHITE_PIANO_KEY_HEIGHT + (float) Constants.OFFSET) {
                     sound.stop(soundId);
                     notesToRemove.add(note);
-//                    noteArray.removeValue(note, false);
-//                    Gdx.app.log("Test",""+noteArray.size);
-                }
+                    }
             }
 
 
@@ -109,8 +100,7 @@ public class Notes {
 
         for (int i = 0; i < notesToRemove.size; i++) {
             noteArray.removeValue(notesToRemove.get(i), true);
-
-        }
+            }
         notesToRemove.clear();
     }
 
