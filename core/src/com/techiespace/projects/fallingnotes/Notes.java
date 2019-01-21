@@ -7,6 +7,8 @@ import com.techiespace.projects.fallingnotes.pianoHelpers.MidiParser;
 import com.techiespace.projects.fallingnotes.pianoHelpers.RoundRectShapeRenderer;
 
 import java.util.Arrays;
+import java.util.HashMap;
+
 
 import static com.techiespace.projects.fallingnotes.pianoHelpers.HelperFunctions.getMidiNoteName;
 
@@ -16,6 +18,7 @@ public class Notes {
     Array<Note> noteArray;
     Array<Note> notesToRemove;
     Note[] noteArrayPool;
+    HashMap<Integer,Long> soundIdArray;
     int poolIndex;
     float initialTime;
     Sound[] sound = new Sound[88];
@@ -24,7 +27,6 @@ public class Notes {
     // Constructor
     public Notes(FallingNotesGame app,String midiName) {
         this.app = app;
-
         poolIndex = 0;
         this.midiName = midiName;
         Gdx.app.log("Notes Constructor ",midiName);
@@ -40,12 +42,24 @@ public class Notes {
         noteArrayPool = midiParser.parse("midi/"+midiName);
 
 
+        initNoteId();
+
+
         //Sorting According to Time
         Arrays.sort(noteArrayPool);
 
         Arrays.toString(noteArrayPool);
         initialTime = 0;
     }
+
+    public void initNoteId()
+    {
+        for(int i=0;i<noteArrayPool.length;i++)
+        {
+            noteArrayPool[i].id = i;
+        }
+    }
+
 
     public void update(float delta){
         initialTime += delta * Constants.SPEED;
@@ -75,14 +89,17 @@ public class Notes {
                 if (!note.soundOnce) {
                     soundId = sound.play(note.pressVelocity / 100f);   //https://stackoverflow.com/questions/31990997/libgdx-not-playing-sound-android  (takes a while to load the sound)
                     note.soundOnce = true;
+                    soundIdArray.put(note.id,soundId);
                 }
 
 
-            if (note.position.y + note.noteLength < Constants.WHITE_PIANO_KEY_HEIGHT + (float) Constants.OFFSET) {
-                    sound.stop(soundId);
-                    notesToRemove.add(note);
-                    }
-            }
+                if (note.position.y + note.noteLength < Constants.WHITE_PIANO_KEY_HEIGHT + (float) Constants.OFFSET) {
+                        soundId = soundIdArray.get(note.id);
+                        sound.stop(soundId);
+                        notesToRemove.add(note);
+                        soundIdArray.remove(note.id);
+                        }
+                }
 
 
 
