@@ -28,7 +28,6 @@ public class Note implements Comparable<Note> {
     int pressVelocity;
 
     public Note(int midiNoteNum, int startTime, int endTime, int pressVelocity, int track) {
-        this.id = id;
         this.noteName = getMidiNoteName(midiNoteNum);
         this.position = new Vector2(mapCoordinates(this.noteName), Constants.WORLD_HEIGHT);
         this.velocity = new Vector2(0, -Constants.TEMPO * Constants.SPEED);
