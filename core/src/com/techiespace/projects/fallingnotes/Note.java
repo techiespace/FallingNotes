@@ -34,7 +34,6 @@ public class Note implements Comparable<Note> {
         this.startTime = startTime;
         this.endTime = endTime;
         this.noteLength = (endTime - startTime) * Constants.HEIGTH_MULTIPLIER;// / Constants.SPEED;
-//        this.sound = sound;//Gdx.audio.newSound(Gdx.files.internal("audio/" + noteName + ".ogg"));  //TODO: Imp - This causes skewed first note and takes time to start activity.
         this.pressVelocity = pressVelocity;
         this.track = track;
     }
@@ -104,9 +103,6 @@ public class Note implements Comparable<Note> {
 
     @Override
     public String toString() {
-        //Gdx.app.log("Note "+this.noteName,"Track "+this.track);
-
-
         return super.toString();
     }
 

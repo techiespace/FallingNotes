@@ -39,8 +39,6 @@ public class FallingNotesScreen implements Screen {
 
     public FallingNotesScreen(FallingNotesGame app) {
         this.app = app;
-        //vGdx.app.log("FallingNotesScreen Constructor",midiName);
-
     }
 
     Label lblMet;
@@ -81,13 +79,13 @@ public class FallingNotesScreen implements Screen {
 
     private boolean isPlaying = false;
     Slider tempoSlider;
+    Slider seekSlider;
     float tempoSliderVal;
+    float seekSliderVal;
 
     public FallingNotesScreen(FallingNotesGame app, String midiName) {
         this.app = app;
         this.midiName = midiName;
-//        Gdx.app.log("FallingNotesScreen Constructor",midiName);
-
     }
 
     protected Preferences getPrefs() {
@@ -135,21 +133,21 @@ public class FallingNotesScreen implements Screen {
         lineRenderer = new ShapeRenderer();
         blinerenderer = new ShapeRenderer();
 
-        notes = new Notes(app,midiName);
-        batch = new SpriteBatch();
-        bbatch = new SpriteBatch();
-        sprite = new Sprite();
-        piano = new Piano();
 
         //initialize Background
         initializeBackground();
-        //Gdx.input.setInputProcessor(this);
 
         //initialize button listeners
         initializeButtonListeners();
 
         //https://github.com/EsotericSoftware/tablelayout
         initializeControlTable();
+
+        notes = new Notes(app, midiName, stage);
+        batch = new SpriteBatch();
+        bbatch = new SpriteBatch();
+        sprite = new Sprite();
+        piano = new Piano();
     }
 
     private void initializeBackground() {
@@ -183,8 +181,7 @@ public class FallingNotesScreen implements Screen {
         controlsTable.add(rightHandButton);
 
         controlsTable.row();
-        controlsTable.add(tempoSlider);//.width(10).height(60*1);
-//        controlsTable.setPosition(Constants.WORLD_WIDTH-Constants.MENU_OFFSET, Constants.WORLD_HEIGHT - 20*1);
+        controlsTable.add(tempoSlider);
 
         controlsTable.debug();
         stage.addActor(controlsTable);
@@ -257,7 +254,7 @@ public class FallingNotesScreen implements Screen {
         skin = new Skin(Gdx.files.internal("skin/uiskin.json"));
         tempoSlider = new Slider(0, 1, 0.05f, true, skin);
         tempoSliderVal = 1f;
-
+        getPrefs().putFloat("tempo_multiplier", tempoSliderVal).flush();
         tempoSlider.setValue(tempoSliderVal);
     }
 
@@ -276,18 +273,6 @@ public class FallingNotesScreen implements Screen {
 
     @Override
     public void render(float delta) {
-
-
-        //slider
-//        lblMet=new Label("Metallic:" , skin);
-//        lblMet.setFontScale(2.5f*1);
-//        Table tbRes = new Table();
-//        tbRes.add(lblMet).height(60*1);
-//        tbRes.setPosition(Constants.WORLD_WIDTH-Constants.MENU_OFFSET, Constants.WORLD_HEIGHT - 20*1);
-//        stage.addActor(tbRes);
-
-
-
         stage.draw();
 
         if (isPlaying) {
@@ -297,14 +282,8 @@ public class FallingNotesScreen implements Screen {
         //setting up camera
         settingUpCamera();
 
-
-
-
         Gdx.gl.glClearColor(Constants.BACKGROUND_COLOR.r, Constants.BACKGROUND_COLOR.g, Constants.BACKGROUND_COLOR.b, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-
-
 
         //Drawing Background //Using background batch
         bbatch.begin();
@@ -312,28 +291,20 @@ public class FallingNotesScreen implements Screen {
         renderGameName();
         bbatch.end();
 
-
-
-
         //Draw vertical guide line
         lineRenderer.begin(ShapeRenderer.ShapeType.Line);
         renderVerticalLines();
         lineRenderer.end();
-
 
         //Render Reference line
         blinerenderer.begin(ShapeRenderer.ShapeType.Line);
         blinerenderer.line(0, Constants.OFFSET*2, Constants.WORLD_WIDTH, Constants.OFFSET*2);
         blinerenderer.end();
 
-
-
         //Draw the Notes
         renderer.begin(ShapeRenderer.ShapeType.Filled);
         notes.render(renderer);
         renderer.end();
-
-
 
         //Draw the piano
         batch.begin();
@@ -418,8 +389,6 @@ public class FallingNotesScreen implements Screen {
         lineRenderer.dispose();
         blinerenderer.dispose();
         bbatch.dispose();
-
-
     }
 
     @Override

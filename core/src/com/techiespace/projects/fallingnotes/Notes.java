@@ -3,15 +3,24 @@ package com.techiespace.projects.fallingnotes;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Slider;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.techiespace.projects.fallingnotes.pianoHelpers.MidiParser;
 import com.techiespace.projects.fallingnotes.pianoHelpers.RoundRectShapeRenderer;
 
 import java.util.Arrays;
 import java.util.HashMap;
-
-import static com.techiespace.projects.fallingnotes.pianoHelpers.HelperFunctions.getMidiNoteName;
 
 public class Notes {
 
@@ -22,16 +31,17 @@ public class Notes {
     Note[] noteArrayPool;
     int poolIndex;
     float initialTime;
-    Sound[] sound = new Sound[88];
     String midiName;
     Vector2 velocity;
     Preferences preferences;
+    Slider seekSlider;
 
-    public Notes(FallingNotesGame app,String midiName) {
+
+    public Notes(FallingNotesGame app, String midiName, Stage stage) {
         this.app = app;
 //        loadNotes();
         this.midiName = midiName;
-        init();
+        init(stage);
         poolIndex = 0;
         preferences = getPrefs();
         velocity = new Vector2(0, -preferences.getFloat("tempo_multiplier") * 100);
@@ -43,11 +53,6 @@ public class Notes {
         return preferences;
     }
 
-    private void loadNotes() {
-        for (int i = 0; i < 88; i++) {
-            sound[i] = Gdx.audio.newSound(Gdx.files.internal("audio/" + getMidiNoteName(i + 21) + ".ogg"));
-        }
-    }
     public void initNoteId()
     {
         for(int i=0;i<noteArrayPool.length;i++)
@@ -57,8 +62,7 @@ public class Notes {
     }
 
 
-
-    public void init(){
+    public void init(Stage stage) {
         noteArray = new Array<Note>(true,88);
         notesToRemove = new Array<Note>(true, 88);
         MidiParser midiParser = new MidiParser();
@@ -71,17 +75,43 @@ public class Notes {
 
         Arrays.toString(noteArrayPool);
         initialTime = 0;
+
+        initSeekBar(stage);
+    }
+
+    private void initSeekBar(Stage stage) {
+        Table seekTable = new Table();
+        //seek bar
+        Skin skin = new Skin(Gdx.files.internal("skin/uiskin.json"));
+        seekSlider = new Slider(0, noteArrayPool[noteArrayPool.length - 1].endTime, 0.05f, false, skin);
+        //bg
+        Pixmap bgPixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
+        bgPixmap.setColor(new Color(1, 0, 0, 0.8f));
+        bgPixmap.fill();
+        TextureRegionDrawable textureRegionDrawableBg = new TextureRegionDrawable(new TextureRegion(new Texture(bgPixmap)));
+        seekTable.setBackground(textureRegionDrawableBg);
+        bgPixmap.dispose(); //https://stackoverflow.com/questions/39081993/libgdx-scene2d-set-background-color-of-table
+
+        seekTable.setBackground(textureRegionDrawableBg);
+        seekTable.setSize(Constants.WORLD_WIDTH * 2 / 3, Constants.MENU_OFFSET);
+        seekTable.setPosition(Constants.WORLD_WIDTH / 6, 0);
+        seekTable.add(seekSlider);
+        stage.addActor(seekTable);
+
+        seekSlider.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                //might be useful when implementing actual seek functionality
+            }
+        });
     }
 
     public void update(float delta){
         initialTime += delta * preferences.getFloat("tempo_multiplier");
-//        Gdx.app.log("Init time: ", ""+initialTime+" Delta time: "+ noteArrayPool[poolIndex].startTime);
-//        for (int i = poolIndex; i < noteArrayPool.length ; i++) {
         while (poolIndex < noteArrayPool.length && noteArrayPool[poolIndex].startTime <= initialTime * 1000) {
             noteArray.add(noteArrayPool[poolIndex]);
             poolIndex++;
         }
-//        }
 
         for (Note note : noteArray) {
             Sound sound;
@@ -102,21 +132,17 @@ public class Notes {
 
                 if (!note.soundOnce) {
                     soundId = sound.play(note.pressVelocity / 100f);   //https://stackoverflow.com/questions/31990997/libgdx-not-playing-sound-android  (takes a while to load the sound)
-//                    Gdx.app.log("Volume: ", "" + note.pressVelocity);
                     note.soundOnce = true;
                     soundIdArray.put(note.id,soundId);
                 }
 
 
-//                Gdx.app.log("TestOut", "" + noteArray.size);
-//                Gdx.app.log("Condition",(Constants.WHITE_PIANO_KEY_HEIGHT + (float)Constants.OFFSET) + " "+note.position.y + " " + note.noteLength);
                 if (note.position.y + note.noteLength < Constants.WHITE_PIANO_KEY_HEIGHT + (float) Constants.OFFSET) {
                     soundId = soundIdArray.get(note.id);
                     //sound.stop(soundId);
                     notesToRemove.add(note);
                     soundIdArray.remove(note.id);
 //                    noteArray.removeValue(note, false);
-//                    Gdx.app.log("Test",""+noteArray.size);
                 }
             }
 
@@ -145,6 +171,7 @@ public class Notes {
         // TODO: Render each note
         for (Note note : noteArray) {
             note.render(renderer);
+            seekSlider.setValue(note.startTime);
         }
     }
 
