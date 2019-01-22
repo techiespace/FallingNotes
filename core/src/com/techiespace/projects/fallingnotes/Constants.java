@@ -26,10 +26,6 @@ public class Constants {
     // TODO: Add a constant for the color of the icicles
     public static final Color NOTE_COLOR = Color.WHITE;
 
-    public static final float TEMPO = 100.0f;
-
-    public static final float SPEED = 1f;
-
     public static final int STARTING_OCTAVE = 0;
 
     public static final int ENDING_OCTAVE = 8;
@@ -47,7 +43,7 @@ public class Constants {
     public final static String GAME_NAME = "ChordSwift";
 
 
-
+    public final static float MENU_OFFSET = Constants.NOTES_WIDTH * 2;
 
 
     //white piano key height will also be the height of guitar
@@ -57,9 +53,9 @@ public class Constants {
     public static final int OFFSET = 40;
 
 
-    public static final float BLACK_KEY_HEIGHT = (float)(0.7f*WHITE_PIANO_KEY_HEIGHT);
+    public static final float BLACK_KEY_HEIGHT = (0.7f * WHITE_PIANO_KEY_HEIGHT);
 
 
-    public static final float HEIGTH_MULTIPLIER = Constants.TEMPO / 1000f - 0.015f;    //by hit and trial. 0.015 to show gap between two adjacent notes.
+    public static final float HEIGTH_MULTIPLIER = 0.1f - 0.007f; //by hit and trial. 0.007 to show gap between two adjacent notes.
 
 }

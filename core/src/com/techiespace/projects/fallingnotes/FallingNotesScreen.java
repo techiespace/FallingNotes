@@ -19,7 +19,9 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -41,12 +43,7 @@ public class FallingNotesScreen implements Screen {
 
     }
 
-    public FallingNotesScreen(FallingNotesGame app,String midiName) {
-        this.app = app;
-        this.midiName  = midiName;
-        Gdx.app.log("FallingNotesScreen Constructor",midiName);
-
-    }
+    Label lblMet;
     public static final String TAG = FallingNotesScreen.class.getName();
 
     private OrthographicCamera cam;
@@ -83,6 +80,15 @@ public class FallingNotesScreen implements Screen {
     Viewport viewport;
 
     private boolean isPlaying = false;
+    Slider tempoSlider;
+    float tempoSliderVal;
+
+    public FallingNotesScreen(FallingNotesGame app, String midiName) {
+        this.app = app;
+        this.midiName = midiName;
+//        Gdx.app.log("FallingNotesScreen Constructor",midiName);
+
+    }
 
     protected Preferences getPrefs() {
         if (preferences == null)
@@ -156,8 +162,8 @@ public class FallingNotesScreen implements Screen {
     private void initializeControlTable() {
         Table controlsTable = new Table();
         //bg
-        Pixmap bgPixmap = new Pixmap(1, 1, Pixmap.Format.RGB565);
-        bgPixmap.setColor(Color.RED);
+        Pixmap bgPixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
+        bgPixmap.setColor(new Color(1, 0, 0, 0.8f));
         bgPixmap.fill();
         TextureRegionDrawable textureRegionDrawableBg = new TextureRegionDrawable(new TextureRegion(new Texture(bgPixmap)));
         controlsTable.setBackground(textureRegionDrawableBg);
@@ -165,8 +171,8 @@ public class FallingNotesScreen implements Screen {
 
         //play/pause
         controlsTable.add(playPauseButton);
-        controlsTable.setSize(Constants.NOTES_WIDTH * 2, Constants.WORLD_HEIGHT);
-        controlsTable.setPosition(Constants.WORLD_WIDTH - Constants.NOTES_WIDTH * 2, 0);
+        controlsTable.setSize(Constants.MENU_OFFSET, Constants.WORLD_HEIGHT * 2 / 3);
+        controlsTable.setPosition(Constants.WORLD_WIDTH - Constants.MENU_OFFSET, Constants.WORLD_HEIGHT / 6);
 
         //left
         controlsTable.row();
@@ -176,11 +182,16 @@ public class FallingNotesScreen implements Screen {
         controlsTable.row();
         controlsTable.add(rightHandButton);
 
+        controlsTable.row();
+        controlsTable.add(tempoSlider);//.width(10).height(60*1);
+//        controlsTable.setPosition(Constants.WORLD_WIDTH-Constants.MENU_OFFSET, Constants.WORLD_HEIGHT - 20*1);
+
         controlsTable.debug();
         stage.addActor(controlsTable);
     }
 
     private void initializeButtonListeners() {
+        final Preferences playPrefs = getPrefs();
         playPauseButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -190,7 +201,6 @@ public class FallingNotesScreen implements Screen {
         leftHandButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                Preferences playPrefs = getPrefs();
                 boolean toggle = !playPrefs.getBoolean("left_hand");
                 playPrefs.putBoolean("left_hand", toggle).flush();   //https://www.badlogicgames.com/forum/viewtopic.php?f=11&t=18544
             }
@@ -198,9 +208,14 @@ public class FallingNotesScreen implements Screen {
         rightHandButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                Preferences playPrefs = getPrefs();
                 boolean toggle = !playPrefs.getBoolean("right_hand");
                 playPrefs.putBoolean("right_hand", toggle).flush();
+            }
+        });
+        tempoSlider.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                playPrefs.putFloat("tempo_multiplier", tempoSlider.getValue()).flush();
             }
         });
     }
@@ -237,6 +252,13 @@ public class FallingNotesScreen implements Screen {
         rightHandbuttonStyle.up = skin.getDrawable("hand_right");
         rightHandbuttonStyle.checked = skin.getDrawable("hand_left");
         rightHandButton = new Button(rightHandbuttonStyle);
+
+        //This is called just one! How is it working then?
+        skin = new Skin(Gdx.files.internal("skin/uiskin.json"));
+        tempoSlider = new Slider(0, 1, 0.05f, true, skin);
+        tempoSliderVal = 1f;
+
+        tempoSlider.setValue(tempoSliderVal);
     }
 
     private void initializeTheTheme() {
@@ -254,6 +276,17 @@ public class FallingNotesScreen implements Screen {
 
     @Override
     public void render(float delta) {
+
+
+        //slider
+//        lblMet=new Label("Metallic:" , skin);
+//        lblMet.setFontScale(2.5f*1);
+//        Table tbRes = new Table();
+//        tbRes.add(lblMet).height(60*1);
+//        tbRes.setPosition(Constants.WORLD_WIDTH-Constants.MENU_OFFSET, Constants.WORLD_HEIGHT - 20*1);
+//        stage.addActor(tbRes);
+
+
 
         stage.draw();
 

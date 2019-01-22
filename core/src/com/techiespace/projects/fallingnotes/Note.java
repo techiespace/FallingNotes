@@ -19,18 +19,18 @@ public class Note implements Comparable<Note> {
     float noteLength;
     String noteName;
     Vector2 position;
-    Vector2 velocity;
     Sound sound;
     int track;
     Preferences preferences;
 
     boolean soundOnce = false;
     int pressVelocity;
+    Preferences playPref;
 
     public Note(int midiNoteNum, int startTime, int endTime, int pressVelocity, int track) {
+        playPref = getPrefs();//Gdx.app.getPreferences("play_prefrences");
         this.noteName = getMidiNoteName(midiNoteNum);
         this.position = new Vector2(mapCoordinates(this.noteName), Constants.WORLD_HEIGHT);
-        this.velocity = new Vector2(0, -Constants.TEMPO * Constants.SPEED);
         this.startTime = startTime;
         this.endTime = endTime;
         this.noteLength = (endTime - startTime) * Constants.HEIGTH_MULTIPLIER;// / Constants.SPEED;
@@ -46,7 +46,6 @@ public class Note implements Comparable<Note> {
     }
 
     public void render(RoundRectShapeRenderer renderer) {
-        com.badlogic.gdx.Preferences playPref = getPrefs();//Gdx.app.getPreferences("play_prefrences");
         boolean rightHand = playPref.getBoolean("right_hand");
         boolean leftHand = playPref.getBoolean("left_hand");
         renderer.set(ShapeRenderer.ShapeType.Filled);
@@ -111,7 +110,7 @@ public class Note implements Comparable<Note> {
         return super.toString();
     }
 
-    public void update(float delta){
+    public void update(float delta, Vector2 velocity) {
         position.mulAdd(velocity, delta);
     }
 

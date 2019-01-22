@@ -1,7 +1,9 @@
 package com.techiespace.projects.fallingnotes;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.techiespace.projects.fallingnotes.pianoHelpers.MidiParser;
 import com.techiespace.projects.fallingnotes.pianoHelpers.RoundRectShapeRenderer;
@@ -22,6 +24,8 @@ public class Notes {
     float initialTime;
     Sound[] sound = new Sound[88];
     String midiName;
+    Vector2 velocity;
+    Preferences preferences;
 
     public Notes(FallingNotesGame app,String midiName) {
         this.app = app;
@@ -29,6 +33,14 @@ public class Notes {
         this.midiName = midiName;
         init();
         poolIndex = 0;
+        preferences = getPrefs();
+        velocity = new Vector2(0, -preferences.getFloat("tempo_multiplier") * 100);
+    }
+
+    protected Preferences getPrefs() {
+        if (preferences == null)
+            preferences = Gdx.app.getPreferences("play_prefrences");
+        return preferences;
     }
 
     private void loadNotes() {
@@ -62,7 +74,7 @@ public class Notes {
     }
 
     public void update(float delta){
-        initialTime += delta * Constants.SPEED;
+        initialTime += delta * preferences.getFloat("tempo_multiplier");
 //        Gdx.app.log("Init time: ", ""+initialTime+" Delta time: "+ noteArrayPool[poolIndex].startTime);
 //        for (int i = poolIndex; i < noteArrayPool.length ; i++) {
         while (poolIndex < noteArrayPool.length && noteArrayPool[poolIndex].startTime <= initialTime * 1000) {
@@ -74,7 +86,7 @@ public class Notes {
         for (Note note : noteArray) {
             Sound sound;
             long soundId = 0;
-            note.update(delta);
+            note.update(delta, new Vector2(0, -preferences.getFloat("tempo_multiplier") * 100));
             PianoKey key = Piano.findKey(note.noteName);
             sound = app.assets.get("audio/" + note.noteName + ".ogg");//note.sound;
 
