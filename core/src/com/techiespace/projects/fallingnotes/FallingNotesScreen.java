@@ -18,6 +18,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.input.GestureDetector;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
@@ -86,6 +87,9 @@ public class FallingNotesScreen implements Screen {
     float tempoSliderVal;
     float seekSliderVal;
 
+    float camViewportHalfX;
+    float camViewportHalfY;
+
     public FallingNotesScreen(FallingNotesGame app, String midiName) {
         this.app = app;
         this.midiName = midiName;
@@ -113,9 +117,6 @@ public class FallingNotesScreen implements Screen {
 
         //set preferences
         setPreferences();
-
-
-
 
 
         //initialize the buttons
@@ -158,13 +159,16 @@ public class FallingNotesScreen implements Screen {
         sprite = new Sprite();
         piano = new Piano();
 
-      //  Gdx.input.setInputProcessor(new GestureDetector(new GestureHandler()));
+        camViewportHalfX = cam.viewportWidth * 0.5f;
+        camViewportHalfY = cam.viewportHeight * 0.5f;
+
+        //  Gdx.input.setInputProcessor(new GestureDetector(new GestureHandler()));
     }
 
     private void initializeBackground() {
         backgroundTexture = theme.getBackgroundTexture();
         backgroundTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        TextureRegion region = new TextureRegion(backgroundTexture,backgroundTexture.getWidth(),backgroundTexture.getHeight());
+        TextureRegion region = new TextureRegion(backgroundTexture, backgroundTexture.getWidth(), backgroundTexture.getHeight());
         backgroundSprite = new Sprite(region);
     }
 
@@ -172,7 +176,7 @@ public class FallingNotesScreen implements Screen {
         Table controlsTable = new Table();
         //bg
         Pixmap bgPixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
-        bgPixmap.setColor(new Color(1, 0, 0, 0.8f));
+        bgPixmap.setColor(new Color(1, 0, 0, 0.2f));
         bgPixmap.fill();
         TextureRegionDrawable textureRegionDrawableBg = new TextureRegionDrawable(new TextureRegion(new Texture(bgPixmap)));
         controlsTable.setBackground(textureRegionDrawableBg);
@@ -198,12 +202,11 @@ public class FallingNotesScreen implements Screen {
         stage.addActor(controlsTable);
     }
 
-    private void initializeInputMultipler()
-    {
+    private void initializeInputMultipler() {
         inputMultiplexer = new InputMultiplexer();
         inputMultiplexer.addProcessor(stage);
-        inputMultiplexer.addProcessor(new GestureDetector(new GestureHandler(this,cam)));
-       // inputMultiplexer.addProcessor(new KeyboardInputHandler(cam));
+        inputMultiplexer.addProcessor(new GestureDetector(new GestureHandler(this, cam)));
+        // inputMultiplexer.addProcessor(new KeyboardInputHandler(cam));
         Gdx.input.setInputProcessor(inputMultiplexer);
     }
 
@@ -291,8 +294,8 @@ public class FallingNotesScreen implements Screen {
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
         cam = new OrthographicCamera();
-        viewport = new ExtendViewport(w/2,h/2,cam);
-        cam.position.set(cam.viewportWidth/2f,cam.viewportHeight/2f,0);
+        viewport = new ExtendViewport(w / 2, h / 2, cam);
+        cam.position.set(cam.viewportWidth / 2f, cam.viewportHeight / 2f, 0);
         cam.update();
     }
 
@@ -302,7 +305,7 @@ public class FallingNotesScreen implements Screen {
 
         if (isPlaying) {
             notes.update(delta);
-            }
+        }
 
         //setting up camera
         settingUpCamera();
@@ -312,7 +315,7 @@ public class FallingNotesScreen implements Screen {
 
         //Drawing Background //Using background batch
         bbatch.begin();
-        bbatch.draw(backgroundSprite,0,0,Constants.WORLD_WIDTH,Constants.WORLD_HEIGHT);
+        bbatch.draw(backgroundSprite, 0, 0, Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT);
         renderGameName();
         bbatch.end();
 
@@ -323,7 +326,7 @@ public class FallingNotesScreen implements Screen {
 
         //Render Reference line
         blinerenderer.begin(ShapeRenderer.ShapeType.Line);
-        blinerenderer.line(0, Constants.OFFSET*2, Constants.WORLD_WIDTH, Constants.OFFSET*2);
+        blinerenderer.line(0, Constants.OFFSET * 2, Constants.WORLD_WIDTH, Constants.OFFSET * 2);
         blinerenderer.end();
 
         //Draw the Notes
@@ -333,7 +336,7 @@ public class FallingNotesScreen implements Screen {
 
         //Draw the piano
         batch.begin();
-        piano.render(sprite,batch);
+        piano.render(sprite, batch);
         batch.end();
 
         stage.draw();
@@ -352,9 +355,9 @@ public class FallingNotesScreen implements Screen {
 
     private void renderVerticalLines() {
         lineRenderer.setColor(theme.getVerticalLineColor());   //color alpha not working
-        for(int i = Constants.STARTING_OCTAVE; i<Constants.ENDING_OCTAVE; i++) {
-            lineRenderer.line(Note.mapCoordinates("C"+i), Constants.OFFSET, Note.mapCoordinates("C"+i), Constants.WORLD_HEIGHT);
-            lineRenderer.line(Note.mapCoordinates("F"+i), Constants.OFFSET, Note.mapCoordinates("F"+i), Constants.WORLD_HEIGHT);
+        for (int i = Constants.STARTING_OCTAVE; i < Constants.ENDING_OCTAVE; i++) {
+            lineRenderer.line(Note.mapCoordinates("C" + i), Constants.OFFSET, Note.mapCoordinates("C" + i), Constants.WORLD_HEIGHT);
+            lineRenderer.line(Note.mapCoordinates("F" + i), Constants.OFFSET, Note.mapCoordinates("F" + i), Constants.WORLD_HEIGHT);
         }
         Gdx.gl.glDisable(GL20.GL_BLEND);
     }
@@ -362,13 +365,15 @@ public class FallingNotesScreen implements Screen {
     private void renderGameName() {
         font.setColor(theme.getGameNameColor());
         font.getData().setScale(FallingNotesScreen.getTheme().getGameNameScale());
-        final GlyphLayout layout = new GlyphLayout(font,Constants.GAME_NAME);
+        final GlyphLayout layout = new GlyphLayout(font, Constants.GAME_NAME);
         // or for non final texts: layout.setText(font, text);
         final float fontX = 0 + (Constants.WORLD_WIDTH - layout.width) / 2;
-        font.draw(bbatch, Constants.GAME_NAME, fontX, Constants.OFFSET*1.5f );//Constants.NOTES_WIDTH*36/2,Constants.OFFSET/2+20);
+        font.draw(bbatch, Constants.GAME_NAME, fontX, Constants.OFFSET * 1.5f);//Constants.NOTES_WIDTH*36/2,Constants.OFFSET/2+20);
     }
 
     private void handleInput() {
+
+
         if (Gdx.input.isKeyPressed(Input.Keys.A)) {
             cam.zoom += 0.005;
         }
@@ -389,15 +394,17 @@ public class FallingNotesScreen implements Screen {
             cam.translate(0, 1, 0);
         }
 
+        //This is to avoid translating the camera out of bounds
+        cam.position.x = MathUtils.clamp(cam.position.x, camViewportHalfX, Gdx.graphics.getWidth() - camViewportHalfX);
+        cam.position.y = MathUtils.clamp(cam.position.y, camViewportHalfY, Gdx.graphics.getHeight() - camViewportHalfY);
+
 
     }
 
     @Override
     public void resize(int width, int height) {
-        //notesViewport.update(width, height, true);
-        //notes.init(); //required?
         viewport.update(width, height);
-        cam.position.set(cam.viewportWidth/2f,cam.viewportHeight/2f,0);
+        cam.position.set(cam.viewportWidth / 2f, cam.viewportHeight / 2f, 0);
     }
 
     @Override
@@ -422,21 +429,21 @@ public class FallingNotesScreen implements Screen {
     public void dispose() {
 
     }
-    public void zoom(float ratio)
-    {
-        cam.zoom -= ratio*0.001;
+
+    public void zoom(float ratio) {
+        cam.zoom -= ratio * 0.001;
     }
 
-    public void translate(float Xvelocity)
-    {
+    public void translate(float Xdelta) {
 
-        cam.position.x +=  Xvelocity*0.2;
+        cam.position.x += -Xdelta * 0.5;
+        cam.position.x = MathUtils.clamp(cam.position.x, camViewportHalfX, Gdx.graphics.getWidth() - camViewportHalfX);
+        cam.position.y = MathUtils.clamp(cam.position.y, camViewportHalfY, Gdx.graphics.getHeight() - camViewportHalfY);
+
     }
 
 
-
-    public static Theme getTheme()
-    {
+    public static Theme getTheme() {
         return theme;
     }
 }
