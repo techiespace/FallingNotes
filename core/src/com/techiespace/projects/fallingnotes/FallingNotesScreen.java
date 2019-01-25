@@ -2,6 +2,7 @@ package com.techiespace.projects.fallingnotes;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
@@ -16,6 +17,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
@@ -57,6 +59,7 @@ public class FallingNotesScreen implements Screen {
     Skin skin;
     TextureAtlas buttonAtlas;
     BitmapFont bitmapFont;
+    InputMultiplexer inputMultiplexer;
 
 
     RoundRectShapeRenderer renderer;
@@ -112,8 +115,14 @@ public class FallingNotesScreen implements Screen {
         setPreferences();
 
 
+
+
+
         //initialize the buttons
         initializeTheButtons();
+
+        //set Input Multiplexer
+        initializeInputMultipler();
 
 
         //Initialize the theme
@@ -148,6 +157,8 @@ public class FallingNotesScreen implements Screen {
         bbatch = new SpriteBatch();
         sprite = new Sprite();
         piano = new Piano();
+
+      //  Gdx.input.setInputProcessor(new GestureDetector(new GestureHandler()));
     }
 
     private void initializeBackground() {
@@ -187,12 +198,22 @@ public class FallingNotesScreen implements Screen {
         stage.addActor(controlsTable);
     }
 
+    private void initializeInputMultipler()
+    {
+        inputMultiplexer = new InputMultiplexer();
+        inputMultiplexer.addProcessor(stage);
+        inputMultiplexer.addProcessor(new GestureDetector(new GestureHandler(this,cam)));
+       // inputMultiplexer.addProcessor(new KeyboardInputHandler(cam));
+        Gdx.input.setInputProcessor(inputMultiplexer);
+    }
+
+
     private void initializeButtonListeners() {
         final Preferences playPrefs = getPrefs();
         playPauseButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                isPlaying = !isPlaying;
+                playPauseToggle();
             }
         });
         leftHandButton.addListener(new ChangeListener() {
@@ -217,6 +238,10 @@ public class FallingNotesScreen implements Screen {
         });
     }
 
+    public void playPauseToggle() {
+        isPlaying = !isPlaying;
+    }
+
     private void initializeGameName() {
         Texture texture = new Texture(Gdx.files.internal(FallingNotesScreen.getTheme().getFntPngName()), true); // true enables mipmaps
         texture.setFilter(Texture.TextureFilter.MipMapLinearNearest, Texture.TextureFilter.Linear); // linear filtering in nearest mipmap image
@@ -230,7 +255,7 @@ public class FallingNotesScreen implements Screen {
 
     private void initializeTheButtons() {
         stage = new Stage();
-        Gdx.input.setInputProcessor(stage);
+
         font = new BitmapFont();
         skin = new Skin();
         buttonAtlas = new TextureAtlas(Gdx.files.internal("buttons/controls.pack"));
@@ -315,7 +340,8 @@ public class FallingNotesScreen implements Screen {
 
     }
 
-    private void settingUpCamera() {
+    public void settingUpCamera() {
+        //cam.zoom+=0.0005;
         handleInput();
         cam.update();
         viewport.apply();
@@ -361,7 +387,8 @@ public class FallingNotesScreen implements Screen {
         }
         if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
             cam.translate(0, 1, 0);
-       }
+        }
+
 
     }
 
@@ -395,6 +422,18 @@ public class FallingNotesScreen implements Screen {
     public void dispose() {
 
     }
+    public void zoom(float ratio)
+    {
+        cam.zoom -= ratio*0.001;
+    }
+
+    public void translate(float Xvelocity)
+    {
+
+        cam.position.x +=  Xvelocity*0.2;
+    }
+
+
 
     public static Theme getTheme()
     {
