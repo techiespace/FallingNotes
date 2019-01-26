@@ -61,6 +61,7 @@ public class FallingNotesScreen implements Screen {
     TextureAtlas buttonAtlas;
     BitmapFont bitmapFont;
     InputMultiplexer inputMultiplexer;
+    SeekBar seekBar;
 
 
     RoundRectShapeRenderer renderer;
@@ -162,7 +163,16 @@ public class FallingNotesScreen implements Screen {
         camViewportHalfX = cam.viewportWidth * 0.5f;
         camViewportHalfY = cam.viewportHeight * 0.5f;
 
+
+        //initSeekbar
+        initSeekbar();
+
+
         //  Gdx.input.setInputProcessor(new GestureDetector(new GestureHandler()));
+    }
+
+    private void initSeekbar() {
+        seekBar = new SeekBar(stage,notes.getMidiEndTime());
     }
 
     private void initializeBackground() {
@@ -339,8 +349,16 @@ public class FallingNotesScreen implements Screen {
         piano.render(sprite, batch);
         batch.end();
 
+
+        //render Seekbar
+        updateSeekbar();
+
         stage.draw();
 
+    }
+
+    private void updateSeekbar() {
+        seekBar.updateSeekBar((int)notes.getInitialTime()*1000);
     }
 
     public void settingUpCamera() {
@@ -372,6 +390,8 @@ public class FallingNotesScreen implements Screen {
     }
 
     private void handleInput() {
+
+
 
 
         if (Gdx.input.isKeyPressed(Input.Keys.A)) {

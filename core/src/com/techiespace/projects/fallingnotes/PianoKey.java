@@ -21,7 +21,6 @@ public class PianoKey {
     Texture RH_downTexture;
 
 
-
     Piano.PianoKeyType keyType;
     boolean isPressed = false;
     int group;
@@ -33,69 +32,36 @@ public class PianoKey {
     }
 
 
-
-
-
-
-    public PianoKey(Vector2 position, String name, float height, float width, Piano.PianoKeyType type, int group, int positionInGroup) {
-        this.position = position;
-        this.name = name;
-        this.height = height;
-        this.width = width;
-        this.keyType = type;
-        this.group = group;
-        this.positionInGroup = group;
-
-        if (keyType == Piano.PianoKeyType.BLACK) {
-            this.texture = new Texture("piano/black_up.png");
-            this.upTexture = new Texture("piano/black_up.png");
-            this.LH_downTexture = FallingNotesScreen.getTheme().getLH_blackKeyDownTexture();
-            this.RH_downTexture = FallingNotesScreen.getTheme().getRH_blackKeyDownTexture();
-
-        } else {
-            this.texture = new Texture("white_up.png");
-            this.upTexture = new Texture("white_up.png");
-            this.LH_downTexture = FallingNotesScreen.getTheme().getLH_whiteKeyDownTexture();
-            this.RH_downTexture = FallingNotesScreen.getTheme().getRH_whiteKeyDownTexture();
-
-
-        }
-    }
-
-
     void render(Sprite keySprite, SpriteBatch batch) {
+        keySprite.setPosition(position.x, position.y);
+        keySprite.setSize(width, height);
+        keySprite.setRegion(texture);
+        keySprite.draw(batch);
 
-
-            // Gdx.app.error("renderkeys ",position.x+position.y+name);
-            keySprite.setPosition(position.x, position.y);
-            keySprite.setSize(width, height);
-            keySprite.setRegion(texture);
-            keySprite.draw(batch);
-
-        }
+    }
 
     float getHeight() {
         return this.height;
     }
+
     void setHeight(float height) {
-        this.height  = height;
+        this.height = height;
     }
 
     float getWidth() {
         return this.width;
     }
 
-    void setWidth(float width)
-    {
-        this.width=width;
+    void setWidth(float width) {
+        this.width = width;
     }
 
     int getGroup() {
         return this.group;
 
     }
-    void setGroup(int group)
-    {
+
+    void setGroup(int group) {
         this.group = group;
     }
 
@@ -103,26 +69,23 @@ public class PianoKey {
         return this.positionInGroup;
     }
 
-    void setPositionInGroup(int positionInGroup)
-    {
-        this.positionInGroup  = positionInGroup;
+    void setPositionInGroup(int positionInGroup) {
+        this.positionInGroup = positionInGroup;
     }
 
     Piano.PianoKeyType getKeyType() {
         return this.keyType;
     }
 
-    void setKeyType(Piano.PianoKeyType type)
-    {
-        this.keyType  = type;
+    void setKeyType(Piano.PianoKeyType type) {
+        this.keyType = type;
     }
 
     String getName() {
         return this.name;
     }
 
-    void setName(String name)
-    {
+    void setName(String name) {
         this.name = name;
     }
 
@@ -130,20 +93,17 @@ public class PianoKey {
         return this.position;
     }
 
-    void setPosition(Vector2 position)
-    {
-        this.position  = position;
+    void setPosition(Vector2 position) {
+        this.position = position;
     }
-
 
 
     Boolean getIsPressed() {
         return this.isPressed;
     }
 
-    void setIsPressed(Boolean isPressed)
-    {
-        this.isPressed  = isPressed;
+    void setIsPressed(Boolean isPressed) {
+        this.isPressed = isPressed;
     }
 
 
@@ -151,26 +111,23 @@ public class PianoKey {
         return this.texture;
     }
 
-    void setTexture(Texture texture)
-    {
+    void setTexture(Texture texture) {
         this.texture = texture;
     }
 
-    void updateTextureUp()
-    {
+    void updateTextureUp() {
 
 //        Gdx.app.log("Pianokey","Up kiya  "+getName());
         this.setTexture(upTexture);
         setIsPressed(false);
     }
 
-    void updateTextureDown(int track)
-    {
+    void updateTextureDown(int track) {
         setIsPressed(true);
 
 //        Gdx.app.log("Pianokey","down kiya  "+getName());
-        if(track==0)
-        this.setTexture(RH_downTexture);
+        if (track == 0)
+            this.setTexture(RH_downTexture);
         else
             this.setTexture(LH_downTexture);
 
@@ -192,24 +149,10 @@ public class PianoKey {
 
 
         }
-        }
-
-//        void print()
-//        {
-//
-//            Gdx.app.log(position+" "+
-//            name+" "+
-//            height+" "+
-//            width+" "+
-//            texture+" "+
-//            upTexture+" "+
-//            downTexture+" "+
-//
-//            keyType+" "
-//          ," ");
-      //  }
-
     }
+
+
+}
 
 
 
