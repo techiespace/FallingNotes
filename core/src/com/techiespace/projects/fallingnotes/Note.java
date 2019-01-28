@@ -45,8 +45,8 @@ public class Note implements Comparable<Note> {
     }
 
     public void render(RoundRectShapeRenderer renderer) {
-        boolean rightHand = playPref.getBoolean("right_hand");
-        boolean leftHand = playPref.getBoolean("left_hand");
+        boolean rightHand = playPref.getString("hand").equals("right") || playPref.getString("hand").equals("both");
+        boolean leftHand = playPref.getString("hand").equals("left") || playPref.getString("hand").equals("both");
         renderer.set(ShapeRenderer.ShapeType.Filled);
         renderer.setColor(153 / 255f, 51 / 255f, 255 / 255f, 1);
         if(noteName.contains("#")){

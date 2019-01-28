@@ -23,8 +23,6 @@ public class GestureHandler implements GestureDetector.GestureListener{
 
     @Override
     public boolean tap(float x, float y, int count, int button) {
-        Gdx.app.log("GestureHandler","Tap");
-
         game.playPauseToggle();
         return true;
     }
@@ -36,7 +34,6 @@ public class GestureHandler implements GestureDetector.GestureListener{
 
     @Override
     public boolean fling(float velocityX, float velocityY, int button) {
-
         return false;
     }
 
@@ -57,15 +54,11 @@ public class GestureHandler implements GestureDetector.GestureListener{
     public boolean zoom(float initialDistance, float distance) {
         float ratio = 1f;
 
-        if(distance<initialDistance)
-        {
+        if (distance < initialDistance) {
           Gdx.app.log("GestureHandler","Pinch");
           ratio = -ratio;
-        }
-        else{
-
+        } else {
             Gdx.app.log("GestureHandler","Zoom");
-
         }
 
         game.zoom(ratio);

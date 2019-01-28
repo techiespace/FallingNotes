@@ -2,32 +2,20 @@ package com.techiespace.projects.fallingnotes;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Slider;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.techiespace.projects.fallingnotes.Themes.HpTheme;
@@ -50,18 +38,8 @@ public class FallingNotesScreen implements Screen {
     private OrthographicCamera cam;
 
     Stage stage;
-    Button playPauseButton;
-    Button leftHandButton;
-    Button rightHandButton;
-    Button.ButtonStyle playPausebuttonStyle;
-    Button.ButtonStyle leftHandbuttonStyle;
-    Button.ButtonStyle rightHandbuttonStyle;
     BitmapFont font;
-    Skin skin;
-    TextureAtlas buttonAtlas;
-    BitmapFont bitmapFont;
-    InputMultiplexer inputMultiplexer;
-    SeekBar seekBar;
+    Controls controls;
 
 
     RoundRectShapeRenderer renderer;
@@ -83,10 +61,6 @@ public class FallingNotesScreen implements Screen {
     Viewport viewport;
 
     private boolean isPlaying = false;
-    Slider tempoSlider;
-    Slider seekSlider;
-    float tempoSliderVal;
-    float seekSliderVal;
 
     float camViewportHalfX;
     float camViewportHalfY;
@@ -116,24 +90,14 @@ public class FallingNotesScreen implements Screen {
         //                                                              //
         //                                                              //
 
-        //set preferences
-        setPreferences();
-
-
-        //initialize the buttons
-        initializeTheButtons();
-
-        //set Input Multiplexer
-        initializeInputMultipler();
-
+        stage = new Stage();
+        controls = new Controls(this, stage, cam, getPrefs());
 
         //Initialize the theme
         initializeTheTheme();
 
-
         //Initialize the camera
         initializeTheCamera();
-
 
         //initialize the Game name and font
         initializeGameName();
@@ -144,15 +108,8 @@ public class FallingNotesScreen implements Screen {
         lineRenderer = new ShapeRenderer();
         blinerenderer = new ShapeRenderer();
 
-
         //initialize Background
         initializeBackground();
-
-        //initialize button listeners
-        initializeButtonListeners();
-
-        //https://github.com/EsotericSoftware/tablelayout
-        initializeControlTable();
 
         notes = new Notes(app, midiName, stage);
         batch = new SpriteBatch();
@@ -163,16 +120,8 @@ public class FallingNotesScreen implements Screen {
         camViewportHalfX = cam.viewportWidth * 0.5f;
         camViewportHalfY = cam.viewportHeight * 0.5f;
 
-
-        //initSeekbar
-        initSeekbar();
-
-
+        controls.initSeekbar(notes, stage);
         //  Gdx.input.setInputProcessor(new GestureDetector(new GestureHandler()));
-    }
-
-    private void initSeekbar() {
-        seekBar = new SeekBar(stage,notes.getMidiEndTime());
     }
 
     private void initializeBackground() {
@@ -180,75 +129,6 @@ public class FallingNotesScreen implements Screen {
         backgroundTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         TextureRegion region = new TextureRegion(backgroundTexture, backgroundTexture.getWidth(), backgroundTexture.getHeight());
         backgroundSprite = new Sprite(region);
-    }
-
-    private void initializeControlTable() {
-        Table controlsTable = new Table();
-        //bg
-        Pixmap bgPixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
-        bgPixmap.setColor(new Color(1, 0, 0, 0.2f));
-        bgPixmap.fill();
-        TextureRegionDrawable textureRegionDrawableBg = new TextureRegionDrawable(new TextureRegion(new Texture(bgPixmap)));
-        controlsTable.setBackground(textureRegionDrawableBg);
-        bgPixmap.dispose(); //https://stackoverflow.com/questions/39081993/libgdx-scene2d-set-background-color-of-table
-
-        //play/pause
-        controlsTable.add(playPauseButton);
-        controlsTable.setSize(Constants.MENU_OFFSET, Constants.WORLD_HEIGHT * 2 / 3);
-        controlsTable.setPosition(Constants.WORLD_WIDTH - Constants.MENU_OFFSET, Constants.WORLD_HEIGHT / 6);
-
-        //left
-        controlsTable.row();
-        controlsTable.add(leftHandButton);
-
-        //right
-        controlsTable.row();
-        controlsTable.add(rightHandButton);
-
-        controlsTable.row();
-        controlsTable.add(tempoSlider);
-
-        controlsTable.debug();
-        stage.addActor(controlsTable);
-    }
-
-    private void initializeInputMultipler() {
-        inputMultiplexer = new InputMultiplexer();
-        inputMultiplexer.addProcessor(stage);
-        inputMultiplexer.addProcessor(new GestureDetector(new GestureHandler(this, cam)));
-        // inputMultiplexer.addProcessor(new KeyboardInputHandler(cam));
-        Gdx.input.setInputProcessor(inputMultiplexer);
-    }
-
-
-    private void initializeButtonListeners() {
-        final Preferences playPrefs = getPrefs();
-        playPauseButton.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                playPauseToggle();
-            }
-        });
-        leftHandButton.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                boolean toggle = !playPrefs.getBoolean("left_hand");
-                playPrefs.putBoolean("left_hand", toggle).flush();   //https://www.badlogicgames.com/forum/viewtopic.php?f=11&t=18544
-            }
-        });
-        rightHandButton.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                boolean toggle = !playPrefs.getBoolean("right_hand");
-                playPrefs.putBoolean("right_hand", toggle).flush();
-            }
-        });
-        tempoSlider.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                playPrefs.putFloat("tempo_multiplier", tempoSlider.getValue()).flush();
-            }
-        });
     }
 
     public void playPauseToggle() {
@@ -259,41 +139,6 @@ public class FallingNotesScreen implements Screen {
         Texture texture = new Texture(Gdx.files.internal(FallingNotesScreen.getTheme().getFntPngName()), true); // true enables mipmaps
         texture.setFilter(Texture.TextureFilter.MipMapLinearNearest, Texture.TextureFilter.Linear); // linear filtering in nearest mipmap image
         font = new BitmapFont(Gdx.files.internal(FallingNotesScreen.getTheme().getFntFileName()), new TextureRegion(texture), false);
-    }
-
-    private void setPreferences() {
-        Gdx.app.getPreferences("play_prefrences").putBoolean("right_hand", true).flush();
-        Gdx.app.getPreferences("play_prefrences").putBoolean("left_hand", true).flush();
-    }
-
-    private void initializeTheButtons() {
-        stage = new Stage();
-
-        font = new BitmapFont();
-        skin = new Skin();
-        buttonAtlas = new TextureAtlas(Gdx.files.internal("buttons/controls.pack"));
-        skin.addRegions(buttonAtlas);
-        playPausebuttonStyle = new Button.ButtonStyle();
-        playPausebuttonStyle.up = skin.getDrawable("play");
-        playPausebuttonStyle.checked = skin.getDrawable("pause");
-        playPauseButton = new Button(playPausebuttonStyle);
-
-        leftHandbuttonStyle = new Button.ButtonStyle();
-        leftHandbuttonStyle.up = skin.getDrawable("hand_left");
-        leftHandbuttonStyle.checked = skin.getDrawable("hand_right");
-        leftHandButton = new Button(leftHandbuttonStyle);
-
-        rightHandbuttonStyle = new Button.ButtonStyle();
-        rightHandbuttonStyle.up = skin.getDrawable("hand_right");
-        rightHandbuttonStyle.checked = skin.getDrawable("hand_left");
-        rightHandButton = new Button(rightHandbuttonStyle);
-
-        //This is called just one! How is it working then?
-        skin = new Skin(Gdx.files.internal("skin/uiskin.json"));
-        tempoSlider = new Slider(0, 1, 0.05f, true, skin);
-        tempoSliderVal = 1f;
-        getPrefs().putFloat("tempo_multiplier", tempoSliderVal).flush();
-        tempoSlider.setValue(tempoSliderVal);
     }
 
     private void initializeTheTheme() {
@@ -351,14 +196,10 @@ public class FallingNotesScreen implements Screen {
 
 
         //render Seekbar
-        updateSeekbar();
+        controls.updateSeekbar(notes);
 
         stage.draw();
 
-    }
-
-    private void updateSeekbar() {
-        seekBar.updateSeekBar((int)notes.getInitialTime()*1000);
     }
 
     public void settingUpCamera() {
@@ -390,10 +231,6 @@ public class FallingNotesScreen implements Screen {
     }
 
     private void handleInput() {
-
-
-
-
         if (Gdx.input.isKeyPressed(Input.Keys.A)) {
             cam.zoom += 0.005;
         }
@@ -417,8 +254,6 @@ public class FallingNotesScreen implements Screen {
         //This is to avoid translating the camera out of bounds
         cam.position.x = MathUtils.clamp(cam.position.x, camViewportHalfX, Gdx.graphics.getWidth() - camViewportHalfX);
         cam.position.y = MathUtils.clamp(cam.position.y, camViewportHalfY, Gdx.graphics.getHeight() - camViewportHalfY);
-
-
     }
 
     @Override
@@ -429,12 +264,10 @@ public class FallingNotesScreen implements Screen {
 
     @Override
     public void pause() {
-
     }
 
     @Override
     public void resume() {
-
     }
 
     @Override
@@ -447,7 +280,6 @@ public class FallingNotesScreen implements Screen {
 
     @Override
     public void dispose() {
-
     }
 
     public void zoom(float ratio) {
@@ -455,13 +287,10 @@ public class FallingNotesScreen implements Screen {
     }
 
     public void translate(float Xdelta) {
-
         cam.position.x += -Xdelta * 0.5;
         cam.position.x = MathUtils.clamp(cam.position.x, camViewportHalfX, Gdx.graphics.getWidth() - camViewportHalfX);
         cam.position.y = MathUtils.clamp(cam.position.y, camViewportHalfY, Gdx.graphics.getHeight() - camViewportHalfY);
-
     }
-
 
     public static Theme getTheme() {
         return theme;
