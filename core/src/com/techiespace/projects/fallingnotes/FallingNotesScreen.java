@@ -32,7 +32,7 @@ public class FallingNotesScreen implements Screen {
         this.app = app;
     }
 
-    Label lblMet;
+
     public static final String TAG = FallingNotesScreen.class.getName();
 
     private OrthographicCamera cam;
@@ -91,7 +91,8 @@ public class FallingNotesScreen implements Screen {
         //                                                              //
 
         stage = new Stage();
-        controls = new Controls(this, stage, cam, getPrefs());
+
+
 
         //Initialize the theme
         initializeTheTheme();
@@ -101,6 +102,12 @@ public class FallingNotesScreen implements Screen {
 
         //initialize the Game name and font
         initializeGameName();
+
+
+        camViewportHalfX = cam.viewportWidth * 0.5f;
+        camViewportHalfY = cam.viewportHeight * 0.5f;
+
+
 
 
         renderer = new RoundRectShapeRenderer();
@@ -117,8 +124,9 @@ public class FallingNotesScreen implements Screen {
         sprite = new Sprite();
         piano = new Piano();
 
-        camViewportHalfX = cam.viewportWidth * 0.5f;
-        camViewportHalfY = cam.viewportHeight * 0.5f;
+
+        controls = new Controls(this, stage, cam, getPrefs());
+
 
         controls.initSeekbar(notes, stage);
         //  Gdx.input.setInputProcessor(new GestureDetector(new GestureHandler()));
@@ -140,6 +148,7 @@ public class FallingNotesScreen implements Screen {
         texture.setFilter(Texture.TextureFilter.MipMapLinearNearest, Texture.TextureFilter.Linear); // linear filtering in nearest mipmap image
         font = new BitmapFont(Gdx.files.internal(FallingNotesScreen.getTheme().getFntFileName()), new TextureRegion(texture), false);
     }
+
 
     private void initializeTheTheme() {
         theme = new HpTheme(app);
@@ -276,6 +285,9 @@ public class FallingNotesScreen implements Screen {
         lineRenderer.dispose();
         blinerenderer.dispose();
         bbatch.dispose();
+        stage.dispose();
+        batch.dispose();
+
     }
 
     @Override
@@ -288,8 +300,8 @@ public class FallingNotesScreen implements Screen {
 
     public void translate(float Xdelta) {
         cam.position.x += -Xdelta * 0.5;
-        cam.position.x = MathUtils.clamp(cam.position.x, camViewportHalfX, Gdx.graphics.getWidth() - camViewportHalfX);
-        cam.position.y = MathUtils.clamp(cam.position.y, camViewportHalfY, Gdx.graphics.getHeight() - camViewportHalfY);
+//        cam.position.x = MathUtils.clamp(cam.position.x, camViewportHalfX, Gdx.graphics.getWidth() - camViewportHalfX);
+//        cam.position.y = MathUtils.clamp(cam.position.y, camViewportHalfY, Gdx.graphics.getHeight() - camViewportHalfY);
     }
 
     public static Theme getTheme() {

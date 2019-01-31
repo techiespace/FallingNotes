@@ -11,10 +11,12 @@ import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.badlogic.gdx.backends.android.AndroidFragmentApplication;
 
 public class AndroidLauncher extends FragmentActivity implements AndroidFragmentApplication.Callbacks {
-	@Override
-	protected void onCreate (Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+
+        AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
 
         // 6. Finally, replace the AndroidLauncher activity content with the Libgdx Fragment.
         GameFragment fragment = new GameFragment();
@@ -34,8 +36,9 @@ public class AndroidLauncher extends FragmentActivity implements AndroidFragment
         // 5. Add the initializeForView() code in the Fragment's onCreateView method.
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
             return initializeForView(new FallingNotesGame("CScale.mid"));
         }
-	}
+    }
 }
 																																																																																																																																																																																																																																																																																																																																																	

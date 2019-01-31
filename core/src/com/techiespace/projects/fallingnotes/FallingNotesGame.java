@@ -8,21 +8,22 @@ public class FallingNotesGame extends Game {
 
     public String midiName = "perfect.mid";
     public AssetManager assets;
-    public FallingNotesGame(String midiName){
-        if(midiName!=null)
-        this.midiName = midiName;
 
-    }
-    public FallingNotesGame()
-    {
+    public FallingNotesGame(String midiName) {
+        if (midiName != null)
+            this.midiName = midiName;
 
     }
 
+    public FallingNotesGame() {
 
-	@Override
-	public void create () {
+    }
+
+
+    @Override
+    public void create() {
         assets = new AssetManager();
-        setScreen(new LoadingScreen(this,midiName));
+        setScreen(new LoadingScreen(this, midiName));
 //        Gdx.app.log("FallingNotesGame COnstructor",midiName);
     }
 

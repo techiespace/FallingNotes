@@ -23,9 +23,7 @@ public class SeekBar {
     int midiEndTime;
 
 
-
-    public SeekBar(Stage stage,int midiEndTime)
-    {
+    public SeekBar(Stage stage, int midiEndTime) {
 
         this.midiEndTime = midiEndTime;
         seekTable = new Table();
@@ -33,18 +31,28 @@ public class SeekBar {
         skin = new Skin(Gdx.files.internal("skin/uiskin.json"));
         seekSlider = new Slider(0, midiEndTime, 0.05f, false, skin);
         //bg
-        bgPixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
+        bgPixmap = new Pixmap(10, 10, Pixmap.Format.RGBA8888);
         bgPixmap.setColor(new Color(1, 0, 0, 0.8f));
         bgPixmap.fill();
         textureRegionDrawableBg = new TextureRegionDrawable(new TextureRegion(new Texture(bgPixmap)));
         seekTable.setBackground(textureRegionDrawableBg);
         bgPixmap.dispose(); //https://stackoverflow.com/questions/39081993/libgdx-scene2d-set-background-color-of-table
+//        Container<Slider> container=new Container<Slider>(seekSlider);
+//        container.setTransform(true);   // for enabling scaling and rotation
+//        container.size(100, 60);
+//        container.setOrigin(container.getWidth() / 2, container.getHeight() / 2);
+//        container.setPosition(Constants.MENU_OFFSET*4,Constants.WORLD_HEIGHT-Constants.MENU_OFFSET/2);
+//        container.setScale(30);  //scale according to your requirement
+//
 
+//
         seekTable.setBackground(textureRegionDrawableBg);
-        seekTable.setSize(Constants.WORLD_WIDTH * 2 / 3, Constants.MENU_OFFSET);
-        seekTable.setPosition(Constants.WORLD_WIDTH / 6, 0);
+        seekTable.setSize(Constants.WORLD_WIDTH, Constants.MENU_OFFSET);
+        seekTable.setPosition(0, Constants.WORLD_HEIGHT - Constants.MENU_OFFSET);
+
         seekTable.add(seekSlider);
         stage.addActor(seekTable);
+
 
         seekSlider.addListener(new ChangeListener() {
             @Override
@@ -55,8 +63,7 @@ public class SeekBar {
     }
 
 
-    void updateSeekBar(int Time)
-    {
+    void updateSeekBar(int Time) {
         seekSlider.setValue(Time);
     }
 
