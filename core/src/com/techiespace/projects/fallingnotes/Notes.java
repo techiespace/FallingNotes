@@ -34,16 +34,19 @@ public class Notes {
     String midiName;
     Vector2 velocity;
     Preferences preferences;
+    //This is the end time of the midi file
     int midiEndTime;
+
+    //This is the actual end Time of the animation.
+    //This should be calculated after midiEndTime is Calculated
+    float animationEndTime;
 
 
     public Notes(FallingNotesGame app, String midiName, Stage stage) {
         this.app = app;
         this.midiName = midiName;
         init();
-        poolIndex = 0;
-        preferences = getPrefs();
-        velocity = new Vector2(0, -preferences.getFloat("tempo_multiplier") * 100);
+
 
     }
 
@@ -61,11 +64,14 @@ public class Notes {
 
 
     public void init() {
+        poolIndex = 0;
+        preferences = getPrefs();
+        velocity = new Vector2(0, -preferences.getFloat("tempo_multiplier") * 100);
         noteArray = new Array<Note>(true, 88);
         notesToRemove = new Array<Note>(true, 88);
         MidiParser midiParser = new MidiParser();
         //Girls_Like_You_Maroon_5, broken_dreams
-        noteArrayPool = midiParser.parse("midi/Interstellar_Main_Theme.mid");
+        noteArrayPool = midiParser.parse("midi/CScale.mid");
         initNoteId();
 
 
@@ -77,11 +83,23 @@ public class Notes {
 
         midiEndTime = noteArrayPool[noteArrayPool.length - 1].endTime;
 
+        initAnimationEndTime();
+
+//        Gdx.app.log("Notes",animationEndTime+" ");
+
     }
 
 
     public void update(float delta) {
         initialTime += delta * preferences.getFloat("tempo_multiplier");
+
+        //Applying the reset Condition here
+
+        //This should be updated because change in tempo will also change this
+        initAnimationEndTime();
+
+
+
         while (poolIndex < noteArrayPool.length && noteArrayPool[poolIndex].startTime <= initialTime * 1000) {
             noteArray.add(noteArrayPool[poolIndex]);
             poolIndex++;
@@ -140,6 +158,12 @@ public class Notes {
         return midiEndTime;
     }
 
+    public float getAnimationEndTime()
+    {
+        return animationEndTime;
+    }
+
+
 
     public float getInitialTime() {
         return initialTime;
@@ -153,4 +177,20 @@ public class Notes {
             }
     }
 
+
+    public void reset()
+    {
+        initialTime = 0;
+        init();
+    }
+
+
+    public void initAnimationEndTime()
+    {
+        //The actual end time of the animation will be calculated on the bases of current Tempo
+
+        animationEndTime =  (midiEndTime + 1000*(Constants.WORLD_HEIGHT/(preferences.getFloat("tempo_multiplier") * 100)));
+
+
+    }
 }

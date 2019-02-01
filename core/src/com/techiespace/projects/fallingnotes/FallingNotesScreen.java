@@ -62,8 +62,7 @@ public class FallingNotesScreen implements Screen {
 
     private boolean isPlaying = false;
 
-    float camViewportHalfX;
-    float camViewportHalfY;
+
 
     public FallingNotesScreen(FallingNotesGame app, String midiName) {
         this.app = app;
@@ -104,8 +103,6 @@ public class FallingNotesScreen implements Screen {
         initializeGameName();
 
 
-        camViewportHalfX = cam.viewportWidth * 0.5f;
-        camViewportHalfY = cam.viewportHeight * 0.5f;
 
 
 
@@ -169,6 +166,16 @@ public class FallingNotesScreen implements Screen {
 
         if (isPlaying) {
             notes.update(delta);
+//
+//            Gdx.app.log(TAG,notes.initialTime+"");
+//            Gdx.app.log(TAG+"midiEndTIme",notes.midiEndTime+"");
+
+            //Reset Condition
+            if(notes.initialTime*1000>notes.animationEndTime)
+            {
+
+                reset();
+            }
         }
 
         //setting up camera
@@ -261,8 +268,19 @@ public class FallingNotesScreen implements Screen {
         }
 
         //This is to avoid translating the camera out of bounds
-        cam.position.x = MathUtils.clamp(cam.position.x, camViewportHalfX, Gdx.graphics.getWidth() - camViewportHalfX);
-        cam.position.y = MathUtils.clamp(cam.position.y, camViewportHalfY, Gdx.graphics.getHeight() - camViewportHalfY);
+        cam.position.x = MathUtils.clamp(cam.position.x, cam.viewportWidth*0.5f*cam.zoom, Gdx.graphics.getWidth() - cam.viewportWidth*0.5f*cam.zoom);
+        cam.position.y = MathUtils.clamp(cam.position.y, cam.viewportHeight*0.5f*cam.zoom, Gdx.graphics.getHeight() - cam.viewportHeight*0.5f*cam.zoom);
+
+        //This is to limit the zoom level
+        //minimum zoom level should be to fit the whhole piano
+        //Maximum zoom level should to fit 3 octaves
+
+
+        Gdx.app.log(TAG,"zoom "+cam.zoom+" "+"min clamp "+cam.viewportWidth*0.5f+"camera "+cam.position.x);
+
+
+        cam.zoom = MathUtils.clamp(cam.zoom,0.855f,1.98f);
+
     }
 
     @Override
@@ -270,6 +288,17 @@ public class FallingNotesScreen implements Screen {
         viewport.update(width, height);
         cam.position.set(cam.viewportWidth / 2f, cam.viewportHeight / 2f, 0);
     }
+
+    //This function is called when the song is playd 100 percent
+    public void reset()
+    {
+        Gdx.app.log(TAG,"reset");
+        playPauseToggle();
+        notes.reset();
+        controls.reset();
+        piano.reset();
+    }
+
 
     @Override
     public void pause() {
@@ -296,12 +325,16 @@ public class FallingNotesScreen implements Screen {
 
     public void zoom(float ratio) {
         cam.zoom -= ratio * 0.001;
+        cam.zoom = MathUtils.clamp(cam.zoom,0.855f,1.98f);
     }
 
     public void translate(float Xdelta) {
         cam.position.x += -Xdelta * 0.5;
-//        cam.position.x = MathUtils.clamp(cam.position.x, camViewportHalfX, Gdx.graphics.getWidth() - camViewportHalfX);
-//        cam.position.y = MathUtils.clamp(cam.position.y, camViewportHalfY, Gdx.graphics.getHeight() - camViewportHalfY);
+
+        //This is to avoid translating the camera out of bounds
+        cam.position.x = MathUtils.clamp(cam.position.x, cam.viewportWidth*0.5f*cam.zoom, Gdx.graphics.getWidth() - cam.viewportWidth*0.5f*cam.zoom);
+        cam.position.y = MathUtils.clamp(cam.position.y, cam.viewportHeight*0.5f*cam.zoom, Gdx.graphics.getHeight() - cam.viewportHeight*0.5f*cam.zoom);
+
     }
 
     public static Theme getTheme() {

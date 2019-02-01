@@ -279,5 +279,11 @@ public class Piano {
         }
     }
 
+    public void reset()
+    {
+
+    }
+
+
 
 }

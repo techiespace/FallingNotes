@@ -92,7 +92,7 @@ public class Controls {
     }
 
     void initSeekbar(Notes notes, Stage stage) {
-        seekBar = new SeekBar(stage, notes.getMidiEndTime());
+        seekBar = new SeekBar(stage, notes.getAnimationEndTime());
     }
 
     void updateSeekbar(Notes notes) {
@@ -158,5 +158,14 @@ public class Controls {
         // inputMultiplexer.addProcessor(new KeyboardInputHandler(cam));
         Gdx.input.setInputProcessor(inputMultiplexer);
     }
+
+
+    //reseting controls
+
+    void reset()
+    {
+        seekBar.updateSeekBar(0);
+    }
+
 
 }

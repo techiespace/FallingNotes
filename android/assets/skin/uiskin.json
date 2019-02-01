@@ -176,7 +176,7 @@ com.badlogic.gdx.scenes.scene2d.ui.Tree$TreeStyle: {
 	default: { plus: plus, minus: minus, selection: list-selection, background: list }
 },
 com.badlogic.gdx.scenes.scene2d.ui.Slider$SliderStyle: {
-	default-vertical: { background: slider-bar, knob: slider-bar-knob, knobBefore: slider-bar-fill },
+	default-vertical: { background: slider-bar, knob: slider-bar-knob, knobBefore: slider-bar-fill,  },
 	default-horizontal: { background: slider-bar, knob: slider-bar-knob, knobBefore: slider-bar-fill }
 },
 com.badlogic.gdx.scenes.scene2d.ui.SelectBox$SelectBoxStyle: {
