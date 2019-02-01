@@ -189,7 +189,7 @@ public class Notes {
     {
         //The actual end time of the animation will be calculated on the bases of current Tempo
 
-        animationEndTime =  (midiEndTime + 1000*(Constants.WORLD_HEIGHT/(preferences.getFloat("tempo_multiplier") * 100)));
+        animationEndTime =  (midiEndTime + 1000*((Constants.WORLD_HEIGHT-Constants.OFFSET)/(preferences.getFloat("tempo_multiplier") * 100)));
 
 
     }

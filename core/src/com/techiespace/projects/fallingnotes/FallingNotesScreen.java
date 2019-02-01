@@ -60,6 +60,8 @@ public class FallingNotesScreen implements Screen {
 
     Viewport viewport;
 
+    GestureResponse gestureResponse;
+
     private boolean isPlaying = false;
 
 
@@ -127,6 +129,9 @@ public class FallingNotesScreen implements Screen {
 
         controls.initSeekbar(notes, stage);
         //  Gdx.input.setInputProcessor(new GestureDetector(new GestureHandler()));
+
+        //This is initializer of GestureResponse
+        gestureResponse = new GestureResponse(app,this);
     }
 
     private void initializeBackground() {
@@ -138,7 +143,11 @@ public class FallingNotesScreen implements Screen {
 
     public void playPauseToggle() {
         isPlaying = !isPlaying;
-    }
+        if(isPlaying)
+            gestureResponse.showPlayResponse();
+        else
+            gestureResponse.showPauseResponse();
+        }
 
     private void initializeGameName() {
         Texture texture = new Texture(Gdx.files.internal(FallingNotesScreen.getTheme().getFntPngName()), true); // true enables mipmaps
@@ -215,6 +224,9 @@ public class FallingNotesScreen implements Screen {
         controls.updateSeekbar(notes);
 
         stage.draw();
+
+        //render GestureResponse
+        gestureResponse.renderResponse();
 
     }
 
@@ -324,7 +336,7 @@ public class FallingNotesScreen implements Screen {
     }
 
     public void zoom(float ratio) {
-        cam.zoom -= ratio * 0.001;
+        cam.zoom -= ratio * 0.004;
         cam.zoom = MathUtils.clamp(cam.zoom,0.855f,1.98f);
     }
 
@@ -339,5 +351,10 @@ public class FallingNotesScreen implements Screen {
 
     public static Theme getTheme() {
         return theme;
+    }
+
+    public Notes getNotes()
+    {
+        return notes;
     }
 }
