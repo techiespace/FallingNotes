@@ -1,9 +1,11 @@
 package com.techiespace.projects.fallingnotes;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.TimeUtils;
 
 import static com.techiespace.projects.fallingnotes.FallingNotesScreen.theme;
@@ -30,7 +32,6 @@ public class GestureResponse {
     BitmapFont font;
 
 
-
     public GestureResponse(FallingNotesGame app, FallingNotesScreen gameScreen) {
         this.gameScreen = gameScreen;
         this.app = app;
@@ -39,14 +40,18 @@ public class GestureResponse {
 
         this.bbatch = gameScreen.bbatch;
 
-       // font.setColor(theme.getGameNameColor());
-       // font.getData().setScale(FallingNotesScreen.getTheme().getGameNameScale());
-       font = new BitmapFont();
-       font.getData().setScale(2);
+        Texture texture = new Texture(Gdx.files.internal("font/courgette.png"), true); // true enables mipmaps
+        texture.setFilter(Texture.TextureFilter.MipMapLinearNearest, Texture.TextureFilter.Linear); // linear filtering in nearest mipmap image
+        font = new BitmapFont(Gdx.files.internal("font/courgette.fnt"), new TextureRegion(texture), false);
+
+
+        font.setColor(Color.WHITE);
+         font.getData().setScale(1.2f);
+//        font = new BitmapFont();
+//        font.getData().setScale(2);
         showPlay = false;
         showPause = false;
     }
-
 
 
     public void showPlayResponse() {
@@ -68,11 +73,10 @@ public class GestureResponse {
         showTempo = false;
     }
 
-    public void showTempoResponse()
-    {
+    public void showTempoResponse() {
         startTime = TimeUtils.millis();
         endTime = startTime + 500;
-        showTempo  = true;
+        showTempo = true;
     }
 
 
@@ -80,18 +84,15 @@ public class GestureResponse {
 
         bbatch.begin();
 
-        if (endTime>TimeUtils.millis()) {
+        if (endTime > TimeUtils.millis()) {
             if (showPlay == true) {
 
-                bbatch.draw(play, Constants.WORLD_WIDTH *0.55f, Constants.WORLD_HEIGHT / 2, Constants.WORLD_WIDTH / 10, Constants.WORLD_WIDTH / 10);
+                bbatch.draw(play, Constants.WORLD_WIDTH * 0.55f, Constants.WORLD_HEIGHT / 2, Constants.WORLD_WIDTH / 10, Constants.WORLD_WIDTH / 10);
             } else if (showPause == true) {
 
-                bbatch.draw(pause, Constants.WORLD_WIDTH *0.55f, Constants.WORLD_HEIGHT / 2, Constants.WORLD_WIDTH / 10, Constants.WORLD_WIDTH / 10);
-
-
-            }
-            else if(showTempo == true) {
-                font.draw(bbatch, (int)(gameScreen.getPrefs().getFloat("tempo_multiplier")*100)+"",Constants.WORLD_WIDTH *0.45f,Constants.WORLD_HEIGHT / 2 );//Constants.NOTES_WIDTH*36/2,Constants.OFFSET/2+20);
+                bbatch.draw(pause, Constants.WORLD_WIDTH * 0.55f, Constants.WORLD_HEIGHT / 2, Constants.WORLD_WIDTH / 10, Constants.WORLD_WIDTH / 10);
+            } else if (showTempo == true) {
+                font.draw(bbatch, (int) (gameScreen.getPrefs().getFloat("tempo_multiplier") * 100) + "", Constants.WORLD_WIDTH * 0.45f, Constants.WORLD_HEIGHT / 2);//Constants.NOTES_WIDTH*36/2,Constants.OFFSET/2+20);
             }
 
 
@@ -99,9 +100,8 @@ public class GestureResponse {
 
         bbatch.end();
 
-        if(endTime<TimeUtils.millis())
+        if (endTime < TimeUtils.millis())
             resetResponse();
-
 
 
     }
