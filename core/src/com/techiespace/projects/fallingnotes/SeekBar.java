@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -15,7 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 public class SeekBar {
 
-    Slider seekSlider;
+    ProgressBar seekSlider;
     Table seekTable;
     Skin skin;
     Pixmap bgPixmap;
@@ -29,7 +30,7 @@ public class SeekBar {
         seekTable = new Table();
         //seek bar
         skin = new Skin(Gdx.files.internal("skin/uiskin.json"));
-        seekSlider = new Slider(0, animationEndTime, 0.02f, false, skin);
+        seekSlider = new ProgressBar(0, animationEndTime, 0.02f, false, skin);
         bgPixmap = new Pixmap(10, 10, Pixmap.Format.RGBA8888);
         bgPixmap.setColor(new Color(1, 0, 0, 0.8f));
         bgPixmap.fill();
@@ -56,8 +57,8 @@ public class SeekBar {
         seekTable.setSize(Constants.WORLD_WIDTH, Constants.MENU_OFFSET);
         seekTable.setPosition(0, Constants.WORLD_HEIGHT-Constants.MENU_OFFSET);
 
-        seekSlider.getStyle().knob.setMinHeight(40);
-        seekSlider.getStyle().knob.setMinWidth(40);
+//        seekSlider.getStyle().knob.setMinHeight(40);
+//        seekSlider.getStyle().knob.setMinWidth(40);
 
 
 
