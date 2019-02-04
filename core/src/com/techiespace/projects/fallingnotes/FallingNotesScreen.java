@@ -288,7 +288,7 @@ public class FallingNotesScreen implements Screen {
         //Maximum zoom level should to fit 3 octaves
 
 
-        Gdx.app.log(TAG,"zoom "+cam.zoom+" "+"min clamp "+cam.viewportWidth*0.5f+"camera "+cam.position.x);
+        //Gdx.app.log(TAG,"zoom "+cam.zoom+" "+"min clamp "+cam.viewportWidth*0.5f+"camera "+cam.position.x);
 
 
         cam.zoom = MathUtils.clamp(cam.zoom,0.855f,1.98f);

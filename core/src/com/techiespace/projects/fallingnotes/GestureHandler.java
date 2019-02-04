@@ -39,9 +39,17 @@ public class GestureHandler implements GestureDetector.GestureListener{
 
     @Override
     public boolean pan(float x, float y, float deltaX, float deltaY) {
-        Gdx.app.log("GestureHandler","Fling");
-        game.translate(deltaX);
-        game.settingUpCamera();
+        Gdx.app.log("GestureHandler","deltaX "+deltaX+" deltaY "+deltaY);
+        if((Math.abs(deltaX)>Math.abs(deltaY))&&(Math.abs(deltaY)<3f)) {
+            game.translate(deltaX);
+            game.settingUpCamera();
+        }
+        else if((Math.abs(deltaX)<3f)&&(Math.abs(deltaY)>3f))
+        {
+            game.gestureResponse.showTempoResponse();
+            game.controls.handleTempo(deltaY);
+            game.settingUpCamera();
+        }
         return true;
     }
 

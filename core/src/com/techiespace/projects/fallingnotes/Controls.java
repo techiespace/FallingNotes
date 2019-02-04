@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.input.GestureDetector;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
@@ -37,6 +38,8 @@ public class Controls {
     TextureAtlas buttonAtlas;
     InputMultiplexer inputMultiplexer;
 
+    Preferences playPrefs;
+
 
 
     Controls(FallingNotesScreen context, Stage stage, OrthographicCamera cam, Preferences prefs) {
@@ -46,6 +49,7 @@ public class Controls {
         initializeButtonListeners(prefs);
         initializeControlTable(stage);
         initializeTempoVal();
+        this.playPrefs = prefs;
     }
 
     private void initializeTempoVal() {
@@ -165,6 +169,27 @@ public class Controls {
     void reset()
     {
         seekBar.updateSeekBar(0);
+    }
+
+    public void handleTempo(float deltaY)
+    {
+        float sliderVal =  tempoSlider.getValue();
+        Gdx.app.log("Controls ",deltaY+"");
+
+
+        // Gdx.app.log("Controls",playPrefs.getFloat("tempo_multiplier")+"");
+
+        if(sliderVal<=1&&sliderVal>=0) {
+            sliderVal -= deltaY/300;
+            sliderVal = MathUtils.clamp(sliderVal,0,1);
+            Gdx.app.log("Controls ",sliderVal+"");
+
+
+            playPrefs.putFloat("tempo_multiplier", sliderVal).flush();
+            tempoSliderVal =  sliderVal;
+            tempoSlider.setValue(sliderVal);
+        }
+
     }
 
 
