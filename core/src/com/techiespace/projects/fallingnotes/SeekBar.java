@@ -29,10 +29,10 @@ public class SeekBar {
         this.midiEndTime = midiEndTime;
         seekTable = new Table();
         //seek bar
-        skin = new Skin(Gdx.files.internal("skin/uiskin.json"));
+        skin = new Skin(Gdx.files.internal("skin/tubular-ui.json"));
         seekSlider = new ProgressBar(0, animationEndTime, 0.02f, false, skin);
         bgPixmap = new Pixmap(10, 10, Pixmap.Format.RGBA8888);
-        bgPixmap.setColor(new Color(1, 0, 0, 0.8f));
+        bgPixmap.setColor(new Color(1, 0, 0, 0f));
         bgPixmap.fill();
         textureRegionDrawableBg = new TextureRegionDrawable(new TextureRegion(new Texture(bgPixmap)));
         seekTable.setBackground(textureRegionDrawableBg);
@@ -54,15 +54,15 @@ public class SeekBar {
 //
 
 
-        seekTable.setSize(Constants.WORLD_WIDTH, Constants.MENU_OFFSET);
-        seekTable.setPosition(0, Constants.WORLD_HEIGHT-Constants.MENU_OFFSET);
+        seekTable.setSize(Constants.WORLD_WIDTH,10);
+        seekTable.setPosition(0, Constants.WORLD_HEIGHT-10);
 
 //        seekSlider.getStyle().knob.setMinHeight(40);
 //        seekSlider.getStyle().knob.setMinWidth(40);
 
 
 
-        seekTable.add(seekSlider).width(Constants.WORLD_WIDTH).minHeight(60);
+        seekTable.add(seekSlider).width(Constants.WORLD_WIDTH).minHeight(60).bottom();
 
         stage.addActor(seekTable);
 

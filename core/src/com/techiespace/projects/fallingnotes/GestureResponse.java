@@ -18,6 +18,7 @@ public class GestureResponse {
 
     Texture play;
     Texture pause;
+    Texture reset;
 
     SpriteBatch bbatch;
 
@@ -28,6 +29,7 @@ public class GestureResponse {
     boolean showPlay;
     boolean showPause;
     boolean showTempo;
+    boolean showReset;
 
     BitmapFont font;
 
@@ -37,6 +39,8 @@ public class GestureResponse {
         this.app = app;
         play = app.assets.get("piano/play.png", Texture.class);
         pause = app.assets.get("piano/pause.png", Texture.class);
+        reset = app.assets.get("piano/reset.png", Texture.class);
+
 
         this.bbatch = gameScreen.bbatch;
 
@@ -51,6 +55,8 @@ public class GestureResponse {
 //        font.getData().setScale(2);
         showPlay = false;
         showPause = false;
+        showTempo = false;
+        showReset = false;
     }
 
 
@@ -71,12 +77,18 @@ public class GestureResponse {
         showPause = false;
         showPlay = false;
         showTempo = false;
+        showReset = false;
     }
 
     public void showTempoResponse() {
         startTime = TimeUtils.millis();
         endTime = startTime + 500;
         showTempo = true;
+    }
+    public void showResetResponse() {
+        startTime = TimeUtils.millis();
+        endTime = startTime + 500;
+        showReset = true;
     }
 
 
@@ -93,6 +105,11 @@ public class GestureResponse {
                 bbatch.draw(pause, Constants.WORLD_WIDTH * 0.45f, Constants.WORLD_HEIGHT / 2, Constants.WORLD_WIDTH / 15, Constants.WORLD_WIDTH / 15);
             } else if (showTempo == true) {
                 font.draw(bbatch, (int) (gameScreen.getPrefs().getFloat("tempo_multiplier") * 100) + "", Constants.WORLD_WIDTH * 0.50f, Constants.WORLD_HEIGHT / 2);//Constants.NOTES_WIDTH*36/2,Constants.OFFSET/2+20);
+            }else if(showReset == true){
+
+                bbatch.draw(reset, Constants.WORLD_WIDTH * 0.45f, Constants.WORLD_HEIGHT / 2, Constants.WORLD_WIDTH / 15, Constants.WORLD_WIDTH / 15);
+
+
             }
 
 

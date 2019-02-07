@@ -305,7 +305,8 @@ public class FallingNotesScreen implements Screen {
     public void reset()
     {
         Gdx.app.log(TAG,"reset");
-        playPauseToggle();
+        gestureResponse.showResetResponse();
+        isPlaying = false;
         notes.reset();
         controls.reset();
         piano.reset();

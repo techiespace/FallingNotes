@@ -75,7 +75,8 @@ public class Controls {
         handToggleButton = new Button(bothHandToggleButtonStyle);
 
         //This is called just once! How is it working then?
-        skin = new Skin(Gdx.files.internal("skin/uiskin.json"));
+
+        skin = new Skin(Gdx.files.internal("skin/tubular-ui.json"));
         tempoSlider = new Slider(0, 1, 0.05f, true, skin);
         tempoSliderVal = 1f;
         preferences.putFloat("tempo_multiplier", tempoSliderVal).flush();
@@ -108,19 +109,20 @@ public class Controls {
         Table controlsTable = new Table();
         //bg
         Pixmap bgPixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
-        bgPixmap.setColor(new Color(1, 0, 0, 0.2f));
+        bgPixmap.setColor(new Color(1, 0, 0, 0f));
         bgPixmap.fill();
         TextureRegionDrawable textureRegionDrawableBg = new TextureRegionDrawable(new TextureRegion(new Texture(bgPixmap)));
         controlsTable.setBackground(textureRegionDrawableBg);
         bgPixmap.dispose(); //https://stackoverflow.com/questions/39081993/libgdx-scene2d-set-background-color-of-table
 
         //hand
-        controlsTable.add(handToggleButton).size(40, 40).padBottom(8f);
-        controlsTable.setSize(Constants.MENU_OFFSET, Constants.WORLD_HEIGHT * 2 / 3);
-        controlsTable.setPosition(Constants.WORLD_WIDTH - Constants.MENU_OFFSET, Constants.WORLD_HEIGHT / 6);
 
-        controlsTable.row();
-        controlsTable.add(tempoSlider);
+        controlsTable.add(handToggleButton).size(70, 70);
+        controlsTable.setSize(Constants.WORLD_WIDTH/2, Constants.MENU_OFFSET);
+        controlsTable.setPosition(0, 0);
+
+//        controlsTable.row();
+//        controlsTable.add(tempoSlider);
 
 //        controlsTable.debug();
         stage.addActor(controlsTable);

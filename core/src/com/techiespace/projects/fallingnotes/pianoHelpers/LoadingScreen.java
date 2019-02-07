@@ -47,6 +47,7 @@ public class LoadingScreen implements Screen {
         app.assets.load("piano/white_down_red.png", Texture.class);
         app.assets.load("piano/play.png",Texture.class);
         app.assets.load("piano/pause.png",Texture.class);
+        app.assets.load("piano/reset.png",Texture.class);
     }
 
     @Override
