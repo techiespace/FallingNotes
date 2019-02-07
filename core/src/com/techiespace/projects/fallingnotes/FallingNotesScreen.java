@@ -261,9 +261,13 @@ public class FallingNotesScreen implements Screen {
     private void handleInput() {
         if (Gdx.input.isKeyPressed(Input.Keys.A)) {
             cam.zoom += 0.005;
+
+
         }
         if (Gdx.input.isKeyPressed(Input.Keys.Q)) {
             cam.zoom -= 0.005;
+
+
 
         }
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
@@ -281,17 +285,21 @@ public class FallingNotesScreen implements Screen {
 
         //This is to avoid translating the camera out of bounds
         cam.position.x = MathUtils.clamp(cam.position.x, cam.viewportWidth*0.5f*cam.zoom, Gdx.graphics.getWidth() - cam.viewportWidth*0.5f*cam.zoom);
-        cam.position.y = MathUtils.clamp(cam.position.y, cam.viewportHeight*0.5f*cam.zoom, Gdx.graphics.getHeight() - cam.viewportHeight*0.5f*cam.zoom);
+        cam.position.y = MathUtils.clamp(cam.position.y, 0.8552987f*cam.viewportHeight*0.5f*cam.zoom+39.29953f, 0.8552987f*cam.viewportHeight*0.5f*cam.zoom+39.29953f);
 
         //This is to limit the zoom level
         //minimum zoom level should be to fit the whhole piano
         //Maximum zoom level should to fit 3 octaves
 
 
-        //Gdx.app.log(TAG,"zoom "+cam.zoom+" "+"min clamp "+cam.viewportWidth*0.5f+"camera "+cam.position.x);
+        Gdx.app.log(TAG,"min clamp "+cam.viewportHeight*0.5);
+        Gdx.app.log(TAG,"cam position y "+cam.position.y);
+        Gdx.app.log(TAG,"zoom "+cam.zoom);
+
 
 
         cam.zoom = MathUtils.clamp(cam.zoom,0.855f,1.98f);
+
 
     }
 

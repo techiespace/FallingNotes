@@ -99,10 +99,10 @@ public class GestureResponse {
         if (endTime > TimeUtils.millis()) {
             if (showPlay == true) {
 
-                bbatch.draw(play, Constants.WORLD_WIDTH * 0.45f, Constants.WORLD_HEIGHT / 2, Constants.WORLD_WIDTH / 15, Constants.WORLD_WIDTH / 15);
+                bbatch.draw(pause, Constants.WORLD_WIDTH * 0.45f, Constants.WORLD_HEIGHT / 2, Constants.WORLD_WIDTH / 15, Constants.WORLD_WIDTH / 15);
             } else if (showPause == true) {
 
-                bbatch.draw(pause, Constants.WORLD_WIDTH * 0.45f, Constants.WORLD_HEIGHT / 2, Constants.WORLD_WIDTH / 15, Constants.WORLD_WIDTH / 15);
+                bbatch.draw(play, Constants.WORLD_WIDTH * 0.45f, Constants.WORLD_HEIGHT / 2, Constants.WORLD_WIDTH / 15, Constants.WORLD_WIDTH / 15);
             } else if (showTempo == true) {
                 font.draw(bbatch, (int) (gameScreen.getPrefs().getFloat("tempo_multiplier") * 100) + "", Constants.WORLD_WIDTH * 0.50f, Constants.WORLD_HEIGHT / 2);//Constants.NOTES_WIDTH*36/2,Constants.OFFSET/2+20);
             }else if(showReset == true){
