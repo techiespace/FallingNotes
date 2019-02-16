@@ -15,7 +15,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.techiespace.projects.fallingnotes.Themes.HpTheme;
@@ -292,9 +291,9 @@ public class FallingNotesScreen implements Screen {
         //Maximum zoom level should to fit 3 octaves
 
 
-        Gdx.app.log(TAG,"min clamp "+cam.viewportHeight*0.5);
-        Gdx.app.log(TAG,"cam position y "+cam.position.y);
-        Gdx.app.log(TAG,"zoom "+cam.zoom);
+//        Gdx.app.log(TAG,"min clamp "+cam.viewportHeight*0.5);
+//        Gdx.app.log(TAG,"cam position y "+cam.position.y);
+//        Gdx.app.log(TAG,"zoom "+cam.zoom);
 
 
 
