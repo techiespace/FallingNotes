@@ -3,18 +3,9 @@ package com.techiespace.projects.fallingnotes;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Slider;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.techiespace.projects.fallingnotes.pianoHelpers.MidiParser;
 import com.techiespace.projects.fallingnotes.pianoHelpers.RoundRectShapeRenderer;
@@ -36,19 +27,21 @@ public class Notes {
     Preferences preferences;
     //This is the end time of the midi file
     int midiEndTime;
+    public static String recogNote = "";
 
     //This is the actual end Time of the animation.
     //This should be calculated after midiEndTime is Calculated
     float animationEndTime;
 
 
+
     public Notes(FallingNotesGame app, String midiName, Stage stage) {
         this.app = app;
         this.midiName = midiName;
         init();
-
-
+        TarsosFftYin.tarsos();
     }
+
 
     protected Preferences getPrefs() {
         if (preferences == null)
@@ -111,6 +104,15 @@ public class Notes {
             PianoKey key = Piano.findKey(note.noteName);
             sound = app.assets.get("audio/" + note.noteName + ".ogg");//note.sound;
 
+            if (note.position.y < (Constants.WHITE_PIANO_KEY_HEIGHT + Constants.OFFSET) + 20 && note.position.y > (Constants.WHITE_PIANO_KEY_HEIGHT + Constants.OFFSET) - 40) {
+//                System.out.println("RecogNote: "+recogNote);
+//                System.out.println("Note name: "+note.noteName);
+                if (recogNote.equals(note.noteName)) {
+                    System.out.println("Correct");
+                    FallingNotesScreen.getTheme().setRH_whiteKeyDownTexture(app.assets.get("piano/white_down_blue_g.png", Texture.class));
+//                    FallingNotesScreen.getTheme().setLH_whiteKeyDownTexture(app.assets.get("piano/white_down_blue_g.png", Texture.class));
+                }
+            }
             if (note.position.y < (Constants.WHITE_PIANO_KEY_HEIGHT + Constants.OFFSET)) {
 
 
@@ -192,5 +194,9 @@ public class Notes {
         animationEndTime =  (midiEndTime + 1000*((Constants.WORLD_HEIGHT-Constants.OFFSET)/(preferences.getFloat("tempo_multiplier") * 100)));
 
 
+    }
+
+    public void setRecogNote(String recogNote) {
+        Notes.recogNote = recogNote;
     }
 }

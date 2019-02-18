@@ -42,6 +42,7 @@ public class LoadingScreen implements Screen {
             app.assets.load("audio/" + getMidiNoteName(i + 21) + ".ogg", Sound.class);
         }
         app.assets.load("piano/black_down_yellow.png", Texture.class);
+        app.assets.load("piano/white_down_blue_g.png", Texture.class);
         app.assets.load("piano/white_down_yellow.png", Texture.class);
         app.assets.load("piano/black_down_red_light.png", Texture.class);
         app.assets.load("piano/white_down_red.png", Texture.class);

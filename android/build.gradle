@@ -146,6 +146,3 @@ idea {
         }
     }
 }
-dependencies {
-    implementation files('libs/TarsosDSP-Android-latest.jar')
-}
