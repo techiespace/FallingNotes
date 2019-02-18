@@ -1,4 +1,4 @@
-package com.techiespace.projects.fallingnotes.course.fragments;
+package com.techiespace.projects.fallingnotes.fragments;
 
 
 import android.os.Bundle;
@@ -14,9 +14,14 @@ import com.techiespace.projects.fallingnotes.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class UniversitySublevelFragment extends Fragment {
+public class MidiListFragment extends Fragment {
 
-    public UniversitySublevelFragment() {
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager layoutManager;
+
+
+    public MidiListFragment() {
         // Required empty public constructor
     }
 
@@ -25,17 +30,18 @@ public class UniversitySublevelFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        final View rootView = inflater.inflate(R.layout.fragment_university_sublevel, container, false);
-        RecyclerView recyclerView = rootView.findViewById(R.id.sublevelRecyclerView);
+        // Inflate the layout for this fragment
+        final View rootView = inflater.inflate(R.layout.fragment_midi_list, container, false);
+        RecyclerView recyclerView = rootView.findViewById(R.id.midiListRecyclerView);
 
         // use a linear layout manager
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
 
         // specify an adapter (see also next example)
-        String[][] uniSublevelTitleData = (String[][]) getArguments().getSerializable("uniSublevelTitleData");
-        RecyclerView.Adapter mAdapter = new UniversitySublevelAdapter(uniSublevelTitleData);
-        recyclerView.setAdapter(mAdapter);
+//        String[][] uniSublevelTitleData = (String[][]) getArguments().getSerializable("uniSublevelTitleData");
+//        RecyclerView.Adapter mAdapter = new UniversitySublevelAdapter(uniSublevelTitleData);
+//        recyclerView.setAdapter(mAdapter);
         return rootView;
     }
 
