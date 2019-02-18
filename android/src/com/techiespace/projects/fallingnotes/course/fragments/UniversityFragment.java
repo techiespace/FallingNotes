@@ -26,19 +26,28 @@ public class UniversityFragment extends Fragment {
         // Inflate the layout for this fragment
         final View rootView = inflater.inflate(R.layout.fragment_university, container, false);
         CardView helloLevel = rootView.findViewById(R.id.helloLevel);
-        helloLevel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bundle titleBundle = new Bundle();
-                String[][] uniSublevelTitleData = new String[][]{{"Skill Name 1", "Skill List 1"}, {"Skill Name 2", "Skill List 2"}, {"Skill Name 3", "Skill List 3"}, {"Skill Name 4", "Skill List 4"}, {"Skill Name 5", "Skill List 5"}, {"Skill Name 6", "Skill List 6"}, {"Skill Name 7", "Skill List 7"}, {"Skill Name 8", "Skill List 8"}, {"Skill Name 9", "Skill List 9"}, {"Skill Name 10", "Skill List 10"}, {"Skill Name 11", "Skill List 11"}, {"Skill Name 12", "Skill List 12"}};
-                titleBundle.putSerializable("uniSublevelTitleData", uniSublevelTitleData);
-                Fragment universitySublevelFragment = new UniversitySublevelFragment();
-                universitySublevelFragment.setArguments(titleBundle);
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.screen_area, universitySublevelFragment); // give your fragment container id in first parameter
-                transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
-                transaction.commit();
-            }
+        CardView basicsLevel = rootView.findViewById(R.id.basicsLevel);
+        helloLevel.setOnClickListener(view -> {
+            Bundle titleBundle = new Bundle();
+            String[][] uniSublevelTitleData = new String[][]{{"Skill Name 1", "Skill List 1"}, {"Skill Name 2", "Skill List 2"}, {"Skill Name 3", "Skill List 3"}, {"Skill Name 4", "Skill List 4"}, {"Skill Name 5", "Skill List 5"}, {"Skill Name 6", "Skill List 6"}, {"Skill Name 7", "Skill List 7"}, {"Skill Name 8", "Skill List 8"}, {"Skill Name 9", "Skill List 9"}, {"Skill Name 10", "Skill List 10"}, {"Skill Name 11", "Skill List 11"}, {"Skill Name 12", "Skill List 12"}};
+            titleBundle.putSerializable("uniSublevelTitleData", uniSublevelTitleData);
+            Fragment universitySublevelFragment = new UniversitySublevelFragment();
+            universitySublevelFragment.setArguments(titleBundle);
+            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            transaction.replace(R.id.screen_area, universitySublevelFragment); // give your fragment container id in first parameter
+            transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
+            transaction.commit();
+        });
+        basicsLevel.setOnClickListener(view -> {
+            Bundle titleBundle = new Bundle();
+            String[][] uniSublevelTitleData = new String[][]{{"Skill Name 1", "Skill List 1"}, {"Skill Name 2", "Skill List 2"}, {"Skill Name 3", "Skill List 3"}, {"Skill Name 4", "Skill List 4"}, {"Skill Name 5", "Skill List 5"}, {"Skill Name 6", "Skill List 6"}, {"Skill Name 7", "Skill List 7"}, {"Skill Name 8", "Skill List 8"}, {"Skill Name 9", "Skill List 9"}, {"Skill Name 10", "Skill List 10"}, {"Skill Name 11", "Skill List 11"}, {"Skill Name 12", "Skill List 12"}};
+            titleBundle.putSerializable("uniSublevelTitleData", uniSublevelTitleData);
+            Fragment universitySublevelFragment = new UniversitySublevelFragment();
+            universitySublevelFragment.setArguments(titleBundle);
+            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            transaction.replace(R.id.screen_area, universitySublevelFragment); // give your fragment container id in first parameter
+            transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
+            transaction.commit();
         });
         return rootView;
     }
