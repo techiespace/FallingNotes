@@ -354,7 +354,7 @@ public class FallingNotesScreen implements Screen {
 
         //This is to avoid translating the camera out of bounds
         cam.position.x = MathUtils.clamp(cam.position.x, cam.viewportWidth*0.5f*cam.zoom, Gdx.graphics.getWidth() - cam.viewportWidth*0.5f*cam.zoom);
-        cam.position.y = MathUtils.clamp(cam.position.y, cam.viewportHeight*0.5f*cam.zoom, Gdx.graphics.getHeight() - cam.viewportHeight*0.5f*cam.zoom);
+        cam.position.y = MathUtils.clamp(cam.position.y, 0.8552987f*cam.viewportHeight*0.5f*cam.zoom+39.29953f, 0.8552987f*cam.viewportHeight*0.5f*cam.zoom+39.29953f);
 
     }
 
