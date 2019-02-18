@@ -43,5 +43,6 @@
         <activity android:name=".PracticeActivity"></activity>
     </application>
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
 </manifest>

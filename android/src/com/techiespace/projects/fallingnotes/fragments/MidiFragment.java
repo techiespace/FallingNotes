@@ -1,7 +1,11 @@
 package com.techiespace.projects.fallingnotes.fragments;
 
+import android.content.ContentResolver;
 import android.content.res.AssetManager;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,14 +15,19 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.MimeTypeMap;
 
+import com.badlogic.gdx.utils.Array;
 import com.techiespace.projects.fallingnotes.R;
 import com.techiespace.projects.fallingnotes.fragments.nestedListUi.RecyclerViewDataAdapter;
 import com.techiespace.projects.fallingnotes.fragments.nestedListUi.SectionDataModel;
 import com.techiespace.projects.fallingnotes.fragments.nestedListUi.SingleItemModel;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 
 public class MidiFragment  extends  Fragment{
     private ArrayList<SectionDataModel> allSampleData;
@@ -46,6 +55,70 @@ public class MidiFragment  extends  Fragment{
         }
 
         private void createDummyData() {
+
+            //
+            //
+            //
+            // Code to access local files
+            //
+            //
+            ///
+            //
+            HashMap<String,String> pdfFiles = new HashMap<String, String>();
+
+            ContentResolver cr = getContext().getContentResolver();
+            Uri uri = MediaStore.Files.getContentUri("external");
+
+// every column, although that is huge waste, you probably need
+// BaseColumns.DATA (the path) only.
+            String[] projection = null;
+
+// exclude media files, they would be here also.
+            String selection = MediaStore.Files.FileColumns.MEDIA_TYPE + "="
+                    + MediaStore.Files.FileColumns.MEDIA_TYPE_NONE;
+            String[] selectionArgs = null; // there is no ? in selection so null here
+
+            String sortOrder = null; // unordered
+            Cursor allNonMediaFiles = cr.query(uri, projection, selection, selectionArgs, sortOrder);
+
+            String selectionMimeType = MediaStore.Files.FileColumns.MIME_TYPE + "=?";
+            String mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension("pdf");
+            String[] selectionArgsPdf = new String[]{ mimeType };
+            Cursor allPdfFiles = cr.query(uri, projection, selectionMimeType, selectionArgsPdf, sortOrder);
+
+
+            if (allPdfFiles != null) {
+                // move cursor to first row
+                if (allPdfFiles.moveToFirst()) {
+                    do {
+                        // Get version from Cursor
+                        String Path = allPdfFiles.getString(allPdfFiles.getColumnIndex(MediaStore.Files.FileColumns.DATA));
+                      //  System.out.println(Arrays.toString(allPdfFiles.getColumnNames()));
+                        String fileName = allPdfFiles.getString(allPdfFiles.getColumnIndex(MediaStore.Files.FileColumns.TITLE));
+                        // add the bookName into the bookTitles ArrayList
+                        pdfFiles.put(fileName,Path);
+                        // move to next row
+                        System.out.println(fileName);
+                    } while (allPdfFiles.moveToNext());
+                }
+            }
+
+
+            //
+            //
+            //
+            // Ends here
+            //
+            //
+            //
+            //
+
+
+
+
+
+
+
 
             SectionDataModel dm = new SectionDataModel();
             dm.setHeaderTitle("Available midi");
