@@ -2,6 +2,7 @@ package com.techiespace.projects.fallingnotes;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -39,7 +40,7 @@ public class MainActivity extends AppCompatActivity
 //                        .setAction("Action", null).show();
 
                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                intent.setType("*/*");
+                intent.setType("audio/midi");
                 startActivityForResult(intent, 7);
 
             }
