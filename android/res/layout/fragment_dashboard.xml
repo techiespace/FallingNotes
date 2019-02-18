@@ -142,6 +142,7 @@
                     android:src="@drawable/ic_file_upload_white_24dp" />
 
                 <TextView
+                    android:id="@+id/uploadMidi"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|center|center_vertical"

@@ -1,6 +1,8 @@
 package com.techiespace.projects.fallingnotes;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -13,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.techiespace.projects.fallingnotes.fragments.BasicChordsFragment;
 import com.techiespace.projects.fallingnotes.fragments.InversionChordsFragment;
@@ -33,10 +36,18 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Quick Practice", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+//                Snackbar.make(view, "Quick Practice", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+
+               Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("audio/midi");
+                startActivityForResult(intent, 7);
+
             }
         });
+
+
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -50,6 +61,25 @@ public class MainActivity extends AppCompatActivity
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.screen_area, new DashboardFragment()).commit();
             navigationView.setCheckedItem(R.id.nav_dashboard);
+        }
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // TODO Auto-generated method stub
+
+        switch(requestCode){
+
+            case 7:
+
+                if(resultCode==RESULT_OK){
+
+                    String PathHolder = data.getData().getPath();
+
+                    Toast.makeText(MainActivity.this, PathHolder , Toast.LENGTH_LONG).show();
+
+                }
+                break;
+
         }
     }
 
