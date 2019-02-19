@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity
 //                        .setAction("Action", null).show();
 
             Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-            intent.setType("audio/midi");
+            intent.setType("audio/inappmidi");
             startActivityForResult(intent, 7);
 
         });

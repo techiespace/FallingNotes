@@ -25,7 +25,7 @@ public class Notes {
     String midiName;
     Vector2 velocity;
     Preferences preferences;
-    //This is the end time of the midi file
+    //This is the end time of the inappmidi file
     int midiEndTime;
     public static String recogNote = "";
 

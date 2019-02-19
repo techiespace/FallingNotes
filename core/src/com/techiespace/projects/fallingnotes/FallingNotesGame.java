@@ -6,7 +6,7 @@ import com.techiespace.projects.fallingnotes.pianoHelpers.LoadingScreen;
 
 public class FallingNotesGame extends Game {
 
-    public String midiName = "perfect.mid";
+    public String midiName = "inappinappmidi/perfect.mid";
     public AssetManager assets;
 
     public FallingNotesGame(String midiName) {
@@ -24,7 +24,7 @@ public class FallingNotesGame extends Game {
     public void create() {
         assets = new AssetManager();
         setScreen(new LoadingScreen(this, midiName));
-//        Gdx.app.log("FallingNotesGame COnstructor",midiName);
+//        Gdx.app.log("FallingNotesGame Constructor",midiName);
     }
 
     @Override

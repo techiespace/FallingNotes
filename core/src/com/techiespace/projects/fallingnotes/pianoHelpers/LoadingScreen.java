@@ -6,12 +6,9 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -27,7 +24,6 @@ import static com.techiespace.projects.fallingnotes.pianoHelpers.HelperFunctions
 public class LoadingScreen implements Screen {
 
     private final FallingNotesGame app;
-
 
 
     private ShapeRenderer shapeRenderer;
@@ -69,16 +65,15 @@ public class LoadingScreen implements Screen {
         queueAssets();
     }
 
-    protected  void addGameButton()
-    {
+    protected void addGameButton() {
 
-        newGameButton = new TextButton("Start Game",skin);
+        newGameButton = new TextButton("Start Game", skin);
 
         newGameButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                if(!isLoading)
-                app.setScreen(new FallingNotesScreen(app,midiName));
+                if (!isLoading)
+                    app.setScreen(new FallingNotesScreen(app, midiName));
 
             }
         });
@@ -87,10 +82,9 @@ public class LoadingScreen implements Screen {
         table.add(newGameButton).width(100).height(30).bottom();
         table.row();
 
-        table.setSize(Constants.WORLD_WIDTH,10);
-        table.setPosition(0, Constants.WORLD_HEIGHT/10);
+        table.setSize(Constants.WORLD_WIDTH, 10);
+        table.setPosition(0, Constants.WORLD_HEIGHT / 10);
         stage.addActor(table);
-
 
 
     }
@@ -121,19 +115,18 @@ public class LoadingScreen implements Screen {
             isLoading = false;
             //  app.setScreen(new FallingNotesScreen(app,midiName));
         }
-       // Gdx.app.log("Loading Screen",isLoading+"");
+        // Gdx.app.log("Loading Screen",isLoading+"");
 
-        if(isLoading)
+        if (isLoading)
             newGameButton.setTouchable(Touchable.disabled);
-        else
-        {
+        else {
             newGameButton.setTouchable(Touchable.enabled);
         }
     }
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(14f/255, 129f/255, 209f/255, 1f);
+        Gdx.gl.glClearColor(14f / 255, 129f / 255, 209f / 255, 1f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         update(delta);
@@ -143,8 +136,8 @@ public class LoadingScreen implements Screen {
 
         //Draw the instruction screen
 
-       roundRect.begin(ShapeRenderer.ShapeType.Filled);
-        roundRect.roundedRect(roundRect,Constants.WORLD_WIDTH /3, Constants.WORLD_HEIGHT / 3, Constants.WORLD_WIDTH/3,Constants.WORLD_HEIGHT/3,20,Color.WHITE,Color.WHITE,Color.WHITE,Color.WHITE);
+        roundRect.begin(ShapeRenderer.ShapeType.Filled);
+        roundRect.roundedRect(roundRect, Constants.WORLD_WIDTH / 3, Constants.WORLD_HEIGHT / 3, Constants.WORLD_WIDTH / 3, Constants.WORLD_HEIGHT / 3, 20, Color.WHITE, Color.WHITE, Color.WHITE, Color.WHITE);
         roundRect.end();
 //        shapeRenderer.setColor(Color.WHITE);
 //        shapeRenderer.rect(Constants.WORLD_WIDTH /3, Constants.WORLD_HEIGHT / 3, Constants.WORLD_WIDTH/3, Constants.WORLD_HEIGHT/3);
@@ -175,8 +168,8 @@ public class LoadingScreen implements Screen {
 
     @Override
     public void hide() {
-          stage.dispose();
-          shapeRenderer.dispose();
+        stage.dispose();
+        shapeRenderer.dispose();
     }
 
     @Override

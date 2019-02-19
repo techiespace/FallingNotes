@@ -50,7 +50,7 @@ public class MidiListAdapter extends RecyclerView.Adapter<com.techiespace.projec
             public void onClick(View view) {
 
                 Intent intent = new Intent(mContext, PracticeActivity.class);
-                intent.putExtra(Intent.EXTRA_TEXT, dataList.get(position));
+                intent.putExtra(Intent.EXTRA_TEXT, "inappmidi/" + dataList.get(position));
                 mContext.startActivity(intent);
                 Toast.makeText(view.getContext(), dataList.get(position), Toast.LENGTH_SHORT).show();
 
