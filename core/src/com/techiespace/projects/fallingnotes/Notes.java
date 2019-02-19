@@ -25,7 +25,7 @@ public class Notes {
     String midiName;
     Vector2 velocity;
     Preferences preferences;
-    //This is the end time of the midi file
+    //This is the end time of the inappmidi file
     int midiEndTime;
     public static String recogNote = "";
 
@@ -64,7 +64,7 @@ public class Notes {
         notesToRemove = new Array<Note>(true, 88);
         MidiParser midiParser = new MidiParser();
         //Girls_Like_You_Maroon_5, broken_dreams
-        noteArrayPool = midiParser.parse("midi/CScale.mid");
+        noteArrayPool = midiParser.parse(midiName);
         initNoteId();
 
 

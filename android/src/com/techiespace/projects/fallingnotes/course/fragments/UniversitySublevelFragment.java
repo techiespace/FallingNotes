@@ -16,10 +16,6 @@ import com.techiespace.projects.fallingnotes.R;
  */
 public class UniversitySublevelFragment extends Fragment {
 
-    private RecyclerView recyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager layoutManager;
-
     public UniversitySublevelFragment() {
         // Required empty public constructor
     }
@@ -30,15 +26,15 @@ public class UniversitySublevelFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View rootView = inflater.inflate(R.layout.fragment_university_sublevel, container, false);
-        recyclerView = rootView.findViewById(R.id.sublevelRecyclerView);
+        RecyclerView recyclerView = rootView.findViewById(R.id.sublevelRecyclerView);
 
         // use a linear layout manager
-        layoutManager = new LinearLayoutManager(getContext());
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
 
         // specify an adapter (see also next example)
         String[][] uniSublevelTitleData = (String[][]) getArguments().getSerializable("uniSublevelTitleData");
-        mAdapter = new UniversitySublevelAdapter(uniSublevelTitleData);
+        RecyclerView.Adapter mAdapter = new UniversitySublevelAdapter(uniSublevelTitleData);
         recyclerView.setAdapter(mAdapter);
         return rootView;
     }

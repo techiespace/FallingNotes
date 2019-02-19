@@ -102,7 +102,6 @@ public class MidiFragment extends Fragment {
         allPdfFiles.close();
 
 
-
         //
         //
         //
@@ -114,11 +113,11 @@ public class MidiFragment extends Fragment {
 
 
         SectionDataModel dm = new SectionDataModel();
-        dm.setHeaderTitle("Available midi");
+        dm.setHeaderTitle("Available inappmidi");
         ArrayList<SingleItemModel> singleItemModels = new ArrayList<>();
         AssetManager assetManager = getActivity().getAssets();
         try {
-            String[] files = assetManager.list("midi");
+            String[] files = assetManager.list("inappmidi");
 
             for (int i = 0; i < files.length; i++) {
                 singleItemModels.add(new SingleItemModel(files[i], files[i]));

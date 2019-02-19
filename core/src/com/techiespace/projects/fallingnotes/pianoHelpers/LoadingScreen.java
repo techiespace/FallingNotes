@@ -208,7 +208,7 @@ public class LoadingScreen implements Screen {
         //Draw the instruction screen
 
         roundRect.begin(ShapeRenderer.ShapeType.Filled);
-        roundRect.roundedRect(roundRect, Constants.WORLD_WIDTH / 3, Constants.WORLD_HEIGHT *0.15f, Constants.WORLD_WIDTH / 3, Constants.WORLD_HEIGHT*0.7f, 20, Color.WHITE, Color.WHITE, Color.WHITE, Color.WHITE);
+        roundRect.roundedRect(roundRect, Constants.WORLD_WIDTH / 3, Constants.WORLD_HEIGHT * 0.15f, Constants.WORLD_WIDTH / 3, Constants.WORLD_HEIGHT * 0.7f, 20, Color.WHITE, Color.WHITE, Color.WHITE, Color.WHITE);
         roundRect.end();
 
 
