@@ -53,7 +53,7 @@ public class LoadingScreen implements Screen {
 
         table = new Table();
         roundRect = new RoundRectShapeRenderer();
-        skin = new Skin(Gdx.files.internal("skin/tubular-ui.json"));
+        skin = new Skin(Gdx.files.internal("skin/uiskin.json"));
         isLoading = true;
 
 
