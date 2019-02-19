@@ -1,20 +1,21 @@
 package com.techiespace.projects.fallingnotes.pianoHelpers;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.techiespace.projects.fallingnotes.Constants;
 import com.techiespace.projects.fallingnotes.FallingNotesGame;
 import com.techiespace.projects.fallingnotes.FallingNotesScreen;
@@ -32,18 +33,19 @@ public class LoadingScreen implements Screen {
     Table table;
     Stage stage;
     Skin skin;
-    TextureAtlas buttonAtlas;
-    TextButton newGameButton;
     boolean isLoading;
     RoundRectShapeRenderer roundRect;
+    ProgressBar progressBar;
+    BitmapFont font;
+    SpriteBatch batch;
 
 
-    public LoadingScreen(final FallingNotesGame app,String midiName) {
+    public LoadingScreen(final FallingNotesGame app, String midiName) {
         this.app = app;
         this.shapeRenderer = new ShapeRenderer();
         this.progress = 0f;
         this.midiName = midiName;
-        Gdx.app.log("Loading Screen Constructor",midiName);
+        Gdx.app.log("Loading Screen Constructor", midiName);
         queueAssets();
         stage = new Stage();
 
@@ -52,11 +54,69 @@ public class LoadingScreen implements Screen {
         skin = new Skin(Gdx.files.internal("skin/uiskin.json"));
         isLoading = true;
 
+        progressBar = new ProgressBar(0, 100, 0.02f, false, skin);
+
 
         addGameButton();
 
+        Texture texture = new Texture(Gdx.files.internal("font/courgette.png"), true); // true enables mipmaps
+        texture.setFilter(Texture.TextureFilter.MipMapLinearNearest, Texture.TextureFilter.Linear); // linear filtering in nearest mipmap image
+        font = new BitmapFont(Gdx.files.internal("font/courgette.fnt"), new TextureRegion(texture), false);
+
         Gdx.input.setInputProcessor(stage);
+        batch = new SpriteBatch();
+
+
+        setInputProcessor();
     }
+
+    private void setInputProcessor() {
+        Gdx.input.setInputProcessor(new InputProcessor() {
+            @Override
+            public boolean keyDown(int keycode) {
+                return false;
+            }
+
+            @Override
+            public boolean keyUp(int keycode) {
+                return false;
+            }
+
+            @Override
+            public boolean keyTyped(char character) {
+                return false;
+            }
+
+            @Override
+            public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+                if (!isLoading) {
+                    app.setScreen(new FallingNotesScreen(app, midiName));
+                }
+                return false;
+            }
+
+            @Override
+            public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+                return false;
+            }
+
+            @Override
+            public boolean touchDragged(int screenX, int screenY, int pointer) {
+                return false;
+            }
+
+            @Override
+            public boolean mouseMoved(int screenX, int screenY) {
+                return false;
+            }
+
+            @Override
+            public boolean scrolled(int amount) {
+                return false;
+            }
+        });
+    }
+
     public LoadingScreen(final FallingNotesGame app) {
         this.app = app;
         this.shapeRenderer = new ShapeRenderer();
@@ -67,19 +127,8 @@ public class LoadingScreen implements Screen {
 
     protected void addGameButton() {
 
-        newGameButton = new TextButton("Start Game", skin);
 
-        newGameButton.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                if (!isLoading)
-                    app.setScreen(new FallingNotesScreen(app, midiName));
-
-            }
-        });
-
-
-        table.add(newGameButton).width(100).height(30).bottom();
+        table.add(progressBar).width(Constants.WORLD_WIDTH / 6).height(30).bottom();
         table.row();
 
         table.setSize(Constants.WORLD_WIDTH, 10);
@@ -99,9 +148,9 @@ public class LoadingScreen implements Screen {
         app.assets.load("piano/white_down_yellow.png", Texture.class);
         app.assets.load("piano/black_down_red_light.png", Texture.class);
         app.assets.load("piano/white_down_red.png", Texture.class);
-        app.assets.load("piano/play.png",Texture.class);
-        app.assets.load("piano/pause.png",Texture.class);
-        app.assets.load("piano/reset.png",Texture.class);
+        app.assets.load("piano/play.png", Texture.class);
+        app.assets.load("piano/pause.png", Texture.class);
+        app.assets.load("piano/reset.png", Texture.class);
     }
 
     @Override
@@ -113,15 +162,13 @@ public class LoadingScreen implements Screen {
         progress = app.assets.getProgress();
         if (app.assets.update()) {
             isLoading = false;
-            //  app.setScreen(new FallingNotesScreen(app,midiName));
-        }
-        // Gdx.app.log("Loading Screen",isLoading+"");
+            progressBar.setVisible(false);
 
-        if (isLoading)
-            newGameButton.setTouchable(Touchable.disabled);
-        else {
-            newGameButton.setTouchable(Touchable.enabled);
         }
+        progressBar.setColor(Color.WHITE);
+        progressBar.setValue(progress * 100);
+
+
     }
 
     @Override
@@ -137,18 +184,20 @@ public class LoadingScreen implements Screen {
         //Draw the instruction screen
 
         roundRect.begin(ShapeRenderer.ShapeType.Filled);
-        roundRect.roundedRect(roundRect, Constants.WORLD_WIDTH / 3, Constants.WORLD_HEIGHT / 3, Constants.WORLD_WIDTH / 3, Constants.WORLD_HEIGHT / 3, 20, Color.WHITE, Color.WHITE, Color.WHITE, Color.WHITE);
+        roundRect.roundedRect(roundRect, Constants.WORLD_WIDTH / 3, Constants.WORLD_HEIGHT *0.15f, Constants.WORLD_WIDTH / 3, Constants.WORLD_HEIGHT*0.7f, 20, Color.WHITE, Color.WHITE, Color.WHITE, Color.WHITE);
         roundRect.end();
-//        shapeRenderer.setColor(Color.WHITE);
-//        shapeRenderer.rect(Constants.WORLD_WIDTH /3, Constants.WORLD_HEIGHT / 3, Constants.WORLD_WIDTH/3, Constants.WORLD_HEIGHT/3);
-//        shapeRenderer.end();
 
-//        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-//        shapeRenderer.setColor(Color.BLACK);
-//        shapeRenderer.rect(Constants.WORLD_WIDTH / 2 - 100, Constants.WORLD_HEIGHT / 2 - 20, 100, 20);
-//        shapeRenderer.setColor(Color.RED);
-//        shapeRenderer.rect(Constants.WORLD_WIDTH / 2 - 100, Constants.WORLD_HEIGHT / 2 - 20, progress * (100), 20);
-//        shapeRenderer.end();
+        batch.begin();
+
+        font.setColor(Color.WHITE);
+        font.getData().setScale(1f);
+        final GlyphLayout layout = new GlyphLayout(font, Constants.GAME_NAME);
+        // or for non final texts: layout.setText(font, text);
+
+        if (!isLoading)
+            font.draw(batch, "Tap To Play", Constants.WORLD_WIDTH * 0.45f, Constants.WORLD_HEIGHT / 10);//Constants.NOTES_WIDTH*36/2,Constants.OFFSET/2+20);
+
+        batch.end();
     }
 
     @Override
