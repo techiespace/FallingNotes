@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextArea;
 import com.techiespace.projects.fallingnotes.Constants;
 import com.techiespace.projects.fallingnotes.FallingNotesGame;
 import com.techiespace.projects.fallingnotes.FallingNotesScreen;
@@ -38,6 +39,7 @@ public class LoadingScreen implements Screen {
     ProgressBar progressBar;
     BitmapFont font;
     SpriteBatch batch;
+    TextArea textArea;
 
 
     public LoadingScreen(final FallingNotesGame app, String midiName) {
@@ -67,7 +69,29 @@ public class LoadingScreen implements Screen {
         batch = new SpriteBatch();
 
 
+        initializeTextField();
+
+
+        stage.addActor(textArea);
+
+
+
         setInputProcessor();
+    }
+
+    private void initializeTextField() {
+        textArea = new TextArea("Text Area\nEssentially,\n\n\n\n\n\n\n a text field\nwith\nmultiple\nlines.\n"
+                + "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nIt can even handle very loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong lines.",
+                skin);
+        textArea.setColor(1,1,1,0.5f);
+        textArea.setPosition(Constants.WORLD_WIDTH / 3+10, Constants.WORLD_HEIGHT *0.15f+10);
+        textArea.setSize(Constants.WORLD_WIDTH / 3-20, Constants.WORLD_HEIGHT*0.7f-20);
+        textArea.setDisabled(true);
+        TextArea.TextFieldStyle textFieldStyle = skin.get(TextArea.TextFieldStyle.class);
+        textFieldStyle.font.getData().setScale(1.5f);
+
+
+        textArea.setStyle(textFieldStyle);
     }
 
     private void setInputProcessor() {
@@ -178,7 +202,7 @@ public class LoadingScreen implements Screen {
 
         update(delta);
 
-        stage.draw();
+
 
 
         //Draw the instruction screen
@@ -187,11 +211,14 @@ public class LoadingScreen implements Screen {
         roundRect.roundedRect(roundRect, Constants.WORLD_WIDTH / 3, Constants.WORLD_HEIGHT *0.15f, Constants.WORLD_WIDTH / 3, Constants.WORLD_HEIGHT*0.7f, 20, Color.WHITE, Color.WHITE, Color.WHITE, Color.WHITE);
         roundRect.end();
 
+
+        stage.draw();
+
         batch.begin();
 
         font.setColor(Color.WHITE);
         font.getData().setScale(1f);
-        final GlyphLayout layout = new GlyphLayout(font, Constants.GAME_NAME);
+
         // or for non final texts: layout.setText(font, text);
 
         if (!isLoading)
