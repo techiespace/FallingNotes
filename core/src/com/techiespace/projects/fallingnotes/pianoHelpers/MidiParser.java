@@ -44,7 +44,11 @@ public class MidiParser {
 
             int track = -1;
             double bpm = -120.0;
-            InputStream inputStream = Gdx.files.internal(file).read();
+
+            /*for(int i = 0; i < Gdx.files.absolute("/").list().length; i++){
+                System.out.println("TestingFile: "+Gdx.files.absolute("/").list()[i].name());//Gdx.files.internal(file).read();
+            }*/
+            InputStream inputStream = Gdx.files.absolute(file).read();
 
             int chunkMagic = readFixedLengthCode(inputStream, 4);
             if (chunkMagic != 0x4D546864) {

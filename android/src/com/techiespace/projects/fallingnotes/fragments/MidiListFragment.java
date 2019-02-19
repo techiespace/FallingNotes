@@ -1,6 +1,7 @@
 package com.techiespace.projects.fallingnotes.fragments;
 
 
+import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,11 +11,18 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.techiespace.projects.fallingnotes.R;
+import com.techiespace.projects.fallingnotes.fragments.nestedListUi.SectionDataModel;
+import com.techiespace.projects.fallingnotes.fragments.nestedListUi.SingleItemModel;
+
+import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class MidiListFragment extends Fragment {
+    private ArrayList<String> allSampleData;
+    private ArrayList<String> deviceSampleData;
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -38,11 +46,35 @@ public class MidiListFragment extends Fragment {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
 
+        allSampleData = new ArrayList<>();
+        getLocalData();
         // specify an adapter (see also next example)
 //        String[][] uniSublevelTitleData = (String[][]) getArguments().getSerializable("uniSublevelTitleData");
-//        RecyclerView.Adapter mAdapter = new UniversitySublevelAdapter(uniSublevelTitleData);
-//        recyclerView.setAdapter(mAdapter);
+        RecyclerView.Adapter mAdapter = new MidiListAdapter(allSampleData, getContext());
+        recyclerView.setAdapter(mAdapter);
         return rootView;
+    }
+
+
+    private void getLocalData() {
+        SectionDataModel dm = new SectionDataModel();
+        dm.setHeaderTitle("Available midi");
+        ArrayList<SingleItemModel> singleItemModels = new ArrayList<>();
+        AssetManager assetManager = getActivity().getAssets();
+        try {
+            String[] files = assetManager.list("midi");
+
+            for (int i = 0; i < files.length; i++) {
+                allSampleData.add(files[i]);
+            }
+        } catch (IOException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
+
+
+//        dm.setAllItemInSection(singleItemModels);
+//        allSampleData.add(dm);
     }
 
 }

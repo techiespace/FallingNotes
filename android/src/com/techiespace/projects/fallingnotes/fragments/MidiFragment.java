@@ -99,7 +99,7 @@ public class MidiFragment extends Fragment {
                 } while (allPdfFiles.moveToNext());
             }
         }
-
+        allPdfFiles.close();
 
         //
         //

@@ -64,7 +64,7 @@ public class Notes {
         notesToRemove = new Array<Note>(true, 88);
         MidiParser midiParser = new MidiParser();
         //Girls_Like_You_Maroon_5, broken_dreams
-        noteArrayPool = midiParser.parse("midi/CScale.mid");
+        noteArrayPool = midiParser.parse(midiName);
         initNoteId();
 
 
