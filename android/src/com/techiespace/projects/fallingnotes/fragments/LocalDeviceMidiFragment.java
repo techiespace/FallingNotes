@@ -22,14 +22,14 @@ import java.util.HashMap;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class InversionChordsFragment extends Fragment {
+public class LocalDeviceMidiFragment extends Fragment {
 
     private ArrayList<String> allSampleData;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
 
-    public InversionChordsFragment() {
+    public LocalDeviceMidiFragment() {
         // Required empty public constructor
     }
 
