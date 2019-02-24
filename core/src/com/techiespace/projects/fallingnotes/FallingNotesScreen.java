@@ -322,6 +322,9 @@ public class FallingNotesScreen implements Screen {
 
     @Override
     public void pause() {
+
+//         reset();
+        piano.reset();
     }
 
     @Override
@@ -336,6 +339,8 @@ public class FallingNotesScreen implements Screen {
         bbatch.dispose();
         stage.dispose();
         batch.dispose();
+        piano.disposePiano();
+       Gdx.app.log(TAG,"Hide            bj          bhjk");
 
     }
 

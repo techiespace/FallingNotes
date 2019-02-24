@@ -279,10 +279,61 @@ public class Piano {
         }
     }
 
-    public void reset()
-    {
+    public void reset() {
 
+        for (int i = 0; i < Constants.BLACK_PIANO_KEY_GROUPS; i++) {
+            PianoKey[] keys = blackPianoKeys.get(i);
+
+            for (int j = 0; j < keys.length; j++) {
+                keys[j].updateTextureUp();
+            }
+
+
+        }
+
+
+        for (int i = 0; i < Constants.WHITE_PIANO_KEY_GROUPS; i++) {
+            PianoKey[] keys = whitePianoKeys.get(i);
+
+            for (int j = 0; j < keys.length; j++) {
+                // Gdx.app.log("Octave "+i,"Key "+j);
+                keys[j].updateTextureUp();
+                //keys[j].print();
+            }
+        }
     }
+
+    void disposePiano()
+    {
+        for(int i=0;i<Constants.BLACK_PIANO_KEY_GROUPS;i++)
+        {
+            PianoKey[] keys = blackPianoKeys.get(i);
+
+            for(int j=0;j<keys.length;j++)
+            {
+                keys[j].disposePianoKey();
+            }
+
+
+        }
+
+
+        for(int i=0;i<Constants.WHITE_PIANO_KEY_GROUPS;i++)
+        {
+            PianoKey[] keys = whitePianoKeys.get(i);
+
+            for(int j=0;j<keys.length;j++)
+            {
+                // Gdx.app.log("Octave "+i,"Key "+j);
+                keys[j].disposePianoKey();
+                //keys[j].print();
+            }
+
+        }
+
+        font.dispose();
+    }
+
 
 
 

@@ -137,18 +137,28 @@ public class PianoKey {
         if (keyType == Piano.PianoKeyType.BLACK) {
             this.texture = new Texture("piano/black_up.png");
             this.upTexture = new Texture("piano/black_up.png");
-            this.LH_downTexture = FallingNotesScreen.getTheme().getLH_blackKeyDownTexture();
-            this.RH_downTexture = FallingNotesScreen.getTheme().getRH_blackKeyDownTexture();
+            this.LH_downTexture = new Texture("piano/black_down_yellow.png");
+            this.RH_downTexture = new Texture("piano/black_down_red_light.png");
 
         } else {
             this.texture = new Texture("piano/white_up.png");
             this.upTexture = new Texture("piano/white_up.png");
-            this.LH_downTexture = FallingNotesScreen.getTheme().getLH_whiteKeyDownTexture();
-            this.RH_downTexture = FallingNotesScreen.getTheme().getRH_whiteKeyDownTexture();
+            this.LH_downTexture =new Texture("piano/white_down_yellow.png") ;
+            this.RH_downTexture = new Texture("piano/white_down_red.png");
 
 
         }
     }
+
+    void disposePianoKey()
+    {
+        upTexture.dispose();
+        LH_downTexture.dispose();
+        RH_downTexture.dispose();
+        texture.dispose();
+
+    }
+
 
 
 }
