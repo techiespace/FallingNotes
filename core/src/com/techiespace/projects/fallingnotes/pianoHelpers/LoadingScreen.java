@@ -9,11 +9,13 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextArea;
@@ -34,12 +36,18 @@ public class LoadingScreen implements Screen {
     Table table;
     Stage stage;
     Skin skin;
+    Skin pbSkin;
     boolean isLoading;
     RoundRectShapeRenderer roundRect;
     ProgressBar progressBar;
     BitmapFont font;
     SpriteBatch batch;
     TextArea textArea;
+    Sprite backgroundSprite;
+    Texture backgroundTexture;
+    ScrollPane pane;
+    String text="a\nb\nc\n\n\n\n\n\n\nd\ne\nf\ng\nh\ni\n\n\n\n\n\ng\n";
+
 
 
     public LoadingScreen(final FallingNotesGame app, String midiName) {
@@ -50,13 +58,18 @@ public class LoadingScreen implements Screen {
         Gdx.app.log("Loading Screen Constructor", midiName);
         queueAssets();
         stage = new Stage();
+        backgroundTexture = new Texture("background/scroll.png");
+
+
+        backgroundSprite = new Sprite(backgroundTexture);
 
         table = new Table();
         roundRect = new RoundRectShapeRenderer();
-        skin = new Skin(Gdx.files.internal("skin/uiskin.json"));
+        skin = new Skin(Gdx.files.internal("skin/tubular-ui.json"));
+        pbSkin = new Skin(Gdx.files.internal("skin/uiskin.json"));
         isLoading = true;
 
-        progressBar = new ProgressBar(0, 100, 0.02f, false, skin);
+        progressBar = new ProgressBar(0, 100, 0.02f, false, pbSkin);
 
 
         addGameButton();
@@ -72,7 +85,7 @@ public class LoadingScreen implements Screen {
         initializeTextField();
 
 
-        stage.addActor(textArea);
+
 
 
 
@@ -80,18 +93,44 @@ public class LoadingScreen implements Screen {
     }
 
     private void initializeTextField() {
-        textArea = new TextArea("Text Area\nEssentially,\n\n\n\n\n\n\n a text field\nwith\nmultiple\nlines.\n"
-                + "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nIt can even handle very loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong lines.",
-                skin);
-        textArea.setColor(1,1,1,0.5f);
-        textArea.setPosition(Constants.WORLD_WIDTH / 3+10, Constants.WORLD_HEIGHT *0.15f+10);
-        textArea.setSize(Constants.WORLD_WIDTH / 3-20, Constants.WORLD_HEIGHT*0.7f-20);
-        textArea.setDisabled(true);
+
         TextArea.TextFieldStyle textFieldStyle = skin.get(TextArea.TextFieldStyle.class);
-        textFieldStyle.font.getData().setScale(1.5f);
+        textFieldStyle.font.getData().setScale(3f);
 
 
-        textArea.setStyle(textFieldStyle);
+        textArea = new TextArea(text,textFieldStyle);
+//        textArea.setColor(1,1,1,0.5f);
+//        textArea.setPosition(Constants.WORLD_WIDTH / 3+10, Constants.WORLD_HEIGHT *0.15f+10);
+//        textArea.setSize(Constants.WORLD_WIDTH / 3-20, Constants.WORLD_HEIGHT*0.7f-20);
+//        textArea.setDisabled(true);
+
+        pane = new ScrollPane(textArea, skin);
+        pane.setColor(1,1,1,1f);
+        pane.setPosition(Constants.WORLD_WIDTH / 3+10, Constants.WORLD_HEIGHT *0.15f+10);
+        pane.setSize(Constants.WORLD_WIDTH / 3-20, Constants.WORLD_HEIGHT*0.7f-20);
+        pane.setForceScroll(false, true);
+        pane.setFlickScroll(false);
+        pane.setOverscroll(false, true);
+        //pane.setDisabled(true);
+
+        int numberOfScrollLines = text.split("\n").length;
+
+        textArea.setPrefRows(numberOfScrollLines);
+
+        pane.setScrollPercentY(1);
+        pane.setScrollPercentX(0);
+        pane.setScrollY(300);
+
+
+
+        pane.layout();
+
+
+        stage.addActor(pane);
+
+
+
+
     }
 
     private void setInputProcessor() {
@@ -199,6 +238,11 @@ public class LoadingScreen implements Screen {
     public void render(float delta) {
         Gdx.gl.glClearColor(14f / 255, 129f / 255, 209f / 255, 1f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+//
+//        batch.begin();
+//        batch.draw(backgroundSprite,Constants.WORLD_WIDTH / 3, Constants.WORLD_HEIGHT * 0.15f, Constants.WORLD_WIDTH / 3, Constants.WORLD_HEIGHT * 0.7f);
+//        batch.end();
 
         update(delta);
 
