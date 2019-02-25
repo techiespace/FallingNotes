@@ -26,9 +26,13 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 public class Controls {
     SeekBar seekBar;
     Button handToggleButton;
+    Button muteButton;
+
     Button.ButtonStyle leftHandToggleButtonStyle;
     Button.ButtonStyle rightHandToggleButtonStyle;
     Button.ButtonStyle bothHandToggleButtonStyle;
+  //  Button.ButtonStyle muteButtonTo
+
     Slider tempoSlider;
     TextField tempoVal;
 
@@ -74,6 +78,8 @@ public class Controls {
 
         handToggleButton = new Button(bothHandToggleButtonStyle);
 
+      //  muteButton = new Button();
+
         //This is called just once! How is it working then?
 
         skin = new Skin(Gdx.files.internal("skin/tubular-ui.json"));
@@ -117,9 +123,9 @@ public class Controls {
 
         //hand
 
-        controlsTable.add(handToggleButton).size(Constants.MENU_OFFSET*2/3, Constants.MENU_OFFSET*2/3);
+        controlsTable.add(handToggleButton).size(Constants.MENU_OFFSET*1.5f, Constants.MENU_OFFSET*1.5f);
         controlsTable.setSize(Constants.WORLD_WIDTH/2, Constants.MENU_OFFSET);
-        controlsTable.setPosition(0, 0);
+        controlsTable.setPosition(0, Constants.OFFSET*0.15f);
 
 //        controlsTable.row();
 //        controlsTable.add(tempoSlider);

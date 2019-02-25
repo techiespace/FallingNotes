@@ -50,7 +50,7 @@ public class Constants {
 
     public static final float WHITE_PIANO_KEY_HEIGHT = 100;
 
-    public static int OFFSET = 40;
+    public static int OFFSET = 50;
 
 
     public static final float BLACK_KEY_HEIGHT = (0.7f * WHITE_PIANO_KEY_HEIGHT);

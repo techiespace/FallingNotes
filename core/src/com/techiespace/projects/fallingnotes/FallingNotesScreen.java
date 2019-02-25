@@ -254,7 +254,7 @@ public class FallingNotesScreen implements Screen {
         final GlyphLayout layout = new GlyphLayout(font, Constants.GAME_NAME);
         // or for non final texts: layout.setText(font, text);
         final float fontX = 0 + (Constants.WORLD_WIDTH - layout.width) / 2;
-        font.draw(bbatch, Constants.GAME_NAME, fontX, Constants.OFFSET * 1.5f);//Constants.NOTES_WIDTH*36/2,Constants.OFFSET/2+20);
+        font.draw(bbatch, Constants.GAME_NAME, fontX, Constants.OFFSET * 1f);//Constants.NOTES_WIDTH*36/2,Constants.OFFSET/2+20);
     }
 
     private void handleInput() {

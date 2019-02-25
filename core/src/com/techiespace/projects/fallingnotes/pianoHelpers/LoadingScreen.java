@@ -46,7 +46,7 @@ public class LoadingScreen implements Screen {
     Sprite backgroundSprite;
     Texture backgroundTexture;
     ScrollPane pane;
-    String text="a\nb\nc\n\n\n\n\n\n\nd\ne\nf\ng\nh\ni\n\n\n\n\n\ng\n";
+    String text="Instructions";
 
 
 
