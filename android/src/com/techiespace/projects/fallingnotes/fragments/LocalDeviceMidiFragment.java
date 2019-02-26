@@ -48,7 +48,7 @@ public class LocalDeviceMidiFragment extends Fragment {
 
         allSampleData = new ArrayList<>();
         getDeviceData();
-        RecyclerView.Adapter mAdapter = new MidiListAdapter(allSampleData, getContext());
+        RecyclerView.Adapter mAdapter = new MidiListAdapter(allSampleData, getContext(), true); //true indicates local device
         recyclerView.setAdapter(mAdapter);
 
         return rootView;
