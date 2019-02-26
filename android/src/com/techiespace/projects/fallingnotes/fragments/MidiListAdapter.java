@@ -19,12 +19,14 @@ public class MidiListAdapter extends RecyclerView.Adapter<com.techiespace.projec
     //    private String[][] mDataset;
     private Context mContext;
     private ArrayList<String> dataList;
+    private boolean midiType;   //true -> device midi and false -> inapp midi
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    MidiListAdapter(ArrayList<String> dataList, Context mContext) {
+    MidiListAdapter(ArrayList<String> dataList, Context mContext, boolean midiType) {
 //        mDataset = myDataset;
         this.dataList = dataList;
         this.mContext = mContext;
+        this.midiType = midiType;
     }
 
     // Create new views (invoked by the layout manager)
@@ -50,7 +52,11 @@ public class MidiListAdapter extends RecyclerView.Adapter<com.techiespace.projec
             public void onClick(View view) {
 
                 Intent intent = new Intent(mContext, PracticeActivity.class);
-                intent.putExtra(Intent.EXTRA_TEXT, "inappmidi/" + dataList.get(position));
+                if (midiType) {
+                    intent.putExtra(Intent.EXTRA_TEXT, dataList.get(position));
+                } else {
+                    intent.putExtra(Intent.EXTRA_TEXT, "inappmidi/" + dataList.get(position));
+                }
                 mContext.startActivity(intent);
                 Toast.makeText(view.getContext(), dataList.get(position), Toast.LENGTH_SHORT).show();
 

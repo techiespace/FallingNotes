@@ -63,10 +63,10 @@ public class GestureHandler implements GestureDetector.GestureListener{
         float ratio = 1f;
 
         if (distance < initialDistance) {
-          Gdx.app.log("GestureHandler","Pinch");
+//          Gdx.app.log("GestureHandler","Pinch");
           ratio = -ratio;
         } else {
-            Gdx.app.log("GestureHandler","Zoom");
+//            Gdx.app.log("GestureHandler","Zoom");
         }
 
         game.zoom(ratio);

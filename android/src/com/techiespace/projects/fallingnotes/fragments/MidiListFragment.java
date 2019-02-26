@@ -50,7 +50,7 @@ public class MidiListFragment extends Fragment {
         getLocalData();
         // specify an adapter (see also next example)
 //        String[][] uniSublevelTitleData = (String[][]) getArguments().getSerializable("uniSublevelTitleData");
-        RecyclerView.Adapter mAdapter = new MidiListAdapter(allSampleData, getContext());
+        RecyclerView.Adapter mAdapter = new MidiListAdapter(allSampleData, getContext(), false);
         recyclerView.setAdapter(mAdapter);
         return rootView;
     }
