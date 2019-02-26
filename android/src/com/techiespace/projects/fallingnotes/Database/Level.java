@@ -1,5 +1,6 @@
 package com.techiespace.projects.fallingnotes.Database;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.Index;
@@ -9,7 +10,9 @@ import androidx.room.PrimaryKey;
 public class Level {
 
     @PrimaryKey(autoGenerate = true)
+    @NonNull
     private int level_id;
+    @NonNull
     private String level_name;
 
     @Ignore

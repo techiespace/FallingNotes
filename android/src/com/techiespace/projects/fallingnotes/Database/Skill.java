@@ -1,5 +1,6 @@
 package com.techiespace.projects.fallingnotes.Database;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Ignore;
@@ -13,12 +14,19 @@ import androidx.room.PrimaryKey;
 public class Skill {
 
     @PrimaryKey(autoGenerate = true)
+    @NonNull
     int skill_id;
+    @NonNull
     String skill_name;
+    @NonNull
     String skill_list;
+    @NonNull
     int level_id;
+    @NonNull
     String midiPath;
+    @NonNull
     String instructions;
+    
     int score;
     boolean completed;
 
