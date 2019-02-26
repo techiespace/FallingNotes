@@ -6,7 +6,7 @@ import com.techiespace.projects.fallingnotes.pianoHelpers.LoadingScreen;
 
 public class FallingNotesGame extends Game {
 
-    public String midiName = "inappinappmidi/perfect.mid";
+    public String midiName = "inappmidi/perfect.mid";
     public AssetManager assets;
 
     public FallingNotesGame(String midiName) {

@@ -59,6 +59,8 @@ project(":android") {
     configurations { natives }
 
     dependencies {
+
+
         implementation project(":core")
         implementation "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi"
@@ -78,6 +80,10 @@ project(":android") {
         implementation 'com.android.support:recyclerview-v7:28.0.0'
         implementation 'com.android.support:cardview-v7:28.0.0'
         implementation 'com.google.code.gson:gson:2.8.2'
+        def room_version = "2.1.0-alpha04"
+
+        implementation "androidx.room:room-runtime:$room_version"
+        annotationProcessor "androidx.room:room-compiler:$room_version"
     }
 }
 

@@ -131,6 +131,9 @@ public class FallingNotesScreen implements Screen {
 
         //This is initializer of GestureResponse
         gestureResponse = new GestureResponse(app,this);
+
+
+
     }
 
     private void initializeBackground() {
@@ -185,6 +188,9 @@ public class FallingNotesScreen implements Screen {
                 reset();
             }
         }
+
+        Gdx.app.log(TAG,Gdx.graphics.getWidth()+" "+Gdx.graphics.getHeight());
+
 
         //setting up camera
         settingUpCamera();

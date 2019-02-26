@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.techiespace.projects.fallingnotes">
 
+
     <!--<uses-sdk android:targetSdkVersion="27" />-->
     <uses-sdk tools:overrideLibrary="android.support.v7.appcompat" />
     <!--<uses-sdk tools:overrideLibrary="android.support.fragment"/>-->
@@ -30,6 +31,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
@@ -41,6 +43,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".PracticeActivity"></activity>
+
     </application>
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
