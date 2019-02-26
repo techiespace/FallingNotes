@@ -6,10 +6,10 @@
     android:orientation="vertical"
     tools:context=".fragments.MidiListFragment">
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/midiListRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"></android.support.v7.widget.RecyclerView>
+        android:layout_marginTop="8dp"></androidx.recyclerview.widget.RecyclerView>
 
 </LinearLayout>

@@ -39,7 +39,7 @@ public class Notes {
         this.app = app;
         this.midiName = midiName;
         init();
-        TarsosFftYin.tarsos();
+        //TarsosFftYin.tarsos();
     }
 
 
