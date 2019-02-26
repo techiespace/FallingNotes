@@ -9,7 +9,7 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "Level",indices = {@Index("level_id")})
 public class Level {
 
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     @NonNull
     private int level_id;
     @NonNull
