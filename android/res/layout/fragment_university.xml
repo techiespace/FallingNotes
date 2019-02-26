@@ -75,6 +75,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
                         android:text="Hello"
                         android:textAlignment="center"
                         android:textColor="@android:color/black"
@@ -114,6 +115,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
                         android:text="Basics"
                         android:textAlignment="center"
                         android:textColor="@android:color/black"
@@ -155,6 +157,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
                         android:text="Melody"
                         android:textAlignment="center"
                         android:textColor="@android:color/black"
@@ -193,6 +196,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
                         android:text="Practice"
                         android:textAlignment="center"
                         android:textColor="@android:color/black"
@@ -234,6 +238,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
                         android:text="Theory"
                         android:textAlignment="center"
                         android:textColor="@android:color/black"
@@ -272,7 +277,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Mealody II"
+                        android:layout_gravity="center_horizontal"
+                        android:text="Melody II"
                         android:textAlignment="center"
                         android:textColor="@android:color/black"
                         android:textSize="18sp"
@@ -309,7 +315,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Mealody III"
+                        android:layout_gravity="center_horizontal"
+                        android:text="Melody III"
                         android:textAlignment="center"
                         android:textColor="@android:color/black"
                         android:textSize="18sp"
@@ -346,6 +353,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
                         android:text="Techniques"
                         android:textAlignment="center"
                         android:textColor="@android:color/black"
@@ -383,6 +391,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
                         android:text="Arpeggio"
                         android:textAlignment="center"
                         android:textColor="@android:color/black"
@@ -420,6 +429,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
                         android:text="Runs"
                         android:textAlignment="center"
                         android:textColor="@android:color/black"
@@ -457,6 +467,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
                         android:text="Improv"
                         android:textAlignment="center"
                         android:textColor="@android:color/black"
@@ -494,6 +505,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
                         android:text="Pro"
                         android:textAlignment="center"
                         android:textColor="@android:color/black"

@@ -1,10 +1,8 @@
 package com.techiespace.projects.fallingnotes;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -231,6 +229,8 @@ public class Piano {
         font.setColor(FallingNotesScreen.getTheme().getLabelColor());
         font.getData().setScale(0.25f);
 
+        font.draw(batch, "A0", Note.mapCoordinates("A0") + Constants.NOTES_WIDTH / 3, Constants.WHITE_PIANO_KEY_HEIGHT / 8 + Constants.OFFSET);
+        font.draw(batch, "B0", Note.mapCoordinates("B0") + Constants.NOTES_WIDTH / 3, Constants.WHITE_PIANO_KEY_HEIGHT / 8 + Constants.OFFSET);
 
         for(int i = Constants.STARTING_OCTAVE+1;i<Constants.ENDING_OCTAVE;i++) {
             font.draw(batch, "C"+i, Note.mapCoordinates("C"+i) + Constants.NOTES_WIDTH/3, Constants.WHITE_PIANO_KEY_HEIGHT/8 + Constants.OFFSET);
@@ -240,8 +240,8 @@ public class Piano {
             font.draw(batch, "G"+i, Note.mapCoordinates("G"+i) + Constants.NOTES_WIDTH/3, Constants.WHITE_PIANO_KEY_HEIGHT/8 + Constants.OFFSET);
             font.draw(batch, "A"+i, Note.mapCoordinates("A"+i) + Constants.NOTES_WIDTH/3, Constants.WHITE_PIANO_KEY_HEIGHT/8 + Constants.OFFSET);
             font.draw(batch, "B"+i, Note.mapCoordinates("B"+i) + Constants.NOTES_WIDTH/3, Constants.WHITE_PIANO_KEY_HEIGHT/8 + Constants.OFFSET);
-
         }
+        font.draw(batch, "C8", Note.mapCoordinates("C8") + Constants.NOTES_WIDTH / 3, Constants.WHITE_PIANO_KEY_HEIGHT / 8 + Constants.OFFSET);
 
         }
 
