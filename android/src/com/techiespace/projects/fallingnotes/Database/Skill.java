@@ -26,7 +26,7 @@ public class Skill {
     String midiPath;
     @NonNull
     String instructions;
-    
+
     int score;
     boolean completed;
 
