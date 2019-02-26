@@ -13,22 +13,22 @@ import androidx.room.PrimaryKey;
 
 public class Skill {
 
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     @NonNull
-    int skill_id;
+    private  int skill_id;
     @NonNull
-    String skill_name;
+   private String skill_name;
     @NonNull
-    String skill_list;
+   private String skill_list;
     @NonNull
     int level_id;
     @NonNull
-    String midiPath;
+   private String midiPath;
     @NonNull
-    String instructions;
+   private String instructions;
 
-    int score;
-    boolean completed;
+    private int score;
+    private boolean completed;
 
     @Ignore
     public Skill(String skill_name,String skill_list,int level_id,String midiPath,String instructions)
@@ -80,6 +80,10 @@ public class Skill {
 
     public String getSkill_name() {
         return skill_name;
+    }
+
+    public boolean isCompleted() {
+        return completed;
     }
 
     public void setLevel_id(int level_id) {

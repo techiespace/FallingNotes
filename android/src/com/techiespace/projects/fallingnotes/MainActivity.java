@@ -13,16 +13,25 @@ import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.techiespace.projects.fallingnotes.Database.AppDatabase;
+import com.techiespace.projects.fallingnotes.Database.AppExecutors;
+import com.techiespace.projects.fallingnotes.Database.Level;
+import com.techiespace.projects.fallingnotes.Database.databaseHandler;
 import com.techiespace.projects.fallingnotes.fragments.MidiPlayerFragment;
 import com.techiespace.projects.fallingnotes.fragments.ScaleFragment;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private AppDatabase mDb;
+    private databaseHandler dbhandler;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+          setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -43,11 +52,38 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        //Setting Up the database
+        mDb = AppDatabase.getInstance(getApplicationContext());
+
+        dbhandler = new databaseHandler(this);
+
+        dbhandler.loadDatabase();
+
+
+
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.screen_area, new DashboardFragment()).commit();
             navigationView.setCheckedItem(R.id.nav_dashboard);
         }
+
+        displayLevelTable();
+
+
     }
+
+    private void displayLevelTable() {
+        AppExecutors.getInstance().diskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                List<Level> level = mDb.levelDao().loadAllLevels();
+
+                for(Level levelInstance : level)
+                System.out.println(levelInstance.getLevel_name());
+
+            }
+        });
+    }
+
 
     @Override
     public void onBackPressed() {

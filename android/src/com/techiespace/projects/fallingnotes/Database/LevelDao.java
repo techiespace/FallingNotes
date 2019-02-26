@@ -24,4 +24,7 @@ public interface LevelDao {
     @Delete
     void deleteLevel(Level level);
 
+    @Query("DELETE FROM Level")
+    void deleteALL();
+
 }
