@@ -24,24 +24,13 @@ public class UniversitySublevelAdapter extends RecyclerView.Adapter<UniversitySu
     SkillDao skillDao;
     AppDatabase mDb;
     Context context;
+    Runnable runnable;
+    private boolean dataLoaded = false;
+
     // Provide a suitable constructor (depends on the kind of dataset)
-    UniversitySublevelAdapter(int level_id, Context context) {
+    UniversitySublevelAdapter(List<Skill> skillListByLevel, Context context) {
+        this.skillListByLevel = skillListByLevel;
         this.context = context;
-        this.level_id = level_id;
-//        mDataset = myDataset;
-        mDb = AppDatabase.getInstance(context);
-        skillListByLevel = mDb.skillDao().getSkillsByLevel(level_id);
-
-        //TODO: AppExecutors executes the query after getCount is called causing the app to crash due to NullPointerException
-        //Temp fix : AllowMainThreadQueries() added
-        /*
-        AppExecutors.getInstance().diskIO().execute(new Runnable() {
-            @Override
-            public void run() {
-            }
-        });
-*/
-
     }
 
     // Create new views (invoked by the layout manager)
