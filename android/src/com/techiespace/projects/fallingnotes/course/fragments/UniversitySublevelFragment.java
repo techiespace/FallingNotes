@@ -2,14 +2,15 @@ package com.techiespace.projects.fallingnotes.course.fragments;
 
 
 import android.os.Bundle;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.techiespace.projects.fallingnotes.R;
+
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,8 +34,8 @@ public class UniversitySublevelFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
 
         // specify an adapter (see also next example)
-        String[][] uniSublevelTitleData = (String[][]) getArguments().getSerializable("uniSublevelTitleData");
-        RecyclerView.Adapter mAdapter = new UniversitySublevelAdapter(uniSublevelTitleData);
+        int level_id = getArguments().getInt("level_id");
+        RecyclerView.Adapter mAdapter = new UniversitySublevelAdapter(level_id, getContext());
         recyclerView.setAdapter(mAdapter);
         return rootView;
     }

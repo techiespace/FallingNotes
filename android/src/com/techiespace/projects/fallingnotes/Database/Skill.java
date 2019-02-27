@@ -2,15 +2,14 @@ package com.techiespace.projects.fallingnotes.Database;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
-import androidx.room.ForeignKey;
 import androidx.room.Ignore;
-import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-@Entity(foreignKeys = @ForeignKey(entity = Level.class,
-        parentColumns = "level_id",
-        childColumns = "level_id"),indices = {@Index("level_id")})
-
+@Entity
+/*
+        (foreignKeys = @ForeignKey(entity = Level.class,
+                parentColumns = "level_id",
+                childColumns = "level_id"),indices = {@Index("level_id")})*/
 public class Skill {
 
     @PrimaryKey

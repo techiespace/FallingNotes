@@ -16,18 +16,18 @@ public class databaseHandler {
     {
 
         final Level[] level = new Level[12];
-        level[0] = new Level(0,"Hello");
-        level[1] = new Level(1,"Basics");
-        level[2] = new Level(2,"Melody");
-        level[3] = new Level(3,"Practice");
-        level[4] = new Level(4,"Theory");
-        level[5] = new Level(5,"Melody 2");
-        level[6] = new Level(6,"Melody 3");
-        level[7] = new Level(7,"Techniques");
-        level[8] = new Level(8,"Arpeggio");
-        level[9] = new Level(9,"Runs");
-        level[10] = new Level(10,"Improve");
-        level[11] = new Level(11,"pro");
+        level[0] = new Level(1, "Hello");
+        level[1] = new Level(2, "Basics");
+        level[2] = new Level(3, "Melody");
+        level[3] = new Level(4, "Practice");
+        level[4] = new Level(5, "Theory");
+        level[5] = new Level(6, "Melody 2");
+        level[6] = new Level(7, "Melody 3");
+        level[7] = new Level(8, "Techniques");
+        level[8] = new Level(9, "Arpeggio");
+        level[9] = new Level(10, "Runs");
+        level[10] = new Level(11, "Improve");
+        level[11] = new Level(12, "Pro");
         AppExecutors.getInstance().diskIO().execute(new Runnable() {
             @Override
             public void run() {
@@ -36,8 +36,27 @@ public class databaseHandler {
                 mDb.levelDao().deleteALL();
 
                 for(int i=0;i<level.length;i++)
-                mDb.levelDao().insertLevel(level[i]);
+                    mDb.levelDao().insertLevel(level[i]);
 
+                mDb.skillDao().insertAllSkills(
+                        new Skill(1, "Getting to know the keyboard", "Note Names", 1, "", "1. Middle C also called C4 is the note in the center of the keybord. This key will act as a refrence key to identify all keys on the piano"),
+                        new Skill(2, "More Notes", "Note Names", 1, "", "1. A is the key just before B and E is the key to the right of two black notes"),
+                        new Skill(3, "Sharps n Flats", "Note Names", 1, "", "1. The black keys are called sharps and flats. 2. A note to the right of a white key is sharp and a note to left is flat. 3. A note can have two names. e.g. A# = Bb "),
+                        new Skill(4, "Finger Position", "Place your hand on the keyboard right", 1, "", "1. One finger on each finger"),
+                        new Skill(5, "Finger Position", "Place your hand on the keyboard right", 1, "", "1. Jump between hand positions as needed."),
+                        new Skill(6, "Posture", "Posture", 1, "", "1. Sit upright. 2. Your feet should stay flat on the ground 3. Keep forearm parallel to the ground. 4. Curl your finges as if grabbing a ball."),
+                        new Skill(7, "Intervals", "Whole step, Half Step", 2, "", "1. Two notes without any key between them are said to be half step apart 2. Two notes with exactly one key(note) between them are said to be whole step apart."),
+                        new Skill(8, "", "Thumb under, Cross over", 2, "", ""),
+                        new Skill(9, "Major Scale - C", "Forming Major Scales", 2, "", "Major Scales are formed by the formula - WWHWWWH"),
+                        new Skill(10, "Major Scale - G", "Forming Major Scales", 2, "", "Major Scales are formed by the formula - WWHWWWH"),
+                        new Skill(11, "Major Scale - F", "Forming Major Scales", 2, "", "Major Scales are formed by the formula - WWHWWWH"),
+                        new Skill(12, "Major Scale - D", "Forming Major Scales", 2, "", "Major Scales are formed by the formula - WWHWWWH"),
+                        new Skill(13, "Memorising scales", "Count number or sharps in a scale", 2, "", "Given the number of accidentals, their names can be found using the Mnemonic - Father Christmas Gave Daddy An Electric Blanket. e.g. G Major Scale has one accidental i.e. F, D Major Scale has 2 accidentals i.e. F and C."),
+                        new Skill(14, "Minor Scale - A", "Forming Minor Scales", 2, "", "Minor Scales are formed by the formula - WHWWHWW"),
+                        new Skill(15, "Minor Scale - E", "Relative Minor", 2, "", "The Relative Minor (scale) of a Major scale is located 3 half steps below the root note of the Major Scale"),
+                        new Skill(16, "Simple Melody for Right hand", "Finger Co-ordination exercise", 3, "", "Forest Gump melody in C Major"),
+                        new Skill(17, "Changing the key", "Keys", 3, "", "See how to same melody sounds in a different key")
+                );
             }
         });
     }

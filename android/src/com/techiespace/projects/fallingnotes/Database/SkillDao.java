@@ -14,8 +14,14 @@ public interface SkillDao {
     @Query("SELECT * FROM Skill")
     List<Skill> loadAllSkills();
 
+    @Query("SELECT * FROM Skill WHERE level_id = :level_id ORDER BY skill_id")
+    List<Skill> getSkillsByLevel(int level_id);
+
     @Insert
     void insertSkill(Skill skill);
+
+    @Insert
+    void insertAllSkills(Skill... skills);
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
     void updateSkill(Skill skill);

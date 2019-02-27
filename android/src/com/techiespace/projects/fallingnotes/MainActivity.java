@@ -1,18 +1,12 @@
 package com.techiespace.projects.fallingnotes;
 
 import android.os.Bundle;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
-import androidx.fragment.app.Fragment;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
 import com.techiespace.projects.fallingnotes.Database.AppDatabase;
 import com.techiespace.projects.fallingnotes.Database.AppExecutors;
 import com.techiespace.projects.fallingnotes.Database.Level;
@@ -21,6 +15,13 @@ import com.techiespace.projects.fallingnotes.fragments.MidiPlayerFragment;
 import com.techiespace.projects.fallingnotes.fragments.ScaleFragment;
 
 import java.util.List;
+
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -54,10 +55,10 @@ public class MainActivity extends AppCompatActivity
 
         //Setting Up the database
         mDb = AppDatabase.getInstance(getApplicationContext());
-
+/*
         dbhandler = new databaseHandler(this);
 
-        dbhandler.loadDatabase();
+        dbhandler.loadDatabase();*/
 
 
 
