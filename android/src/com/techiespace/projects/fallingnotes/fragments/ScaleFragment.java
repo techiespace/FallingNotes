@@ -2,11 +2,6 @@ package com.techiespace.projects.fallingnotes.fragments;
 
 
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +12,12 @@ import com.techiespace.projects.fallingnotes.fragments.nestedListUi.SectionDataM
 import com.techiespace.projects.fallingnotes.fragments.nestedListUi.SingleItemModel;
 
 import java.util.ArrayList;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class ScaleFragment extends Fragment {
 
@@ -40,7 +41,7 @@ public class ScaleFragment extends Fragment {
         RecyclerView recyclerView = rootView.findViewById(R.id.my_recycler_view);
         recyclerView.setHasFixedSize(true);
         RecyclerViewDataAdapter adapter = new RecyclerViewDataAdapter(allSampleData, getContext());
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
         recyclerView.setAdapter(adapter);
         /*
         Button startActivityButton = rootView.findViewById(R.id.start_activity_button);
@@ -60,7 +61,7 @@ public class ScaleFragment extends Fragment {
         SectionDataModel dm = new SectionDataModel();
         dm.setHeaderTitle("Major Scale");
         ArrayList<SingleItemModel> singleItemModels = new ArrayList<>();
-        singleItemModels.add(new SingleItemModel("C", "inappmidi/scales/major/C.mid"));
+        singleItemModels.add(new SingleItemModel("C", "inappmidi/Bharat.mid"));
         singleItemModels.add(new SingleItemModel("C#", "inappmidi/scales/major/C#.mid"));
         singleItemModels.add(new SingleItemModel("D", "inappmidi/scales/major/D.mid"));
         singleItemModels.add(new SingleItemModel("D#", "inappmidi/scales/major/D#.mid"));

@@ -3,12 +3,10 @@ package com.techiespace.projects.fallingnotes.fragments;
 
 import android.content.res.AssetManager;
 import android.os.Bundle;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.techiespace.projects.fallingnotes.R;
 import com.techiespace.projects.fallingnotes.fragments.nestedListUi.SectionDataModel;
@@ -16,6 +14,10 @@ import com.techiespace.projects.fallingnotes.fragments.nestedListUi.SingleItemMo
 
 import java.io.IOException;
 import java.util.ArrayList;
+
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -63,9 +65,10 @@ public class MidiListFragment extends Fragment {
         AssetManager assetManager = getActivity().getAssets();
         try {
             String[] files = assetManager.list("inappmidi");
-
-            for (int i = 0; i < files.length; i++) {
-                allSampleData.add(files[i]);
+            Toast.makeText(getContext(), files[0], Toast.LENGTH_SHORT).show();
+            for (String file : files) {
+                if (file.contains(".mid"))
+                    allSampleData.add(file);
             }
         } catch (IOException e1) {
             // TODO Auto-generated catch block

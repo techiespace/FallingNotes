@@ -3,18 +3,19 @@ package com.techiespace.projects.fallingnotes.fragments.nestedListUi;
 
 import android.content.Context;
 import android.content.Intent;
-import androidx.recyclerview.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.techiespace.projects.fallingnotes.PracticeActivity;
 import com.techiespace.projects.fallingnotes.R;
 
 import java.util.ArrayList;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListDataAdapter.SingleItemRowHolder> {
 
@@ -29,7 +30,7 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
     @Override
     public SingleItemRowHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_single_card, null);
-        SingleItemRowHolder singleItemRowHolder = new SingleItemRowHolder(v);
+        SingleItemRowHolder singleItemRowHolder = new SingleItemRowHolder(v, itemModels);
         return singleItemRowHolder;
     }
 
@@ -37,6 +38,9 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
     public void onBindViewHolder(SingleItemRowHolder holder, int position) {
         SingleItemModel itemModel = itemModels.get(position);
         holder.tvTitle.setText(itemModel.getName());
+        holder.setMidiPath(itemModel.getUrl());
+        itemModel.setUrl(itemModels.get(position).getUrl());
+        holder.itemModels.get(position).getUrl();
     }
 
     @Override
@@ -48,22 +52,27 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
 
         protected TextView tvTitle;
         protected ImageView itemImage;
+        private String midiPath;
+        private ArrayList<SingleItemModel> itemModels;
 
-        public SingleItemRowHolder(View itemView) {
+        public SingleItemRowHolder(View itemView, ArrayList<SingleItemModel> itemModels) {
             super(itemView);
             this.tvTitle = itemView.findViewById(R.id.tvTitle);
             this.itemImage = itemView.findViewById(R.id.itemImage);
+            this.itemModels = itemModels;
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
-                        Intent intent = new Intent(mContext, PracticeActivity.class);
-                        intent.putExtra(Intent.EXTRA_TEXT, tvTitle.getText());
-                        mContext.startActivity(intent);
-                        Toast.makeText(view.getContext(), tvTitle.getText(), Toast.LENGTH_SHORT).show();
-
+                    Intent intent = new Intent(mContext, PracticeActivity.class);
+                    intent.putExtra(Intent.EXTRA_TEXT, midiPath);
+                    mContext.startActivity(intent);
+                    Log.e("testing", "onClick: " + tvTitle.getText());
                 }
             });
+        }
+
+        public void setMidiPath(String midiPath) {
+            this.midiPath = midiPath;
         }
     }
 

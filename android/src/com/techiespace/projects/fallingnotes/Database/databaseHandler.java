@@ -55,7 +55,29 @@ public class databaseHandler {
                         new Skill(14, "Minor Scale - A", "Forming Minor Scales", 2, "", "Minor Scales are formed by the formula - WHWWHWW"),
                         new Skill(15, "Minor Scale - E", "Relative Minor", 2, "", "The Relative Minor (scale) of a Major scale is located 3 half steps below the root note of the Major Scale"),
                         new Skill(16, "Simple Melody for Right hand", "Finger Co-ordination exercise", 3, "", "Forest Gump melody in C Major"),
-                        new Skill(17, "Changing the key", "Keys", 3, "", "See how to same melody sounds in a different key")
+                        new Skill(17, "Changing the key", "Keys", 3, "", "See how to same melody sounds in a different key"),
+                        new Skill(18, "Changing the key II", "More Keys", 3, "", "See how to same melody sounds in a different key"),
+                        new Skill(19, "Major Scale - A", "Forming Major Scales", 3, "", "Learn the A Major Scale with 3 sharps"),
+                        new Skill(20, "Major Scale - E", "Forming Major Scales", 3, "", "Learn the E Major Scale with 4 sharps"),
+                        new Skill(21, "Major Scale - B", "Forming Major Scales", 3, "", "Learn the A Major Scale with 5 sharps"),
+                        new Skill(22, "Major Scale - F", "Forming Major Scales", 3, "", "Learn the F Minor Scale with 3 sharps"),
+                        new Skill(23, "Major Scale - C", "Forming Major Scales", 3, "", "Learn the A Minor Scale with 4 sharps"),
+                        new Skill(24, "Major Scale - G", "Forming Major Scales", 3, "", "Learn the A Minor Scale with 5 sharps"),
+                        new Skill(25, "Practice I", "Songs", 4, "", "Mary Had A Little Lamb"),
+                        new Skill(26, "Practice II", "Songs", 4, "", "Happy Birthday to You"),
+                        new Skill(27, "Practice III", "Songs", 4, "", "Jingle Bells"),
+                        new Skill(28, "Practice IV", "Songs", 4, "", "Silent Night"),
+                        new Skill(29, "Practice V", "Songs", 4, "", "Harry Potter"),
+                        new Skill(30, "Practice VI", "Songs", 4, "", "Greensleeves"),
+                        new Skill(31, "Practice VII", "Songs", 4, "", "Ode to Joy"),
+                        new Skill(33, "Theory II", "Note Duration", 5, "", "The length of time that a note is played is called its note duration , which is determined by the type of note. The whole note  has the longest note duration in modern music."),
+                        new Skill(34, "Theory III", "Note Duration", 5, "", "The half note is half the duration of a whole note. Two half notes occupy the same amount of time as a whole note"),
+                        new Skill(35, "Theory IV", "Ionian Mode", 5, "", "The quarter note is a fourth of a whole note. Two quarter notes equal a duration of a half note. 4 Quarter notes occupy the same duration of a whole note. Notes smaller in duration of a quarter note have flags."),
+                        new Skill(36, "Theory V", "Dorian Mode", 5, "", "Ionian"),
+                        new Skill(37, "Theory VI", "Phrygian Mode", 5, "", "Dorian"),
+                        new Skill(38, "Theory VII", "Placeholder", 5, "", "Phrygian"),
+                        new Skill(39, "Theory VIII", "Placeholder", 5, "", "Instructions Placeholder"),
+                        new Skill(40, "Melody", "Placeholder", 5, "", "Instructions Placeholder")
                 );
             }
         });
