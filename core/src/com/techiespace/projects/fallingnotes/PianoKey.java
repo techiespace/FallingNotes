@@ -18,6 +18,8 @@ public class PianoKey {
 
     Texture LH_downTexture;
     Texture RH_downTexture;
+    Texture correctTexture;
+    Texture wrongTexture;
 
 
     Piano.PianoKeyType keyType;
@@ -132,6 +134,17 @@ public class PianoKey {
 
     }
 
+    void updatePracticeTexture(boolean correct) {
+        setIsPressed(true);
+
+//        Gdx.app.log("Pianokey","down kiya  "+getName());
+        if (correct)
+            this.setTexture(correctTexture);
+        else
+            this.setTexture(wrongTexture);
+
+    }
+
     void initKeyTexture() {
 
         if (keyType == Piano.PianoKeyType.BLACK) {
@@ -139,6 +152,8 @@ public class PianoKey {
             this.upTexture = new Texture("piano/black_up.png");
             this.LH_downTexture = new Texture("piano/black_down_yellow.png");
             this.RH_downTexture = new Texture("piano/black_down_red_light.png");
+            this.correctTexture = new Texture("piano/black_down_blue.png");
+            this.wrongTexture = new Texture("piano/black_down_yellow.png");
 
         } else {
             this.texture = new Texture("piano/white_up.png");
@@ -146,6 +161,8 @@ public class PianoKey {
             this.LH_downTexture =new Texture("piano/white_down_yellow.png") ;
             this.RH_downTexture = new Texture("piano/white_down_red.png");
 
+            this.correctTexture = new Texture("piano/white_down_blue_g.png");
+            this.wrongTexture = new Texture("piano/white_down_yellow.png");
 
         }
     }

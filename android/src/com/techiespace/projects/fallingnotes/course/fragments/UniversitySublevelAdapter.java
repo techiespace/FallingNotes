@@ -1,6 +1,7 @@
 package com.techiespace.projects.fallingnotes.course.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 import com.techiespace.projects.fallingnotes.Database.AppDatabase;
 import com.techiespace.projects.fallingnotes.Database.Skill;
 import com.techiespace.projects.fallingnotes.Database.SkillDao;
+import com.techiespace.projects.fallingnotes.PracticeActivity;
 import com.techiespace.projects.fallingnotes.R;
 
 import java.util.ArrayList;
@@ -52,6 +54,14 @@ public class UniversitySublevelAdapter extends RecyclerView.Adapter<UniversitySu
         // - replace the contents of the view with that element
         holder.universitySublevelTitleTextView.setText(skillListByLevel.get(position).getSkill_name());
         holder.universitySublevelDescTextView.setText(skillListByLevel.get(position).getSkill_list());
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, PracticeActivity.class);
+                intent.putExtra(Intent.EXTRA_TEXT, "inappmidi/CSUni/" + skillListByLevel.get(position).getMidiPath());
+                context.startActivity(intent);
+            }
+        });
     }
 
     // Return the size of your dataset (invoked by the layout manager)

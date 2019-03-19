@@ -3,7 +3,6 @@ package com.techiespace.projects.fallingnotes;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
@@ -39,7 +38,7 @@ public class Notes {
         this.app = app;
         this.midiName = midiName;
         init();
-        //TarsosFftYin.tarsos();
+        TarsosFftYin.tarsos();
     }
 
 
@@ -104,13 +103,13 @@ public class Notes {
             PianoKey key = Piano.findKey(note.noteName);
             sound = app.assets.get("audio/" + note.noteName + ".ogg");//note.sound;
 
-            if (note.position.y < (Constants.WHITE_PIANO_KEY_HEIGHT + Constants.OFFSET) + 20 && note.position.y > (Constants.WHITE_PIANO_KEY_HEIGHT + Constants.OFFSET) - 40) {
-//                System.out.println("RecogNote: "+recogNote);
-//                System.out.println("Note name: "+note.noteName);
-                if (recogNote.equals(note.noteName)) {
+            if (note.position.y < (Constants.WHITE_PIANO_KEY_HEIGHT + Constants.OFFSET) + 2 && note.position.y > (Constants.WHITE_PIANO_KEY_HEIGHT + Constants.OFFSET) - 40) {
+                System.out.println("RecogNote: " + recogNote);
+                System.out.println("Note name: " + note.noteName);
+                //recogNote is sometimes zero when the gamescreen runs for first few times
+                if (recogNote.length() > 0 && recogNote.substring(0, recogNote.length() - 1).equals(note.noteName.substring(0, note.noteName.length() - 1))) {
                     System.out.println("Correct");
-                    FallingNotesScreen.getTheme().setRH_whiteKeyDownTexture(app.assets.get("piano/white_down_blue_g.png", Texture.class));
-//                    FallingNotesScreen.getTheme().setLH_whiteKeyDownTexture(app.assets.get("piano/white_down_blue_g.png", Texture.class));
+                    key.updatePracticeTexture(true);
                 }
             }
             if (note.position.y < (Constants.WHITE_PIANO_KEY_HEIGHT + Constants.OFFSET)) {
@@ -141,9 +140,11 @@ public class Notes {
 
             //for handling the key
             if (note.position.y < Constants.WHITE_PIANO_KEY_HEIGHT + Constants.OFFSET && !key.getIsPressed()) {
-                key.updateTextureDown(note.track);
+                key.updatePracticeTexture(false);
+//                key.updateTextureDown(note.track);
             }
 
+            //for handling the key
             if (note.position.y + note.noteLength < Constants.WHITE_PIANO_KEY_HEIGHT + Constants.OFFSET && key.getIsPressed()) {
                 key.updateTextureUp();
             }

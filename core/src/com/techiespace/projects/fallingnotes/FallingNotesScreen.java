@@ -189,9 +189,6 @@ public class FallingNotesScreen implements Screen {
             }
         }
 
-        Gdx.app.log(TAG,Gdx.graphics.getWidth()+" "+Gdx.graphics.getHeight());
-
-
         //setting up camera
         settingUpCamera();
 
