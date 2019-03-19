@@ -12,17 +12,18 @@
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="?actionBarSize"
         android:minHeight="?actionBarSize"
-        app:tabBackground="@color/colorPrimary"
+        app:tabBackground="@color/tabBackground"
         app:tabGravity="fill"
         app:tabIndicatorColor="@color/colorPrimaryDark"
-        app:tabIndicatorHeight="4dp"
-        app:tabMode="fixed"></com.google.android.material.tabs.TabLayout>
+        app:tabMaxWidth="0dp"
+        app:tabMode="fixed"
+        app:tabTextColor="@color/tabInactiveText" />
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="?actionBarSize"></androidx.viewpager.widget.ViewPager>
+        android:layout_marginTop="?actionBarSize" />
 </FrameLayout>

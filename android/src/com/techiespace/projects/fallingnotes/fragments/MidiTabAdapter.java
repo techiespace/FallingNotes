@@ -1,10 +1,6 @@
 package com.techiespace.projects.fallingnotes.fragments;
 
 import android.content.Context;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentStatePagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -13,6 +9,12 @@ import com.techiespace.projects.fallingnotes.R;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 
 public class MidiTabAdapter extends FragmentStatePagerAdapter {
     private final List<Fragment> mFragmentList = new ArrayList<>();
@@ -59,7 +61,7 @@ public class MidiTabAdapter extends FragmentStatePagerAdapter {
         View view = LayoutInflater.from(context).inflate(R.layout.custom_tab, null);
         TextView tabTextView = view.findViewById(R.id.tabTextView);
         tabTextView.setText(mFragmentTitleList.get(position));
-//        tabTextView.setTextColor(ContextCompat.getColor(context, R.color.yellow));
+        tabTextView.setTextColor(ContextCompat.getColor(context, R.color.colorAccent));
 //        ImageView tabImageView = view.findViewById(R.id.tabImageView);
 //        tabImageView.setImageResource(mFragmentIconList.get(position));
 //        tabImageView.setColorFilter(ContextCompat.getColor(context, R.color.yellow), PorterDuff.Mode.SRC_ATOP);

@@ -2,14 +2,16 @@ package com.techiespace.projects.fallingnotes.fragments;
 
 
 import android.os.Bundle;
-import com.google.android.material.tabs.TabLayout;
-import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.tabs.TabLayout;
+import com.techiespace.projects.fallingnotes.MainActivity;
 import com.techiespace.projects.fallingnotes.R;
+
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -53,6 +55,15 @@ public class MidiPlayerFragment extends Fragment {
             }
         });
         return rootView;
+    }
+
+    public void onResume() {
+        super.onResume();
+
+        // Set title bar
+        ((MainActivity) getActivity())
+                .setActionBarTitle("Midi Player");
+
     }
 
     private void highLightCurrentTab(int position) {

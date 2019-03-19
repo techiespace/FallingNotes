@@ -73,6 +73,7 @@ public class MainActivity extends AppCompatActivity
             navigationView.setCheckedItem(R.id.nav_dashboard);
         }
 
+        setActionBarTitle("ChordSwift");
         displayLevelTable();
         handlePermissions();
     }
@@ -81,6 +82,10 @@ public class MainActivity extends AppCompatActivity
     private void handlePermissions() {
         requestMicrophonePermission();
         requestStoragePermission();
+    }
+
+    public void setActionBarTitle(String title) {
+        getSupportActionBar().setTitle(title);
     }
 
     private void requestStoragePermission() {

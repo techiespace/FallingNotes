@@ -3,4 +3,6 @@
     <color name="colorPrimary">#0E81D1</color> //Green #008577 //Blue  #0E81D1
     <color name="colorPrimaryDark">#0a588f</color> //DarkGreen #00574B //DarkBlue #0a588f
     <color name="colorAccent">#052c48</color>  //pink
+    <color name="tabBackground">#ffffff</color>
+    <color name="tabInactiveText">#808080</color>
 </resources>
