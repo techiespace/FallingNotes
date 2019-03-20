@@ -12,6 +12,7 @@ import com.techiespace.projects.fallingnotes.Database.Skill;
 import com.techiespace.projects.fallingnotes.Database.SkillDao;
 import com.techiespace.projects.fallingnotes.PracticeActivity;
 import com.techiespace.projects.fallingnotes.R;
+import com.techiespace.projects.fallingnotes.course.activities.UniversityInstructionsActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,9 +58,14 @@ public class UniversitySublevelAdapter extends RecyclerView.Adapter<UniversitySu
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, PracticeActivity.class);
-                intent.putExtra(Intent.EXTRA_TEXT, "inappmidi/CSUni/" + skillListByLevel.get(position).getMidiPath());
-                context.startActivity(intent);
+                if (skillListByLevel.get(position).getMidiPath().length() > 0) {
+                    Intent intent = new Intent(context, PracticeActivity.class);
+                    intent.putExtra(Intent.EXTRA_TEXT, "inappmidi/CSUni/" + skillListByLevel.get(position).getMidiPath());
+                    context.startActivity(intent);
+                } else {
+                    Intent intent = new Intent(context, UniversityInstructionsActivity.class);
+                    context.startActivity(intent);
+                }
             }
         });
     }
