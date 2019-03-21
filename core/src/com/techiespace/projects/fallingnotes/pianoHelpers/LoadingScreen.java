@@ -44,10 +44,10 @@ public class LoadingScreen implements Screen {
     ProgressBar progressBar;
     BitmapFont font;
     SpriteBatch batch;
-    TextArea textArea;
+
     Sprite backgroundSprite;
     Texture backgroundTexture;
-    ScrollPane pane;
+
     String text="\t\t                  Instructions\t\t\n";
 
     String instructions;
@@ -62,6 +62,7 @@ public class LoadingScreen implements Screen {
         Gdx.app.log("Loading Screen Constructor", midiName);
         queueAssets();
         stage = new Stage();
+        instructions = "";
         backgroundTexture = new Texture("background/scroll.png");
 
 
@@ -142,9 +143,6 @@ public class LoadingScreen implements Screen {
 
     private void initializeTextField() {
 
-        font.getData().setScale(1f);
-        TextArea.TextFieldStyle textFieldStyle = new TextField.TextFieldStyle(font,Color.BLACK,null,null,null);
-
         Label.LabelStyle style = new Label.LabelStyle();
         style.font = font;
         style.fontColor = Color.BLACK;
@@ -153,38 +151,12 @@ public class LoadingScreen implements Screen {
         label.setBounds(Constants.WORLD_WIDTH / 4, Constants.WORLD_HEIGHT *0.15f+10,Constants.WORLD_WIDTH / 2, Constants.WORLD_HEIGHT*0.7f-20);
         label.setWrap(true);
         label.setFontScale(0.8f);
-        textArea = new TextArea(text+instructions,textFieldStyle);
-
-
-//        textArea.setColor(1,1,1,0.5f);
-//        textArea.setPosition(Constants.WORLD_WIDTH / 3+10, Constants.WORLD_HEIGHT *0.15f+10);
-//        textArea.setSize(Constants.WORLD_WIDTH / 3-20, Constants.WORLD_HEIGHT*0.7f-20);
-//        textArea.setDisabled(true);
-
-        pane = new ScrollPane(textArea, skin);
-        pane.setColor(1,1,1,0.75f);
-        pane.setPosition(Constants.WORLD_WIDTH / 4, Constants.WORLD_HEIGHT *0.15f+10);
-        pane.setSize(Constants.WORLD_WIDTH / 2, Constants.WORLD_HEIGHT*0.7f-20);
-        pane.setForceScroll(false, true);
-        pane.setFlickScroll(false);
-        pane.setOverscroll(false, true);
-        //pane.setDisabled(true);
-
-        int numberOfScrollLines = instructions.split("\n").length;
-
-        textArea.setPrefRows(numberOfScrollLines);
-
-//        pane.setScrollPercentY(1);
-//        pane.setScrollPercentX(0);
-//        pane.setScrollY(300);
 
 
 
-        pane.layout();
 
 
         stage.addActor(label);
-
 
 
 

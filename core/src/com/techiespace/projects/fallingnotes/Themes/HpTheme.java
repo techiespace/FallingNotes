@@ -6,7 +6,7 @@ import com.techiespace.projects.fallingnotes.FallingNotesGame;
 public class HpTheme extends Theme {
     public HpTheme(FallingNotesGame app) {
         super(app);
-        setBackgroundTexture("background/b9.jpg");
+        setBackgroundTexture("background/b8.jpg");
         setFntFileName("font/courgette.fnt");
         setFntPngName("font/courgette.png");
         setLabelColor(new Color(0, 0, 0, 0.6f));
