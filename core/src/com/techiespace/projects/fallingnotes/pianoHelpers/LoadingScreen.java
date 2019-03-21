@@ -14,11 +14,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextArea;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.techiespace.projects.fallingnotes.Constants;
 import com.techiespace.projects.fallingnotes.FallingNotesGame;
 import com.techiespace.projects.fallingnotes.FallingNotesScreen;
@@ -46,7 +48,9 @@ public class LoadingScreen implements Screen {
     Sprite backgroundSprite;
     Texture backgroundTexture;
     ScrollPane pane;
-    String text="Instructions";
+    String text="\t\t                  Instructions\t\t\n";
+
+    String instructions;
 
 
 
@@ -91,42 +95,95 @@ public class LoadingScreen implements Screen {
 
         setInputProcessor();
     }
+    //Constructor when instructions are passed
+
+    public LoadingScreen(final FallingNotesGame app, String midiName,String instructions) {
+        this.app = app;
+        this.shapeRenderer = new ShapeRenderer();
+        this.progress = 0f;
+        this.midiName = midiName;
+        this.instructions = instructions;
+       // Gdx.app.log("Loading Screen Constructor", midiName);
+        queueAssets();
+        stage = new Stage();
+        backgroundTexture = new Texture("background/scroll.png");
+
+
+        backgroundSprite = new Sprite(backgroundTexture);
+
+        table = new Table();
+        roundRect = new RoundRectShapeRenderer();
+        skin = new Skin(Gdx.files.internal("skin/tubular-ui.json"));
+        pbSkin = new Skin(Gdx.files.internal("skin/uiskin.json"));
+        isLoading = true;
+
+        progressBar = new ProgressBar(0, 100, 0.02f, false, pbSkin);
+
+
+        addGameButton();
+
+        Texture texture = new Texture(Gdx.files.internal("font/courgette.png"), true); // true enables mipmaps
+        texture.setFilter(Texture.TextureFilter.MipMapLinearNearest, Texture.TextureFilter.Linear); // linear filtering in nearest mipmap image
+        font = new BitmapFont(Gdx.files.internal("font/courgette.fnt"), new TextureRegion(texture), false);
+
+        Gdx.input.setInputProcessor(stage);
+        batch = new SpriteBatch();
+
+
+        initializeTextField();
+
+
+
+
+
+
+        setInputProcessor();
+    }
 
     private void initializeTextField() {
 
-        TextArea.TextFieldStyle textFieldStyle = skin.get(TextArea.TextFieldStyle.class);
-        textFieldStyle.font.getData().setScale(3f);
+        font.getData().setScale(1f);
+        TextArea.TextFieldStyle textFieldStyle = new TextField.TextFieldStyle(font,Color.BLACK,null,null,null);
+
+        Label.LabelStyle style = new Label.LabelStyle();
+        style.font = font;
+        style.fontColor = Color.BLACK;
+
+        Label label = new Label(text+"\n"+instructions,style);
+        label.setBounds(Constants.WORLD_WIDTH / 4, Constants.WORLD_HEIGHT *0.15f+10,Constants.WORLD_WIDTH / 2, Constants.WORLD_HEIGHT*0.7f-20);
+        label.setWrap(true);
+        label.setFontScale(0.8f);
+        textArea = new TextArea(text+instructions,textFieldStyle);
 
 
-        textArea = new TextArea(text,textFieldStyle);
 //        textArea.setColor(1,1,1,0.5f);
 //        textArea.setPosition(Constants.WORLD_WIDTH / 3+10, Constants.WORLD_HEIGHT *0.15f+10);
 //        textArea.setSize(Constants.WORLD_WIDTH / 3-20, Constants.WORLD_HEIGHT*0.7f-20);
 //        textArea.setDisabled(true);
 
         pane = new ScrollPane(textArea, skin);
-        pane.setColor(1,1,1,1f);
-        pane.setPosition(Constants.WORLD_WIDTH / 3+10, Constants.WORLD_HEIGHT *0.15f+10);
-        pane.setSize(Constants.WORLD_WIDTH / 3-20, Constants.WORLD_HEIGHT*0.7f-20);
+        pane.setColor(1,1,1,0.75f);
+        pane.setPosition(Constants.WORLD_WIDTH / 4, Constants.WORLD_HEIGHT *0.15f+10);
+        pane.setSize(Constants.WORLD_WIDTH / 2, Constants.WORLD_HEIGHT*0.7f-20);
         pane.setForceScroll(false, true);
         pane.setFlickScroll(false);
         pane.setOverscroll(false, true);
         //pane.setDisabled(true);
 
-        int numberOfScrollLines = text.split("\n").length;
+        int numberOfScrollLines = instructions.split("\n").length;
 
         textArea.setPrefRows(numberOfScrollLines);
 
-        pane.setScrollPercentY(1);
-        pane.setScrollPercentX(0);
-        pane.setScrollY(300);
+//        pane.setScrollPercentY(1);
+//        pane.setScrollPercentX(0);
+//        pane.setScrollY(300);
 
 
 
         pane.layout();
 
 
-        stage.addActor(pane);
+        stage.addActor(label);
 
 
 
@@ -252,7 +309,7 @@ public class LoadingScreen implements Screen {
         //Draw the instruction screen
 
         roundRect.begin(ShapeRenderer.ShapeType.Filled);
-        roundRect.roundedRect(roundRect, Constants.WORLD_WIDTH / 3, Constants.WORLD_HEIGHT * 0.15f, Constants.WORLD_WIDTH / 3, Constants.WORLD_HEIGHT * 0.7f, 20, Color.WHITE, Color.WHITE, Color.WHITE, Color.WHITE);
+        roundRect.roundedRect(roundRect, Constants.WORLD_WIDTH / 4-10, Constants.WORLD_HEIGHT * 0.15f, Constants.WORLD_WIDTH / 2+20, Constants.WORLD_HEIGHT * 0.7f, 20, Color.WHITE, Color.WHITE, Color.WHITE, Color.WHITE);
         roundRect.end();
 
 
@@ -266,7 +323,7 @@ public class LoadingScreen implements Screen {
         // or for non final texts: layout.setText(font, text);
 
         if (!isLoading)
-            font.draw(batch, "Tap To Play", Constants.WORLD_WIDTH * 0.45f, Constants.WORLD_HEIGHT / 10);//Constants.NOTES_WIDTH*36/2,Constants.OFFSET/2+20);
+            font.draw(batch, "Tap To Play", Constants.WORLD_WIDTH * 0.4f, Constants.WORLD_HEIGHT / 10);//Constants.NOTES_WIDTH*36/2,Constants.OFFSET/2+20);
 
         batch.end();
     }

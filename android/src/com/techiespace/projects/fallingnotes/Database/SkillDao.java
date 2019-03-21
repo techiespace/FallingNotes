@@ -9,6 +9,8 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import static com.badlogic.gdx.Net.HttpMethods.DELETE;
+
 @Dao
 public interface SkillDao {
     @Query("SELECT * FROM Skill")
@@ -28,4 +30,7 @@ public interface SkillDao {
 
     @Delete
     void deleteSkill(Skill skill);
+
+    @Query("DELETE FROM Skill")
+    void deleteAllSKills();
 }
