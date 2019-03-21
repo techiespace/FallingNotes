@@ -5,74 +5,71 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginBottom="8dp"
     tools:context=".DashboardFragment">
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="8dp"
         android:orientation="vertical">
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            app:cardBackgroundColor="@color/colorPrimary"
-            app:cardCornerRadius="16dp">
+            android:layout_margin="4dp"
+            app:cardCornerRadius="1dp">
+            <!--
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="128dp"
+                            android:gravity="center"
+                            >-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|center|center_vertical"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                android:gravity="center"
-                android:text="Progress"
-                android:textColor="@color/cardview_dark_background"
-                android:textSize="24sp" />
+            <ProgressBar
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:indeterminate="false"
+                android:max="100"
+                android:padding="100dp"
+                android:progress="100"
+                android:progressDrawable="@drawable/circle_progress_background" />
+
+            <ProgressBar
+                android:id="@+id/circle_progress_bar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:indeterminate="false"
+                android:max="100"
+                android:progress="80"
+                android:progressDrawable="@drawable/circle_progress_foreground"
+                android:rotation="-90" />
+
+            <!--</LinearLayout>-->
+
         </androidx.cardview.widget.CardView>
 
-        <LinearLayout
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewCSUni"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="2">
+            android:layout_margin="4dp"
+            app:cardCornerRadius="1dp">
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardViewCSUni"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:layout_weight="1"
-                app:cardBackgroundColor="@color/colorPrimary"
-                app:cardCornerRadius="16dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="128dp"
+                android:background="@drawable/flarebg"
+                android:gravity="center">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:gravity="center"
-                    android:text="ChordSwift University"
-                    android:textColor="@color/cardview_light_background"
-                    android:textSize="32sp" />
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:layout_weight="1"
-                app:cardBackgroundColor="@color/colorPrimaryDark"
-                app:cardCornerRadius="16dp">
-
-                <TextView
-                    android:id="@+id/textViewDaysOfPiano"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -81,27 +78,25 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginRight="8dp"
-                    android:layout_marginBottom="8dp"
                     android:gravity="center"
-                    android:text="100 days of\nPiano"
-                    android:textColor="@color/cardview_light_background"
-                    android:textSize="32sp" />
-            </androidx.cardview.widget.CardView>
+                    android:text="Course Track"
+                    android:textColor="#FFFFFF"
+                    android:textSize="24sp" />
 
+            </LinearLayout>
 
-        </LinearLayout>
-
+        </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
             app:background="@drawable/cardbg"
-            app:cardCornerRadius="16dp">
+            app:cardCornerRadius="1dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="128dp"
-                android:background="@drawable/cardbg"
+                android:background="@drawable/amythstbg"
                 android:gravity="center">
 
                 <TextView
@@ -127,17 +122,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
-            app:cardCornerRadius="16dp"
+            app:cardCornerRadius="1dp"
             card_view:cardBackgroundColor="@color/colorPrimary">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="128dp"
+                android:background="@drawable/bluebg"
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="96dp"
-                    android:layout_height="96dp"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
                     android:layout_gravity="center"
                     android:padding="8dp"
                     android:src="@drawable/ic_file_upload_white_24dp" />
@@ -171,11 +167,12 @@
                 android:layout_margin="4dp"
                 android:layout_weight="1"
                 app:cardBackgroundColor="@color/colorPrimary"
-                app:cardCornerRadius="16dp">
+                app:cardCornerRadius="1dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/neuramancerbg"
                     android:orientation="vertical">
 
                     <ImageView
@@ -208,11 +205,12 @@
                 android:layout_margin="4dp"
                 android:layout_weight="1"
                 app:cardBackgroundColor="@color/colorPrimaryDark"
-                app:cardCornerRadius="16dp">
+                app:cardCornerRadius="1dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/scooterbg"
                     android:orientation="vertical">
 
                     <ImageView
@@ -242,4 +240,5 @@
         </LinearLayout>
 
     </LinearLayout>
+
 </ScrollView>
