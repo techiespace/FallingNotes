@@ -47,7 +47,7 @@ public class CurvedTextView extends TextView {
         // set style
         this.mPaintText.setStyle(Paint.Style.FILL_AND_STROKE);
         // set color
-        this.mPaintText.setColor(getResources().getColor(R.color.black));
+        this.mPaintText.setColor(getResources().getColor(R.color.white));
         // set text Size
         this.mPaintText.setTextSize(getResources().getDimension(
                 R.dimen.curvedTextViewTextSize));
