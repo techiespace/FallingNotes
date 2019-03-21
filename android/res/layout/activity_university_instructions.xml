@@ -3,12 +3,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".course.activities.UniversityInstructionsActivity">
 
-    <TextView
+    <com.google.android.youtube.player.YouTubePlayerView
+        android:id="@+id/youtubePlayerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tv"/>
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="0dp">
 
+    </com.google.android.youtube.player.YouTubePlayerView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="8dp"
+            android:text="Theory"
+            android:textSize="24sp" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="18sp" />
+        </ScrollView>
+    </LinearLayout>
 
 </LinearLayout>
