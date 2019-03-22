@@ -19,7 +19,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
-            app:cardCornerRadius="1dp">
+            android:elevation="8dp"
+            app:cardBackgroundColor="#2ab7ca"
+            app:cardCornerRadius="4dp">
 
             <com.techiespace.projects.fallingnotes.CurvedTextView
                 android:id="@+id/compliance_curved_text"
@@ -50,7 +52,7 @@
                 android:layout_centerInParent="true"
                 android:indeterminate="false"
                 android:max="100"
-                android:progress="80"
+                android:progress="20"
                 android:progressDrawable="@drawable/circle_progress_foreground"
                 android:rotation="-90" />
 
@@ -66,8 +68,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="80%"
-                    android:textColor="@color/black"
+                    android:text="20%"
+                    android:textColor="@color/white"
                     android:textSize="28sp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -80,7 +82,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
-            app:cardCornerRadius="1dp">
+            android:elevation="8dp"
+            app:cardCornerRadius="4dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -110,7 +113,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
             app:background="@drawable/cardbg"
-            app:cardCornerRadius="1dp">
+            android:elevation="8dp"
+            app:cardCornerRadius="4dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -141,7 +145,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
-            app:cardCornerRadius="1dp"
+            android:elevation="8dp"
+            app:cardCornerRadius="4dp"
             card_view:cardBackgroundColor="@color/colorPrimary">
 
             <LinearLayout
@@ -168,7 +173,7 @@
                     android:layout_marginEnd="8dp"
                     android:layout_marginRight="8dp"
                     android:gravity="center"
-                    android:text="Upload Midi   "
+                    android:text="Midi Player"
                     android:textColor="#FFFFFF"
                     android:textSize="24sp" />
             </LinearLayout>
@@ -186,7 +191,8 @@
                 android:layout_margin="4dp"
                 android:layout_weight="1"
                 app:cardBackgroundColor="@color/colorPrimary"
-                app:cardCornerRadius="1dp">
+                android:elevation="8dp"
+                app:cardCornerRadius="4dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -224,7 +230,8 @@
                 android:layout_margin="4dp"
                 android:layout_weight="1"
                 app:cardBackgroundColor="@color/colorPrimaryDark"
-                app:cardCornerRadius="1dp">
+                android:elevation="8dp"
+                app:cardCornerRadius="4dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
