@@ -37,6 +37,7 @@ android {
 
 dependencies {
     implementation files('libs/YouTubeAndroidPlayerApi.jar')
+    implementation files('libs/TarsosDSP-Android-latest.jar')
 }
 
 // called every time gradle gets executed, takes the native dependencies of
@@ -112,8 +113,8 @@ eclipse {
     }
 
     classpath {
-        plusConfigurations += [ project.configurations.compile ]        
-        containers 'com.android.ide.eclipse.adt.ANDROID_FRAMEWORK', 'com.android.ide.eclipse.adt.LIBRARIES'       
+        plusConfigurations += [ project.configurations.compile ]
+        containers 'com.android.ide.eclipse.adt.ANDROID_FRAMEWORK', 'com.android.ide.eclipse.adt.LIBRARIES'
     }
 
     project {
@@ -131,7 +132,7 @@ eclipse {
 idea {
     module {
         sourceDirs += file("src")
-        scopes = [ COMPILE: [plus:[project.configurations.compile]]]        
+        scopes = [ COMPILE: [plus:[project.configurations.compile]]]
 
         iml {
             withXml {

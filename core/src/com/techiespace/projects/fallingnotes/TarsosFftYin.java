@@ -1,5 +1,9 @@
 package com.techiespace.projects.fallingnotes;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.nio.MappedByteBuffer;
+import java.nio.channels.FileChannel;
 import java.util.HashMap;
 
 import be.tarsos.dsp.AudioDispatcher;
@@ -9,8 +13,25 @@ import be.tarsos.dsp.io.android.AudioDispatcherFactory;
 import be.tarsos.dsp.pitch.PitchDetectionHandler;
 import be.tarsos.dsp.pitch.PitchDetectionResult;
 import be.tarsos.dsp.pitch.PitchProcessor;
+import jdk.internal.org.objectweb.asm.tree.analysis.Interpreter;
 
 public class TarsosFftYin {
+
+    float[] output = new float[264];
+    private static final int SAMPLE_RATE = 8000;
+    private static final int SAMPLE_DURATION_MS = 512;
+    private static final int RECORDING_LENGTH = (int) (SAMPLE_RATE * SAMPLE_DURATION_MS / 1000);
+    private static final long AVERAGE_WINDOW_DURATION_MS = 500;
+    private static final float DETECTION_THRESHOLD = 0.70f;
+    private static final int SUPPRESSION_MS = 1500;
+    private static final int MINIMUM_COUNT = 3;
+    private static final long MINIMUM_TIME_BETWEEN_SAMPLES_MS = 30;
+    private static final String MODEL_FILENAME = "Pitch.lite";
+    private static final int REQUEST_RECORD_AUDIO = 13;
+
+
+    private static Interpreter tflite;
+
 
     final static double limitArr[][] = {{26.6824, 28.3176}, {28.2691, 29.9529}, {29.95, 31.7339}, {31.7309, 33.621},    //A0
             {33.6178, 35.6202}, {35.6167, 37.7382}, {37.7346, 39.9823}, {39.9784, 42.3598}, {42.3558, 44.8786}, {44.8742, 47.5471},    //C#1
@@ -47,8 +68,13 @@ public class TarsosFftYin {
         }
     }
 
+
+
     public static void tarsos() {
         //tarsos Recording
+
+
+
 
 
         AudioDispatcher dispatcher =

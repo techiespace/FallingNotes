@@ -38,6 +38,9 @@ allprojects {
         google()
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
         maven { url "https://oss.sonatype.org/content/repositories/releases/" }
+        maven {
+            url 'https://google.bintray.com/tensorflow'
+        }
     }
 }
 
@@ -80,10 +83,15 @@ project(":android") {
         implementation 'com.android.support:recyclerview-v7:28.0.0'
         implementation 'com.android.support:cardview-v7:28.0.0'
         implementation 'com.google.code.gson:gson:2.8.2'
+
+        implementation 'org.tensorflow:tensorflow-lite:+'
+        implementation 'org.tensorflow:tensorflow-android:+'
         def room_version = "2.1.0-alpha04"
+
 
         implementation "androidx.room:room-runtime:$room_version"
         annotationProcessor "androidx.room:room-compiler:$room_version"
+
     }
 }
 
