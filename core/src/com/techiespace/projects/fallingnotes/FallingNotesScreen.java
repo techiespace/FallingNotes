@@ -64,6 +64,9 @@ public class FallingNotesScreen implements Screen {
     private boolean isPlaying = false;
 
 
+    boolean isOnce = false;
+
+
 
     public FallingNotesScreen(FallingNotesGame app, String midiName) {
         this.app = app;
@@ -261,6 +264,12 @@ public class FallingNotesScreen implements Screen {
     }
 
     private void handleInput() {
+
+        if(isOnce==false)
+        {
+            cam.translate(Constants.WORLD_WIDTH/3,0,0);
+            isOnce = true;
+        }
         if (Gdx.input.isKeyPressed(Input.Keys.A)) {
             cam.zoom += 0.005;
 
