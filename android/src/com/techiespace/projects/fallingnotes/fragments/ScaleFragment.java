@@ -61,7 +61,7 @@ public class ScaleFragment extends Fragment {
         SectionDataModel dm = new SectionDataModel();
         dm.setHeaderTitle("Major Scale");
         ArrayList<SingleItemModel> singleItemModels = new ArrayList<>();
-        singleItemModels.add(new SingleItemModel("C", "inappmidi/C.mid"));
+        singleItemModels.add(new SingleItemModel("C", "inappmidi/scales/major/C.mid"));
         singleItemModels.add(new SingleItemModel("C#", "inappmidi/scales/major/C#.mid"));
         singleItemModels.add(new SingleItemModel("D", "inappmidi/scales/major/D.mid"));
         singleItemModels.add(new SingleItemModel("D#", "inappmidi/scales/major/D#.mid"));

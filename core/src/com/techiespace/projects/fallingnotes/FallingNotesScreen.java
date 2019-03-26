@@ -65,12 +65,13 @@ public class FallingNotesScreen implements Screen {
 
 
     boolean isOnce = false;
+    boolean recognitionMode = false;
 
 
-
-    public FallingNotesScreen(FallingNotesGame app, String midiName) {
+    public FallingNotesScreen(FallingNotesGame app, String midiName, boolean recognitionMode) {
         this.app = app;
         this.midiName = midiName;
+        this.recognitionMode = recognitionMode;
     }
 
     protected Preferences getPrefs() {
@@ -119,7 +120,11 @@ public class FallingNotesScreen implements Screen {
         //initialize Background
         initializeBackground();
 
-        notes = new Notes(app, midiName, stage);
+        notes = new Notes(app, midiName, stage, recognitionMode);
+        if (recognitionMode)
+            TarsosFftYin.tarsos();
+        else
+            TarsosFftYin.dispose();
         batch = new SpriteBatch();
         bbatch = new SpriteBatch();
         sprite = new Sprite();

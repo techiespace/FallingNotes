@@ -12,6 +12,9 @@ import be.tarsos.dsp.pitch.PitchProcessor;
 
 public class TarsosFftYin {
 
+    static Thread audioThread;
+    static AudioDispatcher dispatcher;
+
     final static double limitArr[][] = {{26.6824, 28.3176}, {28.2691, 29.9529}, {29.95, 31.7339}, {31.7309, 33.621},    //A0
             {33.6178, 35.6202}, {35.6167, 37.7382}, {37.7346, 39.9823}, {39.9784, 42.3598}, {42.3558, 44.8786}, {44.8742, 47.5471},    //C#1
             {47.5428, 50.3746}, {50.3695, 53.3697}, {53.3647, 56.5435}, {56.538, 59.9058}, {59.8999, 63.4678}, {63.4618, 67.2419},     //G1
@@ -47,11 +50,19 @@ public class TarsosFftYin {
         }
     }
 
+    public static void dispose() {
+        if (audioThread != null)
+            audioThread.interrupt();
+        if (dispatcher != null)
+            dispatcher.stop();
+        Notes.recogNote = "";
+    }
+
     public static void tarsos() {
         //tarsos Recording
 
 
-        AudioDispatcher dispatcher =
+        dispatcher =
                 AudioDispatcherFactory.fromDefaultMicrophone(22050, 1024, 512);
         final HashMap<Integer, String> map;
         //map is final hence needs to be init in constructor - can't be extracted in a function.
@@ -167,7 +178,7 @@ public class TarsosFftYin {
         AudioProcessor pitchProcessor = new PitchProcessor(PitchProcessor.PitchEstimationAlgorithm.FFT_YIN, 44100, 1024, pdh);
         dispatcher.addAudioProcessor(pitchProcessor);
 
-        Thread audioThread = new Thread(dispatcher, "Audio Thread");
+        audioThread = new Thread(dispatcher, "Audio Thread");
         audioThread.start();
     }
 }

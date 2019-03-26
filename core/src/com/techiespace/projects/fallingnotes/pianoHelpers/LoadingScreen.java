@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -16,11 +15,8 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
-import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextArea;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.techiespace.projects.fallingnotes.Constants;
 import com.techiespace.projects.fallingnotes.FallingNotesGame;
 import com.techiespace.projects.fallingnotes.FallingNotesScreen;
@@ -182,7 +178,11 @@ public class LoadingScreen implements Screen {
             @Override
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
                 if (!isLoading) {
-                    app.setScreen(new FallingNotesScreen(app, midiName));
+                    if (screenX > Constants.WORLD_WIDTH / 2) {
+                        app.setScreen(new FallingNotesScreen(app, midiName, true));
+                    } else {
+                        app.setScreen(new FallingNotesScreen(app, midiName, false));
+                    }
                 }
                 return false;
             }
