@@ -13,6 +13,7 @@ public class PracticeActivity extends AndroidApplication {
 
     String midiName;
     String instructions;
+    boolean playMidi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +23,8 @@ public class PracticeActivity extends AndroidApplication {
         if (intent.hasExtra(Intent.EXTRA_TEXT)) {
             midiName = intent.getStringExtra(Intent.EXTRA_TEXT);
         }
+
+        playMidi = intent.getBooleanExtra("playMidi", true);
 
         if(intent.hasExtra("instructions_TEXT"))
         {
@@ -37,11 +40,11 @@ public class PracticeActivity extends AndroidApplication {
 
 
         if(instructions==null)
-        initialize(new FallingNotesGame(midiName), cfg);
+            initialize(new FallingNotesGame(midiName, playMidi), cfg);
         else
         {
             //System.out.println("Practice Activity "+instructions);
-            initialize(new FallingNotesGame(midiName,instructions), cfg);
+            initialize(new FallingNotesGame(midiName, instructions, playMidi), cfg);
         }
     }
 

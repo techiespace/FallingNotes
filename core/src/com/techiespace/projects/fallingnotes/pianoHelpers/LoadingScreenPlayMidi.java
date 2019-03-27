@@ -23,13 +23,9 @@ import com.techiespace.projects.fallingnotes.FallingNotesScreen;
 
 import static com.techiespace.projects.fallingnotes.pianoHelpers.HelperFunctions.getMidiNoteName;
 
-public class LoadingScreen implements Screen {
+public class LoadingScreenPlayMidi implements Screen {
 
     private final FallingNotesGame app;
-
-
-    private ShapeRenderer shapeRenderer;
-    private float progress;
     public String midiName;
     Table table;
     Stage stage;
@@ -40,17 +36,15 @@ public class LoadingScreen implements Screen {
     ProgressBar progressBar;
     BitmapFont font;
     SpriteBatch batch;
-
     Sprite backgroundSprite;
     Texture backgroundTexture;
-
-    String text="\t\t                  Instructions\t\t\n";
-
+    String text = "\t\t                  Instructions\t\t\n";
     String instructions;
+    private ShapeRenderer shapeRenderer;
+    private float progress;
 
 
-
-    public LoadingScreen(final FallingNotesGame app, String midiName) {
+    public LoadingScreenPlayMidi(final FallingNotesGame app, String midiName) {
         this.app = app;
         this.shapeRenderer = new ShapeRenderer();
         this.progress = 0f;
@@ -86,21 +80,17 @@ public class LoadingScreen implements Screen {
         initializeTextField();
 
 
-
-
-
-
         setInputProcessor();
     }
     //Constructor when instructions are passed
 
-    public LoadingScreen(final FallingNotesGame app, String midiName,String instructions) {
+    public LoadingScreenPlayMidi(final FallingNotesGame app, String midiName, String instructions) {
         this.app = app;
         this.shapeRenderer = new ShapeRenderer();
         this.progress = 0f;
         this.midiName = midiName;
         this.instructions = instructions;
-       // Gdx.app.log("Loading Screen Constructor", midiName);
+        // Gdx.app.log("Loading Screen Constructor", midiName);
         queueAssets();
         stage = new Stage();
         backgroundTexture = new Texture("background/scroll.png");
@@ -130,11 +120,15 @@ public class LoadingScreen implements Screen {
         initializeTextField();
 
 
-
-
-
-
         setInputProcessor();
+    }
+
+    public LoadingScreenPlayMidi(final FallingNotesGame app) {
+        this.app = app;
+        this.shapeRenderer = new ShapeRenderer();
+        this.progress = 0f;
+
+        queueAssets();
     }
 
     private void initializeTextField() {
@@ -143,17 +137,13 @@ public class LoadingScreen implements Screen {
         style.font = font;
         style.fontColor = Color.BLACK;
 
-        Label label = new Label(text+"\n"+instructions,style);
-        label.setBounds(Constants.WORLD_WIDTH / 4, Constants.WORLD_HEIGHT *0.15f+10,Constants.WORLD_WIDTH / 2, Constants.WORLD_HEIGHT*0.7f-20);
+        Label label = new Label(text + "\n" + instructions, style);
+        label.setBounds(Constants.WORLD_WIDTH / 4, Constants.WORLD_HEIGHT * 0.15f + 10, Constants.WORLD_WIDTH / 2, Constants.WORLD_HEIGHT * 0.7f - 20);
         label.setWrap(true);
         label.setFontScale(0.8f);
 
 
-
-
-
         stage.addActor(label);
-
 
 
     }
@@ -178,11 +168,7 @@ public class LoadingScreen implements Screen {
             @Override
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
                 if (!isLoading) {
-                    if (screenX > Constants.WORLD_WIDTH / 2) {
-                        app.setScreen(new FallingNotesScreen(app, midiName, true));
-                    } else {
-                        app.setScreen(new FallingNotesScreen(app, midiName, false));
-                    }
+                    app.setScreen(new FallingNotesScreen(app, midiName, false));
                 }
                 return false;
             }
@@ -207,14 +193,6 @@ public class LoadingScreen implements Screen {
                 return false;
             }
         });
-    }
-
-    public LoadingScreen(final FallingNotesGame app) {
-        this.app = app;
-        this.shapeRenderer = new ShapeRenderer();
-        this.progress = 0f;
-
-        queueAssets();
     }
 
     protected void addGameButton() {
@@ -275,12 +253,6 @@ public class LoadingScreen implements Screen {
     public void render(float delta) {
         Gdx.gl.glClearColor(14f / 255, 129f / 255, 209f / 255, 1f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        ShapeRenderer tint = new ShapeRenderer();
-        tint.begin(ShapeRenderer.ShapeType.Filled);
-        tint.setColor(255, 0, 0, 1f);
-        tint.rect(0, 0, Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight());
-        tint.end();
-
 //
 //        batch.begin();
 //        batch.draw(backgroundSprite,Constants.WORLD_WIDTH / 3, Constants.WORLD_HEIGHT * 0.15f, Constants.WORLD_WIDTH / 3, Constants.WORLD_HEIGHT * 0.7f);
@@ -289,12 +261,10 @@ public class LoadingScreen implements Screen {
         update(delta);
 
 
-
-
         //Draw the instruction screen
 
         roundRect.begin(ShapeRenderer.ShapeType.Filled);
-        roundRect.roundedRect(roundRect, Constants.WORLD_WIDTH / 4-10, Constants.WORLD_HEIGHT * 0.15f, Constants.WORLD_WIDTH / 2+20, Constants.WORLD_HEIGHT * 0.7f, 20, Color.WHITE, Color.WHITE, Color.WHITE, Color.WHITE);
+        roundRect.roundedRect(roundRect, Constants.WORLD_WIDTH / 4 - 10, Constants.WORLD_HEIGHT * 0.15f, Constants.WORLD_WIDTH / 2 + 20, Constants.WORLD_HEIGHT * 0.7f, 20, Color.WHITE, Color.WHITE, Color.WHITE, Color.WHITE);
         roundRect.end();
 
 

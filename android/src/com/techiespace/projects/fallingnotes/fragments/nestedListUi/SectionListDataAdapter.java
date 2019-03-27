@@ -65,6 +65,7 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
                 public void onClick(View view) {
                     Intent intent = new Intent(mContext, PracticeActivity.class);
                     intent.putExtra(Intent.EXTRA_TEXT, midiPath);
+                    intent.putExtra("playMidi", false);
                     mContext.startActivity(intent);
                     Log.e("testing", "onClick: " + tvTitle.getText());
                 }

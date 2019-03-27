@@ -2,8 +2,6 @@ package com.techiespace.projects.fallingnotes.fragments;
 
 import android.content.Context;
 import android.content.Intent;
-import androidx.cardview.widget.CardView;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +12,9 @@ import com.techiespace.projects.fallingnotes.PracticeActivity;
 import com.techiespace.projects.fallingnotes.R;
 
 import java.util.ArrayList;
+
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class MidiListAdapter extends RecyclerView.Adapter<com.techiespace.projects.fallingnotes.fragments.MidiListAdapter.MyViewHolder> {
     //    private String[][] mDataset;
@@ -57,6 +58,7 @@ public class MidiListAdapter extends RecyclerView.Adapter<com.techiespace.projec
                 } else {
                     intent.putExtra(Intent.EXTRA_TEXT, "inappmidi/" + dataList.get(position));
                 }
+                intent.putExtra("playMidi", true);
                 mContext.startActivity(intent);
                 Toast.makeText(view.getContext(), dataList.get(position), Toast.LENGTH_SHORT).show();
 
