@@ -89,7 +89,6 @@ public class Notes {
         initAnimationEndTime();
 
 
-
         while (poolIndex < noteArrayPool.length && noteArrayPool[poolIndex].startTime <= initialTime * 1000) {
             noteArray.add(noteArrayPool[poolIndex]);
             poolIndex++;
@@ -101,15 +100,22 @@ public class Notes {
             PianoKey key = Piano.findKey(note.noteName);
             sound = app.assets.get("audio/" + note.noteName + ".ogg");//note.sound;
 
-            if (note.position.y < (Constants.WHITE_PIANO_KEY_HEIGHT + Constants.OFFSET) + 2 && note.position.y > (Constants.WHITE_PIANO_KEY_HEIGHT + Constants.OFFSET) - 40) {
-                System.out.println("RecogNote: " + recogNote);
-                System.out.println("Note name: " + note.noteName);
-                //recogNote is sometimes zero when the gamescreen runs for first few times
-                if (recogNote.length() > 0 && recogNote.substring(0, recogNote.length() - 1).equals(note.noteName.substring(0, note.noteName.length() - 1))) {
-                    System.out.println("Correct");
-                    key.updatePracticeTexture(true);
+
+            //Recognition Mode On
+
+            if (FallingNotesScreen.isRecognitionMode()) {
+                if (note.position.y < (Constants.WHITE_PIANO_KEY_HEIGHT + Constants.OFFSET) + 2 && note.position.y > (Constants.WHITE_PIANO_KEY_HEIGHT + Constants.OFFSET) - 40) {
+                    System.out.println("RecogNote: " + recogNote);
+                    System.out.println("Note name: " + note.noteName);
+                    //recogNote is sometimes zero when the gamescreen runs for first few times
+                    if (recogNote.length() > 0 && recogNote.substring(0, recogNote.length() - 1).equals(note.noteName.substring(0, note.noteName.length() - 1))) {
+                        System.out.println("Correct");
+                        key.updatePracticeTexture(true);
+                    }
                 }
             }
+
+
             if (note.position.y < (Constants.WHITE_PIANO_KEY_HEIGHT + Constants.OFFSET)) {
 
 
@@ -132,14 +138,19 @@ public class Notes {
                     //sound.stop(soundId);
                     notesToRemove.add(note);
                     soundIdArray.remove(note.id);
-                    }
+                }
             }
 
 
             //for handling the key
             if (note.position.y < Constants.WHITE_PIANO_KEY_HEIGHT + Constants.OFFSET && !key.getIsPressed()) {
-                key.updatePracticeTexture(false);
-//                key.updateTextureDown(note.track);
+                //here Also we Have to check If recognotion Mode is on
+
+                if (FallingNotesScreen.isRecognitionMode()) {
+                    key.updatePracticeTexture(false);
+                } else {
+                  key.updateTextureDown(note.track);
+                }
             }
 
             //for handling the key
@@ -159,11 +170,9 @@ public class Notes {
         return midiEndTime;
     }
 
-    public float getAnimationEndTime()
-    {
+    public float getAnimationEndTime() {
         return animationEndTime;
     }
-
 
 
     public float getInitialTime() {
@@ -175,22 +184,20 @@ public class Notes {
         // TODO: Render each note
         for (Note note : noteArray) {
             note.render(renderer);
-            }
+        }
     }
 
 
-    public void reset()
-    {
+    public void reset() {
         initialTime = 0;
         init();
     }
 
 
-    public void initAnimationEndTime()
-    {
+    public void initAnimationEndTime() {
         //The actual end time of the animation will be calculated on the bases of current Tempo
 
-        animationEndTime =  (midiEndTime + 1000*((Constants.WORLD_HEIGHT-Constants.OFFSET)/(preferences.getFloat("tempo_multiplier") * 100)));
+        animationEndTime = (midiEndTime + 1000 * ((Constants.WORLD_HEIGHT - Constants.OFFSET) / (preferences.getFloat("tempo_multiplier") * 100)));
 
 
     }

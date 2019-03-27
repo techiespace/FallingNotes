@@ -1,5 +1,7 @@
 package com.techiespace.projects.fallingnotes;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -26,6 +28,8 @@ public class PianoKey {
     boolean isPressed = false;
     int group;
     int positionInGroup;
+
+   static Preferences preferences;
 
     public PianoKey() {
 
@@ -127,9 +131,17 @@ public class PianoKey {
         setIsPressed(true);
 
 //        Gdx.app.log("Pianokey","down kiya  "+getName());
-        if (track == 0)
+
+        preferences = Gdx.app.getPreferences("play_prefrences");
+
+        boolean rightHand = preferences.getString("hand").equals("right") || preferences.getString("hand").equals("both");
+        boolean leftHand = preferences.getString("hand").equals("left") || preferences.getString("hand").equals("both");
+
+
+
+        if (track == 0 && rightHand)
             this.setTexture(RH_downTexture);
-        else
+        else if(track == 1 && leftHand)
             this.setTexture(LH_downTexture);
 
     }

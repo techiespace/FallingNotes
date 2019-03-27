@@ -277,7 +277,7 @@ public class LoadingScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         ShapeRenderer tint = new ShapeRenderer();
         tint.begin(ShapeRenderer.ShapeType.Filled);
-        tint.setColor(255, 0, 0, 1f);
+        tint.setColor(0.98f, 0.33f, 0.78f, 1f);
         tint.rect(0, 0, Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight());
         tint.end();
 

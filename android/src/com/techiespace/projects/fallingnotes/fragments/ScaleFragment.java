@@ -6,12 +6,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.techiespace.projects.fallingnotes.Database.AppDatabase;
+import com.techiespace.projects.fallingnotes.Database.AppExecutors;
+import com.techiespace.projects.fallingnotes.Database.Level;
+import com.techiespace.projects.fallingnotes.Database.Scale;
 import com.techiespace.projects.fallingnotes.R;
 import com.techiespace.projects.fallingnotes.fragments.nestedListUi.RecyclerViewDataAdapter;
 import com.techiespace.projects.fallingnotes.fragments.nestedListUi.SectionDataModel;
 import com.techiespace.projects.fallingnotes.fragments.nestedListUi.SingleItemModel;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CountDownLatch;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,6 +28,8 @@ import androidx.recyclerview.widget.RecyclerView;
 public class ScaleFragment extends Fragment {
 
     private ArrayList<SectionDataModel> allSampleData;
+    private AppDatabase mDb;
+    List<Scale> scales  = new ArrayList<>();
 
     public ScaleFragment() {
         // Required empty public constructor
@@ -35,6 +43,7 @@ public class ScaleFragment extends Fragment {
         final View rootView = inflater.inflate(R.layout.fragment_scale, container, false); //the YT tutorial passed 2nd arg as null and no third arg.
 
         allSampleData = new ArrayList<>();
+        mDb = AppDatabase.getInstance(getContext());
 
         createDummyData();
 
@@ -58,59 +67,92 @@ public class ScaleFragment extends Fragment {
     }
 
     private void createDummyData() {
+
+        final CountDownLatch latch = new CountDownLatch(1);
+        AppExecutors.getInstance().diskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                scales = mDb.scaleDao().getScalesByType("Major Scale");
+                latch.countDown();
+
+
+            }
+        });
+        try {
+            latch.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         SectionDataModel dm = new SectionDataModel();
         dm.setHeaderTitle("Major Scale");
         ArrayList<SingleItemModel> singleItemModels = new ArrayList<>();
-        singleItemModels.add(new SingleItemModel("C", "inappmidi/scales/major/C.mid"));
-        singleItemModels.add(new SingleItemModel("C#", "inappmidi/scales/major/C#.mid"));
-        singleItemModels.add(new SingleItemModel("D", "inappmidi/scales/major/D.mid"));
-        singleItemModels.add(new SingleItemModel("D#", "inappmidi/scales/major/D#.mid"));
-        singleItemModels.add(new SingleItemModel("E", "inappmidi/scales/major/E.mid"));
-        singleItemModels.add(new SingleItemModel("F", "inappmidi/scales/major/F.mid"));
-        singleItemModels.add(new SingleItemModel("F#", "inappmidi/scales/major/F#.mid"));
-        singleItemModels.add(new SingleItemModel("G", "inappmidi/scales/major/G.mid"));
-        singleItemModels.add(new SingleItemModel("G#", "inappmidi/scales/major/G#.mid"));
-        singleItemModels.add(new SingleItemModel("A", "inappmidi/scales/major/A.mid"));
-        singleItemModels.add(new SingleItemModel("A#", "inappmidi/scales/major/A#.mid"));
-        singleItemModels.add(new SingleItemModel("B", "inappmidi/scales/major/B.mid"));
+
+
+        for(Scale scale : scales) {
+            singleItemModels.add(new SingleItemModel(scale.getScale_name(), scale.getMidi_name(), scale.getInstructions()));
+            System.out.println(scale.getScale_name());
+        }
 
         dm.setAllItemInSection(singleItemModels);
         allSampleData.add(dm);
 
         dm = new SectionDataModel();
         dm.setHeaderTitle("Minor Scale");
+
+
+        AppExecutors.getInstance().diskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                scales = mDb.scaleDao().getScalesByType("Minor Scale");
+                latch.countDown();
+
+
+            }
+        });
+        try {
+            latch.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+
+
+
         singleItemModels = new ArrayList<>();
-        singleItemModels.add(new SingleItemModel("C", "C"));
-        singleItemModels.add(new SingleItemModel("C#", "C#"));
-        singleItemModels.add(new SingleItemModel("D", "D"));
-        singleItemModels.add(new SingleItemModel("D#", "D#"));
-        singleItemModels.add(new SingleItemModel("E", "E"));
-        singleItemModels.add(new SingleItemModel("F", "F"));
-        singleItemModels.add(new SingleItemModel("F#", "F#"));
-        singleItemModels.add(new SingleItemModel("G", "G"));
-        singleItemModels.add(new SingleItemModel("G#", "G#"));
-        singleItemModels.add(new SingleItemModel("A", "A"));
-        singleItemModels.add(new SingleItemModel("A#", "A#"));
-        singleItemModels.add(new SingleItemModel("B", "B"));
+        for(Scale scale : scales) {
+            singleItemModels.add(new SingleItemModel(scale.getScale_name(), scale.getMidi_name(), scale.getInstructions()));
+            System.out.println(scale.getScale_name());
+        }
 
         dm.setAllItemInSection(singleItemModels);
         allSampleData.add(dm);
 
         dm = new SectionDataModel();
         dm.setHeaderTitle("Blues Scale");
+
+        AppExecutors.getInstance().diskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                scales = mDb.scaleDao().getScalesByType("Blues Scale");
+                latch.countDown();
+
+
+            }
+        });
+        try {
+            latch.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+
+
         singleItemModels = new ArrayList<>();
-        singleItemModels.add(new SingleItemModel("C", "C"));
-        singleItemModels.add(new SingleItemModel("C#", "C#"));
-        singleItemModels.add(new SingleItemModel("D", "D"));
-        singleItemModels.add(new SingleItemModel("D#", "D#"));
-        singleItemModels.add(new SingleItemModel("E", "E"));
-        singleItemModels.add(new SingleItemModel("F", "F"));
-        singleItemModels.add(new SingleItemModel("F#", "F#"));
-        singleItemModels.add(new SingleItemModel("G", "G"));
-        singleItemModels.add(new SingleItemModel("G#", "G#"));
-        singleItemModels.add(new SingleItemModel("A", "A"));
-        singleItemModels.add(new SingleItemModel("A#", "A#"));
-        singleItemModels.add(new SingleItemModel("B", "B"));
+        for(Scale scale : scales) {
+            singleItemModels.add(new SingleItemModel(scale.getScale_name(), scale.getMidi_name(), scale.getInstructions()));
+            System.out.println(scale.getScale_name());
+        }
 
         dm.setAllItemInSection(singleItemModels);
         allSampleData.add(dm);
