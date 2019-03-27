@@ -65,7 +65,7 @@ public class FallingNotesScreen implements Screen {
 
 
     boolean isOnce = false;
-    boolean recognitionMode = false;
+   static boolean recognitionMode = false;
 
 
     public FallingNotesScreen(FallingNotesGame app, String midiName, boolean recognitionMode) {
@@ -121,10 +121,14 @@ public class FallingNotesScreen implements Screen {
         initializeBackground();
 
         notes = new Notes(app, midiName, stage, recognitionMode);
+
+
         if (recognitionMode)
             TarsosFftYin.tarsos();
         else
             TarsosFftYin.dispose();
+
+
         batch = new SpriteBatch();
         bbatch = new SpriteBatch();
         sprite = new Sprite();
@@ -387,5 +391,9 @@ public class FallingNotesScreen implements Screen {
     public Notes getNotes()
     {
         return notes;
+    }
+
+    public static boolean isRecognitionMode() {
+        return recognitionMode;
     }
 }
