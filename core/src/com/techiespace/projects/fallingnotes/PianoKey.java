@@ -152,8 +152,8 @@ public class PianoKey {
             this.upTexture = new Texture("piano/black_up.png");
             this.LH_downTexture = new Texture("piano/black_down_yellow.png");
             this.RH_downTexture = new Texture("piano/black_down_red_light.png");
-            this.correctTexture = new Texture("piano/black_down_blue.png");
-            this.wrongTexture = new Texture("piano/black_down_yellow.png");
+            this.correctTexture = new Texture("piano/black_down_green.png");
+            this.wrongTexture = new Texture("piano/black_down_red_light.png");
 
         } else {
             this.texture = new Texture("piano/white_up.png");
@@ -161,8 +161,8 @@ public class PianoKey {
             this.LH_downTexture =new Texture("piano/white_down_yellow.png") ;
             this.RH_downTexture = new Texture("piano/white_down_red.png");
 
-            this.correctTexture = new Texture("piano/white_down_blue_g.png");
-            this.wrongTexture = new Texture("piano/white_down_yellow.png");
+            this.correctTexture = new Texture("piano/white_down_green.png");
+            this.wrongTexture = new Texture("piano/white_down_red.png");
 
         }
     }
