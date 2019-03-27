@@ -2,16 +2,22 @@ package com.techiespace.projects.fallingnotes;
 
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.cardview.widget.CardView;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.techiespace.projects.fallingnotes.course.fragments.UniversityFragment;
+
+import androidx.annotation.RequiresApi;
+import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -57,6 +63,7 @@ public class DashboardFragment extends Fragment {
         return rootView;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         // TODO Auto-generated method stub
@@ -67,8 +74,9 @@ public class DashboardFragment extends Fragment {
 
                 if (resultCode == RESULT_OK) {
 
-                    String PathHolder = data.getData().getPath();
-                    Toast.makeText(getContext(), PathHolder, Toast.LENGTH_LONG).show();
+                    Uri u = data.getData();
+                    String PathHolder = getRealPathFromURI(u);
+                    Toast.makeText(getContext(), "Hi: " + Utils.getPath(getContext(), u), Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(getContext(), PracticeActivity.class);
                     intent.putExtra(Intent.EXTRA_TEXT, PathHolder);
                     startActivity(intent);
@@ -77,6 +85,20 @@ public class DashboardFragment extends Fragment {
                 break;
 
         }
+    }
+
+    private String getRealPathFromURI(Uri contentURI) {
+        String result;
+        Cursor cursor = getContext().getContentResolver().query(contentURI, null, null, null, null);
+        if (cursor == null) { // Source is Dropbox or other similar local file path
+            result = contentURI.getPath();
+        } else {
+            cursor.moveToFirst();
+            int idx = cursor.getColumnIndex(MediaStore.Files.FileColumns.DATA);//MediaStore.Images.ImageColumns.DATA);
+            result = cursor.getString(idx);
+            cursor.close();
+        }
+        return result;
     }
 
 }

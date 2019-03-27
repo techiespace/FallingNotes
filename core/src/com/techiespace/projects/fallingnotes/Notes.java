@@ -33,12 +33,10 @@ public class Notes {
     float animationEndTime;
 
 
-
-    public Notes(FallingNotesGame app, String midiName, Stage stage) {
+    public Notes(FallingNotesGame app, String midiName, Stage stage, boolean recognitionMode) {
         this.app = app;
         this.midiName = midiName;
         init();
-        TarsosFftYin.tarsos();
     }
 
 

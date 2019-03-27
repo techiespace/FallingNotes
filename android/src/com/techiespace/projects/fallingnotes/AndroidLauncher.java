@@ -1,14 +1,15 @@
 package com.techiespace.projects.fallingnotes;
 
 import android.os.Bundle;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.badlogic.gdx.backends.android.AndroidFragmentApplication;
+
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
 
 public class AndroidLauncher extends FragmentActivity implements AndroidFragmentApplication.Callbacks {
     @Override
@@ -37,7 +38,7 @@ public class AndroidLauncher extends FragmentActivity implements AndroidFragment
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-            return initializeForView(new FallingNotesGame("inappmidi/CScale.mid"));
+            return initializeForView(new FallingNotesGame("inappmidi/CScale.mid", true));
         }
     }
 }

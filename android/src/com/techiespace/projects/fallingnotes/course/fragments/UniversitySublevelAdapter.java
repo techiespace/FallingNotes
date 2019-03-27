@@ -60,6 +60,7 @@ public class UniversitySublevelAdapter extends RecyclerView.Adapter<UniversitySu
             public void onClick(View v) {
                 if (skillListByLevel.get(position).getMidiPath().length() > 0) {
                     Intent intent = new Intent(context, PracticeActivity.class);
+                    intent.putExtra("playMidi", false);
                     intent.putExtra(Intent.EXTRA_TEXT, "inappmidi/CSUni/" + skillListByLevel.get(position).getMidiPath());
                     intent.putExtra("instructions_TEXT",skillListByLevel.get(position).getInstructions());
                    // System.out.println("adapter"+skillListByLevel.get(position).getInstructions());

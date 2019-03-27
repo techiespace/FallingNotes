@@ -39,7 +39,6 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
         SingleItemModel itemModel = itemModels.get(position);
         holder.tvTitle.setText(itemModel.getName());
         holder.setMidiPath(itemModel.getUrl());
-        holder.setInstructions(itemModel.getInstructions());
         itemModel.setUrl(itemModels.get(position).getUrl());
         holder.itemModels.get(position).getUrl();
     }
@@ -55,7 +54,6 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
         protected ImageView itemImage;
         private String midiPath;
         private ArrayList<SingleItemModel> itemModels;
-        private  String instructions;
 
         public SingleItemRowHolder(View itemView, ArrayList<SingleItemModel> itemModels) {
             super(itemView);
@@ -67,7 +65,7 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
                 public void onClick(View view) {
                     Intent intent = new Intent(mContext, PracticeActivity.class);
                     intent.putExtra(Intent.EXTRA_TEXT, midiPath);
-                    intent.putExtra("instructions_TEXT",instructions);
+                    intent.putExtra("playMidi", false);
                     mContext.startActivity(intent);
                     Log.e("testing", "onClick: " + tvTitle.getText());
                 }
@@ -76,9 +74,6 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
 
         public void setMidiPath(String midiPath) {
             this.midiPath = midiPath;
-        }
-        public void setInstructions(String instructions) {
-            this.instructions = instructions;
         }
     }
 

@@ -1,20 +1,18 @@
 package com.techiespace.projects.fallingnotes.fragments.nestedListUi;
 
 import android.content.Context;
-import android.content.Intent;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.techiespace.projects.fallingnotes.PracticeActivity;
 import com.techiespace.projects.fallingnotes.R;
 
 import java.util.ArrayList;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class RecyclerViewDataAdapter extends RecyclerView.Adapter<RecyclerViewDataAdapter.ItemRowHolder> {
 
@@ -46,7 +44,7 @@ public class RecyclerViewDataAdapter extends RecyclerView.Adapter<RecyclerViewDa
         holder.recyclerView.setAdapter(adapter);
         holder.recyclerView.setRecycledViewPool(recycledViewPool);
         new StartSnapHelper().attachToRecyclerView(holder.recyclerView);
-        holder.btnMore.setOnClickListener(new View.OnClickListener() {
+        /*holder.btnMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(mContext, PracticeActivity.class);
@@ -54,7 +52,7 @@ public class RecyclerViewDataAdapter extends RecyclerView.Adapter<RecyclerViewDa
                 mContext.startActivity(intent);
                 Toast.makeText(view.getContext(), "Button More Clicked!" + sectionName, Toast.LENGTH_SHORT).show();
             }
-        });
+        });*/
     }
 
     @Override
