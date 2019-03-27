@@ -234,6 +234,16 @@ public class Tensorflow extends Activity {
                 int secondCopyLength = recordingOffset;
                 System.arraycopy(recordingBuffer, recordingOffset, inputBuffer, 0, firstCopyLength);
                 System.arraycopy(recordingBuffer, 0, inputBuffer, firstCopyLength, secondCopyLength);
+
+                // Run the model.
+//            inferenceInterface.feed(SAMPLE_RATE_NAME, sampleRateList);
+//            inferenceInterface.feed(INPUT_DATA_NAME, floatInputBuffer, RECORDING_LENGTH, 1);
+//            inferenceInterface.run(outputScoresNames);
+//            inferenceInterface.fetch(OUTPUT_SCORES_NAME, outputScores);
+                tflite.run(floatInputBuffer,output);
+
+
+                
             } finally {
                 recordingBufferLock.unlock();
             }
@@ -260,14 +270,12 @@ public class Tensorflow extends Activity {
 
 
 
-            // Run the model.
-//            inferenceInterface.feed(SAMPLE_RATE_NAME, sampleRateList);
-//            inferenceInterface.feed(INPUT_DATA_NAME, floatInputBuffer, RECORDING_LENGTH, 1);
-//            inferenceInterface.run(outputScoresNames);
-//            inferenceInterface.fetch(OUTPUT_SCORES_NAME, outputScores);
+
 
             // Use the smoother to figure out if we've had a real recognition event.
             long currentTime = System.currentTimeMillis();
+
+
 
 
             runOnUiThread(
