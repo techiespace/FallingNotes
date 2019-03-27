@@ -1,12 +1,17 @@
 package com.techiespace.projects.fallingnotes.fragments.nestedListUi;
 
 public class SingleItemModel {
-    private String name, url, description;
+    private String name, url, instructions;
 
     public SingleItemModel() {
 
     }
 
+    public SingleItemModel(String name, String url,String instructions) {
+        this.name = name;
+        this.url = url;
+        this.instructions = instructions;
+    }
     public SingleItemModel(String name, String url) {
         this.name = name;
         this.url = url;
@@ -28,11 +33,11 @@ public class SingleItemModel {
         this.url = url;
     }
 
-    public String getDescription() {
-        return description;
+    public String getInstructions() {
+        return instructions;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setInstructions(String instructions) {
+        this.instructions = instructions;
     }
 }

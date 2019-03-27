@@ -26,6 +26,8 @@ public class Skill {
     @NonNull
    private String instructions;
 
+
+
     private int score;
     private boolean completed;
 
