@@ -10,7 +10,7 @@ import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 
-@Database(entities = {Level.class,Skill.class}, version = 1, exportSchema = false)
+@Database(entities = {Level.class,Skill.class,Scale.class}, version = 1, exportSchema = false)
 
 public abstract class AppDatabase extends RoomDatabase {
 
@@ -46,5 +46,7 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract LevelDao levelDao();
 
     public abstract SkillDao skillDao();
+
+    public abstract ScaleDao scaleDao();
 
 }

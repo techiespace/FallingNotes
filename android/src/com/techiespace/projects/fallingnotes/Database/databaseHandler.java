@@ -2,6 +2,10 @@ package com.techiespace.projects.fallingnotes.Database;
 
 import android.content.Context;
 
+import com.techiespace.projects.fallingnotes.fragments.nestedListUi.SingleItemModel;
+
+import java.util.ArrayList;
+
 public class databaseHandler {
     private AppDatabase mDb;
 
@@ -79,6 +83,59 @@ public class databaseHandler {
                         new Skill(39, "Theory VIII", "Placeholder", 5, "", "Instructions Placeholder"),
                         new Skill(40, "Melody", "Placeholder", 5, "", "Instructions Placeholder")
                 );
+
+
+                //Adding Scales
+                mDb.scaleDao().deleteALL();
+
+
+                mDb.scaleDao().insertAllScales(
+                new Scale(1,"C", "inappmidi/C.mid","Major Scale","1) Scale Instructions"),
+                new Scale(2,"C#", "inappmidi/scales/major/C#.mid","Major Scale","1) Scale Instructions"),
+                new Scale(3,"D", "inappmidi/scales/major/D.mid","Major Scale","1) Scale Instructions"),
+                new Scale(4,"D#", "inappmidi/scales/major/D#.mid","Major Scale","1) Scale Instructions"),
+                new Scale(5,"E", "inappmidi/scales/major/E.mid","Major Scale","1) Scale Instructions"),
+                new Scale(6,"F", "inappmidi/scales/major/F.mid","Major Scale","1) Scale Instructions"),
+                new Scale(7,"F#", "inappmidi/scales/major/F#.mid","Major Scale","1) Scale Instructions"),
+                new Scale(8,"G", "inappmidi/scales/major/G.mid","Major Scale","1) Scale Instructions"),
+                new Scale(9,"G#", "inappmidi/scales/major/G#.mid","Major Scale","1) Scale Instructions"),
+                new Scale(10,"A", "inappmidi/scales/major/A.mid","Major Scale","1) Scale Instructions"),
+                new Scale(11,"A#", "inappmidi/scales/major/A#.mid","Major Scale","1) Scale Instructions"),
+                new Scale(12,"B", "inappmidi/scales/major/B.mid","Major Scale","1) Scale Instructions"));
+
+
+
+                mDb.scaleDao().insertAllScales(
+                        new Scale(13,"C", "C","Minor Scale","1) Scale Instructions"),
+                        new Scale(14,"C#", "C#","Minor Scale","1) Scale Instructions"),
+                        new Scale(15,"D", "D","Minor Scale","1) Scale Instructions"),
+                        new Scale(16,"D#", "D#","Minor Scale","1) Scale Instructions"),
+                        new Scale(17,"E", "E","Minor Scale","1) Scale Instructions"),
+                        new Scale(18,"F", "F","Minor Scale","1) Scale Instructions"),
+                        new Scale(19,"F#", "F#","Minor Scale","1) Scale Instructions"),
+                        new Scale(20,"G", "G","Minor Scale","1) Scale Instructions"),
+                        new Scale(21,"G#", "G#","Minor Scale","1) Scale Instructions"),
+                        new Scale(22,"A", "A","Minor Scale","1) Scale Instructions"),
+                        new Scale(23,"A#", "A#","Minor Scale","1) Scale Instructions"),
+                        new Scale(24,"B", "B","Minor Scale","1) Scale Instructions"));
+
+
+
+                mDb.scaleDao().insertAllScales(
+                        new Scale(25,"C", "C","Blues Scale","1) Scale Instructions"),
+                        new Scale(26,"C#", "C#","Blues Scale","1) Scale Instructions"),
+                        new Scale(27,"D", "D","Blues Scale","1) Scale Instructions"),
+                        new Scale(28,"D#", "D#","Blues Scale","1) Scale Instructions"),
+                        new Scale(29,"E", "E","Blues Scale","1) Scale Instructions"),
+                        new Scale(30,"F", "F","Blues Scale","1) Scale Instructions"),
+                        new Scale(31,"F#", "F#","Blues Scale","1) Scale Instructions"),
+                        new Scale(32,"G", "G","Blues Scale","1) Scale Instructions"),
+                        new Scale(33,"G#", "G#","Blues Scale","1) Scale Instructions"),
+                        new Scale(34,"A", "A","Blues Scale","1) Scale Instructions"),
+                        new Scale(35,"A#", "A#","Blues Scale","1) Scale Instructions"),
+                        new Scale(36,"B", "B","Blues Scale","1) Scale Instructions"));
+
+
             }
         });
     }

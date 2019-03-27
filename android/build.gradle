@@ -37,7 +37,7 @@ android {
 
 dependencies {
     implementation files('libs/YouTubeAndroidPlayerApi.jar')
-    implementation files('libs/TarsosDSP-Android-latest.jar')
+
 }
 
 // called every time gradle gets executed, takes the native dependencies of
