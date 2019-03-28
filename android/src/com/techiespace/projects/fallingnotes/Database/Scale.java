@@ -25,6 +25,7 @@ public class Scale {
     private boolean completed;
 
 
+    private boolean recogniseMode;
 
     @Ignore
     public Scale(String scale_name,String midi_name,String scale_type,String instructions) {
@@ -33,17 +34,17 @@ public class Scale {
         this.scale_type = scale_type;
         this.instructions = instructions;
         this.completed = false;
-
+        this.recogniseMode = false;
     }
 
-    public Scale(int scale_id, String scale_name,String midi_name,String scale_type,String instructions) {
+    public Scale(int scale_id, String scale_name, String midi_name, String scale_type, String instructions, boolean recogniseMode) {
         this.scale_id = scale_id;
         this.scale_name = scale_name;
         this.midi_name = midi_name;
         this.scale_type = scale_type;
         this.instructions = instructions;
         this.completed = false;
-
+        this.recogniseMode = recogniseMode;
     }
 
     public void setInstructions(String instructions) {
@@ -96,6 +97,10 @@ public class Scale {
 
     public void setCompleted(boolean completed) {
         this.completed = completed;
+    }
+
+    public boolean isRecogniseMode() {
+        return recogniseMode;
     }
 
 }
