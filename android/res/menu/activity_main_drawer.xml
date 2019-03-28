@@ -32,10 +32,6 @@
                     android:icon="@drawable/ic_music_notes_black_24dp"
                     android:title="Basic" />
                 <item
-                    android:id="@+id/nav_inv_chord"
-                    android:icon="@drawable/ic_music_notes_black_24dp"
-                    android:title="Inversions" />
-                <item
                     android:id="@+id/nav_adv_chord"
                     android:icon="@drawable/ic_music_notes_black_24dp"
                     android:title="Advanced" />

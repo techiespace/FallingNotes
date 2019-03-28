@@ -21,6 +21,7 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
 
     private ArrayList<SingleItemModel> itemModels;
     private Context mContext;
+    private boolean recogniseMode;
 
     public SectionListDataAdapter(ArrayList<SingleItemModel> itemModels, Context mContext) {
         this.itemModels = itemModels;
@@ -40,6 +41,7 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
         holder.tvTitle.setText(itemModel.getName());
         holder.setMidiPath(itemModel.getUrl());
         holder.setInstructions(itemModel.getInstructions());
+        holder.setRecogniseMode(itemModel.isRecogniseMode());
         itemModel.setUrl(itemModels.get(position).getUrl());
         holder.itemModels.get(position).getUrl();
     }
@@ -57,6 +59,8 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
         private ArrayList<SingleItemModel> itemModels;
         private  String instructions;
 
+        private boolean recogniseMode;
+
         public SingleItemRowHolder(View itemView, ArrayList<SingleItemModel> itemModels) {
             super(itemView);
             this.tvTitle = itemView.findViewById(R.id.tvTitle);
@@ -70,7 +74,7 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
 
                     intent.putExtra("instructions_TEXT",instructions);
 
-                    intent.putExtra("playMidi", false);
+                    intent.putExtra("playMidi", !recogniseMode);
 
                     mContext.startActivity(intent);
                     Log.e("testing", "onClick: " + tvTitle.getText());
@@ -78,6 +82,9 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
             });
         }
 
+        public void setRecogniseMode(boolean recogniseMode) {
+            this.recogniseMode = recogniseMode;
+        }
         public void setMidiPath(String midiPath) {
             this.midiPath = midiPath;
         }

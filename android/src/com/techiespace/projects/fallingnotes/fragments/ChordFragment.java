@@ -24,13 +24,13 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class ScaleFragment extends Fragment {
+public class ChordFragment extends Fragment {
 
+    List<Scale> scales = new ArrayList<>();
     private ArrayList<SectionDataModel> allSampleData;
     private AppDatabase mDb;
-    List<Scale> scales  = new ArrayList<>();
 
-    public ScaleFragment() {
+    public ChordFragment() {
         // Required empty public constructor
     }
 
@@ -71,10 +71,8 @@ public class ScaleFragment extends Fragment {
         AppExecutors.getInstance().diskIO().execute(new Runnable() {
             @Override
             public void run() {
-                scales = mDb.scaleDao().getScalesByType("Major Scales");
+                scales = mDb.scaleDao().getScalesByType("Major Chords");
                 latch.countDown();
-
-
             }
         });
         try {
@@ -84,11 +82,11 @@ public class ScaleFragment extends Fragment {
         }
 
         SectionDataModel dm = new SectionDataModel();
-        dm.setHeaderTitle("Major Scales");
+        dm.setHeaderTitle("Major Chords");
         ArrayList<SingleItemModel> singleItemModels = new ArrayList<>();
 
 
-        for(Scale scale : scales) {
+        for (Scale scale : scales) {
             singleItemModels.add(new SingleItemModel(scale.getScale_name(), scale.getMidi_name(), scale.getInstructions(), scale.isRecogniseMode()));
             System.out.println(scale.getScale_name());
         }
@@ -97,13 +95,12 @@ public class ScaleFragment extends Fragment {
         allSampleData.add(dm);
 
         dm = new SectionDataModel();
-        dm.setHeaderTitle("Minor Scales");
-
+        dm.setHeaderTitle("Minor Chords");
 
         AppExecutors.getInstance().diskIO().execute(new Runnable() {
             @Override
             public void run() {
-                scales = mDb.scaleDao().getScalesByType("Minor Scales");
+                scales = mDb.scaleDao().getScalesByType("Minor Chords");
                 latch.countDown();
 
 
@@ -114,7 +111,6 @@ public class ScaleFragment extends Fragment {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
 
         singleItemModels = new ArrayList<>();
         for (Scale scale : scales) {
@@ -126,12 +122,12 @@ public class ScaleFragment extends Fragment {
         allSampleData.add(dm);
 
         dm = new SectionDataModel();
-        dm.setHeaderTitle("Blues Major Scales");
+        dm.setHeaderTitle("Diminished Chords");
 
         AppExecutors.getInstance().diskIO().execute(new Runnable() {
             @Override
             public void run() {
-                scales = mDb.scaleDao().getScalesByType("Blues Major Scales");
+                scales = mDb.scaleDao().getScalesByType("Diminished Chords");
                 latch.countDown();
 
 
@@ -143,10 +139,8 @@ public class ScaleFragment extends Fragment {
             e.printStackTrace();
         }
 
-
-
         singleItemModels = new ArrayList<>();
-        for(Scale scale : scales) {
+        for (Scale scale : scales) {
             singleItemModels.add(new SingleItemModel(scale.getScale_name(), scale.getMidi_name(), scale.getInstructions(), scale.isRecogniseMode()));
             System.out.println(scale.getScale_name());
         }
@@ -154,31 +148,6 @@ public class ScaleFragment extends Fragment {
         dm.setAllItemInSection(singleItemModels);
         allSampleData.add(dm);
 
-
-        dm = new SectionDataModel();
-        dm.setHeaderTitle("Blues Minor Scales");
-
-        AppExecutors.getInstance().diskIO().execute(new Runnable() {
-            @Override
-            public void run() {
-                scales = mDb.scaleDao().getScalesByType("Blues Minor Scales");
-                latch.countDown();
-            }
-        });
-        try {
-            latch.await();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        singleItemModels = new ArrayList<>();
-        for(Scale scale : scales) {
-            singleItemModels.add(new SingleItemModel(scale.getScale_name(), scale.getMidi_name(), scale.getInstructions(), scale.isRecogniseMode()));
-            System.out.println(scale.getScale_name());
-        }
-
-        dm.setAllItemInSection(singleItemModels);
-        allSampleData.add(dm);
     }
 
     @Override

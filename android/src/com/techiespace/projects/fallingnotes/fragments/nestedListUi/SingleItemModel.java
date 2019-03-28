@@ -3,18 +3,27 @@ package com.techiespace.projects.fallingnotes.fragments.nestedListUi;
 public class SingleItemModel {
     private String name, url, instructions;
 
+    private boolean recogniseMode;
+
+    public SingleItemModel(String name, String url, String instructions, boolean recogniseMode) {
+        this.name = name;
+        this.url = url;
+        this.instructions = instructions;
+        this.recogniseMode = recogniseMode;
+    }
+
     public SingleItemModel() {
 
     }
 
-    public SingleItemModel(String name, String url,String instructions) {
-        this.name = name;
-        this.url = url;
-        this.instructions = instructions;
-    }
     public SingleItemModel(String name, String url) {
         this.name = name;
         this.url = url;
+        recogniseMode = false;
+    }
+
+    public boolean isRecogniseMode() {
+        return recogniseMode;
     }
 
     public String getName() {

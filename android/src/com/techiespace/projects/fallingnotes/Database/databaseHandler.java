@@ -2,10 +2,6 @@ package com.techiespace.projects.fallingnotes.Database;
 
 import android.content.Context;
 
-import com.techiespace.projects.fallingnotes.fragments.nestedListUi.SingleItemModel;
-
-import java.util.ArrayList;
-
 public class databaseHandler {
     private AppDatabase mDb;
 
@@ -90,52 +86,119 @@ public class databaseHandler {
 
 
                 mDb.scaleDao().insertAllScales(
-                new Scale(1,"C", "inappmidi/C.mid","Major Scale","1) Scale Instructions"),
-                new Scale(2,"C#", "inappmidi/scales/major/C#.mid","Major Scale","1) Scale Instructions"),
-                new Scale(3,"D", "inappmidi/scales/major/D.mid","Major Scale","1) Scale Instructions"),
-                new Scale(4,"D#", "inappmidi/scales/major/D#.mid","Major Scale","1) Scale Instructions"),
-                new Scale(5,"E", "inappmidi/scales/major/E.mid","Major Scale","1) Scale Instructions"),
-                new Scale(6,"F", "inappmidi/scales/major/F.mid","Major Scale","1) Scale Instructions"),
-                new Scale(7,"F#", "inappmidi/scales/major/F#.mid","Major Scale","1) Scale Instructions"),
-                new Scale(8,"G", "inappmidi/scales/major/G.mid","Major Scale","1) Scale Instructions"),
-                new Scale(9,"G#", "inappmidi/scales/major/G#.mid","Major Scale","1) Scale Instructions"),
-                new Scale(10,"A", "inappmidi/scales/major/A.mid","Major Scale","1) Scale Instructions"),
-                new Scale(11,"A#", "inappmidi/scales/major/A#.mid","Major Scale","1) Scale Instructions"),
-                new Scale(12,"B", "inappmidi/scales/major/B.mid","Major Scale","1) Scale Instructions"));
+                        new Scale(1, "C", "inappmidi/scales/major/C.mid", "Major Scales", "1) Scale Instructions", true),
+                        new Scale(2, "C#", "inappmidi/scales/major/C#.mid", "Major Scales", "1) Scale Instructions", true),
+                        new Scale(3, "D", "inappmidi/scales/major/D.mid", "Major Scales", "1) Scale Instructions", true),
+                        new Scale(4, "D#", "inappmidi/scales/major/D#.mid", "Major Scales", "1) Scale Instructions", true),
+                        new Scale(5, "E", "inappmidi/scales/major/E.mid", "Major Scales", "1) Scale Instructions", true),
+                        new Scale(6, "F", "inappmidi/scales/major/F.mid", "Major Scales", "1) Scale Instructions", true),
+                        new Scale(7, "F#", "inappmidi/scales/major/F#.mid", "Major Scales", "1) Scale Instructions", true),
+                        new Scale(8, "G", "inappmidi/scales/major/G.mid", "Major Scales", "1) Scale Instructions", true),
+                        new Scale(9, "G#", "inappmidi/scales/major/G#.mid", "Major Scales", "1) Scale Instructions", true),
+                        new Scale(10, "A", "inappmidi/scales/major/A.mid", "Major Scales", "1) Scale Instructions", true),
+                        new Scale(11, "A#", "inappmidi/scales/major/A#.mid", "Major Scales", "1) Scale Instructions", true),
+                        new Scale(12, "B", "inappmidi/scales/major/B.mid", "Major Scales", "1) Scale Instructions", true));
+
+
+                mDb.scaleDao().insertAllScales(
+                        new Scale(13, "C", "inappmidi/scales/minor/C.mid", "Minor Scales", "1) Scale Instructions", true),
+                        new Scale(14, "C#", "inappmidi/scales/minor/C#.mid", "Minor Scales", "1) Scale Instructions", true),
+                        new Scale(15, "D", "inappmidi/scales/minor/D.mid", "Minor Scales", "1) Scale Instructions", true),
+                        new Scale(16, "D#", "inappmidi/scales/minor/D#.mid", "Minor Scales", "1) Scale Instructions", true),
+                        new Scale(17, "E", "inappmidi/scales/minor/E.mid", "Minor Scales", "1) Scale Instructions", true),
+                        new Scale(18, "F", "inappmidi/scales/minor/F.mid", "Minor Scales", "1) Scale Instructions", true),
+                        new Scale(19, "F#", "inappmidi/scales/minor/F#.mid", "Minor Scales", "1) Scale Instructions", true),
+                        new Scale(20, "G", "inappmidi/scales/minor/G.mid", "Minor Scales", "1) Scale Instructions", true),
+                        new Scale(21, "G#", "inappmidi/scales/minor/G#.mid", "Minor Scales", "1) Scale Instructions", true),
+                        new Scale(22, "A", "inappmidi/scales/minor/A.mid", "Minor Scales", "1) Scale Instructions", true),
+                        new Scale(23, "A#", "inappmidi/scales/minor/A#.mid", "Minor Scales", "1) Scale Instructions", true),
+                        new Scale(24, "B", "inappmidi/scales/minor/B.mid", "Minor Scales", "1) Scale Instructions", true));
 
 
 
                 mDb.scaleDao().insertAllScales(
-                        new Scale(13,"C", "C","Minor Scale","1) Scale Instructions"),
-                        new Scale(14,"C#", "C#","Minor Scale","1) Scale Instructions"),
-                        new Scale(15,"D", "D","Minor Scale","1) Scale Instructions"),
-                        new Scale(16,"D#", "D#","Minor Scale","1) Scale Instructions"),
-                        new Scale(17,"E", "E","Minor Scale","1) Scale Instructions"),
-                        new Scale(18,"F", "F","Minor Scale","1) Scale Instructions"),
-                        new Scale(19,"F#", "F#","Minor Scale","1) Scale Instructions"),
-                        new Scale(20,"G", "G","Minor Scale","1) Scale Instructions"),
-                        new Scale(21,"G#", "G#","Minor Scale","1) Scale Instructions"),
-                        new Scale(22,"A", "A","Minor Scale","1) Scale Instructions"),
-                        new Scale(23,"A#", "A#","Minor Scale","1) Scale Instructions"),
-                        new Scale(24,"B", "B","Minor Scale","1) Scale Instructions"));
-
-
+                        new Scale(25, "C", "inappmidi/scales/pentatonic/major/PMC.mid", "Blues Major Scales", "1) Scale Instructions", true),
+                        new Scale(26, "C#", "inappmidi/scales/pentatonic/major/PMC#.mid", "Blues Major Scales", "1) Scale Instructions", true),
+                        new Scale(27, "D", "inappmidi/scales/pentatonic/major/PMD.mid", "Blues Major Scales", "1) Scale Instructions", true),
+                        new Scale(28, "D#", "inappmidi/scales/pentatonic/major/PMD#.mid", "Blues Major Scales", "1) Scale Instructions", true),
+                        new Scale(29, "E", "inappmidi/scales/pentatonic/major/PME.mid", "Blues Major Scales", "1) Scale Instructions", true),
+                        new Scale(30, "F", "inappmidi/scales/pentatonic/major/PMF.mid", "Blues Major Scales", "1) Scale Instructions", true),
+                        new Scale(31, "F#", "inappmidi/scales/pentatonic/major/PMF#.mid", "Blues Major Scales", "1) Scale Instructions", true),
+                        new Scale(32, "G", "inappmidi/scales/pentatonic/major/PMG.mid", "Blues Major Scales", "1) Scale Instructions", true),
+                        new Scale(33, "G#", "inappmidi/scales/pentatonic/major/PMG#.mid", "Blues Major Scales", "1) Scale Instructions", true),
+                        new Scale(34, "A", "inappmidi/scales/pentatonic/major/PMA.mid", "Blues Major Scales", "1) Scale Instructions", true),
+                        new Scale(35, "A#", "inappmidi/scales/pentatonic/major/PMA#.mid", "Blues Major Scales", "1) Scale Instructions", true),
+                        new Scale(36, "B", "inappmidi/scales/pentatonic/major/PMB.mid", "Blues Major Scales", "1) Scale Instructions", true));
 
                 mDb.scaleDao().insertAllScales(
-                        new Scale(25,"C", "C","Blues Scale","1) Scale Instructions"),
-                        new Scale(26,"C#", "C#","Blues Scale","1) Scale Instructions"),
-                        new Scale(27,"D", "D","Blues Scale","1) Scale Instructions"),
-                        new Scale(28,"D#", "D#","Blues Scale","1) Scale Instructions"),
-                        new Scale(29,"E", "E","Blues Scale","1) Scale Instructions"),
-                        new Scale(30,"F", "F","Blues Scale","1) Scale Instructions"),
-                        new Scale(31,"F#", "F#","Blues Scale","1) Scale Instructions"),
-                        new Scale(32,"G", "G","Blues Scale","1) Scale Instructions"),
-                        new Scale(33,"G#", "G#","Blues Scale","1) Scale Instructions"),
-                        new Scale(34,"A", "A","Blues Scale","1) Scale Instructions"),
-                        new Scale(35,"A#", "A#","Blues Scale","1) Scale Instructions"),
-                        new Scale(36,"B", "B","Blues Scale","1) Scale Instructions"));
+                        new Scale(37, "C", "inappmidi/scales/pentatonic/minor/PMC.mid", "Blues Minor Scales", "1) Scale Instructions", true),
+                        new Scale(38, "C#", "inappmidi/scales/pentatonic/minor/PMC#.mid", "Blues Minor Scales", "1) Scale Instructions", true),
+                        new Scale(39, "D", "inappmidi/scales/pentatonic/minor/PMD.mid", "Blues Minor Scales", "1) Scale Instructions", true),
+                        new Scale(40, "D#", "inappmidi/scales/pentatonic/minor/PMD#.mid", "Blues Minor Scales", "1) Scale Instructions", true),
+                        new Scale(41, "E", "inappmidi/scales/pentatonic/minor/PME.mid", "Blues Minor Scales", "1) Scale Instructions", true),
+                        new Scale(42, "F", "inappmidi/scales/pentatonic/minor/PMF.mid", "Blues Minor Scales", "1) Scale Instructions", true),
+                        new Scale(43, "F#", "inappmidi/scales/pentatonic/minor/PMF#.mid", "Blues Minor Scales", "1) Scale Instructions", true),
+                        new Scale(44, "G", "inappmidi/scales/pentatonic/minor/PMG.mid", "Blues Minor Scales", "1) Scale Instructions", true),
+                        new Scale(45, "G#", "inappmidi/scales/pentatonic/minor/PMG#.mid", "Blues Minor Scales", "1) Scale Instructions", true),
+                        new Scale(46, "A", "inappmidi/scales/pentatonic/minor/PMA.mid", "Blues Minor Scales", "1) Scale Instructions", true),
+                        new Scale(47, "A#", "inappmidi/scales/pentatonic/minor/PMA#.mid", "Blues Minor Scales", "1) Scale Instructions", true),
+                        new Scale(48, "B", "inappmidi/scales/pentatonic/minor/PMB.mid", "Blues Minor Scales", "1) Scale Instructions", true));
 
+                mDb.scaleDao().insertAllScales(
+                        new Scale(49, "C", "inappmidi/scales/pentatonic/minor/PMC.mid", "Blues Minor Scales", "1) Scale Instructions", true),
+                        new Scale(50, "C#", "inappmidi/scales/pentatonic/minor/PMC#.mid", "Blues Minor Scales", "1) Scale Instructions", true),
+                        new Scale(51, "D", "inappmidi/scales/pentatonic/minor/PMD.mid", "Blues Minor Scales", "1) Scale Instructions", true),
+                        new Scale(52, "D#", "inappmidi/scales/pentatonic/minor/PMD#.mid", "Blues Minor Scales", "1) Scale Instructions", true),
+                        new Scale(53, "E", "inappmidi/scales/pentatonic/minor/PME.mid", "Blues Minor Scales", "1) Scale Instructions", true),
+                        new Scale(54, "F", "inappmidi/scales/pentatonic/minor/PMF.mid", "Blues Minor Scales", "1) Scale Instructions", true),
+                        new Scale(55, "F#", "inappmidi/scales/pentatonic/minor/PMF#.mid", "Blues Minor Scales", "1) Scale Instructions", true),
+                        new Scale(56, "G", "inappmidi/scales/pentatonic/minor/PMG.mid", "Blues Minor Scales", "1) Scale Instructions", true),
+                        new Scale(57, "G#", "inappmidi/scales/pentatonic/minor/PMG#.mid", "Blues Minor Scales", "1) Scale Instructions", true),
+                        new Scale(58, "A", "inappmidi/scales/pentatonic/minor/PMA.mid", "Blues Minor Scales", "1) Scale Instructions", true),
+                        new Scale(59, "A#", "inappmidi/scales/pentatonic/minor/PMA#.mid", "Blues Minor Scales", "1) Scale Instructions", true),
+                        new Scale(60, "B", "inappmidi/scales/pentatonic/minor/PMB.mid", "Blues Minor Scales", "1) Scale Instructions", true));
 
+                mDb.scaleDao().insertAllScales(
+                        new Scale(61, "C", "inappmidi/chords/major/C.mid", "Major Chords", "1) Chord Instructions", false),
+                        new Scale(62, "C#", "inappmidi/chords/major/C#.mid", "Major Chords", "1) Chord Instructions", false),
+                        new Scale(63, "D", "inappmidi/chords/major/D.mid", "Major Chords", "1) Chord Instructions", false),
+                        new Scale(64, "D#", "inappmidi/chords/major/D#.mid", "Major Chords", "1) Chord Instructions", false),
+                        new Scale(65, "E", "inappmidi/chords/major/E.mid", "Major Chords", "1) Chord Instructions", false),
+                        new Scale(66, "F", "inappmidi/chords/major/F.mid", "Major Chords", "1) Chord Instructions", false),
+                        new Scale(67, "F#", "inappmidi/chords/major/F#.mid", "Major Chords", "1) Chord Instructions", false),
+                        new Scale(68, "G", "inappmidi/chords/major/G.mid", "Major Chords", "1) Chord Instructions", false),
+                        new Scale(69, "G#", "inappmidi/chords/major/G#.mid", "Major Chords", "1) Chord Instructions", false),
+                        new Scale(70, "A", "inappmidi/chords/major/A.mid", "Major Chords", "1) Chord Instructions", false),
+                        new Scale(71, "A#", "inappmidi/chords/major/A#.mid", "Major Chords", "1) Chord Instructions", false),
+                        new Scale(72, "B", "inappmidi/chords/major/B.mid", "Major Chords", "1) Chord Instructions", false));
+
+                mDb.scaleDao().insertAllScales(
+                        new Scale(73, "C", "inappmidi/chords/minor/C.mid", "Minor Chords", "1) Chord Instructions", false),
+                        new Scale(74, "C#", "inappmidi/chords/minor/C#.mid", "Minor Chords", "1) Chord Instructions", false),
+                        new Scale(75, "D", "inappmidi/chords/minor/D.mid", "Minor Chords", "1) Chord Instructions", false),
+                        new Scale(76, "D#", "inappmidi/chords/minor/D#.mid", "Minor Chords", "1) Chord Instructions", false),
+                        new Scale(77, "E", "inappmidi/chords/minor/E.mid", "Minor Chords", "1) Chord Instructions", false),
+                        new Scale(78, "F", "inappmidi/chords/minor/F.mid", "Minor Chords", "1) Chord Instructions", false),
+                        new Scale(79, "F#", "inappmidi/chords/minor/F#.mid", "Minor Chords", "1) Chord Instructions", false),
+                        new Scale(80, "G", "inappmidi/chords/minor/G.mid", "Minor Chords", "1) Chord Instructions", false),
+                        new Scale(81, "G#", "inappmidi/chords/minor/G#.mid", "Minor Chords", "1) Chord Instructions", false),
+                        new Scale(82, "A", "inappmidi/chords/minor/A.mid", "Minor Chords", "1) Chord Instructions", false),
+                        new Scale(83, "A#", "inappmidi/chords/minor/A#.mid", "Minor Chords", "1) Chord Instructions", false),
+                        new Scale(84, "B", "inappmidi/chords/minor/B.mid", "Minor Chords", "1) Chord Instructions", false));
+
+                mDb.scaleDao().insertAllScales(
+                        new Scale(85, "C", "inappmidi/chords/dim/C.mid", "Diminished Chords", "1) Chord Instructions", false),
+                        new Scale(86, "C#", "inappmidi/chords/dim/C#.mid", "Diminished Chords", "1) Chord Instructions", false),
+                        new Scale(87, "D", "inappmidi/chords/dim/D.mid", "Diminished Chords", "1) Chord Instructions", false),
+                        new Scale(88, "D#", "inappmidi/chords/dim/D#.mid", "Diminished Chords", "1) Chord Instructions", false),
+                        new Scale(89, "E", "inappmidi/chords/dim/E.mid", "Diminished Chords", "1) Chord Instructions", false),
+                        new Scale(90, "F", "inappmidi/chords/dim/F.mid", "Diminished Chords", "1) Chord Instructions", false),
+                        new Scale(91, "F#", "inappmidi/chords/dim/F#.mid", "Diminished Chords", "1) Chord Instructions", false),
+                        new Scale(92, "G", "inappmidi/chords/dim/G.mid", "Diminished Chords", "1) Chord Instructions", false),
+                        new Scale(93, "G#", "inappmidi/chords/dim/G#.mid", "Diminished Chords", "1) Chord Instructions", false),
+                        new Scale(94, "A", "inappmidi/chords/dim/A.mid", "Diminished Chords", "1) Chord Instructions", false),
+                        new Scale(95, "A#", "inappmidi/chords/dim/A#.mid", "Diminished Chords", "1) Chord Instructions", false),
+                        new Scale(96, "B", "inappmidi/chords/dim/B.mid", "Diminished Chords", "1) Chord Instructions", false));
             }
         });
     }
