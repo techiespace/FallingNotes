@@ -10,9 +10,17 @@ import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.techiespace.projects.fallingnotes.Database.AppDatabase;
+import com.techiespace.projects.fallingnotes.Database.AppExecutors;
+import com.techiespace.projects.fallingnotes.Database.Level;
 import com.techiespace.projects.fallingnotes.course.fragments.UniversityFragment;
+
+import java.util.List;
+import java.util.concurrent.CountDownLatch;
 
 import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
@@ -29,9 +37,36 @@ public class DashboardFragment extends Fragment {
 
     CardView universityCardView;
     CardView chooseMidiCardView;
+    ProgressBar progressBar;
+    TextView percentagetv;
+    private AppDatabase mDb;
+    private int totalSkills;
+    private int completedSkills;
+
 
     public DashboardFragment() {
         // Required empty public constructor
+
+        mDb = AppDatabase.getInstance(getContext());
+        final CountDownLatch latch = new CountDownLatch(1);
+
+        AppExecutors.getInstance().diskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                totalSkills = mDb.skillDao().getTotalSkillNo();
+                completedSkills = mDb.skillDao().getCompletedSkillNo();
+                System.out.println("Skills "+completedSkills);
+                latch.countDown();
+
+            }
+        });
+        try {
+            latch.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
 
@@ -42,6 +77,8 @@ public class DashboardFragment extends Fragment {
         final View rootView = inflater.inflate(R.layout.fragment_dashboard, container, false);
         universityCardView = rootView.findViewById(R.id.cardViewCSUni);
         chooseMidiCardView = rootView.findViewById(R.id.cardViewChooseMidi);
+        progressBar = rootView.findViewById(R.id.circle_progress_bar);
+        percentagetv = rootView.findViewById(R.id.compliance_total_count);
         universityCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -60,7 +97,12 @@ public class DashboardFragment extends Fragment {
                 startActivityForResult(intent, 7);
             }
         });
+
+        progressBar.setProgress(completedSkills/totalSkills);
+        percentagetv.setText((int)(completedSkills*100/totalSkills)+"%");
+
         return rootView;
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)

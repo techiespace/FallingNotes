@@ -137,13 +137,24 @@ public class LoadingScreenPlayMidi implements Screen {
         style.font = font;
         style.fontColor = Color.BLACK;
 
-        Label label = new Label(text + "\n" + instructions, style);
-        label.setBounds(Constants.WORLD_WIDTH / 4, Constants.WORLD_HEIGHT * 0.15f + 10, Constants.WORLD_WIDTH / 2, Constants.WORLD_HEIGHT * 0.7f - 20);
-        label.setWrap(true);
-        label.setFontScale(0.8f);
+
+        //Instructions Heading Lable
+        Label instructionsHeader = new Label("Instructions", style);
+        instructionsHeader.setBounds(Constants.WORLD_WIDTH /4f+Constants.WORLD_WIDTH/8, Constants.WORLD_HEIGHT * 0.75f, Constants.WORLD_WIDTH / 4, Constants.WORLD_HEIGHT * 0.1f);
+        instructionsHeader.setWrap(true);
+        instructionsHeader.setFontScale(1.1f);
+
+        stage.addActor(instructionsHeader);
 
 
-        stage.addActor(label);
+        //Instructions
+        Label instructionsLabel = new Label(instructions, style);
+        instructionsLabel.setBounds(Constants.WORLD_WIDTH / 4, Constants.WORLD_HEIGHT * 0.15f, Constants.WORLD_WIDTH / 2, Constants.WORLD_HEIGHT * 0.6f);
+        instructionsLabel.setWrap(true);
+        instructionsLabel.setFontScale(0.6f);
+
+
+        stage.addActor(instructionsLabel);
 
 
     }

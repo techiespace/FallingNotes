@@ -87,6 +87,9 @@ public class Notes {
 
         //This should be updated because change in tempo will also change this
         initAnimationEndTime();
+        boolean rightHand = preferences.getString("hand").equals("right") || preferences.getString("hand").equals("both");
+        boolean leftHand = preferences.getString("hand").equals("left") || preferences.getString("hand").equals("both");
+
 
 
         while (poolIndex < noteArrayPool.length && noteArrayPool[poolIndex].startTime <= initialTime * 1000) {
@@ -126,8 +129,14 @@ public class Notes {
                     note.noteLength = note.noteLength - Constants.WHITE_PIANO_KEY_HEIGHT;
                 }
 
+
                 if (!note.soundOnce) {
-                    soundId = sound.play(note.pressVelocity / 100f);   //https://stackoverflow.com/questions/31990997/libgdx-not-playing-sound-android  (takes a while to load the sound)
+
+                    if ((note.track == 0 && rightHand) || (note.track == 1 && leftHand))
+                        soundId = sound.play(note.pressVelocity / 100f);   //https://stackoverflow.com/questions/31990997/libgdx-not-playing-sound-android  (takes a while to load the sound)
+                    else
+                        soundId = sound.play(0);
+
                     note.soundOnce = true;
                     soundIdArray.put(note.id, soundId);
                 }
@@ -149,7 +158,7 @@ public class Notes {
                 if (FallingNotesScreen.isRecognitionMode()) {
                     key.updatePracticeTexture(false);
                 } else {
-                  key.updateTextureDown(note.track);
+                    key.updateTextureDown(note.track);
                 }
             }
 

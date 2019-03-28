@@ -158,7 +158,7 @@ public class FallingNotesScreen implements Screen {
     public void playPauseToggle() {
         isPlaying = !isPlaying;
         if(isPlaying)
-            gestureResponse.showPlayResponse();
+            gestureResponse.removePauseResponse();
         else
             gestureResponse.showPauseResponse();
         }

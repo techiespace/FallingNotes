@@ -23,7 +23,7 @@ public abstract class AppDatabase extends RoomDatabase {
         if (sInstance == null) {
             synchronized (LOCK) {
                 Log.d(LOG_TAG, "Creating new database instance");
-                sInstance = Room.databaseBuilder(context.getApplicationContext(),
+                sInstance = Room.databaseBuilder(context,
                         AppDatabase.class, AppDatabase.DATABASE_NAME)
                         .addCallback(new RoomDatabase.Callback() {
                             @Override
