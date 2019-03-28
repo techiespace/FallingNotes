@@ -16,10 +16,6 @@
                     android:id="@+id/nav_scales"
                     android:icon="@drawable/ic_music_note_black_24dp"
                     android:title="Scales" />
-                <item
-                    android:id="@+id/nav_modes"
-                    android:icon="@drawable/ic_music_note_black_24dp"
-                    android:title="Modes" />
             </group>
         </menu>
     </item>

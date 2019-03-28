@@ -14,6 +14,7 @@ import com.techiespace.projects.fallingnotes.Database.AppExecutors;
 import com.techiespace.projects.fallingnotes.Database.Level;
 import com.techiespace.projects.fallingnotes.Database.databaseHandler;
 import com.techiespace.projects.fallingnotes.fragments.ChordFragment;
+import com.techiespace.projects.fallingnotes.fragments.ComingSoonFragment;
 import com.techiespace.projects.fallingnotes.fragments.MidiPlayerFragment;
 import com.techiespace.projects.fallingnotes.fragments.ScaleFragment;
 
@@ -204,15 +205,12 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_scales) {
             fragment = new ScaleFragment();
-        } else if (id == R.id.nav_modes) {
-
-        }else if(id == R.id.nav_midi){
+        } else if (id == R.id.nav_midi) {
             fragment = new MidiPlayerFragment();
-        }
-        else if (id == R.id.nav_basic_chord) {
+        } else if (id == R.id.nav_basic_chord) {
             fragment = new ChordFragment();
         } else if (id == R.id.nav_adv_chord) {
-
+            fragment = new ComingSoonFragment();
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
