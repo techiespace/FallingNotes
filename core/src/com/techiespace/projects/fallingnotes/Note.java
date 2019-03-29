@@ -22,6 +22,7 @@ public class Note implements Comparable<Note> {
     Sound sound;
     int track;
     Preferences preferences;
+    boolean recognised = false;
 
     boolean soundOnce = false;
     int pressVelocity;

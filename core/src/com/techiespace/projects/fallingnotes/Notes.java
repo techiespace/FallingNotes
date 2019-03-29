@@ -31,6 +31,8 @@ public class Notes {
     //This is the actual end Time of the animation.
     //This should be calculated after midiEndTime is Calculated
     float animationEndTime;
+    int correctNoteCount = 0;
+    int totalNotesCount;
 
 
     public Notes(FallingNotesGame app, String midiName, Stage stage, boolean recognitionMode) {
@@ -63,7 +65,7 @@ public class Notes {
         //Girls_Like_You_Maroon_5, broken_dreams
         noteArrayPool = midiParser.parse(midiName);
         initNoteId();
-
+        totalNotesCount = noteArrayPool.length;
 
         Arrays.sort(noteArrayPool);
 
@@ -105,12 +107,13 @@ public class Notes {
 
             if (FallingNotesScreen.isRecognitionMode()) {
                 if (note.position.y < (Constants.WHITE_PIANO_KEY_HEIGHT + Constants.OFFSET) + 2 && note.position.y > (Constants.WHITE_PIANO_KEY_HEIGHT + Constants.OFFSET) - 40) {
-                    System.out.println("RecogNote: " + recogNote);
-                    System.out.println("Note name: " + note.noteName);
                     //recogNote is sometimes zero when the gamescreen runs for first few times
                     if (recogNote.length() > 0 && recogNote.substring(0, recogNote.length() - 1).equals(note.noteName.substring(0, note.noteName.length() - 1))) {
-                        System.out.println("Correct");
                         key.updatePracticeTexture(true);
+                        if (!note.recognised) {
+                            correctNoteCount++;
+                        }
+                        note.recognised = true;
                     }
                 }
             }
@@ -191,6 +194,7 @@ public class Notes {
     public void reset() {
         initialTime = 0;
         init();
+        System.out.println("Correct % " + correctNoteCount * 100 / totalNotesCount);
     }
 
 
