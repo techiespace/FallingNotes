@@ -27,6 +27,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".PracticeActivity" />
+        <activity android:name=".PagerActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>
