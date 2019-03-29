@@ -36,6 +36,10 @@ public class Notes {
         return correctNoteCount;
     }
 
+    public void setCorrectNoteCount(int correctNoteCount) {
+        this.correctNoteCount = correctNoteCount;
+    }
+
     int correctNoteCount = 0;
 
     public int getTotalNotesCount() {
