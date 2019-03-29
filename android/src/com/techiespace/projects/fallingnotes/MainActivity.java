@@ -10,10 +10,14 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.techiespace.projects.fallingnotes.Database.AppDatabase;
+import com.techiespace.projects.fallingnotes.Database.AppExecutors;
+import com.techiespace.projects.fallingnotes.Database.Level;
 import com.techiespace.projects.fallingnotes.Database.databaseHandler;
 import com.techiespace.projects.fallingnotes.fragments.ChordFragment;
 import com.techiespace.projects.fallingnotes.fragments.MidiPlayerFragment;
 import com.techiespace.projects.fallingnotes.fragments.ScaleFragment;
+
+import java.util.List;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,7 +27,6 @@ import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
-
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -38,7 +41,6 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //   ShowCase();
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -73,9 +75,8 @@ public class MainActivity extends AppCompatActivity
         }
 
         setActionBarTitle("ChordSwift");
-
+        displayLevelTable();
         handlePermissions();
-
     }
 
     //#TODO: Breaks when user manually removes permissions or denies permission
@@ -143,6 +144,20 @@ public class MainActivity extends AppCompatActivity
     }
 
 
+    private void displayLevelTable() {
+        AppExecutors.getInstance().diskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                List<Level> level = mDb.levelDao().loadAllLevels();
+
+                for(Level levelInstance : level)
+                System.out.println(levelInstance.getLevel_name());
+
+            }
+        });
+    }
+
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -175,7 +190,6 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -190,11 +204,10 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_scales) {
             fragment = new ScaleFragment();
-        } else if (id == R.id.nav_modes) {
-
         } else if (id == R.id.nav_midi) {
             fragment = new MidiPlayerFragment();
-        } else if (id == R.id.nav_basic_chord) {
+        }
+        else if (id == R.id.nav_basic_chord) {
             fragment = new ChordFragment();
         } else if (id == R.id.nav_adv_chord) {
 

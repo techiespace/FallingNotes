@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.techiespace.projects.fallingnotes.R;
+import com.techiespace.projects.fallingnotes.fragments.ComingSoonFragment;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -94,70 +95,70 @@ public class UniversityFragment extends Fragment {
         melodyIILevel.setOnClickListener(view -> {
             Bundle levelBundle = new Bundle();
             levelBundle.putInt("level_id", 6);
-            Fragment universitySublevelFragment = new UniversitySublevelFragment();
-            universitySublevelFragment.setArguments(levelBundle);
+            Fragment comingSoonFragment = new ComingSoonFragment();
+            comingSoonFragment.setArguments(levelBundle);
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
-            transaction.replace(R.id.screen_area, universitySublevelFragment); // give your fragment container id in first parameter
+            transaction.replace(R.id.screen_area, comingSoonFragment); // give your fragment container id in first parameter
             transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
             transaction.commit();
         });
         melodyIIILevel.setOnClickListener(view -> {
             Bundle levelBundle = new Bundle();
             levelBundle.putInt("level_id", 7);
-            Fragment universitySublevelFragment = new UniversitySublevelFragment();
-            universitySublevelFragment.setArguments(levelBundle);
+            Fragment comingSoonFragment = new ComingSoonFragment();
+            comingSoonFragment.setArguments(levelBundle);
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
-            transaction.replace(R.id.screen_area, universitySublevelFragment); // give your fragment container id in first parameter
+            transaction.replace(R.id.screen_area, comingSoonFragment); // give your fragment container id in first parameter
             transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
             transaction.commit();
         });
         techniqueLevel.setOnClickListener(view -> {
             Bundle levelBundle = new Bundle();
             levelBundle.putInt("level_id", 8);
-            Fragment universitySublevelFragment = new UniversitySublevelFragment();
-            universitySublevelFragment.setArguments(levelBundle);
+            Fragment comingSoonFragment = new ComingSoonFragment();
+            comingSoonFragment.setArguments(levelBundle);
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
-            transaction.replace(R.id.screen_area, universitySublevelFragment); // give your fragment container id in first parameter
+            transaction.replace(R.id.screen_area, comingSoonFragment); // give your fragment container id in first parameter
             transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
             transaction.commit();
         });
         arpeggioLevel.setOnClickListener(view -> {
             Bundle levelBundle = new Bundle();
             levelBundle.putInt("level_id", 9);
-            Fragment universitySublevelFragment = new UniversitySublevelFragment();
-            universitySublevelFragment.setArguments(levelBundle);
+            Fragment comingSoonFragment = new ComingSoonFragment();
+            comingSoonFragment.setArguments(levelBundle);
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
-            transaction.replace(R.id.screen_area, universitySublevelFragment); // give your fragment container id in first parameter
+            transaction.replace(R.id.screen_area, comingSoonFragment); // give your fragment container id in first parameter
             transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
             transaction.commit();
         });
         runsLevel.setOnClickListener(view -> {
             Bundle levelBundle = new Bundle();
             levelBundle.putInt("level_id", 10);
-            Fragment universitySublevelFragment = new UniversitySublevelFragment();
-            universitySublevelFragment.setArguments(levelBundle);
+            Fragment comingSoonFragment = new ComingSoonFragment();
+            comingSoonFragment.setArguments(levelBundle);
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
-            transaction.replace(R.id.screen_area, universitySublevelFragment); // give your fragment container id in first parameter
+            transaction.replace(R.id.screen_area, comingSoonFragment); // give your fragment container id in first parameter
             transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
             transaction.commit();
         });
         improvLevel.setOnClickListener(view -> {
             Bundle levelBundle = new Bundle();
             levelBundle.putInt("level_id", 11);
-            Fragment universitySublevelFragment = new UniversitySublevelFragment();
-            universitySublevelFragment.setArguments(levelBundle);
+            Fragment comingSoonFragment = new ComingSoonFragment();
+            comingSoonFragment.setArguments(levelBundle);
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
-            transaction.replace(R.id.screen_area, universitySublevelFragment); // give your fragment container id in first parameter
+            transaction.replace(R.id.screen_area, comingSoonFragment); // give your fragment container id in first parameter
             transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
             transaction.commit();
         });
         proLevel.setOnClickListener(view -> {
             Bundle levelBundle = new Bundle();
             levelBundle.putInt("level_id", 12);
-            Fragment universitySublevelFragment = new UniversitySublevelFragment();
-            universitySublevelFragment.setArguments(levelBundle);
+            Fragment comingSoonFragment = new ComingSoonFragment();
+            comingSoonFragment.setArguments(levelBundle);
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
-            transaction.replace(R.id.screen_area, universitySublevelFragment); // give your fragment container id in first parameter
+            transaction.replace(R.id.screen_area, comingSoonFragment); // give your fragment container id in first parameter
             transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
             transaction.commit();
         });

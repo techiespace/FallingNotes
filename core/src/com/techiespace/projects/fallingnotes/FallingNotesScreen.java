@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -15,6 +16,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.techiespace.projects.fallingnotes.Themes.HpTheme;
@@ -44,6 +46,7 @@ public class FallingNotesScreen implements Screen {
     RoundRectShapeRenderer renderer;
     ShapeRenderer lineRenderer;
 
+    RoundRectShapeRenderer scoreRenderer;
 
     Notes notes;
 
@@ -66,6 +69,10 @@ public class FallingNotesScreen implements Screen {
 
     boolean isOnce = false;
    static boolean recognitionMode = false;
+
+    //score
+    BitmapFont scoreFont;
+    Label scoreTextLabel;
 
 
     public FallingNotesScreen(FallingNotesGame app, String midiName, boolean recognitionMode) {
@@ -114,6 +121,8 @@ public class FallingNotesScreen implements Screen {
 
         renderer = new RoundRectShapeRenderer();
         renderer.setAutoShapeType(true);
+        scoreRenderer = new RoundRectShapeRenderer();
+        scoreRenderer.setAutoShapeType(true);
         lineRenderer = new ShapeRenderer();
         blinerenderer = new ShapeRenderer();
 
@@ -142,8 +151,11 @@ public class FallingNotesScreen implements Screen {
         //  Gdx.input.setInputProcessor(new GestureDetector(new GestureHandler()));
 
         //This is initializer of GestureResponse
-        gestureResponse = new GestureResponse(app,this);
+        gestureResponse = new GestureResponse(app, stage, this);
 
+
+        if (recognitionMode)
+            initScoreVars();
 
 
     }
@@ -194,8 +206,7 @@ public class FallingNotesScreen implements Screen {
 //            Gdx.app.log(TAG+"midiEndTIme",notes.midiEndTime+"");
 
             //Reset Condition
-            if(notes.initialTime*1000>notes.animationEndTime)
-            {
+            if(notes.initialTime*1000>notes.animationEndTime) {
 
                 reset();
             }
@@ -237,11 +248,34 @@ public class FallingNotesScreen implements Screen {
         //render Seekbar
         controls.updateSeekbar(notes);
 
+        scoreRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        scoreRenderer.roundedRect(scoreRenderer,
+                Constants.WORLD_WIDTH - Constants.WORLD_WIDTH / 4.5f, Constants.WORLD_HEIGHT - Constants.WORLD_HEIGHT / 8.5f,
+                Constants.WORLD_WIDTH / 4,
+                Constants.WORLD_HEIGHT / 9.5f, 48,
+                new Color(Color.valueOf("0E81D1")),
+                new Color(Color.valueOf("0E81D1")),
+                new Color(Color.valueOf("0E81D1")),
+                new Color(Color.valueOf("0E81D1"))
+//                FallingNotesScreen.getTheme().getRH_lightBlackKeyColor(),
+//                FallingNotesScreen.getTheme().getRH_darkBlackKeyColor(),
+//                FallingNotesScreen.getTheme().getRH_darkBlackKeyColor(),
+//                FallingNotesScreen.getTheme().getRH_lightBlackKeyColor()
+        );
+        scoreRenderer.end();
+
+        if (recognitionMode)
+            setScore();
+
         stage.draw();
 
         //render GestureResponse
         gestureResponse.renderResponse();
 
+    }
+
+    private void setScore() {
+        scoreTextLabel.setText(" " + notes.getCorrectNoteCount() + "/" + notes.getTotalNotesCount());
     }
 
     public void settingUpCamera() {
@@ -382,6 +416,23 @@ public class FallingNotesScreen implements Screen {
         cam.position.x = MathUtils.clamp(cam.position.x, cam.viewportWidth*0.5f*cam.zoom, Gdx.graphics.getWidth() - cam.viewportWidth*0.5f*cam.zoom);
         cam.position.y = MathUtils.clamp(cam.position.y, 0.8552987f*cam.viewportHeight*0.5f*cam.zoom+39.29953f, 0.8552987f*cam.viewportHeight*0.5f*cam.zoom+39.29953f);
 
+    }
+
+    private void initScoreVars() {
+
+        Texture texture = new Texture(Gdx.files.internal("font/courgette.png"), true); // true enables mipmaps
+        scoreFont = new BitmapFont(Gdx.files.internal("font/courgette.fnt"), new TextureRegion(texture), false);
+        Label.LabelStyle style = new Label.LabelStyle();
+        style.font = scoreFont;
+//        Pixmap labelColor = new Pixmap(100, 10, Pixmap.Format.RGB888);
+//        labelColor.setColor(Color.valueOf("0E81D1"));
+//        labelColor.fill();
+//        style.background = new Image(new Texture(labelColor)).getDrawable();
+        style.fontColor = Color.WHITE;
+        scoreTextLabel = new Label("score", style);
+        scoreTextLabel.setBounds(Constants.WORLD_WIDTH - Constants.WORLD_WIDTH / 5, Constants.WORLD_HEIGHT - Constants.WORLD_HEIGHT / 9, Constants.WORLD_WIDTH / 4, Constants.WORLD_HEIGHT * 0.1f);
+        scoreTextLabel.setFontScale(1.0f * Gdx.graphics.getDensity() / 2);
+        stage.addActor(scoreTextLabel);
     }
 
     public static Theme getTheme() {

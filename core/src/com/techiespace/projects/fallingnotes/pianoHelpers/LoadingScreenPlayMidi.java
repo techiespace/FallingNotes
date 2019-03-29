@@ -38,7 +38,6 @@ public class LoadingScreenPlayMidi implements Screen {
     SpriteBatch batch;
     Sprite backgroundSprite;
     Texture backgroundTexture;
-    String text = "\t\t                  Instructions\t\t\n";
     String instructions;
     private ShapeRenderer shapeRenderer;
     private float progress;
@@ -142,7 +141,7 @@ public class LoadingScreenPlayMidi implements Screen {
         Label instructionsHeader = new Label("Instructions", style);
         instructionsHeader.setBounds(Constants.WORLD_WIDTH /4f+Constants.WORLD_WIDTH/8, Constants.WORLD_HEIGHT * 0.75f, Constants.WORLD_WIDTH / 4, Constants.WORLD_HEIGHT * 0.1f);
         instructionsHeader.setWrap(true);
-        instructionsHeader.setFontScale(1.1f);
+        instructionsHeader.setFontScale(1.1f * Gdx.graphics.getDensity() / 2);
 
         stage.addActor(instructionsHeader);
 
@@ -151,7 +150,7 @@ public class LoadingScreenPlayMidi implements Screen {
         Label instructionsLabel = new Label(instructions, style);
         instructionsLabel.setBounds(Constants.WORLD_WIDTH / 4, Constants.WORLD_HEIGHT * 0.15f, Constants.WORLD_WIDTH / 2, Constants.WORLD_HEIGHT * 0.6f);
         instructionsLabel.setWrap(true);
-        instructionsLabel.setFontScale(0.6f);
+        instructionsLabel.setFontScale(0.6f * Gdx.graphics.getDensity() / 2);
 
 
         stage.addActor(instructionsLabel);
@@ -288,8 +287,18 @@ public class LoadingScreenPlayMidi implements Screen {
 
         // or for non final texts: layout.setText(font, text);
 
-        if (!isLoading)
-            font.draw(batch, "Tap To Play", Constants.WORLD_WIDTH * 0.4f, Constants.WORLD_HEIGHT / 10);//Constants.NOTES_WIDTH*36/2,Constants.OFFSET/2+20);
+        if (!isLoading) {
+            Label.LabelStyle style2 = new Label.LabelStyle();
+            style2.font = font;
+            style2.fontColor = Color.WHITE;
+//            font.draw(batch, "Tap To Play", Constants.WORLD_WIDTH * 0.4f, Constants.WORLD_HEIGHT / 10);//Constants.NOTES_WIDTH*36/2,Constants.OFFSET/2+20);
+            Label playLable = new Label("Tap to Play", style2);
+            playLable.setBounds(Constants.WORLD_WIDTH * 0.4f, Constants.WORLD_HEIGHT / 22, Constants.WORLD_WIDTH / 4, Constants.WORLD_HEIGHT * 0.1f);
+            playLable.setWrap(true);
+            playLable.setColor(Color.WHITE);
+            playLable.setFontScale(1.2f * Gdx.graphics.getDensity() / 2);
+            stage.addActor(playLable);
+        }
 
         batch.end();
     }
