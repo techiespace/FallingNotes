@@ -9,6 +9,8 @@ import android.provider.MediaStore;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +30,7 @@ public class LocalDeviceMidiFragment extends Fragment {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
+    SwipeRefreshLayout pullToRefresh;
 
     public LocalDeviceMidiFragment() {
         // Required empty public constructor
@@ -51,6 +54,20 @@ public class LocalDeviceMidiFragment extends Fragment {
         RecyclerView.Adapter mAdapter = new MidiListAdapter(allSampleData, getContext(), true); //true indicates local device
         recyclerView.setAdapter(mAdapter);
 
+        pullToRefresh = rootView.findViewById(R.id.pullToRefresh);
+
+        pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getDeviceData();
+                mAdapter.notifyDataSetChanged();
+                pullToRefresh.setRefreshing(false);
+            }
+        });
+
+
+
+
         return rootView;
     }
 
@@ -63,6 +80,7 @@ public class LocalDeviceMidiFragment extends Fragment {
         //
         ///
         //
+        allSampleData.clear();
         HashMap<String, String> pdfFiles = new HashMap<String, String>();
 
         ContentResolver cr = getContext().getContentResolver();

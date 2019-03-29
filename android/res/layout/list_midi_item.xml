@@ -11,7 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="8dp">
+        android:padding="8dp"
+        android:background="@color/colorPrimary">
 
         <TextView
             android:id="@+id/midiTextView"
@@ -20,7 +21,7 @@
             android:gravity="center"
             android:padding="5dp"
             android:text="Sample Title"
-            android:textColor="@android:color/black"
+            android:textColor="@android:color/white"
             android:textSize="18sp" />
 
     </LinearLayout>

@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
             android:elevation="8dp"
-            app:cardBackgroundColor="#2ab7ca"
+            app:cardBackgroundColor="#45bc49"
             app:cardCornerRadius="4dp">
 
             <com.techiespace.projects.fallingnotes.CurvedTextView
@@ -108,38 +108,6 @@
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            app:background="@drawable/cardbg"
-            android:elevation="8dp"
-            app:cardCornerRadius="4dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="128dp"
-                android:background="@drawable/amythstbg"
-                android:gravity="center">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginRight="8dp"
-                    android:gravity="center"
-                    android:text="Music Theory"
-                    android:textColor="#FFFFFF"
-                    android:textSize="24sp" />
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
         <androidx.cardview.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
             android:id="@+id/cardViewChooseMidi"
             android:layout_width="match_parent"

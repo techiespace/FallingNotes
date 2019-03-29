@@ -35,8 +35,8 @@ public class MidiPlayerFragment extends Fragment {
         viewPager = rootView.findViewById(R.id.viewPager);
         tabLayout = rootView.findViewById(R.id.tabLayout);
         adapter = new MidiTabAdapter(getActivity().getSupportFragmentManager(), getContext());
-        adapter.addFragment(new MidiListFragment(), "Our Songs");
-        adapter.addFragment(new LocalDeviceMidiFragment(), "Your Device Songs");
+        adapter.addFragment(new MidiListFragment(), "Built in Midi's");
+        adapter.addFragment(new LocalDeviceMidiFragment(), "Local Midi's");
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
         highLightCurrentTab(0);

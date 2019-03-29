@@ -55,7 +55,7 @@ public class DashboardFragment extends Fragment {
             public void run() {
                 totalSkills = mDb.skillDao().getTotalSkillNo();
                 completedSkills = mDb.skillDao().getCompletedSkillNo();
-                System.out.println("Skills "+completedSkills);
+                System.out.println("Skills "+totalSkills);
                 latch.countDown();
 
             }
