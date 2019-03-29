@@ -31,7 +31,17 @@ public class Notes {
     //This is the actual end Time of the animation.
     //This should be calculated after midiEndTime is Calculated
     float animationEndTime;
+
+    public int getCorrectNoteCount() {
+        return correctNoteCount;
+    }
+
     int correctNoteCount = 0;
+
+    public int getTotalNotesCount() {
+        return totalNotesCount;
+    }
+
     int totalNotesCount;
 
 
@@ -78,7 +88,6 @@ public class Notes {
         initAnimationEndTime();
 
 //        Gdx.app.log("Notes",animationEndTime+" ");
-
     }
 
 
@@ -115,6 +124,8 @@ public class Notes {
                         key.updatePracticeTexture(true);
                         if (!note.recognised) {
                             correctNoteCount++;
+
+//                            scoreTextLabel.setText(""+correctNoteCount+"/"+totalNotesCount);
                         }
                         note.recognised = true;
                     }
