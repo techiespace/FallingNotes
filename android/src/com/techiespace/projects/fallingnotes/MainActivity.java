@@ -1,7 +1,9 @@
 package com.techiespace.projects.fallingnotes;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,6 +16,7 @@ import com.techiespace.projects.fallingnotes.Database.AppExecutors;
 import com.techiespace.projects.fallingnotes.Database.Level;
 import com.techiespace.projects.fallingnotes.Database.databaseHandler;
 import com.techiespace.projects.fallingnotes.fragments.ChordFragment;
+import com.techiespace.projects.fallingnotes.fragments.ComingSoonFragment;
 import com.techiespace.projects.fallingnotes.fragments.MidiPlayerFragment;
 import com.techiespace.projects.fallingnotes.fragments.ScaleFragment;
 
@@ -206,15 +209,15 @@ public class MainActivity extends AppCompatActivity
             fragment = new ScaleFragment();
         } else if (id == R.id.nav_midi) {
             fragment = new MidiPlayerFragment();
-        }
-        else if (id == R.id.nav_basic_chord) {
+        } else if (id == R.id.nav_basic_chord) {
             fragment = new ChordFragment();
         } else if (id == R.id.nav_adv_chord) {
-
+            fragment = new ComingSoonFragment();
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
-
+            String[] addresses = {"chordswiftmusic@gmail.com"};
+            composeEmail(addresses, "Chordswift Android App Feedback");
         }
 
         if (fragment != null) {
@@ -224,5 +227,15 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void composeEmail(String[] addresses, String subject) {
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setData(Uri.parse("mailto:")); // only email apps should handle this
+        intent.putExtra(Intent.EXTRA_EMAIL, addresses);
+        intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
     }
 }
