@@ -39,7 +39,7 @@ public class GestureResponse {
         this.gameScreen = gameScreen;
         this.app = app;
         this.stage = stage;
-        play = app.assets.get("piano/play.png", Texture.class);
+        play = app.assets.get("piano/play_button.png", Texture.class);
         pause = app.assets.get("piano/pause.png", Texture.class);
         reset = app.assets.get("piano/reset.png", Texture.class);
 
@@ -146,7 +146,7 @@ public class GestureResponse {
 
         if (showPause == true && showReset == false && showTempo == false ){
 
-            bbatch.draw(play, Constants.WORLD_WIDTH * 0.45f, Constants.WORLD_HEIGHT / 2, Constants.WORLD_WIDTH / 15, Constants.WORLD_WIDTH / 15);
+            bbatch.draw(play, Constants.WORLD_WIDTH * 0.45f, Constants.WORLD_HEIGHT / 2, Constants.WORLD_WIDTH / 12, Constants.WORLD_WIDTH / 12);
         }
 
         bbatch.end();

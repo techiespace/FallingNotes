@@ -73,6 +73,7 @@ public class FallingNotesScreen implements Screen {
     //score
     BitmapFont scoreFont;
     Label scoreTextLabel;
+    Label gameNameTextLabel;
 
 
     public FallingNotesScreen(FallingNotesGame app, String midiName, boolean recognitionMode) {
@@ -176,9 +177,26 @@ public class FallingNotesScreen implements Screen {
         }
 
     private void initializeGameName() {
-        Texture texture = new Texture(Gdx.files.internal(FallingNotesScreen.getTheme().getFntPngName()), true); // true enables mipmaps
-        texture.setFilter(Texture.TextureFilter.MipMapLinearNearest, Texture.TextureFilter.Linear); // linear filtering in nearest mipmap image
-        font = new BitmapFont(Gdx.files.internal(FallingNotesScreen.getTheme().getFntFileName()), new TextureRegion(texture), false);
+        Texture texture = new Texture(Gdx.files.internal("font/courgette.png"), true); // true enables mipmaps
+        scoreFont = new BitmapFont(Gdx.files.internal("font/courgette.fnt"), new TextureRegion(texture), false);
+        Label.LabelStyle style = new Label.LabelStyle();
+        style.font = scoreFont;
+//        Pixmap labelColor = new Pixmap(100, 10, Pixmap.Format.RGB888);
+//        labelColor.setColor(Color.valueOf("0E81D1"));
+//        labelColor.fill();
+//        style.background = new Image(new Texture(labelColor)).getDrawable();
+        style.fontColor = Color.WHITE;
+        gameNameTextLabel = new Label(Constants.GAME_NAME, style);
+        gameNameTextLabel.setBounds(Constants.WORLD_WIDTH / 2 - Constants.WORLD_WIDTH / 8, Constants.WORLD_HEIGHT / 160f, Constants.WORLD_WIDTH / 4, Constants.WORLD_HEIGHT * 0.1f);
+//        Group group = new Group();
+//        group.setPosition(Constants.WORLD_WIDTH / 2 - Constants.WORLD_WIDTH / 8, Constants.WORLD_HEIGHT / 160f);
+//        group.addActor(gameNameTextLabel);
+//        group.setScale(1.4f * Gdx.graphics.getDensity() / 3,1.4f * Gdx.graphics.getDensity() / 3);
+        gameNameTextLabel.setFontScale(1.4f * Gdx.graphics.getDensity() / 3);
+        stage.addActor(gameNameTextLabel);
+//        Texture texture = new Texture(Gdx.files.internal(FallingNotesScreen.getTheme().getFntPngName()), true); // true enables mipmaps
+//        texture.setFilter(Texture.TextureFilter.MipMapLinearNearest, Texture.TextureFilter.Linear); // linear filtering in nearest mipmap image
+//        font = new BitmapFont(Gdx.files.internal(FallingNotesScreen.getTheme().getFntFileName()), new TextureRegion(texture), false);
     }
 
 
@@ -221,7 +239,7 @@ public class FallingNotesScreen implements Screen {
         //Drawing Background //Using background batch
         bbatch.begin();
         bbatch.draw(backgroundSprite, 0, 0, Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT);
-        renderGameName();
+//        renderGameName();
         bbatch.end();
 
         //Draw vertical guide line
@@ -250,13 +268,13 @@ public class FallingNotesScreen implements Screen {
 
         scoreRenderer.begin(ShapeRenderer.ShapeType.Filled);
         scoreRenderer.roundedRect(scoreRenderer,
-                Constants.WORLD_WIDTH - Constants.WORLD_WIDTH / 4.5f, Constants.WORLD_HEIGHT - Constants.WORLD_HEIGHT / 8.5f,
-                Constants.WORLD_WIDTH / 4,
-                Constants.WORLD_HEIGHT / 9.5f, 48,
+                Constants.WORLD_WIDTH - Constants.WORLD_WIDTH / 4.0f, Constants.WORLD_HEIGHT - Constants.WORLD_HEIGHT / 6.5f,
+                Constants.WORLD_WIDTH / 4.5f,
+                Constants.WORLD_HEIGHT / 9.5f, 56 * Gdx.graphics.getDensity() / 3,
+                new Color(Color.valueOf("6dd5ed")),
                 new Color(Color.valueOf("0E81D1")),
                 new Color(Color.valueOf("0E81D1")),
-                new Color(Color.valueOf("0E81D1")),
-                new Color(Color.valueOf("0E81D1"))
+                new Color(Color.valueOf("6dd5ed"))
 //                FallingNotesScreen.getTheme().getRH_lightBlackKeyColor(),
 //                FallingNotesScreen.getTheme().getRH_darkBlackKeyColor(),
 //                FallingNotesScreen.getTheme().getRH_darkBlackKeyColor(),
@@ -275,7 +293,7 @@ public class FallingNotesScreen implements Screen {
     }
 
     private void setScore() {
-        scoreTextLabel.setText(" " + notes.getCorrectNoteCount() + "/" + notes.getTotalNotesCount());
+        scoreTextLabel.setText("Score: " + notes.getCorrectNoteCount() + "/" + notes.getTotalNotesCount());
     }
 
     public void settingUpCamera() {
@@ -366,6 +384,7 @@ public class FallingNotesScreen implements Screen {
     //This function is called when the song is playd 100 percent
     public void reset()
     {
+        notes.setCorrectNoteCount(0);
         Gdx.app.log(TAG,"reset");
         gestureResponse.showResetResponse();
         isPlaying = false;
@@ -395,8 +414,6 @@ public class FallingNotesScreen implements Screen {
         stage.dispose();
         batch.dispose();
         piano.disposePiano();
-       Gdx.app.log(TAG,"Hide            bj          bhjk");
-
     }
 
     @Override
@@ -430,8 +447,8 @@ public class FallingNotesScreen implements Screen {
 //        style.background = new Image(new Texture(labelColor)).getDrawable();
         style.fontColor = Color.WHITE;
         scoreTextLabel = new Label("score", style);
-        scoreTextLabel.setBounds(Constants.WORLD_WIDTH - Constants.WORLD_WIDTH / 5, Constants.WORLD_HEIGHT - Constants.WORLD_HEIGHT / 9, Constants.WORLD_WIDTH / 4, Constants.WORLD_HEIGHT * 0.1f);
-        scoreTextLabel.setFontScale(1.0f * Gdx.graphics.getDensity() / 2);
+        scoreTextLabel.setBounds(Constants.WORLD_WIDTH - Constants.WORLD_WIDTH / 4.5f, Constants.WORLD_HEIGHT - Constants.WORLD_HEIGHT / 6.5f, Constants.WORLD_WIDTH / 4, Constants.WORLD_HEIGHT * 0.1f);
+        scoreTextLabel.setFontScale(1.1f * Gdx.graphics.getDensity() / 3);
         stage.addActor(scoreTextLabel);
     }
 
