@@ -50,11 +50,11 @@ public class GestureResponse {
 
 
         font.setColor(Color.WHITE);
-         font.getData().setScale(1.2f);
+         font.getData().setScale(1.4f);
 //        font = new BitmapFont();
 //        font.getData().setScale(2);
         showPlay = false;
-        showPause = false;
+        showPause = true;
         showTempo = false;
         showReset = false;
     }
@@ -68,13 +68,15 @@ public class GestureResponse {
     }
 
     public void showPauseResponse() {
-        startTime = TimeUtils.millis();
-        endTime = startTime + 100;
         showPause = true;
     }
 
-    public void resetResponse() {
+    public void removePauseResponse(){
         showPause = false;
+    }
+
+
+    public void resetResponse() {
         showPlay = false;
         showTempo = false;
         showReset = false;
@@ -89,6 +91,7 @@ public class GestureResponse {
         startTime = TimeUtils.millis();
         endTime = startTime + 500;
         showReset = true;
+        showPauseResponse();
     }
 
 
@@ -100,11 +103,10 @@ public class GestureResponse {
             if (showPlay == true) {
 
                 bbatch.draw(pause, Constants.WORLD_WIDTH * 0.45f, Constants.WORLD_HEIGHT / 2, Constants.WORLD_WIDTH / 15, Constants.WORLD_WIDTH / 15);
-            } else if (showPause == true) {
+            }  else if (showTempo == true) {
+                font.draw(bbatch, "Speed", Constants.WORLD_WIDTH * 0.40f, Constants.WORLD_HEIGHT *0.67f);//Constants.NOTES_WIDTH*36/2,Constants.OFFSET/2+20);
 
-                bbatch.draw(play, Constants.WORLD_WIDTH * 0.45f, Constants.WORLD_HEIGHT / 2, Constants.WORLD_WIDTH / 15, Constants.WORLD_WIDTH / 15);
-            } else if (showTempo == true) {
-                font.draw(bbatch, (int) (gameScreen.getPrefs().getFloat("tempo_multiplier") * 100) + "", Constants.WORLD_WIDTH * 0.50f, Constants.WORLD_HEIGHT / 2);//Constants.NOTES_WIDTH*36/2,Constants.OFFSET/2+20);
+                font.draw(bbatch, (int) (gameScreen.getPrefs().getFloat("tempo_multiplier") * 100) + "%", Constants.WORLD_WIDTH * 0.405f, Constants.WORLD_HEIGHT *0.55f);//Constants.NOTES_WIDTH*36/2,Constants.OFFSET/2+20);
             }else if(showReset == true){
 
                 bbatch.draw(reset, Constants.WORLD_WIDTH * 0.45f, Constants.WORLD_HEIGHT / 2, Constants.WORLD_WIDTH / 15, Constants.WORLD_WIDTH / 15);
@@ -115,10 +117,19 @@ public class GestureResponse {
 
         }
 
-        bbatch.end();
 
         if (endTime < TimeUtils.millis())
             resetResponse();
+
+
+        if (showPause == true && showReset == false && showTempo == false ){
+
+            bbatch.draw(play, Constants.WORLD_WIDTH * 0.45f, Constants.WORLD_HEIGHT / 2, Constants.WORLD_WIDTH / 15, Constants.WORLD_WIDTH / 15);
+        }
+
+        bbatch.end();
+
+
 
 
     }

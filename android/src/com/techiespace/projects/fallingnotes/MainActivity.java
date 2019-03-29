@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         //Setting Up the database
-        mDb = AppDatabase.getInstance(getApplicationContext());
+        mDb = AppDatabase.getInstance(this);
 /*
         dbhandler = new databaseHandler(this);
 

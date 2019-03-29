@@ -33,4 +33,10 @@ public interface SkillDao {
 
     @Query("DELETE FROM Skill")
     void deleteAllSKills();
+
+    @Query("SELECT COUNT(*) FROM SKILL")
+    int getTotalSkillNo();
+
+    @Query("SELECT COUNT(*) FROM SKILL WHERE completed = 'true' ")
+    int getCompletedSkillNo();
 }
