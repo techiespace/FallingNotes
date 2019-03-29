@@ -53,7 +53,7 @@ public class databaseHandler {
                         new Skill(12, "Major Scale - D", "Forming Major Scales", 2, "2_12_DScale.mid", "Major Scales are formed by the formula - WWHWWWH"),
                         new Skill(13, "Memorising scales", "Count number or sharps in a scale", 2, "", "Given the number of accidentals, their names can be found using the Mnemonic - Father Christmas Gave Daddy An Electric Blanket. e.g. G Major Scale has one accidental i.e. F, D Major Scale has 2 accidentals i.e. F and C."),
                         new Skill(14, "Minor Scale - A", "Forming Minor Scales", 2, "", "Minor Scales are formed by the formula - WHWWHWW"),
-                        new Skill(15, "Minor Scale - E", "Relative Minor", 2, "", "The Relative Minor (scale) of a Major scale is located 3 half steps below the root note of the Major Scale"),
+                        new Skill(15, "Minor Scale - E", "Relative Minor", 2, "xbEer87lfdU", "The Relative Minor (scale) of a Major scale is located 3 half steps below the root note of the Major Scale"),
                         new Skill(16, "Simple Melody for Right hand", "Finger Co-ordination exercise", 3, "", "Forest Gump melody in C Major"),
                         new Skill(17, "Changing the key", "Keys", 3, "", "See how to same melody sounds in a different key"),
                         new Skill(18, "Changing the key II", "More Keys", 3, "", "See how to same melody sounds in a different key"),
