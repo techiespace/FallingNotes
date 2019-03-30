@@ -21,7 +21,6 @@ import android.widget.Toast;
 
 import com.techiespace.projects.fallingnotes.Database.AppDatabase;
 import com.techiespace.projects.fallingnotes.Database.AppExecutors;
-import com.techiespace.projects.fallingnotes.Database.Level;
 import com.techiespace.projects.fallingnotes.course.fragments.UniversityFragment;
 
 import java.io.File;
@@ -29,7 +28,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
 import androidx.annotation.RequiresApi;
@@ -55,6 +53,7 @@ public class DashboardFragment extends Fragment {
     int FILE_SELECT_CODE = 7;
     int FILE_SIZE_LIMIT = 20000000;
     String filename;
+    String sourcePath;
     int filesize;
 
     Context mContext;
@@ -95,7 +94,7 @@ public class DashboardFragment extends Fragment {
 
 
                     Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                    intent.setType("*/*");
+                intent.setType("audio/midi");
                     intent.addCategory(Intent.CATEGORY_OPENABLE);
                     //intent.putExtra("browseCoa", itemToBrowse);
                     //Intent chooser = Intent.createChooser(intent, "Select a File to Upload");
@@ -132,7 +131,7 @@ public class DashboardFragment extends Fragment {
         }
 
         progressBar.setProgress(completedSkills/totalSkills);
-        percentagetv.setText((int)(completedSkills*100/totalSkills)+"%");
+        percentagetv.setText((completedSkills * 100 / totalSkills) + "%");
 
         return rootView;
 
@@ -175,9 +174,14 @@ public class DashboardFragment extends Fragment {
                             String size = Long.toString(returnCursor.getLong(sizeIndex));
                         }
                         File fileSave = getContext().getExternalFilesDir(null);
-                        String sourcePath = getContext().getExternalFilesDir(null).toString();
+                        sourcePath = getContext().getExternalFilesDir(null).toString();
                         try {
                             copyFileStream(new File(sourcePath + "/" + filename), uri,getContext());
+                            System.out.println(sourcePath + "/" + filename);
+                            Intent intent = new Intent(getContext(), PracticeActivity.class);
+                            intent.putExtra(Intent.EXTRA_TEXT, sourcePath + "/" + filename);
+                            intent.putExtra("playMidi", true);
+                            getContext().startActivity(intent);
                            // Toast.makeText(getContext(),"src"+sourcePath , Toast.LENGTH_SHORT).show();
                          //   System.out.println("src"+sourcePath);
                         } catch (Exception e) {
