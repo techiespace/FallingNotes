@@ -17,9 +17,19 @@ public class Note implements Comparable<Note> {
     int startTime;
     int endTime;
     float noteLength;
+
+    public String getNoteName() {
+        return noteName;
+    }
+
     String noteName;
     Vector2 position;
     Sound sound;
+
+    public int getTrack() {
+        return track;
+    }
+
     int track;
     Preferences preferences;
     boolean recognised = false;

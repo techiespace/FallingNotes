@@ -4,9 +4,11 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
+import com.techiespace.projects.fallingnotes.pianoHelpers.Note;
 
 
 public class PracticeActivity extends AndroidApplication {
@@ -31,29 +33,52 @@ public class PracticeActivity extends AndroidApplication {
 
 
             instructions = intent.getStringExtra("instructions_TEXT");
-          //  System.out.println("Practice Activity  HAs instructions"+instructions);
+            //  System.out.println("Practice Activity  HAs instructions"+instructions);
         }
         AndroidApplicationConfiguration cfg = new AndroidApplicationConfiguration();
 
         //This is to keep the Game screen awake
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
+        System.out.println("Is valid Midi: " + isValidMidi());
+        if (isValidMidi()) {
 
-        if(instructions==null)
-            initialize(new FallingNotesGame(midiName, playMidi), cfg);
-        else
-        {
-            //System.out.println("Practice Activity "+instructions);
-            initialize(new FallingNotesGame(midiName, instructions, playMidi), cfg);
+            if (instructions == null)
+                initialize(new FallingNotesGame(midiName, playMidi), cfg);
+            else {
+                //System.out.println("Practice Activity "+instructions);
+                initialize(new FallingNotesGame(midiName, instructions, playMidi), cfg);
+            }
+        } else {
+//            Intent i = new Intent(this,MainActivity.class);
+            Toast.makeText(this, "Invalid Midi", Toast.LENGTH_SHORT).show();
+            finish();
+//            this.startActivity(i);
         }
+    }
+
+    private boolean isValidMidi() {
+        AndroidMidiParser midiParser = new AndroidMidiParser(this);
+        Note[] notes = midiParser.parse(midiName);
+        if (notes.length == 0)
+            return true;
+        if (notes.length == 1 && notes[0].getPressVelocity() == 0)  //inappmidi
+            return true;
+        for (Note note : notes) {
+            if (note.getNoteName().equals("Error"))
+                return false;
+            if (note.getTrack() != 0 && note.getTrack() != 1 && note.getTrack() != 2)   //piano & voice
+                return false;
+        }
+        return true;
     }
 
     @Override
     protected void onResume() {
-
-        if (getRequestedOrientation() != ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE) {
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        }
+        if (isValidMidi())
+            if (getRequestedOrientation() != ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE) {
+                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+            }
         super.onResume();
     }
 }
