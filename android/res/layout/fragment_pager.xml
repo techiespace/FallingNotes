@@ -39,16 +39,19 @@
             android:layout_height="wrap_content"
             android:textColor="@android:color/white"
             tools:text="ChordSwift"
-            android:textSize="40dp"/>
+            android:textSize="25dp"
+            android:gravity="center"/>
 
         <TextView
             style="@style/TextAppearance.AppCompat.Body1"
+            android:id="@+id/description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/activity_horizontal_margin"
-            android:alpha="0.7"
+            android:alpha="1"
+            android:textSize="15dp"
             android:gravity="center"
-            android:text="Welcome to ChordSwift your AI powered piano tutor app"
+            android:text="null"
             android:textColor="@android:color/white" />
 
 
