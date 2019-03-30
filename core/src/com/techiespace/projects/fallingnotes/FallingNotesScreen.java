@@ -122,8 +122,10 @@ public class FallingNotesScreen implements Screen {
 
         renderer = new RoundRectShapeRenderer();
         renderer.setAutoShapeType(true);
-        scoreRenderer = new RoundRectShapeRenderer();
-        scoreRenderer.setAutoShapeType(true);
+        if (recognitionMode) {
+            scoreRenderer = new RoundRectShapeRenderer();
+            scoreRenderer.setAutoShapeType(true);
+        }
         lineRenderer = new ShapeRenderer();
         blinerenderer = new ShapeRenderer();
 
@@ -266,21 +268,23 @@ public class FallingNotesScreen implements Screen {
         //render Seekbar
         controls.updateSeekbar(notes);
 
-        scoreRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        scoreRenderer.roundedRect(scoreRenderer,
-                Constants.WORLD_WIDTH - Constants.WORLD_WIDTH / 4.0f, Constants.WORLD_HEIGHT - Constants.WORLD_HEIGHT / 6.5f,
-                Constants.WORLD_WIDTH / 4.5f,
-                Constants.WORLD_HEIGHT / 9.5f, 56 * Gdx.graphics.getDensity() / 3,
-                new Color(Color.valueOf("6dd5ed")),
-                new Color(Color.valueOf("0E81D1")),
-                new Color(Color.valueOf("0E81D1")),
-                new Color(Color.valueOf("6dd5ed"))
+        if (recognitionMode) {
+            scoreRenderer.begin(ShapeRenderer.ShapeType.Filled);
+            scoreRenderer.roundedRect(scoreRenderer,
+                    Constants.WORLD_WIDTH - Constants.WORLD_WIDTH / 4.0f, Constants.WORLD_HEIGHT - Constants.WORLD_HEIGHT / 6.5f,
+                    Constants.WORLD_WIDTH / 4.5f,
+                    Constants.WORLD_HEIGHT / 9.5f, 56 * Gdx.graphics.getDensity() / 3,
+                    new Color(Color.valueOf("6dd5ed")),
+                    new Color(Color.valueOf("0E81D1")),
+                    new Color(Color.valueOf("0E81D1")),
+                    new Color(Color.valueOf("6dd5ed"))
 //                FallingNotesScreen.getTheme().getRH_lightBlackKeyColor(),
 //                FallingNotesScreen.getTheme().getRH_darkBlackKeyColor(),
 //                FallingNotesScreen.getTheme().getRH_darkBlackKeyColor(),
 //                FallingNotesScreen.getTheme().getRH_lightBlackKeyColor()
-        );
-        scoreRenderer.end();
+            );
+            scoreRenderer.end();
+        }
 
         if (recognitionMode)
             setScore();
