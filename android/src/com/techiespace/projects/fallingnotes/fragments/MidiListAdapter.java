@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.techiespace.projects.fallingnotes.PracticeActivity;
 import com.techiespace.projects.fallingnotes.R;
@@ -60,8 +59,6 @@ public class MidiListAdapter extends RecyclerView.Adapter<com.techiespace.projec
                 }
                 intent.putExtra("playMidi", true);
                 mContext.startActivity(intent);
-                Toast.makeText(view.getContext(), dataList.get(position), Toast.LENGTH_SHORT).show();
-
             }
         });
     }

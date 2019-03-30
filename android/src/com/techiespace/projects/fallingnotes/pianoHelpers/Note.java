@@ -6,10 +6,28 @@ public class Note {
     int endTime;
     String note;
 
-    public Note(int startTime, int endTime, String note) {
+    int pressVelocity;
+    int track;
+    String noteName;
+
+    public Note(int midiNoteNum, int startTime, int endTime, int pressVelocity, int track) {
+        this.noteName = getMidiNoteName(midiNoteNum);
         this.startTime = startTime;
         this.endTime = endTime;
-        this.note = note;
+        this.pressVelocity = pressVelocity;
+        this.track = track;
+    }
+
+    public int getPressVelocity() {
+        return pressVelocity;
+    }
+
+    public int getTrack() {
+        return track;
+    }
+
+    public String getNoteName() {
+        return noteName;
     }
 
     public Note(int startTime, int endTime, int midiNoteNumber) {

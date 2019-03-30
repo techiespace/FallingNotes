@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.techiespace.projects.fallingnotes.R;
 import com.techiespace.projects.fallingnotes.fragments.nestedListUi.SectionDataModel;
@@ -65,7 +64,6 @@ public class MidiListFragment extends Fragment {
         AssetManager assetManager = getActivity().getAssets();
         try {
             String[] files = assetManager.list("inappmidi");
-            Toast.makeText(getContext(), files[0], Toast.LENGTH_SHORT).show();
             for (String file : files) {
                 if (file.contains(".mid"))
                     allSampleData.add(file);
