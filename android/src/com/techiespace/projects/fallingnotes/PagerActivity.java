@@ -101,7 +101,7 @@ public class PagerActivity extends AppCompatActivity {
         mViewPager.setCurrentItem(page);
         updateIndicators(page);
 
-        final int color1 = ContextCompat.getColor(this, R.color.cyan);
+        final int color1 = ContextCompat.getColor(this, R.color.colorPrimary);
         final int color2 = ContextCompat.getColor(this, R.color.orange);
         final int color3 = ContextCompat.getColor(this, R.color.green);
 
@@ -224,7 +224,7 @@ public class PagerActivity extends AppCompatActivity {
 
         ImageView img;
 
-        int[] bgs = new int[]{R.drawable.ic_flight_24dp, R.drawable.ic_mail_24dp, R.drawable.ic_explore_24dp};
+        int[] bgs = new int[]{R.drawable.piano_icon, R.drawable.ic_mail_24dp, R.drawable.ic_explore_24dp};
 
         public PlaceholderFragment() {
         }
@@ -246,7 +246,7 @@ public class PagerActivity extends AppCompatActivity {
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_pager, container, false);
             TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+            textView.setText("ChordSwift");
 
             img = (ImageView) rootView.findViewById(R.id.section_img);
             img.setBackgroundResource(bgs[getArguments().getInt(ARG_SECTION_NUMBER) - 1]);

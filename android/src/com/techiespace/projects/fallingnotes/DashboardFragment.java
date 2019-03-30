@@ -57,29 +57,14 @@ public class DashboardFragment extends Fragment {
     String filename;
     int filesize;
 
+    Context mContext;
+
 
 
     public DashboardFragment() {
         // Required empty public constructor
 
-        mDb = AppDatabase.getInstance(getContext());
-        final CountDownLatch latch = new CountDownLatch(1);
 
-        AppExecutors.getInstance().diskIO().execute(new Runnable() {
-            @Override
-            public void run() {
-                totalSkills = mDb.skillDao().getTotalSkillNo();
-                completedSkills = mDb.skillDao().getCompletedSkillNo();
-                System.out.println("Skills "+totalSkills);
-                latch.countDown();
-
-            }
-        });
-        try {
-            latch.await();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
 
 
     }
@@ -126,11 +111,37 @@ public class DashboardFragment extends Fragment {
                 }
         });
 
+
+        mDb = AppDatabase.getInstance(getContext());
+        final CountDownLatch latch = new CountDownLatch(1);
+
+        AppExecutors.getInstance().diskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                totalSkills = mDb.skillDao().getTotalSkillNo();
+                completedSkills = mDb.skillDao().getCompletedSkillNo();
+                System.out.println("Skills "+totalSkills);
+                latch.countDown();
+
+            }
+        });
+        try {
+            latch.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         progressBar.setProgress(completedSkills/totalSkills);
         percentagetv.setText((int)(completedSkills*100/totalSkills)+"%");
 
         return rootView;
 
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mContext = context;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)

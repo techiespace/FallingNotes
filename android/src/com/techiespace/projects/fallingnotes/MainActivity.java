@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         //Setting Up the database
-        mDb = AppDatabase.getInstance(this);
+    //    mDb = AppDatabase.getInstance(this);
 /*
         dbhandler = new databaseHandler(this);
 
@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity
         }
 
         setActionBarTitle("ChordSwift");
-        displayLevelTable();
+
         handlePermissions();
     }
 
@@ -162,18 +162,7 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-    private void displayLevelTable() {
-        AppExecutors.getInstance().diskIO().execute(new Runnable() {
-            @Override
-            public void run() {
-                List<Level> level = mDb.levelDao().loadAllLevels();
 
-                for(Level levelInstance : level)
-                System.out.println(levelInstance.getLevel_name());
-
-            }
-        });
-    }
 
 
     @Override
