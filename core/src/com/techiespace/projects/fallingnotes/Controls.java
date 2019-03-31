@@ -15,7 +15,6 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -25,12 +24,14 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 public class Controls {
     SeekBar seekBar;
-    Button handToggleButton;
+    Button leftHandToggleButton;
+    Button righthandToggleButton;
     Button muteButton;
 
-    Button.ButtonStyle leftHandToggleButtonStyle;
-    Button.ButtonStyle rightHandToggleButtonStyle;
-    Button.ButtonStyle bothHandToggleButtonStyle;
+    Button.ButtonStyle leftHandToggleButtonActiveStyle;
+    Button.ButtonStyle leftHandToggleButtonInactiveStyle;
+    Button.ButtonStyle rightHandToggleButtonActiveStyle;
+    Button.ButtonStyle rightHandToggleButtonInactiveStyle;
   //  Button.ButtonStyle muteButtonTo
 
     Slider tempoSlider;
@@ -71,13 +72,13 @@ public class Controls {
 
         font = new BitmapFont();
         skin = new Skin();
-        buttonAtlas = new TextureAtlas(Gdx.files.internal("buttons/controls.atlas"));
+        buttonAtlas = new TextureAtlas(Gdx.files.internal("buttons/handcontrols.atlas"));
         skin.addRegions(buttonAtlas);
 
         initStyles();
 
-        handToggleButton = new Button(bothHandToggleButtonStyle);
-
+        leftHandToggleButton = new Button(leftHandToggleButtonActiveStyle);
+        righthandToggleButton = new Button(rightHandToggleButtonActiveStyle);
       //  muteButton = new Button();
 
         //This is called just once! How is it working then?
@@ -90,17 +91,21 @@ public class Controls {
     }
 
     private void initStyles() {
-        leftHandToggleButtonStyle = new Button.ButtonStyle();
-        leftHandToggleButtonStyle.up = skin.getDrawable("L");
-        leftHandToggleButtonStyle.checked = skin.getDrawable("L");
+        leftHandToggleButtonActiveStyle = new Button.ButtonStyle();
+        leftHandToggleButtonActiveStyle.up = skin.getDrawable("left_active");
+        leftHandToggleButtonActiveStyle.checked = skin.getDrawable("left_active");
 
-        rightHandToggleButtonStyle = new Button.ButtonStyle();
-        rightHandToggleButtonStyle.up = skin.getDrawable("R");
-        rightHandToggleButtonStyle.checked = skin.getDrawable("R");
+        rightHandToggleButtonActiveStyle = new Button.ButtonStyle();
+        rightHandToggleButtonActiveStyle.up = skin.getDrawable("right_active");
+        rightHandToggleButtonActiveStyle.checked = skin.getDrawable("right_active");
 
-        bothHandToggleButtonStyle = new Button.ButtonStyle();
-        bothHandToggleButtonStyle.up = skin.getDrawable("B");
-        bothHandToggleButtonStyle.checked = skin.getDrawable("B");
+        leftHandToggleButtonInactiveStyle = new Button.ButtonStyle();
+        leftHandToggleButtonInactiveStyle.up = skin.getDrawable("left");
+        leftHandToggleButtonInactiveStyle.checked = skin.getDrawable("left");
+
+        rightHandToggleButtonInactiveStyle = new Button.ButtonStyle();
+        rightHandToggleButtonInactiveStyle.up = skin.getDrawable("right");
+        rightHandToggleButtonInactiveStyle.checked = skin.getDrawable("right");
     }
 
     void initSeekbar(Notes notes, Stage stage) {
@@ -123,7 +128,8 @@ public class Controls {
 
         //hand
 
-        controlsTable.add(handToggleButton).size(Constants.MENU_OFFSET*1.5f, Constants.MENU_OFFSET*1.5f);
+        controlsTable.add(leftHandToggleButton).size(Constants.MENU_OFFSET * 1.5f, Constants.MENU_OFFSET * 1.5f);
+        controlsTable.add(righthandToggleButton).size(Constants.MENU_OFFSET * 1.5f, Constants.MENU_OFFSET * 1.5f);
         controlsTable.setSize(Constants.WORLD_WIDTH/2, Constants.MENU_OFFSET);
         controlsTable.setPosition(0, Constants.OFFSET*0.15f);
 
@@ -136,21 +142,47 @@ public class Controls {
 
     private void initializeButtonListeners(final Preferences playPrefs) {
 //        final Preferences playPrefs = preferences;
-        handToggleButton.addListener(new ChangeListener() {
+        leftHandToggleButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 //https://www.badlogicgames.com/forum/viewtopic.php?f=11&t=18544
                 switch (playPrefs.getString("hand")) {
-                    case "left":
-                        handToggleButton.setStyle(rightHandToggleButtonStyle);
+                    case "left":    //left -> right
+                        leftHandToggleButton.setStyle(leftHandToggleButtonInactiveStyle);
+                        righthandToggleButton.setStyle(rightHandToggleButtonActiveStyle);
                         playPrefs.putString("hand", "right").flush();
                         break;
-                    case "right":
-                        handToggleButton.setStyle(bothHandToggleButtonStyle);
+                    case "right":   //right -> both
+                        leftHandToggleButton.setStyle(leftHandToggleButtonActiveStyle);
+                        righthandToggleButton.setStyle(rightHandToggleButtonActiveStyle);
                         playPrefs.putString("hand", "both").flush();
                         break;
-                    case "both":
-                        handToggleButton.setStyle(leftHandToggleButtonStyle);
+                    case "both":    //both -> left
+                        leftHandToggleButton.setStyle(leftHandToggleButtonActiveStyle);
+                        righthandToggleButton.setStyle(rightHandToggleButtonInactiveStyle);
+                        playPrefs.putString("hand", "left").flush();
+                        break;
+                }
+            }
+        });
+        righthandToggleButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                //https://www.badlogicgames.com/forum/viewtopic.php?f=11&t=18544
+                switch (playPrefs.getString("hand")) {
+                    case "left":    //left -> right
+                        leftHandToggleButton.setStyle(leftHandToggleButtonInactiveStyle);
+                        righthandToggleButton.setStyle(rightHandToggleButtonActiveStyle);
+                        playPrefs.putString("hand", "right").flush();
+                        break;
+                    case "right":   //right -> both
+                        leftHandToggleButton.setStyle(leftHandToggleButtonActiveStyle);
+                        righthandToggleButton.setStyle(rightHandToggleButtonActiveStyle);
+                        playPrefs.putString("hand", "both").flush();
+                        break;
+                    case "both":    //both -> left
+                        leftHandToggleButton.setStyle(leftHandToggleButtonActiveStyle);
+                        righthandToggleButton.setStyle(rightHandToggleButtonInactiveStyle);
                         playPrefs.putString("hand", "left").flush();
                         break;
                 }
