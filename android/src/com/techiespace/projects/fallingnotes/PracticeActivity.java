@@ -16,7 +16,7 @@ public class PracticeActivity extends AndroidApplication {
     String midiName;
     String instructions;
     boolean playMidi;
-    public static final String PREF_USER_FIRST_TIME_GAME = "user_first_time";
+    public static final String PREF_USER_FIRST_TIME_GAME = "user_first_time_game";
     boolean isUserFirstTime;
 
     @Override

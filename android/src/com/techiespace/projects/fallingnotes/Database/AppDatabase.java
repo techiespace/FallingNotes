@@ -29,8 +29,8 @@ public abstract class AppDatabase extends RoomDatabase {
                             @Override
                             public void onCreate(@NonNull SupportSQLiteDatabase db) {
                                 super.onCreate(db);
-                                databaseHandler databaseHandler = new databaseHandler(context);
-                                databaseHandler.loadDatabase();
+                                databaseHandler dbHandler = databaseHandler.getInstance(context);
+                                dbHandler.loadDatabase();
                             }
                         })
                         // COMPLETED (2) call allowMainThreadQueries before building the instance

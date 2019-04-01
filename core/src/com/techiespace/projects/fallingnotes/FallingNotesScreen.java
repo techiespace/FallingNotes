@@ -29,7 +29,7 @@ public class FallingNotesScreen implements Screen {
     private final FallingNotesGame app;
     public String midiName;
 
-    
+
 
     public FallingNotesScreen(FallingNotesGame app) {
         this.app = app;
