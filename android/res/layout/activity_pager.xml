@@ -21,17 +21,17 @@
         android:layout_height="1dp"
         android:layout_gravity="bottom"
         android:layout_marginBottom="?attr/actionBarSize"
-        android:alpha="0.12"
-        android:background="@android:color/white" />
+        android:alpha="0.12" />
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_gravity="bottom"
-        android:paddingEnd="@dimen/activity_horizontal_margin"
+        android:paddingStart="@dimen/activity_horizontal_margin"
         android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingStart="@dimen/activity_horizontal_margin">
+        android:paddingEnd="@dimen/activity_horizontal_margin"
+
+        android:paddingRight="@dimen/activity_horizontal_margin">
 
 
         <Button
@@ -73,6 +73,7 @@
                 android:layout_marginEnd="@dimen/activity_margin_half"
                 android:layout_marginRight="@dimen/activity_margin_half"
                 android:background="@drawable/indicator_unselected" />
+
             <ImageView
                 android:id="@+id/intro_indicator_3"
                 style="@style/Widget.AppCompat.Button.Borderless"
@@ -81,6 +82,7 @@
                 android:layout_marginEnd="@dimen/activity_margin_half"
                 android:layout_marginRight="@dimen/activity_margin_half"
                 android:background="@drawable/indicator_unselected" />
+
             <ImageView
                 android:id="@+id/intro_indicator_4"
                 style="@style/Widget.AppCompat.Button.Borderless"

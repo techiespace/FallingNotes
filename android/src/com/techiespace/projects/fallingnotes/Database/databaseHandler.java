@@ -4,12 +4,26 @@ import android.content.Context;
 
 public class databaseHandler {
     private AppDatabase mDb;
+    private static databaseHandler dbHandler;
 
-    public databaseHandler(Context context)
+
+    private databaseHandler(Context context)
     {
         mDb = AppDatabase.getInstance(context);
 
     }
+
+    public static databaseHandler getInstance(Context context)
+    {
+        if(dbHandler==null)
+        {
+            dbHandler = new databaseHandler(context);
+
+        }
+
+            return dbHandler;
+    }
+
 
 
     public void loadDatabase()

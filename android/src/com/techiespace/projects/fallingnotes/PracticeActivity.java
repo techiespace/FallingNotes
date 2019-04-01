@@ -16,10 +16,23 @@ public class PracticeActivity extends AndroidApplication {
     String midiName;
     String instructions;
     boolean playMidi;
+    public static final String PREF_USER_FIRST_TIME_GAME = "user_first_time";
+    boolean isUserFirstTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        isUserFirstTime = Boolean.valueOf(Utils.readSharedSetting(this, PREF_USER_FIRST_TIME_GAME, "true"));
+
+        Intent introIntent = new Intent(this, SliderActivity.class);
+        introIntent.putExtra(PREF_USER_FIRST_TIME_GAME, isUserFirstTime);
+
+        if (isUserFirstTime)
+            startActivity(introIntent);
+
+
+
         Intent intent = getIntent();
 
         if (intent.hasExtra(Intent.EXTRA_TEXT)) {

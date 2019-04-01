@@ -23,7 +23,6 @@
             app:cardCornerRadius="4dp">
 
             <com.techiespace.projects.fallingnotes.CurvedTextView
-                android:id="@+id/compliance_curved_text"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_alignParentTop="true"
@@ -132,7 +131,6 @@
                     android:src="@drawable/ic_music_note_white_24dp" />
 
                 <TextView
-                    android:id="@+id/uploadMidi"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|center|center_vertical"
