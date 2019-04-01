@@ -51,6 +51,9 @@ public class SliderActivity extends AppCompatActivity {
 
     // btnSkipClick
     public  void btnSkipClick(View v) {
+
+        Utils.saveSharedSetting(this, PracticeActivity.PREF_USER_FIRST_TIME_GAME, "false");
+
         launchHomeScreen();
     }
 
@@ -64,6 +67,8 @@ public class SliderActivity extends AppCompatActivity {
             // move to next screen
             sViewPager.setCurrentItem(current);
         } else {
+            Utils.saveSharedSetting(this, PracticeActivity.PREF_USER_FIRST_TIME_GAME, "false");
+
             launchHomeScreen();
         }
     }

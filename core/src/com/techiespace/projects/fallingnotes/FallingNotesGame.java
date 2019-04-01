@@ -11,6 +11,7 @@ public class FallingNotesGame extends Game {
     public AssetManager assets;
     public String instructions;
     boolean playMidi;
+    public dbInterface dbInterface;
 
     public FallingNotesGame(String midiName, boolean playMidi) {
         if (midiName != null)
@@ -31,6 +32,20 @@ public class FallingNotesGame extends Game {
         this.playMidi = playMidi;
 
     }
+    public FallingNotesGame(String midiName, String instructions, boolean playMidi, dbInterface dbInterface) {
+        if (midiName != null)
+            this.midiName = midiName;
+
+        if(instructions!=null)
+            this.instructions = instructions;
+        this.playMidi = playMidi;
+
+        if(dbInterface!=null)
+            this.dbInterface = dbInterface;
+
+    }
+
+
 
 
 

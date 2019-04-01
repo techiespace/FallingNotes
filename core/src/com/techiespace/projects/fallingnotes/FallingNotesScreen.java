@@ -30,7 +30,6 @@ public class FallingNotesScreen implements Screen {
     public String midiName;
 
 
-
     public FallingNotesScreen(FallingNotesGame app) {
         this.app = app;
     }
@@ -70,7 +69,7 @@ public class FallingNotesScreen implements Screen {
 
 
     boolean isOnce = false;
-   static boolean recognitionMode = false;
+    static boolean recognitionMode = false;
 
     //score
     BitmapFont scoreFont;
@@ -107,7 +106,6 @@ public class FallingNotesScreen implements Screen {
         stage = new Stage();
 
 
-
         //Initialize the theme
         initializeTheTheme();
 
@@ -116,10 +114,6 @@ public class FallingNotesScreen implements Screen {
 
         //initialize the Game name and font
         initializeGameName();
-
-
-
-
 
 
         renderer = new RoundRectShapeRenderer();
@@ -174,11 +168,11 @@ public class FallingNotesScreen implements Screen {
 
     public void playPauseToggle() {
         isPlaying = !isPlaying;
-        if(isPlaying)
+        if (isPlaying)
             gestureResponse.removePauseResponse();
         else
             gestureResponse.showPauseResponse();
-        }
+    }
 
     private void initializeGameName() {
         Texture texture = new Texture(Gdx.files.internal("font/courgette.png"), true); // true enables mipmaps
@@ -228,7 +222,7 @@ public class FallingNotesScreen implements Screen {
 //            Gdx.app.log(TAG+"midiEndTIme",notes.midiEndTime+"");
 
             //Reset Condition
-            if(notes.initialTime*1000>notes.animationEndTime) {
+            if (notes.initialTime * 1000 > notes.animationEndTime) {
 
                 reset();
             }
@@ -332,9 +326,8 @@ public class FallingNotesScreen implements Screen {
 
     private void handleInput() {
 
-        if(isOnce==false)
-        {
-            cam.translate(Constants.WORLD_WIDTH/3,0,0);
+        if (isOnce == false) {
+            cam.translate(Constants.WORLD_WIDTH / 3, 0, 0);
             isOnce = true;
         }
         if (Gdx.input.isKeyPressed(Input.Keys.A)) {
@@ -344,7 +337,6 @@ public class FallingNotesScreen implements Screen {
         }
         if (Gdx.input.isKeyPressed(Input.Keys.Q)) {
             cam.zoom -= 0.005;
-
 
 
         }
@@ -362,8 +354,8 @@ public class FallingNotesScreen implements Screen {
         }
 
         //This is to avoid translating the camera out of bounds
-        cam.position.x = MathUtils.clamp(cam.position.x, cam.viewportWidth*0.5f*cam.zoom, Gdx.graphics.getWidth() - cam.viewportWidth*0.5f*cam.zoom);
-        cam.position.y = MathUtils.clamp(cam.position.y, 0.8552987f*cam.viewportHeight*0.5f*cam.zoom+39.29953f, 0.8552987f*cam.viewportHeight*0.5f*cam.zoom+39.29953f);
+        cam.position.x = MathUtils.clamp(cam.position.x, cam.viewportWidth * 0.5f * cam.zoom, Gdx.graphics.getWidth() - cam.viewportWidth * 0.5f * cam.zoom);
+        cam.position.y = MathUtils.clamp(cam.position.y, 0.8552987f * cam.viewportHeight * 0.5f * cam.zoom + 39.29953f, 0.8552987f * cam.viewportHeight * 0.5f * cam.zoom + 39.29953f);
 
         //This is to limit the zoom level
         //minimum zoom level should be to fit the whhole piano
@@ -375,8 +367,7 @@ public class FallingNotesScreen implements Screen {
 //        Gdx.app.log(TAG,"zoom "+cam.zoom);
 
 
-
-        cam.zoom = MathUtils.clamp(cam.zoom,0.855f,1.98f);
+        cam.zoom = MathUtils.clamp(cam.zoom, 0.855f, 1.98f);
 
 
     }
@@ -388,15 +379,25 @@ public class FallingNotesScreen implements Screen {
     }
 
     //This function is called when the song is playd 100 percent
-    public void reset()
-    {
-        notes.setCorrectNoteCount(0);
-        Gdx.app.log(TAG,"reset");
+    public void reset() {
+        Gdx.app.log(TAG, "reset");
         gestureResponse.showResetResponse();
         isPlaying = false;
         notes.reset();
         controls.reset();
         piano.reset();
+
+        //Use Database only in recognition mode
+        if (recognitionMode) {
+            //Check if new Score is greater than old score
+            float oldScore = app.dbInterface.getScoreByMidi(midiName);
+
+            if (oldScore < (notes.correctNoteCount * 100 / notes.totalNotesCount))
+                app.dbInterface.submitScore(midiName, notes.totalNotesCount, notes.correctNoteCount);
+        }
+
+
+        notes.setCorrectNoteCount(0);
     }
 
 
@@ -428,7 +429,7 @@ public class FallingNotesScreen implements Screen {
 
     public void zoom(float ratio) {
         cam.zoom -= ratio * 0.004;
-        cam.zoom = MathUtils.clamp(cam.zoom,0.855f,1.98f);
+        cam.zoom = MathUtils.clamp(cam.zoom, 0.855f, 1.98f);
     }
 
     public void translate(float Xdelta) {
@@ -436,8 +437,8 @@ public class FallingNotesScreen implements Screen {
 
         //This is to avoid translating the camera out of bounds
         //This is calculated by hand
-        cam.position.x = MathUtils.clamp(cam.position.x, cam.viewportWidth*0.5f*cam.zoom, Gdx.graphics.getWidth() - cam.viewportWidth*0.5f*cam.zoom);
-        cam.position.y = MathUtils.clamp(cam.position.y, 0.8552987f*cam.viewportHeight*0.5f*cam.zoom+39.29953f, 0.8552987f*cam.viewportHeight*0.5f*cam.zoom+39.29953f);
+        cam.position.x = MathUtils.clamp(cam.position.x, cam.viewportWidth * 0.5f * cam.zoom, Gdx.graphics.getWidth() - cam.viewportWidth * 0.5f * cam.zoom);
+        cam.position.y = MathUtils.clamp(cam.position.y, 0.8552987f * cam.viewportHeight * 0.5f * cam.zoom + 39.29953f, 0.8552987f * cam.viewportHeight * 0.5f * cam.zoom + 39.29953f);
 
     }
 
@@ -462,8 +463,7 @@ public class FallingNotesScreen implements Screen {
         return theme;
     }
 
-    public Notes getNotes()
-    {
+    public Notes getNotes() {
         return notes;
     }
 

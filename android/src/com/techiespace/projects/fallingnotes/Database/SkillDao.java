@@ -39,4 +39,11 @@ public interface SkillDao {
 
     @Query("SELECT COUNT(*) FROM SKILL WHERE completed = 'true' ")
     int getCompletedSkillNo();
+
+    @Query("UPDATE Skill set completed = 'true',score = :score WHERE midiPath = :midiName")
+    void updateSkillInfo(String midiName,float score);
+
+    @Query("SELECT score from Skill WHERE midiPath=:midiName")
+    float getScoreByMidi(String midiName);
+
 }
