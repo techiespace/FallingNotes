@@ -45,7 +45,7 @@ public class PagerActivity extends AppCompatActivity {
     ImageButton mNextBtn;
     Button mSkipBtn, mFinishBtn;
 
-    ImageView zero, one, two;
+    ImageView zero, one, two, three, four;
     ImageView[] indicators;
 
     int lastLeftValue = 0;
@@ -88,11 +88,13 @@ public class PagerActivity extends AppCompatActivity {
         zero = (ImageView) findViewById(R.id.intro_indicator_0);
         one = (ImageView) findViewById(R.id.intro_indicator_1);
         two = (ImageView) findViewById(R.id.intro_indicator_2);
+        three = (ImageView)findViewById(R.id.intro_indicator_3);
+        four = (ImageView)findViewById(R.id.intro_indicator_4);
 
         mCoordinator = (CoordinatorLayout) findViewById(R.id.main_content);
 
 
-        indicators = new ImageView[]{zero, one, two};
+        indicators = new ImageView[]{zero, one, two,three,four};
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
@@ -102,10 +104,12 @@ public class PagerActivity extends AppCompatActivity {
         updateIndicators(page);
 
         final int color1 = ContextCompat.getColor(this, R.color.colorPrimary);
-        final int color2 = ContextCompat.getColor(this, R.color.orange);
+        final int color2 = ContextCompat.getColor(this, R.color.purple);
         final int color3 = ContextCompat.getColor(this, R.color.green);
+        final int color4 = ContextCompat.getColor(this,R.color.red);
+        final int color5 = ContextCompat.getColor(this,R.color.new_grey);
 
-        final int[] colorList = new int[]{color1, color2, color3};
+        final int[] colorList = new int[]{color1, color2, color3, color4, color5};
 
         final ArgbEvaluator evaluator = new ArgbEvaluator();
 
@@ -116,7 +120,7 @@ public class PagerActivity extends AppCompatActivity {
                 /*
                 color update
                  */
-                int colorUpdate = (Integer) evaluator.evaluate(positionOffset, colorList[position], colorList[position == 2 ? position : position + 1]);
+                int colorUpdate = (Integer) evaluator.evaluate(positionOffset, colorList[position], colorList[position == 4 ? position : position + 1]);
                 mViewPager.setBackgroundColor(colorUpdate);
 
             }
@@ -138,11 +142,17 @@ public class PagerActivity extends AppCompatActivity {
                     case 2:
                         mViewPager.setBackgroundColor(color3);
                         break;
+                    case 3:
+                        mViewPager.setBackgroundColor(color4);
+                        break;
+                    case 4:
+                        mViewPager.setBackgroundColor(color5);
+                        break;
                 }
 
 
-                mNextBtn.setVisibility(position == 2 ? View.GONE : View.VISIBLE);
-                mFinishBtn.setVisibility(position == 2 ? View.VISIBLE : View.GONE);
+                mNextBtn.setVisibility(position == 4 ? View.GONE : View.VISIBLE);
+                mFinishBtn.setVisibility(position == 4 ? View.VISIBLE : View.GONE);
 
 
             }
@@ -224,7 +234,7 @@ public class PagerActivity extends AppCompatActivity {
 
         ImageView img;
 
-        int[] bgs = new int[]{R.drawable.piano_icon, R.drawable.ic_mail_24dp, R.drawable.ic_explore_24dp};
+        int[] bgs = new int[]{R.drawable.piano_icon, R.drawable.midi, R.drawable.ai_burned,R.drawable.piano_lesson,R.drawable.new_logo};
 
         public PlaceholderFragment() {
         }
@@ -246,7 +256,33 @@ public class PagerActivity extends AppCompatActivity {
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_pager, container, false);
             TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText("ChordSwift");
+            TextView description = (TextView)rootView.findViewById(R.id.description);
+
+            if(getArguments().getInt(ARG_SECTION_NUMBER)==1) {
+                textView.setText("ChordSwift");
+                description.setText("Welcome to ChordSwift your AI powered piano tutor app");
+            }
+            else if(getArguments().getInt(ARG_SECTION_NUMBER)==2){
+                textView.setText("Play Your Own Midi");
+                description.setText("You can play midi files of your favourite songs");
+                }
+            else if(getArguments().getInt(ARG_SECTION_NUMBER)==3){
+                textView.setText("AI Based Smart Recognition Engine");
+                description.setText("Our app has a build in sound recognition engine to provide you realtime feedback for a interactive learning experience");
+
+            }
+            else if(getArguments().getInt(ARG_SECTION_NUMBER)==4){
+                textView.setText("Built In Piano Lessons");
+                description.setText("Our curriculum, designed by expert music teacher will help musicians of all levels improve, from complete beginners to professionals");
+
+            }
+            else if(getArguments().getInt(ARG_SECTION_NUMBER)==5){
+                textView.setText("Gamified Learning Platform");
+                description.setText("Our Built in game engine makes the overall learning experience fun and interesting");
+
+            }
+
+
 
             img = (ImageView) rootView.findViewById(R.id.section_img);
             img.setBackgroundResource(bgs[getArguments().getInt(ARG_SECTION_NUMBER) - 1]);
@@ -280,7 +316,7 @@ public class PagerActivity extends AppCompatActivity {
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 3;
+            return 5;
         }
 
         @Override
@@ -292,6 +328,11 @@ public class PagerActivity extends AppCompatActivity {
                     return "SECTION 2";
                 case 2:
                     return "SECTION 3";
+                case 3:
+                    return "SECTION 4";
+                case 4:
+                    return "SECTION 5";
+
             }
             return null;
         }

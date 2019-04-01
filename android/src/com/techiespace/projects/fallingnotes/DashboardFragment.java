@@ -124,14 +124,13 @@ public class DashboardFragment extends Fragment {
 
             }
         });
-        try {
-            latch.await();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
 
-        progressBar.setProgress(completedSkills/totalSkills);
-        percentagetv.setText((completedSkills * 100 / totalSkills) + "%");
+
+
+        if(totalSkills!=0) {
+            progressBar.setProgress(completedSkills / totalSkills);
+            percentagetv.setText((completedSkills * 100 / totalSkills) + "%");
+        }
 
         return rootView;
 
