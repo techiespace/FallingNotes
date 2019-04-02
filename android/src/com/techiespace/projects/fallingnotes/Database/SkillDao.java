@@ -9,8 +9,6 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import static com.badlogic.gdx.Net.HttpMethods.DELETE;
-
 @Dao
 public interface SkillDao {
     @Query("SELECT * FROM Skill")
@@ -40,10 +38,13 @@ public interface SkillDao {
     @Query("SELECT COUNT(*) FROM SKILL WHERE completed = 'true' ")
     int getCompletedSkillNo();
 
-    @Query("UPDATE Skill set completed = 'true',score = :score WHERE midiPath = :midiName")
-    void updateSkillInfo(String midiName,float score);
+    @Query("UPDATE Skill set completed = :completed, score = :score WHERE midiPath = :midiName")
+    void updateSkillInfo(String midiName, float score, boolean completed);
 
     @Query("SELECT score from Skill WHERE midiPath=:midiName")
     float getScoreByMidi(String midiName);
+
+    @Query("SELECT completed FROM Skill WHERE skill_id= :skill_id")
+    boolean getSkillCompletedStatus(int skill_id);
 
 }

@@ -227,10 +227,9 @@ public class databaseHandler implements dbInterface {
        AppExecutors.getInstance().diskIO().execute(new Runnable() {
            @Override
            public void run() {
-               mDb.skillDao().updateSkillInfo(midiName,score);
-
-             //  System.out.println("Database Updates");
-               System.out.println("score "+score);
+               boolean completed = score > 85;
+               String[] midiNameArr = midiName.split("/");
+               mDb.skillDao().updateSkillInfo(midiNameArr[midiNameArr.length - 1], score, completed);
            }
        });
     }
