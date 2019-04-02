@@ -12,5 +12,4 @@
     <dimen name="curvedTextRadius">75dp</dimen>
     <dimen name="curvedTextPadding">3dp</dimen>
     <dimen name="activity_margin_half">8dp</dimen>
-    <dimen name="activity_margin_content">24dp</dimen>
 </resources>

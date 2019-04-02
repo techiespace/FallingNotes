@@ -2,14 +2,32 @@ package com.techiespace.projects.fallingnotes.Database;
 
 import android.content.Context;
 
-public class databaseHandler {
-    private AppDatabase mDb;
+import com.techiespace.projects.fallingnotes.dbInterface;
 
-    public databaseHandler(Context context)
+import java.util.concurrent.CountDownLatch;
+
+public class databaseHandler implements dbInterface {
+    private AppDatabase mDb;
+    private static databaseHandler dbHandler;
+    float score;
+
+    private databaseHandler(Context context)
     {
         mDb = AppDatabase.getInstance(context);
 
     }
+
+    public static databaseHandler getInstance(Context context)
+    {
+        if(dbHandler==null)
+        {
+            dbHandler = new databaseHandler(context);
+
+        }
+
+            return dbHandler;
+    }
+
 
 
     public void loadDatabase()
@@ -199,5 +217,48 @@ public class databaseHandler {
                         new Scale(96, "B", "inappmidi/chords/dim/B.mid", "Diminished Chords", "1) Chord Instructions", false));
             }
         });
+    }
+
+    @Override
+    public void submitScore(final String midiName, int totalNotes, int rightNotes) {
+
+       final float score = rightNotes*100/totalNotes;
+
+       AppExecutors.getInstance().diskIO().execute(new Runnable() {
+           @Override
+           public void run() {
+               mDb.skillDao().updateSkillInfo(midiName,score);
+
+             //  System.out.println("Database Updates");
+               System.out.println("score "+score);
+           }
+       });
+    }
+
+
+    @Override
+    public float getScoreByMidi(final String midiName) {
+
+
+        final CountDownLatch latch = new CountDownLatch(1);
+        AppExecutors.getInstance().diskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                score= mDb.skillDao().getScoreByMidi(midiName);
+                latch.countDown();
+
+
+            }
+        });
+
+        try {
+            latch.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        return score;
+
+
     }
 }

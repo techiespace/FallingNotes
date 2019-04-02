@@ -28,7 +28,7 @@ public class Skill {
 
 
 
-    private int score;
+    private float score;
     private boolean completed;
 
     @Ignore
@@ -59,7 +59,7 @@ public class Skill {
         return level_id;
     }
 
-    public int getScore() {
+    public float getScore() {
         return score;
     }
 
@@ -103,7 +103,7 @@ public class Skill {
         this.midiPath = midiPath;
     }
 
-    public void setScore(int score) {
+    public void setScore(float score) {
         this.score = score;
     }
 
