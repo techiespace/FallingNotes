@@ -48,6 +48,10 @@
     <item android:title="About">
         <menu>
             <item
+                android:id="@+id/youtube_channel"
+                android:icon="@drawable/youtube"
+                android:title="YouTube" />
+            <item
                 android:id="@+id/nav_share"
                 android:icon="@drawable/ic_menu_share"
                 android:title="Share" />

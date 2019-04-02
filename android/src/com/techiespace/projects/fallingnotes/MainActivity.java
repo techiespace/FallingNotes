@@ -1,6 +1,7 @@
 package com.techiespace.projects.fallingnotes;
 
 import android.Manifest;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -12,15 +13,11 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.techiespace.projects.fallingnotes.Database.AppDatabase;
-import com.techiespace.projects.fallingnotes.Database.AppExecutors;
-import com.techiespace.projects.fallingnotes.Database.Level;
 import com.techiespace.projects.fallingnotes.Database.databaseHandler;
 import com.techiespace.projects.fallingnotes.fragments.ChordFragment;
 import com.techiespace.projects.fallingnotes.fragments.ComingSoonFragment;
 import com.techiespace.projects.fallingnotes.fragments.MidiPlayerFragment;
 import com.techiespace.projects.fallingnotes.fragments.ScaleFragment;
-
-import java.util.List;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -217,6 +214,8 @@ public class MainActivity extends AppCompatActivity
             fragment = new ChordFragment();
         } else if (id == R.id.nav_adv_chord) {
             fragment = new ComingSoonFragment();
+        } else if (id == R.id.youtube_channel) {
+            openYoutubeChannel();
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
@@ -231,6 +230,21 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void openYoutubeChannel() {
+        Intent intent = null;
+        String url = "https://www.youtube.com/ChordSwiftMusic";
+        try {
+            intent = new Intent(Intent.ACTION_VIEW);
+            intent.setPackage("com.google.android.youtube");
+            intent.setData(Uri.parse(url));
+            startActivity(intent);
+        } catch (ActivityNotFoundException e) {
+            intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(url));
+            startActivity(intent);
+        }
     }
 
     private void composeEmail(String[] addresses, String subject) {
