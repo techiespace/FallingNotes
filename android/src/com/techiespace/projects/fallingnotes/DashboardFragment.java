@@ -19,6 +19,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.techiespace.projects.fallingnotes.Database.AppDatabase;
 import com.techiespace.projects.fallingnotes.Database.AppExecutors;
 import com.techiespace.projects.fallingnotes.course.fragments.UniversityFragment;
@@ -47,6 +49,7 @@ public class DashboardFragment extends Fragment {
     CardView chooseMidiCardView;
     ProgressBar progressBar;
     TextView percentagetv;
+    AdView dashboardBottomBannerAd;
     private AppDatabase mDb;
     private int totalSkills;
     private int completedSkills;
@@ -78,6 +81,11 @@ public class DashboardFragment extends Fragment {
         chooseMidiCardView = rootView.findViewById(R.id.cardViewChooseMidi);
         progressBar = rootView.findViewById(R.id.circle_progress_bar);
         percentagetv = rootView.findViewById(R.id.compliance_total_count);
+        dashboardBottomBannerAd = rootView.findViewById(R.id.dashboard_bottom_banner_ad);
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .build();
+        dashboardBottomBannerAd.loadAd(adRequest);
         universityCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

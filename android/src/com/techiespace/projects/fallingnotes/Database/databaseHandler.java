@@ -79,8 +79,8 @@ public class databaseHandler implements dbInterface {
                         new Skill(20, "Major Scale - E", "Forming Major Scales", 3, "3_20_EScale.mid", "• Learn the E Major Scale with 4 sharps"),
                         new Skill(21, "Major Scale - B", "Forming Major Scales", 3, "3_21_BScale.mid", "• Learn the B Major Scale with 5 sharps."),
                         new Skill(22, "Major Scale - F", "Forming Major Scales", 3, "3_22_FmScale.mid", "• Learn the F Minor Scale with 3 sharps."),
-                        new Skill(23, "Major Scale - C", "Forming Major Scales", 3, "3_23_CmScale.mid", "• Learn the C Minor Scale with 4 sharps."),
-                        new Skill(24, "Major Scale - G", "Forming Major Scales", 3, "3_24_GmScale.mid", "• Learn the G Minor Scale with 5 sharps."),
+                        new Skill(23, "Major Scale - C", "Forming Major Scales", 3, "3_23_C#mScale.mid", "• Learn the C Minor Scale with 4 sharps."),
+                        new Skill(24, "Major Scale - G", "Forming Major Scales", 3, "3_24_G#mScale.mid", "• Learn the G Minor Scale with 5 sharps."),
                         new Skill(25, "Practice I", "Songs", 4, "4_25_MaryHadALittleLamb.mid", "• Mary Had A Little Lamb"),
                         new Skill(26, "Practice II", "Songs", 4, "4_26_HappyBirthdayToYou.mid", "• Happy Birthday to You"),
                         new Skill(27, "Practice III", "Songs", 4, "4_27_JingleBells.mid", "• Jingle Bells"),
@@ -88,12 +88,12 @@ public class databaseHandler implements dbInterface {
                         new Skill(29, "Practice V", "Songs", 4, "4_29_Hedwig Theme - Harry Potter.mid", "• Harry Potter"),
                         new Skill(30, "Practice VI", "Songs", 4, "4_30_Greensleeves.mid", "• Greensleeves"),
                         new Skill(31, "Practice VII", "Songs", 4, "4_31_OdeToJoy.mid", "• Ode to Joy"),
-                        new Skill(33, "Theory II", "Note Duration", 5, "LVOjKCztqTs", "• The length of time that a note is played is called its note duration, which is determined by the type of note.\n• The whole note  has the longest note duration in modern music."),
+                        new Skill(33, "Theory II", "Note Duration", 5, "LVOjKCztqTs", "• The length of time that a note is played is called its note duration, which is determined by the type of note.\n• The whole note  has the longest note duration in modern music.\n• The half note is half the duration of a whole note.\n• Two half notes occupy the same amount of time as a whole note.\n• The quarter note is a fourth of a whole note.\n• Two quarter notes equal a duration of a half note.\n• 4 Quarter notes occupy the same duration of a whole note.\n• Notes smaller in duration of a quarter note have flags."),
                         new Skill(34, "Theory III", "Note Duration", 5, "5_34_Note_Values_whole_half_quarter.mid", "• The half note is half the duration of a whole note.\n• Two half notes occupy the same amount of time as a whole note.\n• Play at 120bpm."),
-                        new Skill(35, "Theory IV", "", 5, "", "• The quarter note is a fourth of a whole note.\n• Two quarter notes equal a duration of a half note.\n• 4 Quarter notes occupy the same duration of a whole note.\n• Notes smaller in duration of a quarter note have flags."),
-                        new Skill(36, "Theory V", "Ionian Mode", 5, "", "Ionian"),
+                        new Skill(35, "Theory IV", "Modes", 5, "vpc4SwXf6cU", "• The C major scale corresponds to the white keys on a piano keyboard, beginning with the note C.\n• But you can use this same collection of notes to create seven more scales (called modes), simply by starting in a different place.\n• Here are the seven modes that can be derived from the pitches of the C major scale:\n• C Ionian (major) — CDEFGABC\n• D Dorian — DEFGABCD\n• E Phrygian — EFGABCDE\n• F Lydian — FGABCDEF\n• G Mixolydian — GABCDEFG\n• A Aeolian (minor) — ABCDEFGA\n• B Locrian — BCDEFGAB\n• The pitches and intervals are always in the same order, but the different starting positions give each mode a unique musical character.\n• You can think of the modes as being \"rotations\" of each other.")
+/*                        new Skill(36, "Theory V", "Ionian Mode", 5, "", "Ionian"),
                         new Skill(37, "Theory VI", "Ionian Mode", 5, "", "Dorian"),
-                        new Skill(38, "Theory VII", "Phrygian Mode", 5, "", "Phrygian")
+                        new Skill(38, "Theory VII", "Phrygian Mode", 5, "", "Phrygian")*/
                 );
 
 
