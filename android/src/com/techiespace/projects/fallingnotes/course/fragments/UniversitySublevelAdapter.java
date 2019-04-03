@@ -3,12 +3,15 @@ package com.techiespace.projects.fallingnotes.course.fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
 import com.techiespace.projects.fallingnotes.Database.AppDatabase;
 import com.techiespace.projects.fallingnotes.Database.AppExecutors;
 import com.techiespace.projects.fallingnotes.Database.Skill;
@@ -36,11 +39,15 @@ public class UniversitySublevelAdapter extends RecyclerView.Adapter<UniversitySu
     Context context;
     Runnable runnable;
     private boolean dataLoaded = false;
+    private InterstitialAd mInterstitialAd;
 
     // Provide a suitable constructor (depends on the kind of dataset)
     UniversitySublevelAdapter(List<Skill> skillListByLevel, Context context) {
         this.skillListByLevel = skillListByLevel;
         this.context = context;
+        mInterstitialAd = new InterstitialAd(context);
+        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
 //        mDb = AppDatabase.getInstance(context);
     }
 
@@ -51,7 +58,6 @@ public class UniversitySublevelAdapter extends RecyclerView.Adapter<UniversitySu
         // create a new view
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.list_university_sublevel_item, parent, false);
-
         MyViewHolder vh = new MyViewHolder(v);
         return vh;
     }
@@ -84,6 +90,11 @@ public class UniversitySublevelAdapter extends RecyclerView.Adapter<UniversitySu
             @Override
             public void onClick(View v) {
                 if (skillListByLevel.get(position).getMidiPath().contains(".mid")) {
+                    if (mInterstitialAd.isLoaded()) {
+                        mInterstitialAd.show();
+                    } else {
+                        Log.d("TAG", "The interstitial wasn't loaded yet.");
+                    }
                     Intent intent = new Intent(context, PracticeActivity.class);
                     intent.putExtra("playMidi", false);
                     intent.putExtra(Intent.EXTRA_TEXT, "inappmidi/CSUni/" + skillListByLevel.get(position).getMidiPath());

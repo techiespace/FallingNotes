@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
@@ -35,7 +37,7 @@ public class MainActivity extends AppCompatActivity
     private databaseHandler dbhandler;
     private static final int REQUEST_RECORD_AUDIO = 13;
     private static final int REQUEST_READ_EXTERNAL_STORAGE = 12;
-
+    AdView dashboardBottomBannerAd;
     public static final String PREF_USER_FIRST_TIME = "user_first_time";
     boolean isUserFirstTime;
 
@@ -56,6 +58,13 @@ public class MainActivity extends AppCompatActivity
 
 
         setContentView(R.layout.activity_main);
+        //ad
+        dashboardBottomBannerAd = findViewById(R.id.bottom_banner_ad);
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .build();
+        dashboardBottomBannerAd.loadAd(adRequest);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
