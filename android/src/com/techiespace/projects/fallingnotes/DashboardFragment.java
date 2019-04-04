@@ -1,9 +1,12 @@
 package com.techiespace.projects.fallingnotes;
 
 
+import android.Manifest;
 import android.content.ContentUris;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
@@ -19,8 +22,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
 import com.techiespace.projects.fallingnotes.Database.AppDatabase;
 import com.techiespace.projects.fallingnotes.Database.AppExecutors;
 import com.techiespace.projects.fallingnotes.course.fragments.UniversityFragment;
@@ -33,7 +34,9 @@ import java.io.OutputStream;
 import java.util.concurrent.CountDownLatch;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -49,7 +52,6 @@ public class DashboardFragment extends Fragment {
     CardView chooseMidiCardView;
     ProgressBar progressBar;
     TextView percentagetv;
-    AdView dashboardBottomBannerAd;
     private AppDatabase mDb;
     private int totalSkills;
     private int completedSkills;
@@ -60,8 +62,12 @@ public class DashboardFragment extends Fragment {
     int filesize;
 
     Context mContext;
-
-
+    private static final int REQUEST_PERMISSION = 13;
+//    private static final int REQUEST_RECORD_AUDIO = 13;
+//    private static final int REQUEST_READ_EXTERNAL_STORAGE = 12;
+    LayoutInflater inflater;
+    ViewGroup container;
+    Bundle savedInstnces;
 
     public DashboardFragment() {
         // Required empty public constructor
@@ -75,71 +81,17 @@ public class DashboardFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        this.inflater = inflater;
+        this.container = container;
+        this.savedInstnces = savedInstanceState;
+        if (ContextCompat.checkSelfPermission(getActivity(),
+                Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(getActivity(),
+                Manifest.permission.RECORD_AUDIO)
+                != PackageManager.PERMISSION_GRANTED)
+            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.RECORD_AUDIO},13);
         // Inflate the layout for this fragment
-        final View rootView = inflater.inflate(R.layout.fragment_dashboard, container, false);
-        universityCardView = rootView.findViewById(R.id.cardViewCSUni);
-        chooseMidiCardView = rootView.findViewById(R.id.cardViewChooseMidi);
-        progressBar = rootView.findViewById(R.id.circle_progress_bar);
-        percentagetv = rootView.findViewById(R.id.compliance_total_count);
-        dashboardBottomBannerAd = rootView.findViewById(R.id.dashboard_bottom_banner_ad);
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                .build();
-        dashboardBottomBannerAd.loadAd(adRequest);
-        universityCardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Fragment universityFragment = new UniversityFragment();
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.screen_area, universityFragment); // give your fragment container id in first parameter
-                transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
-                transaction.commit();
-            }
-        });
-        chooseMidiCardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-
-                    Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                intent.setType("audio/midi");
-                    intent.addCategory(Intent.CATEGORY_OPENABLE);
-                    //intent.putExtra("browseCoa", itemToBrowse);
-                    //Intent chooser = Intent.createChooser(intent, "Select a File to Upload");
-                    try {
-                        //startActivityForResult(chooser, FILE_SELECT_CODE);
-                        startActivityForResult(Intent.createChooser(intent, "Select a File to Upload"),FILE_SELECT_CODE);
-                    } catch (Exception ex) {
-                        System.out.println("browseClick :"+ex);//android.content.ActivityNotFoundException ex
-                    }
-
-
-
-                }
-        });
-
-
-        mDb = AppDatabase.getInstance(getContext());
-        final CountDownLatch latch = new CountDownLatch(1);
-
-        AppExecutors.getInstance().diskIO().execute(new Runnable() {
-            @Override
-            public void run() {
-                totalSkills = mDb.skillDao().getTotalSkillNo();
-                completedSkills = mDb.skillDao().getCompletedSkillNo();
-                System.out.println("Skills "+totalSkills);
-                latch.countDown();
-
-            }
-        });
-
-
-
-        if(totalSkills!=0) {
-            progressBar.setProgress(completedSkills / totalSkills);
-            percentagetv.setText((completedSkills * 100 / totalSkills) + "%");
-        }
-
+        View rootView = initializeFragments(inflater, container, savedInstanceState);
         return rootView;
 
     }
@@ -320,6 +272,114 @@ public class DashboardFragment extends Fragment {
      */
     public static boolean isGooglePhotosUri(Uri uri) {
         return "com.google.android.apps.photos.content".equals(uri.getAuthority());
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        if (requestCode == REQUEST_PERMISSION) {
+            if (grantResults.length > 0
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+                initializeFragments(inflater,container,savedInstnces);
+            } else {
+                openAlertDialog();
+            }
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    private View initializeFragments(LayoutInflater inflater, ViewGroup container,
+                                     Bundle savedInstanceState) {
+        final View rootView = inflater.inflate(R.layout.fragment_dashboard, container, false);
+        universityCardView = rootView.findViewById(R.id.cardViewCSUni);
+        chooseMidiCardView = rootView.findViewById(R.id.cardViewChooseMidi);
+        progressBar = rootView.findViewById(R.id.circle_progress_bar);
+        percentagetv = rootView.findViewById(R.id.compliance_total_count);
+        universityCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment universityFragment = new UniversityFragment();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.screen_area, universityFragment); // give your fragment container id in first parameter
+                transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
+                transaction.commit();
+            }
+        });
+        chooseMidiCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("audio/midi");
+                intent.addCategory(Intent.CATEGORY_OPENABLE);
+                //intent.putExtra("browseCoa", itemToBrowse);
+                //Intent chooser = Intent.createChooser(intent, "Select a File to Upload");
+                try {
+                    //startActivityForResult(chooser, FILE_SELECT_CODE);
+                    startActivityForResult(Intent.createChooser(intent, "Select a File to Upload"),FILE_SELECT_CODE);
+                } catch (Exception ex) {
+                    System.out.println("browseClick :"+ex);//android.content.ActivityNotFoundException ex
+                }
+
+
+
+            }
+        });
+
+
+        mDb = AppDatabase.getInstance(getContext());
+        final CountDownLatch latch = new CountDownLatch(1);
+
+        AppExecutors.getInstance().diskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                totalSkills = mDb.skillDao().getTotalSkillNo();
+                completedSkills = mDb.skillDao().getCompletedSkillNo();
+                System.out.println("Skills "+totalSkills);
+                latch.countDown();
+
+            }
+        });
+
+
+
+        if(totalSkills!=0) {
+            progressBar.setProgress(completedSkills / totalSkills);
+            percentagetv.setText((completedSkills * 100 / totalSkills) + "%");
+        }
+        return rootView;
+    }
+
+    private void openAlertDialog() {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
+        alertDialogBuilder.setMessage("This app requires your location to function!");
+        alertDialogBuilder.setPositiveButton("Try again",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.RECORD_AUDIO},13);
+                    }
+                });
+
+        /*alertDialogBuilder.setNegativeButton("Settings", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent i = new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                i.addCategory(Intent.CATEGORY_DEFAULT);
+                i.setData(Uri.parse("package:com.techiespace.projects.fallingnotes"));
+                startActivity(i);
+            }
+        });*/
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+        alertDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.RECORD_AUDIO},13);
+            }
+        });
     }
 
 }
