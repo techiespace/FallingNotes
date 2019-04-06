@@ -57,45 +57,43 @@ public class databaseHandler implements dbInterface {
                     mDb.levelDao().insertLevel(level[i]);
 
                 mDb.skillDao().insertAllSkills(
-                        new Skill(1, "Getting to know the keyboard", "Note Names", 1, "1_1_C.mid", "1. Middle C also called C4 is the note in the center of the keybord. This key will act as a refrence key to identify all keys on the piano"),
-                        new Skill(2, "More Notes", "Note Names", 1, "", "1. A is the key just before B and E is the key to the right of two black notes"),
-                        new Skill(3, "Sharps n Flats", "Note Names", 1, "1_3_Sharps.mid", "1. The black keys are called sharps and flats. 2. A note to the right of a white key is sharp and a note to left is flat. 3. A note can have two names. e.g. A# = Bb "),
-                        new Skill(4, "Finger Position", "Place your hand on the keyboard right", 1, "", "1. One finger on each finger"),
-                        new Skill(5, "Finger Position", "Place your hand on the keyboard right", 1, "1_5_ItsyBitsySpider.mid", "1. Jump between hand positions as needed."),
-                        new Skill(6, "Posture", "Posture", 1, "", "1. Sit upright. 2. Your feet should stay flat on the ground 3. Keep forearm parallel to the ground. 4. Curl your finges as if grabbing a ball."),
-                        new Skill(7, "Intervals", "Whole step, Half Step", 2, "1_7_Intervals.mid", "1. Two notes without any key between them are said to be half step apart 2. Two notes with exactly one key(note) between them are said to be whole step apart."),
-                        new Skill(8, "", "Thumb under, Cross over", 2, "", ""),
-                        new Skill(9, "Major Scale - C", "Forming Major Scales", 2, "2_9_CScale.mid", "Major Scales are formed by the formula - WWHWWWH"),
-                        new Skill(10, "Major Scale - G", "Forming Major Scales", 2, "2_10_GScale.mid", "Major Scales are formed by the formula - WWHWWWH"),
-                        new Skill(11, "Major Scale - F", "Forming Major Scales", 2, "2_11_FScale.mid", "Major Scales are formed by the formula - WWHWWWH"),
-                        new Skill(12, "Major Scale - D", "Forming Major Scales", 2, "2_12_DScale.mid", "Major Scales are formed by the formula - WWHWWWH"),
-                        new Skill(13, "Memorising scales", "Count number or sharps in a scale", 2, "", "Given the number of accidentals, their names can be found using the Mnemonic - Father Christmas Gave Daddy An Electric Blanket. e.g. G Major Scale has one accidental i.e. F, D Major Scale has 2 accidentals i.e. F and C."),
-                        new Skill(14, "Minor Scale - A", "Forming Minor Scales", 2, "", "Minor Scales are formed by the formula - WHWWHWW"),
-                        new Skill(15, "Minor Scale - E", "Relative Minor", 2, "xbEer87lfdU", "The Relative Minor (scale) of a Major scale is located 3 half steps below the root note of the Major Scale"),
-                        new Skill(16, "Simple Melody for Right hand", "Finger Co-ordination exercise", 3, "", "Forest Gump melody in C Major"),
-                        new Skill(17, "Changing the key", "Keys", 3, "", "See how to same melody sounds in a different key"),
-                        new Skill(18, "Changing the key II", "More Keys", 3, "", "See how to same melody sounds in a different key"),
-                        new Skill(19, "Major Scale - A", "Forming Major Scales", 3, "3_19_AScale.mid", "Learn the A Major Scale with 3 sharps"),
-                        new Skill(20, "Major Scale - E", "Forming Major Scales", 3, "3_20_EScale.mid", "Learn the E Major Scale with 4 sharps"),
-                        new Skill(21, "Major Scale - B", "Forming Major Scales", 3, "", "Learn the A Major Scale with 5 sharps"),
-                        new Skill(22, "Major Scale - F", "Forming Major Scales", 3, "", "Learn the F Minor Scale with 3 sharps"),
-                        new Skill(23, "Major Scale - C", "Forming Major Scales", 3, "", "Learn the A Minor Scale with 4 sharps"),
-                        new Skill(24, "Major Scale - G", "Forming Major Scales", 3, "", "Learn the A Minor Scale with 5 sharps"),
-                        new Skill(25, "Practice I", "Songs", 4, "4_25_MaryHadALittleLamb.mid", "Mary Had A Little Lamb"),
-                        new Skill(26, "Practice II", "Songs", 4, "4_26_HappyBirthdayToYou.mid", "Happy Birthday to You"),
-                        new Skill(27, "Practice III", "Songs", 4, "4_27_JingleBells.mid", "Jingle Bells"),
-                        new Skill(28, "Practice IV", "Songs", 4, "4_28_SilentNight.mid", "Silent Night"),
-                        new Skill(29, "Practice V", "Songs", 4, "", "Harry Potter"),
-                        new Skill(30, "Practice VI", "Songs", 4, "4_30_Greensleeves.mid", "Greensleeves"),
-                        new Skill(31, "Practice VII", "Songs", 4, "4_31_OdeToJoy.mid", "Ode to Joy"),
-                        new Skill(33, "Theory II", "Note Duration", 5, "", "The length of time that a note is played is called its note duration , which is determined by the type of note. The whole note  has the longest note duration in modern music."),
-                        new Skill(34, "Theory III", "Note Duration", 5, "", "The half note is half the duration of a whole note. Two half notes occupy the same amount of time as a whole note"),
-                        new Skill(35, "Theory IV", "Ionian Mode", 5, "", "The quarter note is a fourth of a whole note. Two quarter notes equal a duration of a half note. 4 Quarter notes occupy the same duration of a whole note. Notes smaller in duration of a quarter note have flags."),
-                        new Skill(36, "Theory V", "Dorian Mode", 5, "", "Ionian"),
-                        new Skill(37, "Theory VI", "Phrygian Mode", 5, "", "Dorian"),
-                        new Skill(38, "Theory VII", "Placeholder", 5, "", "Phrygian"),
-                        new Skill(39, "Theory VIII", "Placeholder", 5, "", "Instructions Placeholder"),
-                        new Skill(40, "Melody", "Placeholder", 5, "", "Instructions Placeholder")
+                        new Skill(1, "Getting to know the keyboard", "Note Names", 1, "1_1_C.mid", "• Middle C also called C4 is the note in the center of the keybord.\n• This key will act as a refrence key to identify all keys on the piano."),
+                        new Skill(2, "More Notes", "Note Names", 1, "AqcnR-xEYdc", "• A is the key just before B and E is the key to the right of two black notes."),
+                        new Skill(3, "Sharps n Flats", "Note Names", 1, "1_3_Sharps.mid", "• The black keys are called sharps and flats.\n• A note to the right of a white key is sharp and a note to left is flat.\n• A note can have two names. e.g. A# = Bb"),
+                        new Skill(4, "Finger Position", "Place your hand on the keyboard right", 1, "1_4_Saints Go Marching In.mid", "• Place your thumb on C, your index finder on D and so on... One finger on each note.\n"),
+                        new Skill(5, "Finger Position", "Place your hand on the keyboard right", 1, "1_5_ItsyBitsySpider.mid", "• Jump between hand positions as needed."),
+                        new Skill(6, "Posture", "Posture", 1, "LE_f3N6gOSg", "• Piano Posture Checklist\n• Sit upright.\n• Your feet should stay flat on the ground\n• Keep forearm parallel to the ground.\n• Curl your finges as if grabbing a ball."),
+                        new Skill(7, "Intervals", "Whole step, Half Step", 2, "1_7_Intervals.mid", "• Two notes without any key between them are said to be half step apart\n• Two notes with exactly one key(note) between them are said to be whole step apart."),
+                        new Skill(8, "Key Signature", "Key Signature, Accidentals", 2, "7rwd7i6Ls9M", "• Key Signature of a musical piece is the set of notes used to play that piece.\n• Key signature, in musical notation, the arrangement of sharp or flat signs on particular lines and spaces of a musical staff to indicate that the corresponding notes, in every octave, are to be consistently raised (by sharps) or lowered (by flats) from their natural pitches."),
+                        new Skill(9, "Major Scale - C", "Forming Major Scales", 2, "2_9_CScale.mid", "• Major Scales are formed by the formula - WWHWWWH"),
+                        new Skill(10, "Major Scale - G", "Forming Major Scales", 2, "2_10_GScale.mid", "• Major Scales are formed by the formula - WWHWWWH"),
+                        new Skill(11, "Major Scale - F", "Forming Major Scales", 2, "2_11_FScale.mid", "• Major Scales are formed by the formula - WWHWWWH"),
+                        new Skill(12, "Major Scale - D", "Forming Major Scales", 2, "2_12_DScale.mid", "• Major Scales are formed by the formula - WWHWWWH"),
+                        new Skill(13, "Memorising scales", "Count number or sharps in a scale", 2, "N1lLDGCeh3k", "• Given the number of accidentals, their names can be found using the Mnemonic - Father Christmas Gave Daddy An Electric Blanket. e.g. G Major Scale has one accidental i.e. F, D Major Scale has 2 accidentals i.e. F and C."),
+                        new Skill(14, "Minor Scale - A", "Forming Minor Scales", 2, "AZw3dQ53lEY", "• Minor Scales are formed by the formula - WHWWHWW"),
+                        new Skill(15, "Minor Scale - E", "Relative Minor", 2, "xbEer87lfdU", "• The Relative Minor (scale) of a Major scale is located 3 half steps below the root note of the Major Scale."),
+                        new Skill(16, "Simple Melody for Right hand", "Finger Co-ordination exercise", 3, "3_16_Forest Gump - Main Theme in C.mid", "• Forest Gump melody in C Major"),
+                        new Skill(17, "Changing the key", "Keys", 3, "3_17_Forest Gump - Main Theme in D.mid", "• See how to same melody sounds in a different key."),
+                        new Skill(18, "Changing the key II", "More Keys", 3, "3_18_Forest Gump - Main Theme in G.mid", "• See how to same melody sounds in a different key"),
+                        new Skill(19, "Major Scale - A", "Forming Major Scales", 3, "3_19_AScale.mid", "• Learn the A Major Scale with 3 sharps"),
+                        new Skill(20, "Major Scale - E", "Forming Major Scales", 3, "3_20_EScale.mid", "• Learn the E Major Scale with 4 sharps"),
+                        new Skill(21, "Major Scale - B", "Forming Major Scales", 3, "3_21_BScale.mid", "• Learn the B Major Scale with 5 sharps."),
+                        new Skill(22, "Major Scale - F", "Forming Major Scales", 3, "3_22_FmScale.mid", "• Learn the F Minor Scale with 3 sharps."),
+                        new Skill(23, "Major Scale - C", "Forming Major Scales", 3, "3_23_C#mScale.mid", "• Learn the C Minor Scale with 4 sharps."),
+                        new Skill(24, "Major Scale - G", "Forming Major Scales", 3, "3_24_G#mScale.mid", "• Learn the G Minor Scale with 5 sharps."),
+                        new Skill(25, "Practice I", "Songs", 4, "4_25_MaryHadALittleLamb.mid", "• Mary Had A Little Lamb"),
+                        new Skill(26, "Practice II", "Songs", 4, "4_26_HappyBirthdayToYou.mid", "• Happy Birthday to You"),
+                        new Skill(27, "Practice III", "Songs", 4, "4_27_JingleBells.mid", "• Jingle Bells"),
+                        new Skill(28, "Practice IV", "Songs", 4, "4_28_SilentNight.mid", "• Silent Night"),
+                        new Skill(29, "Practice V", "Songs", 4, "4_29_Hedwig Theme - Harry Potter.mid", "• Harry Potter"),
+                        new Skill(30, "Practice VI", "Songs", 4, "4_30_Greensleeves.mid", "• Greensleeves"),
+                        new Skill(31, "Practice VII", "Songs", 4, "4_31_OdeToJoy.mid", "• Ode to Joy"),
+                        new Skill(33, "Theory II", "Note Duration", 5, "LVOjKCztqTs", "• The length of time that a note is played is called its note duration, which is determined by the type of note.\n• The whole note  has the longest note duration in modern music.\n• The half note is half the duration of a whole note.\n• Two half notes occupy the same amount of time as a whole note.\n• The quarter note is a fourth of a whole note.\n• Two quarter notes equal a duration of a half note.\n• 4 Quarter notes occupy the same duration of a whole note.\n• Notes smaller in duration of a quarter note have flags."),
+                        new Skill(34, "Theory III", "Note Duration", 5, "5_34_Note_Values_whole_half_quarter.mid", "• The half note is half the duration of a whole note.\n• Two half notes occupy the same amount of time as a whole note.\n• Play at 120bpm."),
+                        new Skill(35, "Theory IV", "Modes", 5, "vpc4SwXf6cU", "• The C major scale corresponds to the white keys on a piano keyboard, beginning with the note C.\n• But you can use this same collection of notes to create seven more scales (called modes), simply by starting in a different place.\n• Here are the seven modes that can be derived from the pitches of the C major scale:\n• C Ionian (major) — CDEFGABC\n• D Dorian — DEFGABCD\n• E Phrygian — EFGABCDE\n• F Lydian — FGABCDEF\n• G Mixolydian — GABCDEFG\n• A Aeolian (minor) — ABCDEFGA\n• B Locrian — BCDEFGAB\n• The pitches and intervals are always in the same order, but the different starting positions give each mode a unique musical character.\n• You can think of the modes as being \"rotations\" of each other.")
+/*                        new Skill(36, "Theory V", "Ionian Mode", 5, "", "Ionian"),
+                        new Skill(37, "Theory VI", "Ionian Mode", 5, "", "Dorian"),
+                        new Skill(38, "Theory VII", "Phrygian Mode", 5, "", "Phrygian")*/
                 );
 
 
@@ -230,10 +228,9 @@ public class databaseHandler implements dbInterface {
        AppExecutors.getInstance().diskIO().execute(new Runnable() {
            @Override
            public void run() {
-               mDb.skillDao().updateSkillInfo(midiName,score);
-
-             //  System.out.println("Database Updates");
-               System.out.println("score "+score);
+               boolean completed = score > 85;
+               String[] midiNameArr = midiName.split("/");
+               mDb.skillDao().updateSkillInfo(midiNameArr[midiNameArr.length - 1], score, completed);
            }
        });
     }

@@ -16,6 +16,7 @@ public class UniversityInstructionsActivity extends YouTubeBaseActivity {
     String instructions;
     TextView tv_instructions;
     YouTubePlayer mPlayer;
+    String youtubeId;
 
 
     @Override
@@ -31,11 +32,12 @@ public class UniversityInstructionsActivity extends YouTubeBaseActivity {
         {
             instructions = intent.getStringExtra("instructions_TEXT");
             tv_instructions.setText(instructions);
+            youtubeId = intent.getStringExtra("youtube_ID");
             //  System.out.println("Practice Activity  HAs instructions"+instructions);
         }
 
         final YouTubePlayerView youtubePlayerView = findViewById(R.id.youtubePlayerView);
-        playVideo("BmTcXlfT1OE", youtubePlayerView);
+        playVideo(youtubeId, youtubePlayerView);
 
     }
 

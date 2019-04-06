@@ -26,6 +26,7 @@ public class UniversitySublevelFragment extends Fragment {
 
     List<Skill> skillListByLevel = new ArrayList<Skill>();
     AppDatabase mDb;
+    boolean allowRefresh = false;
 
     public UniversitySublevelFragment() {
         // Required empty public constructor

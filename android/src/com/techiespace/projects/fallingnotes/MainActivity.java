@@ -1,6 +1,7 @@
 package com.techiespace.projects.fallingnotes;
 
 import android.Manifest;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -8,19 +9,17 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.techiespace.projects.fallingnotes.Database.AppDatabase;
-import com.techiespace.projects.fallingnotes.Database.AppExecutors;
-import com.techiespace.projects.fallingnotes.Database.Level;
 import com.techiespace.projects.fallingnotes.Database.databaseHandler;
 import com.techiespace.projects.fallingnotes.fragments.ChordFragment;
 import com.techiespace.projects.fallingnotes.fragments.ComingSoonFragment;
 import com.techiespace.projects.fallingnotes.fragments.MidiPlayerFragment;
 import com.techiespace.projects.fallingnotes.fragments.ScaleFragment;
-
-import java.util.List;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,7 +37,7 @@ public class MainActivity extends AppCompatActivity
     private databaseHandler dbhandler;
     private static final int REQUEST_RECORD_AUDIO = 13;
     private static final int REQUEST_READ_EXTERNAL_STORAGE = 12;
-
+    AdView dashboardBottomBannerAd;
     public static final String PREF_USER_FIRST_TIME = "user_first_time";
     boolean isUserFirstTime;
 
@@ -56,18 +55,23 @@ public class MainActivity extends AppCompatActivity
         if (isUserFirstTime)
             startActivity(introIntent);
 
-
-
         setContentView(R.layout.activity_main);
+        //ad
+        dashboardBottomBannerAd = findViewById(R.id.bottom_banner_ad);
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .build();
+        dashboardBottomBannerAd.loadAd(adRequest);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
+        /*FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(view -> {
             Snackbar.make(view, "Quick Practice", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
 
-        });
+        });*/
 
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -94,76 +98,11 @@ public class MainActivity extends AppCompatActivity
 
         setActionBarTitle("ChordSwift");
 
-        handlePermissions();
-    }
-
-    //#TODO: Breaks when user manually removes permissions or denies permission
-    private void handlePermissions() {
-        requestMicrophonePermission();
-        requestStoragePermission();
     }
 
     public void setActionBarTitle(String title) {
         getSupportActionBar().setTitle(title);
     }
-
-    private void requestStoragePermission() {
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.READ_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
-
-            // Permission is not granted
-            // Should we show an explanation?
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                // Show an explanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
-            } else {
-                // No explanation needed; request the permission
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                        REQUEST_READ_EXTERNAL_STORAGE);
-
-                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-                // app-defined int constant. The callback method gets the
-                // result of the request.
-            }
-        } else {
-            // Permission has already been granted
-        }
-    }
-
-    private void requestMicrophonePermission() {
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.RECORD_AUDIO)
-                != PackageManager.PERMISSION_GRANTED) {
-
-            // Permission is not granted
-            // Should we show an explanation?
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.RECORD_AUDIO)) {
-                // Show an explanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
-            } else {
-                // No explanation needed; request the permission
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.RECORD_AUDIO},
-                        REQUEST_RECORD_AUDIO);
-
-                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-                // app-defined int constant. The callback method gets the
-                // result of the request.
-            }
-        } else {
-            // Permission has already been granted
-        }
-    }
-
-
-
-
 
     @Override
     public void onBackPressed() {
@@ -217,6 +156,8 @@ public class MainActivity extends AppCompatActivity
             fragment = new ChordFragment();
         } else if (id == R.id.nav_adv_chord) {
             fragment = new ComingSoonFragment();
+        } else if (id == R.id.youtube_channel) {
+            openYoutubeChannel();
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
@@ -231,6 +172,21 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void openYoutubeChannel() {
+        Intent intent = null;
+        String url = "https://www.youtube.com/ChordSwiftMusic";
+        try {
+            intent = new Intent(Intent.ACTION_VIEW);
+            intent.setPackage("com.google.android.youtube");
+            intent.setData(Uri.parse(url));
+            startActivity(intent);
+        } catch (ActivityNotFoundException e) {
+            intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(url));
+            startActivity(intent);
+        }
     }
 
     private void composeEmail(String[] addresses, String subject) {
