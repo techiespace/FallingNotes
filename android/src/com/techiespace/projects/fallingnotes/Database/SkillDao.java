@@ -2,6 +2,7 @@ package com.techiespace.projects.fallingnotes.Database;
 
 import java.util.List;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -35,7 +36,7 @@ public interface SkillDao {
     @Query("SELECT COUNT(*) FROM SKILL")
     int getTotalSkillNo();
 
-    @Query("SELECT COUNT(*) FROM SKILL WHERE completed = 'true' ")
+    @Query("SELECT COUNT(*) FROM SKILL WHERE completed = 1")
     int getCompletedSkillNo();
 
     @Query("UPDATE Skill set completed = :completed, score = :score WHERE midiPath = :midiName")

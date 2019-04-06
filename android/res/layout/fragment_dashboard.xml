@@ -93,7 +93,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="128dp"
                     android:background="@drawable/flarebg"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="64dp"
+                        android:layout_height="64dp"
+                        android:layout_gravity="center"
+                        android:paddingLeft="8dp"
+                        android:paddingTop="8dp"
+                        android:paddingRight="8dp"
+                        android:src="@drawable/ic_school_black_24dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
