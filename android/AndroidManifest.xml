@@ -28,7 +28,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".PracticeActivity" />
+        <activity android:name=".PracticeActivity"
+            android:screenOrientation="landscape"/>
         <activity android:name=".PagerActivity"
             android:screenOrientation="sensorPortrait"
             android:theme="@style/AppTheme.NoActionBar"/>

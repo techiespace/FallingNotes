@@ -2,7 +2,6 @@ package com.techiespace.projects.fallingnotes;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.WindowManager;
@@ -30,14 +29,14 @@ public class PracticeActivity extends AndroidApplication {
 
         isUserFirstTime = Boolean.valueOf(Utils.readSharedSetting(this, PREF_USER_FIRST_TIME_GAME, "true"));
 
-        Log.d("Practive Activity",isUserFirstTime+"");
+           Log.d("Practive Activity",isUserFirstTime+"");
 
-        Intent introIntent = new Intent(this, SliderActivity.class);
+
+        Intent introIntent = new Intent(PracticeActivity.this, SliderActivity.class);
         introIntent.putExtra(PREF_USER_FIRST_TIME_GAME, isUserFirstTime);
 
         if (isUserFirstTime)
             startActivity(introIntent);
-
 
 
         Intent intent = getIntent();
@@ -48,15 +47,18 @@ public class PracticeActivity extends AndroidApplication {
 
         playMidi = intent.getBooleanExtra("playMidi", true);
 
-        if(intent.hasExtra("instructions_TEXT"))
-        {
+        if (intent.hasExtra("instructions_TEXT")) {
 
 
             instructions = intent.getStringExtra("instructions_TEXT");
             //  System.out.println("Practice Activity  HAs instructions"+instructions);
         }
 
-        dbHandler=dbHandler.getInstance(getContext());
+
+        Log.e("Practice Activity", "On Create");
+
+
+        dbHandler = dbHandler.getInstance(getContext());
         AndroidApplicationConfiguration cfg = new AndroidApplicationConfiguration();
 
         //This is to keep the Game screen awake
@@ -69,7 +71,7 @@ public class PracticeActivity extends AndroidApplication {
                 initialize(new FallingNotesGame(midiName, playMidi), cfg);
             else {
                 //System.out.println("Practice Activity "+instructions);
-                initialize(new FallingNotesGame(midiName, instructions, playMidi,dbHandler), cfg);
+                initialize(new FallingNotesGame(midiName, instructions, playMidi, dbHandler), cfg);
             }
         } else {
 //            Intent i = new Intent(this,MainActivity.class);

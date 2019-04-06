@@ -3,6 +3,7 @@ package com.techiespace.projects.fallingnotes;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -35,6 +36,8 @@ public class SliderActivity extends AppCompatActivity {
         // find view id
         initView();
 
+        Log.e("Slider Activity","Slider Activity");
+
         // create Adapter object
         sliderAdapter = new SliderAdapter(this);
         // set adapter in ViewPager
@@ -53,8 +56,8 @@ public class SliderActivity extends AppCompatActivity {
     public  void btnSkipClick(View v) {
 
         Utils.saveSharedSetting(this, PracticeActivity.PREF_USER_FIRST_TIME_GAME, "false");
-
-        launchHomeScreen();
+        finish();
+       // launchHomeScreen();
     }
 
     //btnNextClick
@@ -68,15 +71,11 @@ public class SliderActivity extends AppCompatActivity {
             sViewPager.setCurrentItem(current);
         } else {
             Utils.saveSharedSetting(this, PracticeActivity.PREF_USER_FIRST_TIME_GAME, "false");
-
-            launchHomeScreen();
+            finish();
+           // launchHomeScreen();
         }
     }
 
-    private void launchHomeScreen() {
-        startActivity(new Intent(this, MainActivity.class));
-        finish();
-    }
 
     private int getItem(int i) {
         return sViewPager.getCurrentItem() + i;

@@ -41,7 +41,8 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:text="More"
-                android:textColor="#FFF" />
+                android:textColor="#FFF"
+                android:visibility="invisible"/>
 
         </RelativeLayout>
 

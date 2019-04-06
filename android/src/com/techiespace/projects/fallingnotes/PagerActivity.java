@@ -176,6 +176,7 @@ public class PagerActivity extends AppCompatActivity {
             public void onClick(View v) {
 
 
+                Utils.saveSharedSetting(PagerActivity.this, MainActivity.PREF_USER_FIRST_TIME, "false");
 
                 finish();
             }
@@ -184,9 +185,11 @@ public class PagerActivity extends AppCompatActivity {
         mFinishBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                Utils.saveSharedSetting(PagerActivity.this, MainActivity.PREF_USER_FIRST_TIME, "false");
+
                 finish();
                 //  update 1st time pref
-                Utils.saveSharedSetting(PagerActivity.this, MainActivity.PREF_USER_FIRST_TIME, "false");
 
             }
         });
