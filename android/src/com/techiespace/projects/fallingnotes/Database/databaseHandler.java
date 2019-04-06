@@ -219,6 +219,7 @@ public class databaseHandler implements dbInterface {
         });
     }
 
+
     @Override
     public void submitScore(final String midiName, int totalNotes, int rightNotes) {
 
