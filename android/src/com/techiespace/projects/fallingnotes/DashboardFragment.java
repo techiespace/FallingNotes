@@ -9,12 +9,14 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.provider.OpenableColumns;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,7 +55,6 @@ public class DashboardFragment extends Fragment {
     ProgressBar progressBar;
     TextView percentagetv;
     private AppDatabase mDb;
-    private int totalSkills;
     private int completedSkills;
     int FILE_SELECT_CODE = 7;
     int FILE_SIZE_LIMIT = 20000000;
@@ -63,18 +64,12 @@ public class DashboardFragment extends Fragment {
 
     Context mContext;
     private static final int REQUEST_PERMISSION = 13;
-//    private static final int REQUEST_RECORD_AUDIO = 13;
-//    private static final int REQUEST_READ_EXTERNAL_STORAGE = 12;
     LayoutInflater inflater;
     ViewGroup container;
     Bundle savedInstnces;
 
     public DashboardFragment() {
         // Required empty public constructor
-
-
-
-
     }
 
 
@@ -327,27 +322,8 @@ public class DashboardFragment extends Fragment {
             }
         });
 
-
         mDb = AppDatabase.getInstance(getContext());
-        final CountDownLatch latch = new CountDownLatch(1);
-
-        AppExecutors.getInstance().diskIO().execute(new Runnable() {
-            @Override
-            public void run() {
-                totalSkills = mDb.skillDao().getTotalSkillNo();
-                completedSkills = mDb.skillDao().getCompletedSkillNo();
-                System.out.println("Skills "+totalSkills);
-                latch.countDown();
-
-            }
-        });
-
-
-
-        if(totalSkills!=0) {
-            progressBar.setProgress(completedSkills / totalSkills);
-            percentagetv.setText((completedSkills * 100 / totalSkills) + "%");
-        }
+        new UpdateProgressTask(mContext,rootView).execute();
         return rootView;
     }
 
@@ -381,5 +357,37 @@ public class DashboardFragment extends Fragment {
             }
         });
     }
+    private class UpdateProgressTask extends AsyncTask<Void, Void, Float> {
+        ProgressBar publishProgress;
+        TextView publishProgressPercent;
+        Context context;
+        View rootView;
 
+        UpdateProgressTask(Context context, View rootView){
+            this.context = context;
+            this.rootView = rootView;
+        }
+        @Override
+        protected void onProgressUpdate(Void... v) {
+        }
+
+        @Override
+        protected void onPreExecute() {
+            publishProgress = rootView.findViewById(R.id.circle_progress_bar);
+            publishProgressPercent = rootView.findViewById(R.id.compliance_total_count);
+        }
+
+        @Override
+        protected void onPostExecute(Float result) {
+            publishProgressPercent.setText(result.intValue()+"%");
+            progressBar.setProgress(result.intValue());
+        }
+
+        @Override
+        protected Float doInBackground(Void... voids) {
+            int totalSkills = mDb.skillDao().getTotalSkillNo();
+            int completedSkills = mDb.skillDao().getCompletedSkillNo();
+            return completedSkills * 100f / totalSkills;
+        }
+    }
 }
