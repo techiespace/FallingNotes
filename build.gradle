@@ -11,7 +11,7 @@ buildscript {
     }
     dependencies {
         classpath 'org.wisepersist:gwt-gradle-plugin:1.0.6'
-        classpath 'com.android.tools.build:gradle:3.2.0'
+        classpath 'com.android.tools.build:gradle:4.1.0'
         classpath 'com.mobidevelop.robovm:robovm-gradle-plugin:2.3.5'
         
 
@@ -25,7 +25,7 @@ allprojects {
     version = '1.0'
     ext {
         appName = "FallingNotes"
-        gdxVersion = '1.9.8'
+        gdxVersion = '1.9.11'
         roboVMVersion = '2.3.5'
         box2DLightsVersion = '1.4'
         ashleyVersion = '1.7.0'
@@ -38,6 +38,16 @@ allprojects {
         google()
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
         maven { url "https://oss.sonatype.org/content/repositories/releases/" }
+    }
+}
+
+project(":core") {
+    apply plugin: "java"
+
+
+    dependencies {
+        implementation "com.badlogicgames.gdx:gdx:$gdxVersion"
+
     }
 }
 
@@ -119,16 +129,6 @@ project(":android") {
 //
 //    }
 //}
-
-project(":core") {
-    apply plugin: "java"
-
-
-    dependencies {
-        implementation "com.badlogicgames.gdx:gdx:$gdxVersion"
-        
-    }
-}
 
 tasks.eclipse.doLast {
     delete ".project"
