@@ -19,31 +19,10 @@ In Order to run this App follow these steps
 
 Images of App UI:
 
-![image](https://drive.google.com/uc?export=view&id=1fj1YjiKLAFopGsOTrWVM20goNp0abz9U)
-![image](https://drive.google.com/uc?export=view&id=1q617xWVY6El2F4SLViMAaS1zDtqYK0Ly)
-![image](https://drive.google.com/uc?export=view&id=1zlqHy0UFoakn-zLKsI1e8jbv69_IhbGi)
-![image](https://drive.google.com/uc?export=view&id=1OGQReDJkQZj0bb_fVM_yVJUvvsPKYXbg)
+<img src="https://drive.google.com/uc?export=view&id=1fj1YjiKLAFopGsOTrWVM20goNp0abz9U" height="500" width="250">
 
+<img src="https://drive.google.com/uc?export=view&id=1q617xWVY6El2F4SLViMAaS1zDtqYK0Ly" height="500" width="700">
 
+<img src="https://drive.google.com/uc?export=view&id=1zlqHy0UFoakn-zLKsI1e8jbv69_IhbGi" height="500" width="250">
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<img src="https://drive.google.com/uc?export=view&id=1OGQReDJkQZj0bb_fVM_yVJUvvsPKYXbg" height="500" width="250">
